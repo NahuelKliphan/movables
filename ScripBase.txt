@@ -1,0 +1,27 @@
+create table productos(
+	codigo varchar(30),
+	precio decimal,
+	cantidad integer,
+	descripcion varchar(50),
+	primary key (codigo)
+);
+
+create table ventas(
+	id integer,
+	clienteNombre varchar(30),
+	fecha date,
+	total decimal,
+	primary key (id)
+);
+
+create table items(
+	id integer,
+    idVenta integer,
+    total decimal,
+    codigo varchar(30),
+    descripcion varchar(50),
+    cantidad integer,
+    precio decimal,
+	primary key (id),
+	foreign key (idVenta) references ventas
+);
