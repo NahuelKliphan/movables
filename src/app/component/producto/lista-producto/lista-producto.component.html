@@ -1,54 +1,59 @@
-<h2><i class="large list icon"></i> Productos </h2>
+<div class="ui grid">
 
+  <div class="fourteen wide column">
+
+    <h2><i class="large list icon"></i> Productos </h2>
+
+  </div>
+
+  <div class="two wide column">
+
+    <div class="ui animated button primary right floated" tabindex="0" (click) = "abrirModal()">
+      <div class="visible content">Agregar producto</div>
+      <div class="hidden content">
+        <i class="white plus icon"></i>
+      </div>
+    </div>
+
+  </div>
+
+</div>
 <div class="ui fluid action input left icon" style="margin-top: 30px;" >
     <input type="text" placeholder="Codigo">
     <div class="ui search ico button">Buscar</div>
     <i class="search icon"></i>
 </div>
 
-<div class="ui divided items">
-    <div class="item">
-      <div class="image">
-        <img src="https://www.complementosdelcafe.com/1775/acme-taza-rojo-flat-white-150ml.jpg">
+<div class="ui divided items lista">
+
+  <div class="item" *ngFor = "let unProducto of listadoProducto">
+    <div class="content">
+      <a class="header"><i class="barcode icon"></i> <b>Codigo: </b> {{unProducto.codigo}}</a>
+      <div class="meta">
+        <span class="cinema"><i class="green dollar sign icon"></i> <b>Precio: {{unProducto.precio}}</b></span>
       </div>
-      <div class="content">
-        <a class="header">12 Years a Slave</a>
-        <div class="meta">
-          <span class="cinema">Union Square 14</span>
-        </div>
-        <div class="description">
-          <p></p>
-        </div>
-        <div class="extra">
-            <div class="ui right floated primary button">
-              Borrar
-              <i class="right chevron icon"></i>
-            </div>
-            <div class="ui label">Limited</div>
-          </div>
+      <div class="ui right floated button inverted red" style="margin-right: 30px;">
+        <i class="trash alternate outline icon"></i> Borrar
       </div>
-    </div>
-    <div class="item">
-      <div class="image">
-        <img src="https://www.consumer.es/wp-content/uploads/2019/07/img_cuando-renovar-taper-hd.jpg">
+      <div class="ui right floated button  inverted secondary " style="margin-right: 10px;">
+        <i class="edit icon"></i> Editar
       </div>
-      <div class="content">
-        <a class="header">My Neighbor Totoro</a>
-        <div class="meta">
-          <span class="cinema">IFC Cinema</span>
-        </div>
-        <div class="description">
-          <p></p>
-        </div>
-        <div class="extra">
-          <div class="ui right floated primary button">
-            Borrar
-            <i class="right chevron icon"></i>
-          </div>
-          <div class="ui label">Limited</div>
-        </div>
+      <div class="meta">
+        <span class="cinema"><i class="th orange icon"></i> <b>Cantidad: {{unProducto.cantidad}}</b></span>
+      </div>
+      <div class="description">
+        <p><i class="archive teal icon"></i> {{unProducto.descripcion}}</p>
       </div>
     </div>
+  </div>
+  
+</div>
+
+<div #modal class="ui modal">
+  <app-form-producto></app-form-producto>
+</div>
+    
+ 
    
 
 
