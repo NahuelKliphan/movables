@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Producto } from 'src/app/model/Producto';
 
 @Component({
   selector: 'app-form-producto',
@@ -11,5 +12,7 @@ export class FormProductoComponent implements OnInit {
 
   ngOnInit() {
   }
+
+  unProducto: Producto = new Producto(null,null,null,null);
 
 }

@@ -1,1 +1,56 @@
-<p>form-producto works!</p>
+<div style="text-align: center;">
+    <h2><i class="big product hunt icon"></i> Nuevo producto </h2>
+</div>
+
+
+
+
+<form class="ui form" style="margin-top: 20px;" >
+
+    <div class="field">
+        <div class="ui right labeled left icon input">
+            <i class="barcode black icon"></i>
+            <input type="text" name="codigo" placeholder="Codigo" [(ngModel)]="unProducto.codigo">
+            <a class="ui tag label">
+                Codigo
+            </a>
+        </div>
+    </div>
+
+
+    <div class="field">
+        <div class="ui right labeled left icon input">
+            <i class="dollar green sign icon"></i>
+            <input type="text" name="precio" placeholder="Precio" [(ngModel)]="unProducto.precio">
+            <a class="ui tag label">
+                Precio
+            </a>
+        </div>
+    </div>
+
+    <div class="field">
+        <div class="ui right labeled left icon input">
+            <i class="th red icon"></i>
+            <input type="text" name="cantidad" placeholder="Cantidad" [(ngModel)]="unProducto.cantidad">
+            <a class="ui tag label">
+                Cantidad
+            </a>
+        </div>
+    </div>
+
+    <div class="field">
+        <label>Descripción</label>
+        <textarea style="resize: none;" rows="4" type="text" name="descripcion" placeholder="Descripción"
+            [(ngModel)]="unProducto.descripcion"></textarea>
+    </div>
+
+    <div style="text-align: center;">
+
+
+        <button style="margin-top: 3%;" class="ui primary button">
+            Guardar
+        </button>
+
+    </div>
+
+</form>
