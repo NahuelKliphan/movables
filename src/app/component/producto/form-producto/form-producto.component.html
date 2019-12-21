@@ -2,13 +2,10 @@
     <h2><i class="big product hunt icon"></i> Nuevo producto </h2>
 </div>
 
-
-
-
 <form class="ui form" style="margin-top: 20px;">
 
     <div class="field">
-        <div class="ui right labeled left icon input">
+        <div class="ui input right labeled left icon">
             <i class="barcode black icon"></i>
             <input type="text" name="codigo" placeholder="Codigo" [(ngModel)]="unProducto.codigo">
             <a class="ui tag label">
@@ -16,7 +13,6 @@
             </a>
         </div>
     </div>
-
 
     <div class="field">
         <div class="ui right labeled left icon input">
@@ -44,12 +40,15 @@
             [(ngModel)]="unProducto.descripcion"></textarea>
     </div>
 
+    <div class="actions">
 
-    <div class="ui right floated button positive " style="margin-right: 10px;">
-        <i class="save icon"></i> Guardar
-    </div>
-    <div class="ui right floated button negative " style="margin-right: 20px;">
-        <i class="reply icon"></i> Cancelar
-    </div>
+        <div class="ui right floated button positive" style="margin-right: 10px;" (click)="guardar()">
+            <i class="save icon"></i> Guardar
+        </div>
+        <div class="ui right floated button negative " style="margin-right: 20px;">
+            <i class="reply icon"></i> Cancelar
+        </div>
+  
+      </div>
 
 </form>

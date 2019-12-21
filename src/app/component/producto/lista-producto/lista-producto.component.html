@@ -26,13 +26,13 @@
 
 <div class="ui divided items lista">
 
-  <div class="item" *ngFor = "let unProducto of listadoProducto">
+  <div class="item" *ngFor = "let unProducto of base.listadoProducto">
     <div class="content">
       <a class="header"><i class="barcode icon"></i> <b>Codigo: </b> {{unProducto.codigo}}</a>
       <div class="meta">
         <span class="cinema"><i class="green dollar sign icon"></i> <b>Precio: {{unProducto.precio}}</b></span>
       </div>
-      <div class="ui right floated button inverted red" style="margin-right: 30px;">
+      <div class="ui right floated button inverted red" style="margin-right: 30px;" (click) = "borrar(unProducto)">
         <i class="trash alternate outline icon"></i> Borrar
       </div>
       <div class="ui right floated button  inverted secondary " style="margin-right: 10px;">

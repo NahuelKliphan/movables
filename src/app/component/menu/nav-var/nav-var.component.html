@@ -1,4 +1,4 @@
-<div class="ui menu">
+<div class="ui tabular inverted  menu">
     <div class="item" routerLink="/inicio" (click)="abrirMenu() ">
         <h3> <i class="large bars icon "> </i> <b> Menu </b> </h3>
     </div>
@@ -15,25 +15,28 @@
 
     <div class="right item">
 
-        <i class="big red power of icon"></i>
-        <b>Salir</b>
+        <div class="ui button  ">
+            <i class="red power of icon"></i> Salir
+        </div>
 
     </div>
 
 </div>
 
 <div class="ui left demo vertical inverted sidebar labeled icon menu">
-    <a class="item" routerLink="/producto">
-        <i class=" teal archive icon"></i>
-        <b>Productos</b>
-    </a>
-    <a class="item" routerLink="/venta">
-        <i class="big green money bill alternate outline icon"></i>
-        <b>Ventas</b>
-    </a>
-    <a class="item" routerLink="/configuracion">
-        <i class="big cog icon"></i>
-        <b>Configuración</b>
-    </a>
+
+        <a class="item" routerLink="/producto">
+            <i class="teal archive icon"></i>
+            <b>Productos</b>
+        </a>
+        <a class="item" routerLink="/venta">
+            <i class="big green money bill alternate outline icon"></i>
+            <b>Ventas</b>
+        </a>
+        <a class="item" routerLink="/configuracion">
+            <i class="grey big cog icon"></i>
+            <b>Configuración</b>
+        </a>
+
 </div>
 
