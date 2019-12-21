@@ -1,38 +1,39 @@
 <div class="ui menu">
-    <div class="item" routerLink="/inicio">
-        <h3> <i class="big desktop icon "> </i> <b>Casanely</b> </h3>
+    <div class="item" routerLink="/inicio" (click)="abrirMenu() ">
+        <h3> <i class="large bars icon "> </i> <b> Menu </b> </h3>
     </div>
 
     <div class="centro">
 
-        <div class="item" routerLink="/producto">
-
-            <i class="big teal archive icon"></i>
-            <b>Productos</b>
-    
+        <div class="item" routerLink="/inicio">
+            <h3>
+                <i class="big  desktop icon"></i><b> Casanely </b>
+            </h3>
         </div>
 
-        <div class="item" routerLink="/venta">
-    
-            <i class="big green money bill alternate outline icon"></i>
-            <b>Ventas</b>
-    
-        </div>
-
-        <div class="item" routerLink="/configuracion">
-    
-            <i class="big cog icon"></i>
-            <b>Configuración</b>
-    
-        </div>
-    
     </div>
 
     <div class="right item">
-    
+
         <i class="big red power of icon"></i>
         <b>Salir</b>
 
     </div>
 
 </div>
+
+<div class="ui left demo vertical inverted sidebar labeled icon menu">
+    <a class="item" routerLink="/producto">
+        <i class=" teal archive icon"></i>
+        <b>Productos</b>
+    </a>
+    <a class="item" routerLink="/venta">
+        <i class="big green money bill alternate outline icon"></i>
+        <b>Ventas</b>
+    </a>
+    <a class="item" routerLink="/configuracion">
+        <i class="big cog icon"></i>
+        <b>Configuración</b>
+    </a>
+</div>
+

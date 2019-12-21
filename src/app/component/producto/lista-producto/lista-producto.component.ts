@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Producto } from 'src/app/model/Producto';
 
+declare var $: any;
+
 @Component({
   selector: 'app-lista-producto',
   templateUrl: './lista-producto.component.html',
@@ -23,6 +25,7 @@ export class ListaProductoComponent implements OnInit {
   }
 
   ngOnInit() {
+
   }
 
   busqueda: string = "";
@@ -35,7 +38,9 @@ export class ListaProductoComponent implements OnInit {
   listadoProducto: Producto[] = [];
 
   abrirModal() {
-    
+
+    $('.ui.modal').modal('show');
+
   }
 
 
