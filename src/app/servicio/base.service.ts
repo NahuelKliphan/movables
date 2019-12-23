@@ -33,6 +33,10 @@ export class BaseService {
     this.listadoProducto = this.listadoProducto.filter(x => x != unProdcuto)
   }
 
+  conectar(){
+    console.log('conectar')
+  }
+
   
   
 }

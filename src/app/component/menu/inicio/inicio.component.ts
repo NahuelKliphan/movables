@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { BaseService } from 'src/app/servicio/base.service';
 
 @Component({
   selector: 'app-inicio',
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class InicioComponent implements OnInit {
 
-  constructor() { }
+  constructor(private base: BaseService) { }
 
   ngOnInit() {
+  }
+
+  conectar(){
+    this.base.conectar();
   }
 
 }
