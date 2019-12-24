@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { BaseService } from 'src/app/servicio/base.service';
 
 declare var $: any;
 
@@ -9,7 +10,7 @@ declare var $: any;
 })
 export class NavVarComponent implements OnInit {
 
-  constructor() { }
+  constructor(private base: BaseService) { }
 
   ngOnInit() {
   }
@@ -18,6 +19,10 @@ export class NavVarComponent implements OnInit {
     $('.ui.labeled.icon.sidebar')
       .sidebar('toggle')
       ;
+  }
+
+  salir(){
+    this.base.cerrar();
   }
 
 }

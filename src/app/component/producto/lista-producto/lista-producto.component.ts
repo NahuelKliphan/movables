@@ -17,6 +17,7 @@ export class ListaProductoComponent implements OnInit {
 
   ngOnInit() {
 
+    this.base.getProductos();
   }
 
   busqueda: string = "";
@@ -31,6 +32,8 @@ export class ListaProductoComponent implements OnInit {
     this.base.borrarProducto(unProducto);
   }
 
-
+  editar(unProducto:Producto){
+    this.base.editarProducto(unProducto); 
+  }
 
 }

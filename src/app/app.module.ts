@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { Routes, RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule } from '@angular/forms';
+import { NgxElectronModule } from 'ngx-electron';
 
 //Componentes
 import { AppComponent } from './app.component';
@@ -71,7 +72,8 @@ const routes : Routes = [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+    NgxElectronModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Producto } from 'src/app/model/Producto';
 import { BaseService } from 'src/app/servicio/base.service';
 
-declare var $: any;
 
 @Component({
   selector: 'app-form-producto',
@@ -11,10 +10,7 @@ declare var $: any;
 })
 export class FormProductoComponent implements OnInit {
 
-  constructor(private base: BaseService) {
-
-
-  }
+  constructor(private base: BaseService) {}
 
   ngOnInit() {
   }

@@ -13,8 +13,5 @@ export class InicioComponent implements OnInit {
   ngOnInit() {
   }
 
-  conectar(){
-    this.base.conectar();
-  }
 
 }

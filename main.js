@@ -1,70 +1,111 @@
-const { app, BrowserWindow, ipcMain  } = require('electron')
+const { app, BrowserWindow, ipcMain } = require('electron')
+const { Client } = require('pg')
 
+//Ventana principal.
 let win;
+let client;
+
+//Base de datos.
+const config = {
+  user: 'postgres',
+  host: 'localhost',
+  database: 'stock',
+  password: 'postgres',
+  port: 5432,
+}
 
 function createWindow() {
-  // Create the browser window.
+  //Crea la ventana principal.
   win = new BrowserWindow({
     width: 1024,
     height: 768,
     backgroundColor: '#ffffff',
-    icon: `file://${__dirname}/dist/assets/logo.png`
+    icon: `file://${__dirname}/dist/assets/logo.png`,
+    webPreferences: { nodeIntegration: true }
   })
 
-  win.setMenu(null);
+  //Saca la barra de menu fea.
+  //win.setMenu(null);
 
-  base();
-
+  //Carga el index.html de angular
   win.loadURL(`file://${__dirname}/dist/index.html`)
 
-  // Event when the window is closed.
+  // Evento cuando se cierra la ventana.
   win.on('closed', function () {
     win = null
   })
+
+  ConectarBD();
+
 }
 
-// Create window on electron intialization
+// Evento que ejecuta el metodo para crear la ventana.
 app.on('ready', createWindow)
 
-// Quit when all windows are closed.
+// Sale cuando todas las ventanas estan cerradas.
 app.on('window-all-closed', function () {
-
-  // On macOS specific close process
+  // Proceso especifico de macOS.
   if (process.platform !== 'darwin') {
     app.quit()
   }
 })
 
 app.on('activate', function () {
-  // macOS specific close process
+  // Proceso especifico de macOS.
   if (win === null) {
     createWindow()
   }
 })
 
-async function base() {
+//Metodo para conectar la base de datos.
+async function ConectarBD() {
 
-  const { Client } = require('pg')
+  client = new Client(config)
 
-  const config = {
-    user: 'postgres',
-    host: 'localhost',
-    database: 'stock',
-    password: 'postgres',
-    port: 5432,
-  }
-  const client = new Client(config)
-
-  client.connect(err => {
+  await client.connect(err => {
     if (err) {
-      console.error('connection error', err.stack)
+      console.error('Error al conectar Base de datos.', err.stack)
     } else {
-      console.log('connected')
+      console.log('Base de datos conectada.')
     }
   })
-  
-  const res = await client.query('select * from productos')
 
-  console.log(res.rows)
+}
+
+async function DesconectarBD(){
   await client.end()
 }
+
+//Metodos consulta BD
+
+ipcMain.on('req', (e, consulta) => {
+
+  client.query(consulta, (err, res) => {
+    if (err) {
+      console.log(err.stack)
+    } else {
+      win.webContents.send('res', res.rows)
+    }
+  })
+
+});
+
+
+ipcMain.on('actualizar', (e, consulta) => {
+
+  client.query(consulta, (err, res) => {
+    if (err) {
+      console.log(err.stack)
+    } else {
+      win.webContents.send('actualizado', res.rows)
+    }
+  })
+
+});
+
+ipcMain.on('salir',() => {
+  DesconectarBD();
+  app.quit();
+})
+
+
