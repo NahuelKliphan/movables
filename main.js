@@ -80,26 +80,20 @@ async function DesconectarBD(){
 
 ipcMain.on('req', (e, consulta) => {
 
-  client.query(consulta, (err, res) => {
-    if (err) {
-      console.log(err.stack)
-    } else {
-      win.webContents.send('res', res.rows)
-    }
-  })
+  client
+  .query(consulta)
+  .then(res => e.returnValue = res.rows)
+  .catch(e => e.returnValue = e.stack)
 
 });
 
 
 ipcMain.on('actualizar', (e, consulta) => {
 
-  client.query(consulta, (err, res) => {
-    if (err) {
-      console.log(err.stack)
-    } else {
-      win.webContents.send('actualizado', res.rows)
-    }
-  })
+  client
+  .query(consulta)
+  .then(res => e.returnValue = res.rows)
+  .catch(e => e.returnValue = e.stack)
 
 });
 

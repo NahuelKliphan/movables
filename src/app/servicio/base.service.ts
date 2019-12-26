@@ -23,36 +23,41 @@ export class BaseService {
   }
 
   getProductos() {
+
     const consulta = "SELECT * FROM PRODUCTOS;";
-    this.ipc.ipcRenderer.send('actualizar', consulta);
-    this.ipc.ipcRenderer.on('actualizado', (e, p) => {
-      this.listadoProducto = p;
-    });
+
+    let res = this.ipc.ipcRenderer.sendSync('actualizar', consulta);
+
+
+    this.listadoProducto = res;
+
+    console.log(res);
+
+
   }
 
   guardarProducto(unProdcuto: Producto) {
 
     const consulta = `INSERT INTO PRODUCTOS (codigo,precio,cantidad,descripcion) VALUES ('${unProdcuto.codigo}',${unProdcuto.precio},${unProdcuto.cantidad},'${unProdcuto.descripcion}');`;
-    this.ipc.ipcRenderer.send('req', consulta);
-    this.ipc.ipcRenderer.on('res', (e, p) => {
-      this.getProductos();
-    });
+    this.ipc.ipcRenderer.sendSync('req', consulta);
+    this.getProductos();
   }
 
   borrarProducto(unProdcuto: Producto) {
     const consulta = `DELETE FROM PRODUCTOS WHERE codigo = '${unProdcuto.codigo}';`;
-    this.ipc.ipcRenderer.send('req', consulta);
-    this.ipc.ipcRenderer.on('res', (e, p) => {
-      this.getProductos();
-    });
+    this.ipc.ipcRenderer.sendSync('req', consulta);
+    this.getProductos();
+
   }
 
   editarProducto(unProdcuto: Producto) {
     const consulta = `UPDATE PRODUCTOS SET codigo = '${unProdcuto.codigo}', precio = ${unProdcuto.precio} , cantidad = ${unProdcuto.cantidad} , descripcion = '${unProdcuto.descripcion}' WHERE codigo = '${unProdcuto.codigo}';`;
     this.ipc.ipcRenderer.send('req', consulta);
-    this.ipc.ipcRenderer.on('res', (e, p) => {
+    this.ipc.ipcRenderer.on('res', () => {
       this.getProductos();
     });
   }
 
 }
+
+
