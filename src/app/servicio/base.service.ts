@@ -25,15 +25,8 @@ export class BaseService {
   getProductos() {
 
     const consulta = "SELECT * FROM PRODUCTOS;";
-
     let res = this.ipc.ipcRenderer.sendSync('actualizar', consulta);
-
-
     this.listadoProducto = res;
-
-    console.log(res);
-
-
   }
 
   guardarProducto(unProdcuto: Producto) {
