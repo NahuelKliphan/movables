@@ -24,6 +24,10 @@ import { ListaVentaComponent } from './component/venta/lista-venta/lista-venta.c
 import { ItemComponent } from './component/Item/item/item.component';
 import { FormItemComponent } from './component/Item/form-item/form-item.component';
 import { ListaItemComponent } from './component/Item/lista-item/lista-item.component';
+//Categoria
+import { CategoriaComponent } from './component/categoria/categoria/categoria.component';
+import { FormCategoriaComponent } from './component/categoria/form-categoria/form-categoria.component';
+import { ListaCategoriaComponent } from './component/categoria/lista-categoria/lista-categoria.component';
 
 
 
@@ -40,6 +44,10 @@ const routes : Routes = [
   {
     path:'configuracion',
     component :ConfiguracionComponent
+  },
+  {
+    path:'categoria',
+    component :CategoriaComponent
   },
   {
     path:'inicio',
@@ -66,7 +74,10 @@ const routes : Routes = [
     ListaVentaComponent,
     FormProductoComponent,
     ListaProductoComponent,
-    ConfiguracionComponent
+    ConfiguracionComponent,
+    CategoriaComponent,
+    FormCategoriaComponent,
+    ListaCategoriaComponent
   ],
   imports: [
     BrowserModule,

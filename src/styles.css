@@ -24,10 +24,17 @@
     border:1px solid rgba(0,0,0,0.125)
 }
 
-.lista
+.lista-producto
 {
     overflow:scroll; 
     max-height:580px;
+    overflow-x: hidden;
+}
+
+.lista-categoria
+{
+    overflow:scroll; 
+    max-height:50vh;
     overflow-x: hidden;
 }
 
