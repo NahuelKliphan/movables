@@ -1,9 +1,19 @@
+create table categorias(
+	id integer,
+	nombre varchar(30),
+	primary key (id)
+);
+
 create table productos(
 	codigo varchar(30),
+	nombre varchar(30),
 	precio decimal,
 	cantidad integer,
 	descripcion varchar(50),
-	primary key (codigo)
+	foto text,
+	idCategoria integer,
+	primary key (codigo),
+	foreign key (idCategoria) references categorias
 );
 
 create table ventas(

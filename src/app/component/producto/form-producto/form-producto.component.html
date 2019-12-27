@@ -1,54 +1,126 @@
 <div style="text-align: center;">
+
     <h2><i class="big product hunt icon"></i> Nuevo producto </h2>
+
 </div>
 
 <form class="ui form" style="margin-top: 20px;">
 
-    <div class="field">
-        <div class="ui input right labeled left icon">
-            <i class="barcode black icon"></i>
-            <input type="text" name="codigo" placeholder="Codigo" [(ngModel)]="unProducto.codigo">
-            <a class="ui tag label">
-                Codigo
-            </a>
+    <div class="ui grid">
+
+        <div class="eleven wide column">
+
+            <div class="field">
+                <div class="ui input right labeled left icon">
+                    <i class="barcode icon"></i>
+                    <input type="text" name="codigo" placeholder="Codigo" [(ngModel)]="unProducto.codigo">
+                    <a class="ui tag label">
+                        Codigo
+                    </a>
+                </div>
+            </div>
+        
+            <div class="field">
+                <div class="ui input right labeled left icon">
+                    <i class="tag icon"></i>
+                    <input type="text" name="nombre" placeholder="Nombre" [(ngModel)]="unProducto.nombre">
+                    <a class="ui tag label">
+                        Nombre
+                    </a>
+                </div>
+            </div>
+        
+            <div class="field">
+                <div class="ui right labeled left icon input">
+                    <i class="dollar green sign icon"></i>
+                    <input type="text" name="precio" placeholder="Precio" [(ngModel)]="unProducto.precio">
+                    <a class="ui tag label">
+                        Precio
+                    </a>
+                </div>
+            </div>
+        
+            <div class="field">
+                <div class="ui right labeled left icon input">
+                    <i class="th red icon"></i>
+                    <input type="text" name="cantidad" placeholder="Cantidad" [(ngModel)]="unProducto.cantidad">
+                    <a class="ui tag label">
+                        Cantidad
+                    </a>
+                </div>
+            </div>
+        
+            <div class="field">
+                <div class="ui right labeled left icon input">
+                    <i class="th red icon"></i>
+                    <select class="ui dropdown fluid">
+                        <option value="0"><i class="tags icon"></i> Categoria</option>
+                        <option value="1"><i class="tags icon"></i> Categoria 1</option>
+                        <option value="2"><i class="tags icon"></i> Categoria 2</option>
+                        <option value="3"><i class="tags icon"></i> Categoria 3</option>
+                        <option value="4"><i class="tags icon"></i> Categoria 4</option>
+                    </select>
+                    <a class="ui tag label">
+                        Categoria
+                    </a>
+                </div>
+            </div>
+        
         </div>
+
+        <div class="five wide column">
+
+             <div class="ui special cards" style="width: 100%; height: 100%;">
+                <div class="card">
+                    <div class="blurring dimmable image">
+                        <div class="ui dimmer">
+                            <div class="content">
+                                <div class="center">
+                                    <div>
+                                        <label for="foto" class="ui icon button">
+                                            <i class="photo icon"></i>
+                                            Cargar foto</label>
+                                        <input type="file" id="foto" style="display:none">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <img [src]="unProducto.foto" onerror="this.src ='assets/images/producto.png'">
+                    </div>
+                </div>
+            </div>
+        
+        </div>
+
+        <div class="sixteen wide column">
+
+            <div class="field">
+                <label>Descripción</label>
+                <textarea style="resize: none;" rows="4" type="text" name="descripcion" placeholder="Descripción"
+                    [(ngModel)]="unProducto.descripcion"></textarea>
+            </div>
+
+        </div>
+
+        <div class="sixteen wide column">
+
+            <div class="actions">
+        
+                <div class="ui right floated button positive" style="margin-right: 10px;" (click)="guardar()">
+                    <i class="save icon"></i> Guardar
+                </div>
+                <div class="ui right floated button negative " style="margin-right: 20px;">
+                    <i class="reply icon"></i> Cancelar
+                </div>
+        
+            </div>
+
+        </div>
+
     </div>
 
-    <div class="field">
-        <div class="ui right labeled left icon input">
-            <i class="dollar green sign icon"></i>
-            <input type="text" name="precio" placeholder="Precio" [(ngModel)]="unProducto.precio">
-            <a class="ui tag label">
-                Precio
-            </a>
-        </div>
-    </div>
+    
 
-    <div class="field">
-        <div class="ui right labeled left icon input">
-            <i class="th red icon"></i>
-            <input type="text" name="cantidad" placeholder="Cantidad" [(ngModel)]="unProducto.cantidad">
-            <a class="ui tag label">
-                Cantidad
-            </a>
-        </div>
-    </div>
 
-    <div class="field">
-        <label>Descripción</label>
-        <textarea style="resize: none;" rows="4" type="text" name="descripcion" placeholder="Descripción"
-            [(ngModel)]="unProducto.descripcion"></textarea>
-    </div>
-
-    <div class="actions">
-
-        <div class="ui right floated button positive" style="margin-right: 10px;" (click)="guardar()">
-            <i class="save icon"></i> Guardar
-        </div>
-        <div class="ui right floated button negative " style="margin-right: 20px;">
-            <i class="reply icon"></i> Cancelar
-        </div>
-  
-      </div>
 
 </form>

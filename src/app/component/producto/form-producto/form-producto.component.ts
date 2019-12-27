@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Producto } from 'src/app/model/Producto';
 import { BaseService } from 'src/app/servicio/base.service';
 
+declare var $: any;
 
 @Component({
   selector: 'app-form-producto',
@@ -10,24 +11,29 @@ import { BaseService } from 'src/app/servicio/base.service';
 })
 export class FormProductoComponent implements OnInit {
 
-  constructor(private base: BaseService) {}
+  constructor(private base: BaseService) { }
 
   ngOnInit() {
+
+    $('.ui.dropdown').dropdown();
+    $('.special.cards .image').dimmer({
+      on: 'hover'
+    });
+
   }
 
-  unProducto: Producto = new Producto(null, null, null, null);
+  unProducto: Producto = new Producto(null, null, null, null, null, null, null);
 
   guardar() {
-    if(this.formCompleto()){
+    if (this.formCompleto()) {
 
-      this.base.guardarProducto(new Producto(this.unProducto.codigo, this.unProducto.precio, this.unProducto.cantidad, this.unProducto.descripcion));
+      this.base.guardarProducto(new Producto(this.unProducto.codigo, this.unProducto.nombre, this.unProducto.precio, this.unProducto.cantidad, this.unProducto.descripcion, this.unProducto.foto, this.unProducto.idCategoria));
       this.vaciarCampos();
 
-    }else
-    {
+    } else {
       alert('Faltan datos')
     }
-    
+
   }
 
   formCompleto() {
@@ -40,8 +46,8 @@ export class FormProductoComponent implements OnInit {
     }
   }
 
-  vaciarCampos(){
-    this.unProducto= new Producto(null, null, null, null);
+  vaciarCampos() {
+    this.unProducto = new Producto(null, null, null, null, null, null, null);
   }
 
 }
