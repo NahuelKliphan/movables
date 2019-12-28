@@ -30,7 +30,6 @@ export class BaseService {
   }
 
   guardarProducto(unProdcuto: Producto) {
-
     const consulta = `INSERT INTO PRODUCTOS (codigo,nombre,precio,cantidad,descripcion,foto,idcategoria) VALUES ('${unProdcuto.codigo}','${unProdcuto.nombre}',${unProdcuto.precio},${unProdcuto.cantidad},'${unProdcuto.descripcion}','${unProdcuto.foto}',${unProdcuto.idCategoria});`;
     this.ipc.ipcRenderer.sendSync('req', consulta);
     this.getProductos();

@@ -26,7 +26,6 @@ export class FormProductoComponent implements OnInit {
 
   guardar() {
     if (this.formCompleto()) {
-
       this.base.guardarProducto(new Producto(this.unProducto.codigo, this.unProducto.nombre, this.unProducto.precio, this.unProducto.cantidad, this.unProducto.descripcion, this.unProducto.foto, this.unProducto.idCategoria));
       this.vaciarCampos();
 
@@ -34,6 +33,10 @@ export class FormProductoComponent implements OnInit {
       alert('Faltan datos')
     }
 
+  }
+
+  cancelar(){
+    this.vaciarCampos();
   }
 
   formCompleto() {
@@ -48,6 +51,22 @@ export class FormProductoComponent implements OnInit {
 
   vaciarCampos() {
     this.unProducto = new Producto(null, null, null, null, null, null, null);
+  }
+
+  fileData: File = null;
+  previewUrl: any = null;
+
+  cargarFoto(fileInput: any) {
+
+    this.fileData = <File>fileInput.target.files[0];
+    var reader = new FileReader();
+    reader.readAsDataURL(this.fileData);
+    reader.onload = (_event) => {
+      
+      this.previewUrl = reader.result;
+      this.unProducto.foto = this.previewUrl;
+    }
+
   }
 
 }

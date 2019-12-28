@@ -79,7 +79,7 @@
                                         <label for="foto" class="ui icon button">
                                             <i class="photo icon"></i>
                                             Cargar foto</label>
-                                        <input type="file" id="foto" style="display:none">
+                                        <input type="file" id="foto" name="foto" style="display:none" (change)="cargarFoto($event)">
                                     </div>
                                 </div>
                             </div>
@@ -108,7 +108,7 @@
                 <div class="ui right floated button positive" style="margin-right: 10px;" (click)="guardar()">
                     <i class="save icon"></i> Guardar
                 </div>
-                <div class="ui right floated button negative " style="margin-right: 20px;">
+                <div class="ui right floated button negative " style="margin-right: 20px;" (click)="cancelar()">
                     <i class="reply icon"></i> Cancelar
                 </div>
         
@@ -119,3 +119,5 @@
     </div>
 
 </form>
+
+debug: {{unProducto | json}}
