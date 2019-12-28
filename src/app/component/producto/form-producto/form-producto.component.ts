@@ -21,14 +21,12 @@ export class FormProductoComponent implements OnInit {
     });
 
   }
-
-  unProducto: Producto = new Producto(null, null, null, null, null, null, null);
-
+  
   guardar() {
 
     if (this.formCompleto()) {
 
-      this.base.guardarProducto(new Producto(this.unProducto.codigo, this.unProducto.nombre, this.unProducto.precio, this.unProducto.cantidad, this.unProducto.descripcion, this.unProducto.foto, this.unProducto.idCategoria));
+      this.base.guardarProducto(new Producto(this.base.unProducto.codigo, this.base.unProducto.nombre, this.base.unProducto.precio, this.base.unProducto.cantidad, this.base.unProducto.descripcion, this.base.unProducto.foto, this.base.unProducto.idCategoria));
       this.vaciarCampos();
 
     } else {
@@ -37,13 +35,18 @@ export class FormProductoComponent implements OnInit {
 
   }
 
+  editar(){
+    this.base.editarProducto(this.base.unProducto);
+    this.base.editar = false;
+  }
+
   cancelar(){
     this.vaciarCampos();
   }
 
   formCompleto() {
 
-    if (this.unProducto.codigo != null && this.unProducto.precio != null && this.unProducto.cantidad != null && this.unProducto.descripcion != null) {
+    if (this.base.unProducto.codigo != null && this.base.unProducto.precio != null && this.base.unProducto.cantidad != null && this.base.unProducto.descripcion != null) {
       return true;
     }
     else {
@@ -52,7 +55,7 @@ export class FormProductoComponent implements OnInit {
   }
 
   vaciarCampos() {
-    this.unProducto = new Producto(null, null, null, null, null, null, null);
+    this.base.unProducto = new Producto(null, null, null, null, null, null, null);
   }
 
   fileData: File = null;
@@ -66,7 +69,7 @@ export class FormProductoComponent implements OnInit {
     reader.onload = (_event) => {
       
       this.previewUrl = reader.result;
-      this.unProducto.foto = this.previewUrl;
+      this.base.unProducto.foto = this.previewUrl;
     }
 
   }

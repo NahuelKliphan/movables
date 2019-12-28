@@ -18,7 +18,7 @@ export class ListaProductoComponent implements OnInit {
   }
 
   ngOnInit() {
-    
+
     this.base.getProductos();
   }
 
@@ -30,12 +30,22 @@ export class ListaProductoComponent implements OnInit {
 
   }
 
-  borrar(unProducto: Producto){
+  buscar() {
+    if (this.busqueda.length > 0) {
+      this.base.buscarProducto(this.busqueda);
+    } else {
+      this.base.getProductos();
+    }
+
+  }
+
+  borrar(unProducto: Producto) {
     this.base.borrarProducto(unProducto);
   }
 
-  editar(unProducto:Producto){
-    this.base.editarProducto(unProducto); 
+  editar(unProducto: Producto) {
+    this.base.editar = true;
+    this.base.unProducto = unProducto;
   }
 
 }

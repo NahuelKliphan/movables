@@ -16,8 +16,8 @@
 
 </div>
 <div class="ui fluid action input left icon" style="margin-top: 30px;">
-  <input type="text" placeholder="Codigo">
-  <div class="ui search ico button">Buscar</div>
+  <input type="text" placeholder="Buscar..." (input)="buscar()" name="busqueda" [(ngModel)]="busqueda">
+  <div class="ui search ico button" (click)="buscar()">Buscar</div>
   <i class="search icon"></i>
 </div>
 
@@ -35,7 +35,7 @@
         <div class="ui right floated button inverted red" style="margin-right: 30px;" (click)="borrar(unProducto)">
           <i class="trash alternate outline icon"></i> Borrar
         </div>
-        <div class="ui right floated button  inverted secondary " style="margin-right: 10px;">
+        <div class="ui right floated button inverted secondary " style="margin-right: 10px;" (click)="editar(unProducto); abrirModal();">
           <i class="edit icon"></i> Editar
         </div>
         <p><i class="th orange icon"></i> <b>Cantidad: </b> {{unProducto.cantidad}} </p>

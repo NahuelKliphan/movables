@@ -13,10 +13,9 @@ export class BaseService {
 
   }
 
-  //producto1: Producto = new Producto('1234', 399, 50, 'Taper');
-  //producto2: Producto = new Producto('1235', 879, 15, 'Cubiertos');
-  //producto3: Producto = new Producto('1236', 1500, 5, 'Taper');
-  //producto4: Producto = new Producto('1237', 87, 60, 'Taper rojo con bandejas de plata y oro por el costado');
+  //Variables globales
+  unProducto:Producto = new Producto(null,null,null,null,null,null,null);
+  editar: boolean = false;
 
   cerrar() {
     this.ipc.ipcRenderer.send('salir');
@@ -42,13 +41,18 @@ export class BaseService {
 
   }
 
-  //Fuera de funcionamiento
+  buscarProducto(cod: string){
+
+    const consulta = `SELECT * FROM PRODUCTOS P WHERE P.codigo like '%${cod}%' or p.nombre like '%${cod}%' LIMIT 20`;
+    let res = this.ipc.ipcRenderer.sendSync('actualizar', consulta);
+    this.listadoProducto = res;
+
+  }
+
   editarProducto(unProdcuto: Producto) {
-    const consulta = `UPDATE PRODUCTOS SET codigo = '${unProdcuto.codigo}', precio = ${unProdcuto.precio} , cantidad = ${unProdcuto.cantidad} , descripcion = '${unProdcuto.descripcion}' WHERE codigo = '${unProdcuto.codigo}';`;
-    this.ipc.ipcRenderer.send('req', consulta);
-    this.ipc.ipcRenderer.on('res', () => {
-      this.getProductos();
-    });
+    const consulta = `UPDATE PRODUCTOS P SET nombre = '${unProdcuto.nombre}', precio = ${unProdcuto.precio} , cantidad = ${unProdcuto.cantidad} , descripcion = '${unProdcuto.descripcion}', idcategoria = 1 , foto = '${unProdcuto.foto}' WHERE P.codigo = '${unProdcuto.codigo}';`;
+    this.ipc.ipcRenderer.sendSync('req', consulta);
+    this.getProductos();
   }
 
 }

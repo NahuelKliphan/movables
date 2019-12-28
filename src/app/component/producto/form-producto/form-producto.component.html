@@ -13,7 +13,7 @@
             <div class="field">
                 <div class="ui input right labeled left icon">
                     <i class="barcode icon"></i>
-                    <input type="text" name="codigo" placeholder="Codigo" [(ngModel)]="unProducto.codigo">
+                    <input type="text" name="codigo" placeholder="Codigo" [(ngModel)]="base.unProducto.codigo">
                     <a class="ui tag label">
                         Codigo
                     </a>
@@ -23,7 +23,7 @@
             <div class="field">
                 <div class="ui input right labeled left icon">
                     <i class="tag icon"></i>
-                    <input type="text" name="nombre" placeholder="Nombre" [(ngModel)]="unProducto.nombre">
+                    <input type="text" name="nombre" placeholder="Nombre" [(ngModel)]="base.unProducto.nombre">
                     <a class="ui tag label">
                         Nombre
                     </a>
@@ -33,7 +33,7 @@
             <div class="field">
                 <div class="ui right labeled left icon input">
                     <i class="dollar green sign icon"></i>
-                    <input type="text" name="precio" placeholder="Precio" [(ngModel)]="unProducto.precio">
+                    <input type="text" name="precio" placeholder="Precio" [(ngModel)]="base.unProducto.precio">
                     <a class="ui tag label">
                         Precio
                     </a>
@@ -43,7 +43,7 @@
             <div class="field">
                 <div class="ui right labeled left icon input">
                     <i class="th red icon"></i>
-                    <input type="text" name="cantidad" placeholder="Cantidad" [(ngModel)]="unProducto.cantidad">
+                    <input type="text" name="cantidad" placeholder="Cantidad" [(ngModel)]="base.unProducto.cantidad">
                     <a class="ui tag label">
                         Cantidad
                     </a>
@@ -96,7 +96,7 @@
             <div class="field">
                 <label>Descripción</label>
                 <textarea style="resize: none;" rows="4" type="text" name="descripcion" placeholder="Descripción"
-                    [(ngModel)]="unProducto.descripcion"></textarea>
+                    [(ngModel)]="base.unProducto.descripcion"></textarea>
             </div>
 
         </div>
@@ -108,6 +108,11 @@
                 <div class="ui right floated button positive" style="margin-right: 10px;" (click)="guardar()">
                     <i class="save icon"></i> Guardar
                 </div>
+
+                <div class="ui right floated button secondary" style="margin-right: 10px;" (click)="editar()">
+                    <i class="edit icon"></i> Editar
+                </div>
+
                 <div class="ui right floated button negative " style="margin-right: 20px;" (click)="cancelar()">
                     <i class="reply icon"></i> Cancelar
                 </div>
