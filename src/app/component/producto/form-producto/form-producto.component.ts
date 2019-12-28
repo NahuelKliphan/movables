@@ -26,7 +26,13 @@ export class FormProductoComponent implements OnInit {
 
     if (this.formCompleto()) {
 
-      this.base.guardarProducto(new Producto(this.base.unProducto.codigo, this.base.unProducto.nombre, this.base.unProducto.precio, this.base.unProducto.cantidad, this.base.unProducto.descripcion, this.base.unProducto.foto, this.base.unProducto.idCategoria));
+      if(this.base.verificarCodigo(this.base.unProducto.codigo)){
+        this.base.guardarProducto(new Producto(this.base.unProducto.codigo, this.base.unProducto.nombre, this.base.unProducto.precio, this.base.unProducto.cantidad, this.base.unProducto.descripcion, this.base.unProducto.foto, this.base.unProducto.idCategoria));
+      }else
+      {
+        alert('Codigo Repetido');
+      }
+      
       this.vaciarCampos();
 
     } else {
@@ -37,11 +43,13 @@ export class FormProductoComponent implements OnInit {
 
   editar(){
     this.base.editarProducto(this.base.unProducto);
+    this.vaciarCampos();
     this.base.editar = false;
   }
 
   cancelar(){
     this.vaciarCampos();
+    this.base.editar = false;
   }
 
   formCompleto() {
@@ -72,6 +80,10 @@ export class FormProductoComponent implements OnInit {
       this.base.unProducto.foto = this.previewUrl;
     }
 
+  }
+
+  test(){
+    console.log(this.base.verificarCodigo('555'));
   }
 
 }

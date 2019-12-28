@@ -21,9 +21,21 @@ export class BaseService {
     this.ipc.ipcRenderer.send('salir');
   }
 
+  verificarCodigo(codigo: string){
+
+    const consulta = `SELECT COUNT(*) FROM PRODUCTOS WHERE codigo = '${codigo}';`;
+    let res = this.ipc.ipcRenderer.sendSync('actualizar', consulta);
+    if(res[0].count == 0){
+      return true;
+    }
+    else{
+      return false;
+    }
+  }
+
   getProductos() {
 
-    const consulta = "SELECT * FROM PRODUCTOS LIMIT 100";
+    const consulta = "SELECT * FROM PRODUCTOS ORDER BY OID DESC LIMIT 100";
     let res = this.ipc.ipcRenderer.sendSync('actualizar', consulta);
     this.listadoProducto = res;
   }
@@ -43,7 +55,7 @@ export class BaseService {
 
   buscarProducto(cod: string){
 
-    const consulta = `SELECT * FROM PRODUCTOS P WHERE P.codigo like '%${cod}%' or p.nombre like '%${cod}%' LIMIT 20`;
+    const consulta = `SELECT * FROM PRODUCTOS P WHERE P.codigo ilike '%${cod}%' or p.nombre ilike '%${cod}%' LIMIT 20`;
     let res = this.ipc.ipcRenderer.sendSync('actualizar', consulta);
     this.listadoProducto = res;
 
@@ -52,7 +64,6 @@ export class BaseService {
   editarProducto(unProdcuto: Producto) {
     const consulta = `UPDATE PRODUCTOS P SET nombre = '${unProdcuto.nombre}', precio = ${unProdcuto.precio} , cantidad = ${unProdcuto.cantidad} , descripcion = '${unProdcuto.descripcion}', idcategoria = 1 , foto = '${unProdcuto.foto}' WHERE P.codigo = '${unProdcuto.codigo}';`;
     this.ipc.ipcRenderer.sendSync('req', consulta);
-    this.getProductos();
   }
 
 }

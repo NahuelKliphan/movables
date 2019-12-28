@@ -1,6 +1,7 @@
 <div style="text-align: center;">
 
-    <h2><i class="big product hunt icon"></i> Nuevo producto </h2>
+    <h2 *ngIf="!base.editar"><i class="big product hunt icon"></i> Nuevo producto </h2>
+    <h2 *ngIf="base.editar"><i class="big product hunt icon"></i> Editar producto </h2>
 
 </div>
 
@@ -13,13 +14,14 @@
             <div class="field">
                 <div class="ui input right labeled left icon">
                     <i class="barcode icon"></i>
-                    <input type="text" name="codigo" placeholder="Codigo" [(ngModel)]="base.unProducto.codigo">
+                    <input *ngIf="!base.editar" type="text" name="codigo" placeholder="Codigo" [(ngModel)]="base.unProducto.codigo">
+                    <input readonly *ngIf="base.editar" type="text" name="codigo" placeholder="Codigo" [(ngModel)]="base.unProducto.codigo">
                     <a class="ui tag label">
                         Codigo
                     </a>
                 </div>
             </div>
-        
+
             <div class="field">
                 <div class="ui input right labeled left icon">
                     <i class="tag icon"></i>
@@ -79,12 +81,12 @@
                                         <label for="foto" class="ui icon button">
                                             <i class="photo icon"></i>
                                             Cargar foto</label>
-                                        <input type="file" id="foto" name="foto" style="display:none" (change)="cargarFoto($event)">
+                                        <input type="file" id="foto" name="foto" accept="image/*" style="display:none" (change)="cargarFoto($event)">
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <img [src]="unProducto.foto" onerror="this.src ='assets/images/producto.png'">
+                        <img [src]="base.unProducto.foto" onerror="this.src ='assets/images/producto.png'">
                     </div>
                 </div>
             </div>
@@ -105,11 +107,11 @@
 
             <div class="actions">
         
-                <div class="ui right floated button positive" style="margin-right: 10px;" (click)="guardar()">
+                <div *ngIf="!base.editar" class="ui right floated button positive" style="margin-right: 10px;" (click)="guardar()">
                     <i class="save icon"></i> Guardar
                 </div>
 
-                <div class="ui right floated button secondary" style="margin-right: 10px;" (click)="editar()">
+                <div *ngIf="base.editar" class="ui right floated button secondary" style="margin-right: 10px;" (click)="editar()">
                     <i class="edit icon"></i> Editar
                 </div>
 

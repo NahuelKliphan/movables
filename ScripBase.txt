@@ -2,7 +2,7 @@ create table categorias(
 	id integer,
 	nombre varchar(30) unique,
 	primary key (id)
-);
+) with oids;
 
 create table productos(
 	codigo varchar(30),
@@ -14,7 +14,7 @@ create table productos(
 	idCategoria integer,
 	primary key (codigo),
 	foreign key (idCategoria) references categorias
-);
+) with oids;
 
 create table ventas(
 	id integer,
@@ -22,7 +22,7 @@ create table ventas(
 	fecha date,
 	total decimal,
 	primary key (id)
-);
+) with oids;
 
 create table items(
 	id integer,
@@ -34,4 +34,4 @@ create table items(
     precio decimal,
 	primary key (id),
 	foreign key (idVenta) references ventas
-);
+) with oids;
