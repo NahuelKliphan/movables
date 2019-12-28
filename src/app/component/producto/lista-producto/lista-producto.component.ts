@@ -13,10 +13,12 @@ export class ListaProductoComponent implements OnInit {
 
   constructor(private base: BaseService) {
 
+
+
   }
 
   ngOnInit() {
-
+    
     this.base.getProductos();
   }
 

@@ -24,7 +24,7 @@ export class BaseService {
 
   getProductos() {
 
-    const consulta = "SELECT * FROM PRODUCTOS;";
+    const consulta = "SELECT * FROM PRODUCTOS LIMIT 100";
     let res = this.ipc.ipcRenderer.sendSync('actualizar', consulta);
     this.listadoProducto = res;
   }

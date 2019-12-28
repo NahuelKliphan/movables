@@ -25,7 +25,9 @@ export class FormProductoComponent implements OnInit {
   unProducto: Producto = new Producto(null, null, null, null, null, null, null);
 
   guardar() {
+
     if (this.formCompleto()) {
+
       this.base.guardarProducto(new Producto(this.unProducto.codigo, this.unProducto.nombre, this.unProducto.precio, this.unProducto.cantidad, this.unProducto.descripcion, this.unProducto.foto, this.unProducto.idCategoria));
       this.vaciarCampos();
 

@@ -8,50 +8,48 @@
 
   <div class="two wide column">
 
-    <div class="ui button primary right floated" (click) = "abrirModal()">
+    <div class="ui button primary right floated" (click)="abrirModal()">
       <div class="visible content">Agregar producto</div>
     </div>
 
   </div>
 
 </div>
-<div class="ui fluid action input left icon" style="margin-top: 30px;" >
-    <input type="text" placeholder="Codigo">
-    <div class="ui search ico button">Buscar</div>
-    <i class="search icon"></i>
+<div class="ui fluid action input left icon" style="margin-top: 30px;">
+  <input type="text" placeholder="Codigo">
+  <div class="ui search ico button">Buscar</div>
+  <i class="search icon"></i>
 </div>
 
 <div class="ui divided items lista-producto">
 
-  <div class="item" *ngFor = "let unProducto of base.listadoProducto">
+  <div class="item" *ngFor="let unProducto of base.listadoProducto">
+    <div class="image">
+      <img [src]="unProducto.foto" onerror="this.src ='assets/images/producto.png'">
+    </div>
     <div class="content">
-      <a class="header"><i class="barcode icon"></i> <b>Codigo: </b> {{unProducto.codigo}}</a>
-      <div class="meta">
-        <span class="cinema"><i class="green dollar sign icon"></i> <b>Precio: {{unProducto.precio}}</b></span>
-      </div>
-      <div class="ui right floated button inverted red" style="margin-right: 30px;" (click) = "borrar(unProducto)">
-        <i class="trash alternate outline icon"></i> Borrar
-      </div>
-      <div class="ui right floated button  inverted secondary " style="margin-right: 10px;">
-        <i class="edit icon"></i> Editar
-      </div>
-      <div class="meta">
-        <span class="cinema"><i class="th orange icon"></i> <b>Cantidad: {{unProducto.cantidad}}</b></span>
-      </div>
+      <a class="header"><i class="barcode icon"></i>{{unProducto.codigo}}</a>
       <div class="description">
-        <p><i class="archive teal icon"></i> {{unProducto.descripcion}}</p>
+        <p><i class="tag icon"></i> <b>Nombre: </b> {{unProducto.nombre}} </p>
+        <p><i class="green dollar sign icon"></i> <b>Precio: </b> {{unProducto.precio}} </p>
+        <div class="ui right floated button inverted red" style="margin-right: 30px;" (click)="borrar(unProducto)">
+          <i class="trash alternate outline icon"></i> Borrar
+        </div>
+        <div class="ui right floated button  inverted secondary " style="margin-right: 10px;">
+          <i class="edit icon"></i> Editar
+        </div>
+        <p><i class="th orange icon"></i> <b>Cantidad: </b> {{unProducto.cantidad}} </p>
+        <p><i class="archive teal icon"></i><b>Descripcion: </b> {{unProducto.descripcion}} </p>
+      </div>
+      <div class="extra">
+        <div class="ui label"><i class="tags icon"></i> Descartable </div>
       </div>
     </div>
   </div>
-  
+
+
 </div>
 
 <div class="ui modal">
   <app-form-producto style="padding: 2%;" class="card"></app-form-producto>
 </div>
-    
- 
-   
-
-
-
