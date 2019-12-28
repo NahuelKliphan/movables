@@ -13,12 +13,14 @@ export class NavVarComponent implements OnInit {
   constructor(private base: BaseService) { }
 
   ngOnInit() {
+    
   }
 
-  abrirMenu() {
-    $('.ui.labeled.icon.sidebar')
-      .sidebar('toggle')
-      ;
+  abrirSidebar() {
+    $('#app .ui.sidebar')
+    .sidebar({context:$('#app')})
+    .sidebar('setting', 'transition', 'overlay')
+    .sidebar('toggle');
   }
 
   salir(){
