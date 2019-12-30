@@ -13,8 +13,6 @@ export class ListaProductoComponent implements OnInit {
 
   constructor(private base: BaseService) {
 
-
-
   }
 
   ngOnInit() {

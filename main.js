@@ -57,6 +57,11 @@ app.on('activate', function () {
   }
 })
 
+ipcMain.on('salir',() => {
+  DesconectarBD();
+  app.quit();
+})
+
 //Metodo para conectar la base de datos.
 async function ConectarBD() {
 
@@ -72,34 +77,20 @@ async function ConectarBD() {
 
 }
 
+//Metodos consulta BD
+
+ipcMain.on('base', (e, consulta) => {
+
+  client
+  .query(consulta)
+  .then(res => e.returnValue = res.rows)
+  .catch(e => e.returnValue = e.stack)
+
+});
+
 async function DesconectarBD(){
   await client.end()
 }
 
-//Metodos consulta BD
-
-ipcMain.on('req', (e, consulta) => {
-
-  client
-  .query(consulta)
-  .then(res => e.returnValue = res.rows)
-  .catch(e => e.returnValue = e.stack)
-
-});
-
-
-ipcMain.on('actualizar', (e, consulta) => {
-
-  client
-  .query(consulta)
-  .then(res => e.returnValue = res.rows)
-  .catch(e => e.returnValue = e.stack)
-
-});
-
-ipcMain.on('salir',() => {
-  DesconectarBD();
-  app.quit();
-})
 
 

@@ -21,45 +21,75 @@ export class FormProductoComponent implements OnInit {
     });
 
   }
-  
+
   guardar() {
 
     if (this.formCompleto()) {
 
-      if(this.base.verificarCodigo(this.base.unProducto.codigo)){
-        this.base.guardarProducto(new Producto(this.base.unProducto.codigo, this.base.unProducto.nombre, this.base.unProducto.precio, this.base.unProducto.cantidad, this.base.unProducto.descripcion, this.base.unProducto.foto, this.base.unProducto.idCategoria));
-      }else
-      {
+      if (this.base.verificarCodigo(this.base.unProducto.codigo)) {
+        this.base.guardarProducto(new Producto(this.base.unProducto.codigo, this.base.unProducto.nombre, this.base.adaptarDecimal(this.base.unProducto.precio), this.base.unProducto.cantidad, this.base.unProducto.descripcion, this.base.unProducto.foto, this.base.unProducto.idCategoria));
+      } else {
         alert('Codigo Repetido');
       }
-      
+
       this.vaciarCampos();
 
     } else {
-      alert('Faltan datos')
+      alert('Faltan datos');
     }
 
-  }
-
-  editar(){
-    this.base.editarProducto(this.base.unProducto);
-    this.vaciarCampos();
     this.base.editar = false;
   }
 
-  cancelar(){
+  editar() {
+
+    if (this.formCompleto()) {
+      this.base.editarProducto(this.base.unProducto);
+      this.vaciarCampos();
+    } else {
+      alert('Faltan datos');
+    }
+
+    this.base.getProductos();
+    this.base.editar = false;
+
+  }
+
+  cancelar() {
     this.vaciarCampos();
     this.base.editar = false;
   }
 
   formCompleto() {
 
-    if (this.base.unProducto.codigo != null && this.base.unProducto.precio != null && this.base.unProducto.cantidad != null && this.base.unProducto.descripcion != null) {
-      return true;
-    }
-    else {
+    let ret = true;
+
+    //Codigo
+    if (this.base.unProducto.codigo == null || this.base.unProducto.codigo == "") {
+      ret = false;
       return false;
     }
+
+    //Nombre
+    if (this.base.unProducto.nombre == null || this.base.unProducto.nombre == "") {
+      ret = false;
+      return false;
+    }
+
+    //Precio
+    if (this.base.unProducto.precio == null || this.base.unProducto.precio < 0) {
+      ret = false;
+      return false;
+    }
+
+    //Cantidad
+    if (this.base.unProducto.cantidad == null || this.base.unProducto.cantidad < 0) {
+      ret = false;
+      return false;
+    }
+
+    return ret;
+
   }
 
   vaciarCampos() {
@@ -75,15 +105,11 @@ export class FormProductoComponent implements OnInit {
     var reader = new FileReader();
     reader.readAsDataURL(this.fileData);
     reader.onload = (_event) => {
-      
+
       this.previewUrl = reader.result;
       this.base.unProducto.foto = this.previewUrl;
     }
 
-  }
-
-  test(){
-    console.log(this.base.verificarCodigo('555'));
   }
 
 }
