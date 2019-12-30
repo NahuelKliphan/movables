@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Categoria } from 'src/app/model/Categoria';
+import { basename } from 'path';
+import { BaseService } from 'src/app/servicio/base.service';
 
 @Component({
   selector: 'app-lista-categoria',
@@ -8,43 +10,23 @@ import { Categoria } from 'src/app/model/Categoria';
 })
 export class ListaCategoriaComponent implements OnInit {
 
-  listadoCategoria: Categoria[] = [];
-
-  categoria1: Categoria = new Categoria(1,'Descartable');
-  categoria2: Categoria = new Categoria(1,'Basos');
-  categoria3: Categoria = new Categoria(1,'Platos');
-  categoria4: Categoria = new Categoria(1,'Fuentes');
-
-  constructor() {
-
-    this.listadoCategoria.push(this.categoria1);
-    this.listadoCategoria.push(this.categoria2);
-    this.listadoCategoria.push(this.categoria3);
-    this.listadoCategoria.push(this.categoria4);
-    this.listadoCategoria.push(this.categoria1);
-    this.listadoCategoria.push(this.categoria2);
-    this.listadoCategoria.push(this.categoria3);
-    this.listadoCategoria.push(this.categoria4);
-    this.listadoCategoria.push(this.categoria1);
-    this.listadoCategoria.push(this.categoria2);
-    this.listadoCategoria.push(this.categoria3);
-    this.listadoCategoria.push(this.categoria4);
-    this.listadoCategoria.push(this.categoria1);
-    this.listadoCategoria.push(this.categoria2);
-    this.listadoCategoria.push(this.categoria3);
-    this.listadoCategoria.push(this.categoria4);
-    this.listadoCategoria.push(this.categoria1);
-    this.listadoCategoria.push(this.categoria2);
-    this.listadoCategoria.push(this.categoria3);
-    this.listadoCategoria.push(this.categoria4);
-    this.listadoCategoria.push(this.categoria1);
-    this.listadoCategoria.push(this.categoria2);
-    this.listadoCategoria.push(this.categoria3);
-    this.listadoCategoria.push(this.categoria4);
+  constructor(private base: BaseService) {
 
    }
 
   ngOnInit() {
+
+    this.base.getCategorias();
+
+  }
+
+  borrar(unaCategoria: Categoria) {
+    this.base.borrarCategoria(unaCategoria);
+  }
+
+  editar(unaCategoria: Categoria) {
+    this.base.editar = true;
+    this.base.unaCategoria = unaCategoria;
   }
 
 }

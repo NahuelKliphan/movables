@@ -1,5 +1,5 @@
 create table categorias(
-	id integer,
+	id serial,
 	nombre varchar(30) unique,
 	primary key (id)
 ) with oids;

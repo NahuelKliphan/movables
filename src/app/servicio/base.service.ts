@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Producto } from '../model/Producto';
 import { ElectronService } from 'ngx-electron';
+import { Categoria } from '../model/Categoria';
 
 @Injectable({
   providedIn: 'root'
@@ -15,10 +16,15 @@ export class BaseService {
 
   //Variables globales
 
+  editar: boolean = false;
+
   //Producto
   listadoProducto: Producto[] = [];
   unProducto:Producto = new Producto(null,null,null,null,null,null,null);
-  editar: boolean = false;
+
+  //Categoria
+  listadoCategoria: Categoria[] = [];
+  unaCategoria: Categoria = new Categoria(null,null);
 
   //Metodos globales
   adaptarDecimal(numero: number){
@@ -70,6 +76,43 @@ export class BaseService {
     const consulta = `UPDATE PRODUCTOS P SET nombre = '${unProdcuto.nombre}', precio = ${this.adaptarDecimal(unProdcuto.precio)} , cantidad = ${unProdcuto.cantidad} , descripcion = '${unProdcuto.descripcion}', idcategoria = 1 , foto = '${unProdcuto.foto}' WHERE P.codigo = '${unProdcuto.codigo}';`;
     this.ipc.ipcRenderer.sendSync('base', consulta);
     this.getProductos();
+  }
+
+  //Metodos de Categoria
+
+  getCategorias() {
+    const consulta = "SELECT * FROM CATEGORIAS ORDER BY OID DESC";
+    let res = this.ipc.ipcRenderer.sendSync('base', consulta);
+    this.listadoCategoria = res;
+  }
+
+  verificarNombre(nombre: string){
+    const consulta = `SELECT COUNT(*) FROM CATEGORIAS WHERE nombre = '${nombre}';`;
+    let res = this.ipc.ipcRenderer.sendSync('base', consulta);
+    if(res[0].count == 0){
+      return true;
+    }
+    else{
+      return false;
+    }
+  }
+
+  guardarCategoria(unaCategoria: Categoria) {
+    const consulta = `INSERT INTO CATEGORIAS (nombre) values ('${unaCategoria.nombre}');`;
+    this.ipc.ipcRenderer.sendSync('base', consulta);
+    this.getCategorias();
+  }
+
+  borrarCategoria(unaCategoria: Categoria) {
+    const consulta = `DELETE FROM CATEGORIAS WHERE id = '${unaCategoria.id}';`;
+    this.ipc.ipcRenderer.sendSync('base', consulta);
+    this.getCategorias();
+  }
+
+  editarCategoria(unaCategoria: Categoria) {
+    const consulta = `UPDATE CATEGORIAS SET nombre = '${unaCategoria.nombre}' WHERE id = ${unaCategoria.id};`;
+    this.ipc.ipcRenderer.sendSync('base', consulta);
+    this.getCategorias();
   }
 
 }

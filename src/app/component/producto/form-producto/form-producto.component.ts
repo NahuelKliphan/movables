@@ -32,12 +32,11 @@ export class FormProductoComponent implements OnInit {
         alert('Codigo Repetido');
       }
 
-      this.vaciarCampos();
-
     } else {
       alert('Faltan datos');
     }
 
+    this.vaciarCampos();
     this.base.editar = false;
   }
 
