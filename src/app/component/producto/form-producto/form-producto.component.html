@@ -54,12 +54,12 @@
         
             <div class="field">
                 <div class="ui right labeled left icon input">
-                    <select class="ui dropdown fluid">
-                        <option value="0"><i class="tags grey icon"></i> Categoria</option>
-                        <option value="1"><i class="tags grey icon"></i> Categoria 1</option>
-                        <option value="2"><i class="tags grey icon"></i> Categoria 2</option>
-                        <option value="3"><i class="tags grey icon"></i> Categoria 3</option>
-                        <option value="4"><i class="tags grey icon"></i> Categoria 4</option>
+
+                    <select class="ui dropdown fluid" name="idcategoria" [(ngModel)]="base.unProducto.idcategoria">
+                        <option [ngValue]="null"><i class="tags grey icon"></i> Categoria</option>
+                        <option [ngValue]="unaCategoria.id" *ngFor="let unaCategoria of base.listadoCategoria"><i class="tags grey icon"></i>
+                            {{unaCategoria.nombre}}
+                        </option>
                     </select>
                     <a class="ui tag label">
                         Categoria
@@ -126,3 +126,4 @@
     </div>
 
 </form>
+

@@ -20,6 +20,7 @@ export class FormProductoComponent implements OnInit {
       on: 'hover'
     });
 
+    this.base.getCategorias();
   }
 
   guardar() {
@@ -27,7 +28,7 @@ export class FormProductoComponent implements OnInit {
     if (this.formCompleto()) {
 
       if (this.base.verificarCodigo(this.base.unProducto.codigo)) {
-        this.base.guardarProducto(new Producto(this.base.unProducto.codigo, this.base.unProducto.nombre, this.base.adaptarDecimal(this.base.unProducto.precio), this.base.unProducto.cantidad, this.base.unProducto.descripcion, this.base.unProducto.foto, this.base.unProducto.idCategoria));
+        this.base.guardarProducto(new Producto(this.base.unProducto.codigo, this.base.unProducto.nombre, this.base.adaptarDecimal(this.base.unProducto.precio), this.base.unProducto.cantidad, this.base.unProducto.descripcion, this.base.unProducto.foto, this.base.unProducto.idcategoria));
       } else {
         alert('Codigo Repetido');
       }

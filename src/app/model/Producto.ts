@@ -6,9 +6,9 @@ export class Producto {
     cantidad: number;
     descripcion: string;
     foto: string;
-    idCategoria: number;
+    idcategoria: number;
 
-    constructor(codigo: string, nombre: string, precio: number, cantidad: number, descripcion: string, foto: string, idCategoria: number) {
+    constructor(codigo: string, nombre: string, precio: number, cantidad: number, descripcion: string, foto: string, idcategoria: number) {
 
         this.codigo = codigo;
         this.nombre = nombre;
@@ -16,7 +16,7 @@ export class Producto {
         this.cantidad = cantidad;
         this.descripcion = descripcion;
         this.foto = foto;
-        this.idCategoria = idCategoria;
+        this.idcategoria = idcategoria;
     }
 
 }

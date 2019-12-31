@@ -23,6 +23,7 @@ export class BaseService {
   unProducto:Producto = new Producto(null,null,null,null,null,null,null);
 
   //Categoria
+  listadoNombreCategoria: string[] = ['Pepe'];
   listadoCategoria: Categoria[] = [];
   unaCategoria: Categoria = new Categoria(null,null);
 
@@ -61,7 +62,7 @@ export class BaseService {
   }
 
   guardarProducto(unProdcuto: Producto) {
-    const consulta = `INSERT INTO PRODUCTOS (codigo,nombre,precio,cantidad,descripcion,foto,idcategoria) VALUES ('${unProdcuto.codigo}','${unProdcuto.nombre}',${unProdcuto.precio},${unProdcuto.cantidad},'${unProdcuto.descripcion}','${unProdcuto.foto}',${unProdcuto.idCategoria});`;
+    const consulta = `INSERT INTO PRODUCTOS (codigo,nombre,precio,cantidad,descripcion,foto,idcategoria) VALUES ('${unProdcuto.codigo}','${unProdcuto.nombre}',${unProdcuto.precio},${unProdcuto.cantidad},'${unProdcuto.descripcion}','${unProdcuto.foto}',${unProdcuto.idcategoria});`;
     this.ipc.ipcRenderer.sendSync('base', consulta);
     this.getProductos();
   }
@@ -73,7 +74,7 @@ export class BaseService {
   }
 
   editarProducto(unProdcuto: Producto) {
-    const consulta = `UPDATE PRODUCTOS P SET nombre = '${unProdcuto.nombre}', precio = ${this.adaptarDecimal(unProdcuto.precio)} , cantidad = ${unProdcuto.cantidad} , descripcion = '${unProdcuto.descripcion}', idcategoria = 1 , foto = '${unProdcuto.foto}' WHERE P.codigo = '${unProdcuto.codigo}';`;
+    const consulta = `UPDATE PRODUCTOS P SET nombre = '${unProdcuto.nombre}', precio = ${this.adaptarDecimal(unProdcuto.precio)} , cantidad = ${unProdcuto.cantidad} , descripcion = '${unProdcuto.descripcion}', idcategoria = ${unProdcuto.idcategoria} , foto = '${unProdcuto.foto}' WHERE P.codigo = '${unProdcuto.codigo}';`;
     this.ipc.ipcRenderer.sendSync('base', consulta);
     this.getProductos();
   }
@@ -84,6 +85,7 @@ export class BaseService {
     const consulta = "SELECT * FROM CATEGORIAS ORDER BY OID DESC";
     let res = this.ipc.ipcRenderer.sendSync('base', consulta);
     this.listadoCategoria = res;
+    this.listadoCategoria.forEach(c => { this.listadoNombreCategoria[c.id] = c.nombre });
   }
 
   verificarNombre(nombre: string){
