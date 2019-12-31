@@ -13,7 +13,7 @@ create table productos(
 	foto text,
 	idCategoria integer,
 	primary key (codigo),
-	foreign key (idCategoria) references categorias
+	foreign key (idCategoria) references categorias on delete set null
 ) with oids;
 
 create table ventas(

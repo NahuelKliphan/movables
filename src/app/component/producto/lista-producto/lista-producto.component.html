@@ -1,15 +1,45 @@
 <div class="ui grid">
 
-  <div class="fourteen wide column">
+  <div class="ten wide column">
 
     <h2><i class="large list icon"></i> Productos </h2>
+
+  </div>
+
+  <div class="four wide column" style="text-align: right;">
+
+
+    <div class="ui floating dropdown labeled icon button" id="filtrar">
+      <i class="filter icon"></i>
+      <span class="text">Filtro</span>
+      <div class="menu">
+        <div class="ui icon search input">
+          <i class="search icon"></i>
+          <input type="text" placeholder="Buscar...">
+        </div>
+        <div class="divider"></div>
+        <div class="header">
+          <i class="tags icon"></i>
+          Tag Label
+        </div>
+        <div class="scrolling menu">
+
+          <div class="item" *ngFor="let unaCategoria of base.listadoCategoria">
+            <div class="ui red empty circular label"></div>
+            {{unaCategoria.nombre}}
+          </div>
+
+        </div>
+      </div>
+    </div>
+
 
   </div>
 
   <div class="two wide column">
 
     <div class="ui button primary right floated" (click)="abrirModal()">
-      <div class="visible content">Agregar producto</div>
+      Agregar producto
     </div>
 
   </div>
@@ -35,7 +65,8 @@
         <div class="ui right floated button inverted red" style="margin-right: 30px;" (click)="borrar(unProducto)">
           <i class="trash alternate outline icon"></i> Borrar
         </div>
-        <div class="ui right floated button inverted secondary " style="margin-right: 10px;" (click)="editar(unProducto); abrirModal();">
+        <div class="ui right floated button inverted secondary " style="margin-right: 10px;"
+          (click)="editar(unProducto); abrirModal();">
           <i class="edit icon"></i> Editar
         </div>
         <p><i class="th orange icon"></i> <b>Cantidad: </b> {{unProducto.cantidad}} </p>

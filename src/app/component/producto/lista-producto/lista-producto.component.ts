@@ -17,7 +17,9 @@ export class ListaProductoComponent implements OnInit {
 
   ngOnInit() {
 
+    this.base.getCategorias();
     this.base.getProductos();
+    $('#filtrar').dropdown();
   }
 
   busqueda: string = "";
