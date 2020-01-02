@@ -6,6 +6,17 @@ let win;
 let client;
 
 //Base de datos.
+
+//Prueba
+const config1 = {
+  user: 'taiahceb',
+  host: 'motty.db.elephantsql.com',
+  database: 'taiahceb',
+  password: 'aDVvMH3RwfzpulKkCNFAaWT1QBWPdUSw',
+  port: 5432,
+}
+
+//Produccion.
 const config = {
   user: 'postgres',
   host: 'localhost',
@@ -65,7 +76,7 @@ ipcMain.on('salir',() => {
 //Metodo para conectar la base de datos.
 async function ConectarBD() {
 
-  client = new Client(config)
+  client = new Client(config1)
 
   await client.connect(err => {
     if (err) {

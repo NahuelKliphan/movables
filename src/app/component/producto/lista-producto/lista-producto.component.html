@@ -73,7 +73,9 @@
         <p><i class="archive teal icon"></i><b>Descripcion: </b> {{unProducto.descripcion}} </p>
       </div>
       <div class="extra">
-        <div class="ui label"><i class="tags icon"></i> {{ base.listadoNombreCategoria[unProducto.idcategoria] }} </div>
+        <div *ngIf="unProducto.idcategoria" class="ui label"><i class="tags icon"></i>
+          {{ base.listadoNombreCategoria[unProducto.idcategoria] }} </div>
+        <div *ngIf="!unProducto.idcategoria" class="ui label"><i class="tags icon"></i> Sin Categoria </div>
       </div>
     </div>
   </div>

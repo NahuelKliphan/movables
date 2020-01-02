@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Categoria } from 'src/app/model/Categoria';
-import { basename } from 'path';
 import { BaseService } from 'src/app/servicio/base.service';
+
+declare var $: any;
 
 @Component({
   selector: 'app-lista-categoria',
@@ -17,6 +18,10 @@ export class ListaCategoriaComponent implements OnInit {
   ngOnInit() {
 
     this.base.getCategorias();
+
+    var height = $(window).height();
+    height = height-360;
+    $('.lista-categoria').css('height', `${height}px`);
 
   }
 

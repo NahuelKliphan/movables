@@ -27,7 +27,6 @@
 .lista-producto
 {
     overflow:scroll; 
-    max-height:580px;
     overflow-x: hidden;
 }
 
