@@ -17,19 +17,36 @@ export class BaseService {
   //Variables globales
 
   editar: boolean = false;
+  filtro: string = '';
+  idFiltrar: number = -1;
 
   //Producto
   listadoProducto: Producto[] = [];
-  unProducto:Producto = new Producto(null,null,null,null,null,null,null);
+  unProducto: Producto = new Producto(null, null, null, null, null, null, null);
 
   //Categoria
-  listadoNombreCategoria: string[] = ['Pepe'];
+  listadoNombreCategoria: string[] = [];
   listadoCategoria: Categoria[] = [];
-  unaCategoria: Categoria = new Categoria(null,null);
+  unaCategoria: Categoria = new Categoria(null, null);
 
   //Metodos globales
-  adaptarDecimal(numero: number){
-    return Number(numero.toString().replace(',','.'));
+  adaptarDecimal(numero: number) {
+    return Number(numero.toString().replace(',', '.'));
+  }
+
+  setFiltro(id: number) {
+
+    if (id == null) {
+      this.filtro = `WHERE idcategoria is ${id}`;
+    } else {
+      if (id == -1) {
+        this.filtro = '';
+      } else {
+        this.filtro = `WHERE idcategoria = ${id}`;
+      }
+    }
+
+    console.log(this.filtro);
   }
 
   cerrar() {
@@ -39,24 +56,40 @@ export class BaseService {
   //Metodos de productos
 
   getProductos() {
-    const consulta = "SELECT * FROM PRODUCTOS ORDER BY OID DESC LIMIT 100";
+    const consulta = `SELECT * FROM PRODUCTOS ${this.filtro} ORDER BY OID DESC LIMIT 100`;
     let res = this.ipc.ipcRenderer.sendSync('base', consulta);
     this.listadoProducto = res;
   }
 
-  verificarCodigo(codigo: string){
+  verificarCodigo(codigo: string) {
     const consulta = `SELECT COUNT(*) FROM PRODUCTOS WHERE codigo = '${codigo}';`;
     let res = this.ipc.ipcRenderer.sendSync('base', consulta);
-    if(res[0].count == 0){
+    if (res[0].count == 0) {
       return true;
     }
-    else{
+    else {
       return false;
     }
   }
 
-  buscarProducto(cod: string){
-    const consulta = `SELECT * FROM PRODUCTOS P WHERE P.codigo ilike '%${cod}%' or p.nombre ilike '%${cod}%' LIMIT 20`;
+  buscarProducto(cod: string) {
+
+    let consulta = "";
+
+    if (this.idFiltrar == -1) {
+      consulta = `SELECT * FROM PRODUCTOS P WHERE P.codigo ilike '%${cod}%' or p.nombre ilike '%${cod}%' LIMIT 20`;
+    }
+    else {
+
+      if (this.idFiltrar == null) {
+        consulta = `SELECT * FROM PRODUCTOS P WHERE (P.codigo ilike '%${cod}%' or p.nombre ilike '%${cod}%') and P.idcategoria is ${this.idFiltrar} LIMIT 20`;
+      } else {
+        consulta = `SELECT * FROM PRODUCTOS P WHERE (P.codigo ilike '%${cod}%' or p.nombre ilike '%${cod}%') and P.idcategoria = ${this.idFiltrar} LIMIT 20`;
+      }
+
+    }
+
+    console.log(consulta);
     let res = this.ipc.ipcRenderer.sendSync('base', consulta);
     this.listadoProducto = res;
   }
@@ -88,13 +121,13 @@ export class BaseService {
     this.listadoCategoria.forEach(c => { this.listadoNombreCategoria[c.id] = c.nombre });
   }
 
-  verificarNombre(nombre: string){
+  verificarNombre(nombre: string) {
     const consulta = `SELECT COUNT(*) FROM CATEGORIAS WHERE nombre = '${nombre}';`;
     let res = this.ipc.ipcRenderer.sendSync('base', consulta);
-    if(res[0].count == 0){
+    if (res[0].count == 0) {
       return true;
     }
-    else{
+    else {
       return false;
     }
   }

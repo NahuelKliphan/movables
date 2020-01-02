@@ -52,4 +52,9 @@ export class ListaProductoComponent implements OnInit {
     this.base.unProducto = unProducto;
   }
 
+  filtrar(){
+    this.base.setFiltro(this.base.idFiltrar);
+    this.base.getProductos();
+  }
+
 }
