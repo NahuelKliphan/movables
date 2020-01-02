@@ -106,15 +106,23 @@
         <div class="sixteen wide column">
 
             <div class="actions">
+
+                <div [hidden]="base.editar">
+
+                    <div class="ui right floated button positive" style="margin-right: 10px;" (click)="guardar()">
+                        <div><i class="save icon"></i> Guardar </div> 
+                     </div>
+
+                </div>
+
+                <div [hidden]="!base.editar">
+
+                    <div class="ui right floated button secondary ok" style="margin-right: 10px;" (click)="editar()" >
+                        <i class="edit icon"></i> Editar
+                    </div>
+
+                </div>
         
-                <div *ngIf="!base.editar" class="ui right floated button positive" style="margin-right: 10px;" (click)="guardar()">
-                    <i class="save icon"></i> Guardar
-                </div>
-
-                <div *ngIf="base.editar" class="ui right floated button secondary" style="margin-right: 10px;" (click)="editar()">
-                    <i class="edit icon"></i> Editar
-                </div>
-
                 <div class="ui right floated button negative " style="margin-right: 20px;" (click)="cancelar()">
                     <i class="reply icon"></i> Cancelar
                 </div>

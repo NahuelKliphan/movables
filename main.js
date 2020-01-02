@@ -38,6 +38,9 @@ function createWindow() {
   //Saca la barra de menu fea.
   //win.setMenu(null);
 
+  //Inicia en pantalla completa.
+  win.maximize();
+
   //Carga el index.html de angular
   win.loadURL(`file://${__dirname}/dist/index.html`)
 

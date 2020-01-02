@@ -31,8 +31,7 @@ export class ListaProductoComponent implements OnInit {
 
   abrirModal() {
 
-    $('.ui.modal').modal('show');
-
+    $('.ui.modal').modal({closable: false}).modal('show');
   }
 
   buscar() {
