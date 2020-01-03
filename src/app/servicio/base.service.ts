@@ -8,8 +8,6 @@ import { Categoria } from '../model/Categoria';
 })
 export class BaseService {
 
-
-
   constructor(private ipc: ElectronService) {
 
   }
@@ -33,7 +31,7 @@ export class BaseService {
   adaptarDecimal(numero: number) {
     return Number(numero.toString().replace(',', '.'));
   }
-
+  
   setFiltro(id: number) {
 
     if (id == null) {
@@ -45,8 +43,6 @@ export class BaseService {
         this.filtro = `WHERE idcategoria = ${id}`;
       }
     }
-
-    console.log(this.filtro);
   }
 
   cerrar() {
@@ -58,7 +54,11 @@ export class BaseService {
   getProductos() {
     const consulta = `SELECT * FROM PRODUCTOS ${this.filtro} ORDER BY OID DESC LIMIT 100`;
     let res = this.ipc.ipcRenderer.sendSync('base', consulta);
-    this.listadoProducto = res;
+    if(Array.isArray(res)){
+      this.listadoProducto = res;
+    }else{
+      console.log(res);
+    }
   }
 
   verificarCodigo(codigo: string) {
@@ -89,7 +89,6 @@ export class BaseService {
 
     }
 
-    console.log(consulta);
     let res = this.ipc.ipcRenderer.sendSync('base', consulta);
     this.listadoProducto = res;
   }

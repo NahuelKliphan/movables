@@ -71,7 +71,7 @@ app.on('activate', function () {
   }
 })
 
-ipcMain.on('salir',() => {
+ipcMain.on('salir', () => {
   DesconectarBD();
   app.quit();
 })
@@ -79,13 +79,13 @@ ipcMain.on('salir',() => {
 //Metodo para conectar la base de datos.
 async function ConectarBD() {
 
-  client = new Client(config1)
+  client = new Client(config)
 
   await client.connect(err => {
     if (err) {
-      console.error('Error al conectar Base de datos.', err.stack)
+      console.error('Error al conectar Base de datos.', err.stack);
     } else {
-      console.log('Base de datos conectada.')
+      console.log('Base de datos conectada.');
     }
   })
 
@@ -95,14 +95,20 @@ async function ConectarBD() {
 
 ipcMain.on('base', (e, consulta) => {
 
-  client
-  .query(consulta)
-  .then(res => e.returnValue = res.rows)
-  .catch(e => e.returnValue = e.stack)
+  client.query(consulta, function (err, res) {
+
+    if (err) {
+      e.returnValue = err;
+    } else {
+      e.returnValue = res.rows;
+    }
+
+  });
+
 
 });
 
-async function DesconectarBD(){
+async function DesconectarBD() {
   await client.end()
 }
 
