@@ -9,7 +9,7 @@ import { NgxElectronModule } from 'ngx-electron';
 import { AppComponent } from './app.component';
 
 //Menu
-import { NavVarComponent } from './component/menu/nav-var/nav-var.component';
+import { NavVarComponent } from './component/menu/nav-bar/nav-bar.component';
 import { InicioComponent } from './component/menu/inicio/inicio.component';
 import { ConfiguracionComponent } from './component/menu/configuracion/configuracion.component';
 import { SidebarComponent } from './component/menu/sidebar/sidebar/sidebar.component';
