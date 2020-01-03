@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FormModalComponent } from './form-modal.component';
+import { FormModalComponent } from './form-confirmar.component';
 
 describe('FormModalComponent', () => {
   let component: FormModalComponent;

@@ -12,10 +12,12 @@ import { AppComponent } from './app.component';
 import { NavVarComponent } from './component/menu/nav-var/nav-var.component';
 import { InicioComponent } from './component/menu/inicio/inicio.component';
 import { ConfiguracionComponent } from './component/menu/configuracion/configuracion.component';
+import { SidebarComponent } from './component/menu/sidebar/sidebar/sidebar.component';
 //Producto
 import {ProductoComponent} from 'src/app/component/producto/producto/producto.component';
 import {FormProductoComponent} from 'src/app/component/producto/form-producto/form-producto.component';
 import {ListaProductoComponent} from 'src/app/component/producto/lista-producto/lista-producto.component';
+import { FormConfirmarComponent } from './component/producto/form-confirmar/form-confirmar.component';
 //Venta
 import { VentaComponent } from './component/venta/venta/venta.component';
 import { FormVentaComponent } from './component/venta/form-venta/form-venta.component';
@@ -28,10 +30,6 @@ import { ListaItemComponent } from './component/Item/lista-item/lista-item.compo
 import { CategoriaComponent } from './component/categoria/categoria/categoria.component';
 import { FormCategoriaComponent } from './component/categoria/form-categoria/form-categoria.component';
 import { ListaCategoriaComponent } from './component/categoria/lista-categoria/lista-categoria.component';
-import { SidebarComponent } from './component/menu/sidebar/sidebar/sidebar.component';
-import { FormModalComponent } from './component/menu/form-modal/form-modal.component';
-
-
 
 
 const routes : Routes = [
@@ -81,7 +79,7 @@ const routes : Routes = [
     FormCategoriaComponent,
     ListaCategoriaComponent,
     SidebarComponent,
-    FormModalComponent
+    FormConfirmarComponent
   ],
   imports: [
     BrowserModule,

@@ -96,13 +96,13 @@ export class BaseService {
   guardarProducto(unProdcuto: Producto) {
     const consulta = `INSERT INTO PRODUCTOS (codigo,nombre,precio,cantidad,descripcion,foto,idcategoria) VALUES ('${unProdcuto.codigo}','${unProdcuto.nombre}',${unProdcuto.precio},${unProdcuto.cantidad},'${unProdcuto.descripcion}','${unProdcuto.foto}',${unProdcuto.idcategoria});`;
     this.ipc.ipcRenderer.sendSync('base', consulta);
-    this.getProductos();
+    this.listadoProducto.unshift(unProdcuto);
   }
 
   borrarProducto(unProdcuto: Producto) {
     const consulta = `DELETE FROM PRODUCTOS WHERE codigo = '${unProdcuto.codigo}';`;
     this.ipc.ipcRenderer.sendSync('base', consulta);
-    this.getProductos();
+    this.listadoProducto.splice(this.listadoProducto.indexOf(unProdcuto),1);
   }
 
   editarProducto(unProdcuto: Producto) {

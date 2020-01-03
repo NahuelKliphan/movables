@@ -7,15 +7,16 @@
         <img [src]="base.unProducto.foto" onerror="this.src ='assets/images/producto.png'">
       </div>
       <div class="description">
-        <div class="ui header">¿Seguro desea eliminar este producto?</div>
+        <div class="ui header">¿Seguro desea eliminar el producto con codigo {{base.unProducto.codigo}} y nombre
+          {{base.unProducto.nombre}}?</div>
       </div>
     </div>
     <div class="actions">
       <div class="ui negative deny button">
-        <i class="reply icon"></i> No 
+        <i class="reply icon"></i> Cancelar 
       </div>
       <div class="ui positive right icon button" (click)="borrar()">
-        <i class="checkmark icon"></i> Si 
+        <i class="checkmark icon"></i> Confirmar 
       </div>
     </div>
   </div>

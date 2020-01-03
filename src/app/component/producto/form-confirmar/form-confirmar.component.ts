@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { BaseService } from 'src/app/servicio/base.service';
 
 @Component({
-  selector: 'app-form-modal',
-  templateUrl: './form-modal.component.html',
-  styleUrls: ['./form-modal.component.css']
+  selector: 'app-form-confirmar',
+  templateUrl: './form-confirmar.component.html',
+  styleUrls: ['./form-confirmar.component.css']
 })
-export class FormModalComponent implements OnInit {
+export class FormConfirmarComponent implements OnInit {
 
   constructor(private base: BaseService) { }
 
