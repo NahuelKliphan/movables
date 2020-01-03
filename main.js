@@ -79,7 +79,7 @@ ipcMain.on('salir', () => {
 //Metodo para conectar la base de datos.
 async function ConectarBD() {
 
-  client = new Client(config)
+  client = new Client(config1)
 
   await client.connect(err => {
     if (err) {

@@ -29,6 +29,7 @@ import { CategoriaComponent } from './component/categoria/categoria/categoria.co
 import { FormCategoriaComponent } from './component/categoria/form-categoria/form-categoria.component';
 import { ListaCategoriaComponent } from './component/categoria/lista-categoria/lista-categoria.component';
 import { SidebarComponent } from './component/menu/sidebar/sidebar/sidebar.component';
+import { FormModalComponent } from './component/menu/form-modal/form-modal.component';
 
 
 
@@ -79,7 +80,8 @@ const routes : Routes = [
     CategoriaComponent,
     FormCategoriaComponent,
     ListaCategoriaComponent,
-    SidebarComponent
+    SidebarComponent,
+    FormModalComponent
   ],
   imports: [
     BrowserModule,

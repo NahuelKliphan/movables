@@ -32,7 +32,7 @@ export class ListaProductoComponent implements OnInit {
 
   abrirModal() {
 
-    $('.ui.modal').modal({closable: false}).modal('show');
+    $('#formProducto').modal({closable: false}).modal('show');
   }
 
   buscar() {
@@ -45,7 +45,8 @@ export class ListaProductoComponent implements OnInit {
   }
 
   borrar(unProducto: Producto) {
-    this.base.borrarProducto(unProducto);
+    this.base.unProducto = unProducto;
+    $('#formConfirmar').modal({closable: false}).modal('show');
   }
 
   editar(unProducto: Producto) {
