@@ -19,6 +19,7 @@ export class ListaProductoComponent implements OnInit {
 
     this.base.getCategorias();
     this.base.getProductos();
+    
     $('#filtrar').dropdown();
 
     var height = $(window).height();
