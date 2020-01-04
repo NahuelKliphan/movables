@@ -14,8 +14,10 @@
             <div class="field">
                 <div class="ui input right labeled left icon">
                     <i class="barcode icon"></i>
-                    <input *ngIf="!base.editar" type="text" name="codigo" placeholder="Codigo" [(ngModel)]="base.unProducto.codigo">
-                    <input readonly *ngIf="base.editar" type="text" name="codigo" placeholder="Codigo" [(ngModel)]="base.unProducto.codigo">
+                    <input *ngIf="!base.editar" type="text" name="codigo" placeholder="Codigo"
+                        [(ngModel)]="base.unProducto.codigo">
+                    <input readonly *ngIf="base.editar" type="text" name="codigo" placeholder="Codigo"
+                        [(ngModel)]="base.unProducto.codigo">
                     <a class="ui tag label">
                         Codigo
                     </a>
@@ -31,7 +33,7 @@
                     </a>
                 </div>
             </div>
-        
+
             <div class="field">
                 <div class="ui right labeled left icon input">
                     <i class="dollar green sign icon"></i>
@@ -41,7 +43,7 @@
                     </a>
                 </div>
             </div>
-        
+
             <div class="field">
                 <div class="ui right labeled left icon input">
                     <i class="th red icon"></i>
@@ -51,13 +53,14 @@
                     </a>
                 </div>
             </div>
-        
+
             <div class="field">
                 <div class="ui right labeled left icon input">
 
                     <select class="ui dropdown fluid" name="idcategoria" [(ngModel)]="base.unProducto.idcategoria">
                         <option [ngValue]="null"><i class="tags grey icon"></i> Categoria</option>
-                        <option [ngValue]="unaCategoria.id" *ngFor="let unaCategoria of base.listadoCategoria"><i class="tags grey icon"></i>
+                        <option [ngValue]="unaCategoria.id" *ngFor="let unaCategoria of base.listadoCategoria"><i
+                                class="tags grey icon"></i>
                             {{unaCategoria.nombre}}
                         </option>
                     </select>
@@ -66,12 +69,12 @@
                     </a>
                 </div>
             </div>
-        
+
         </div>
 
         <div class="five wide column">
 
-             <div class="ui special cards" style="width: 100%; height: 100%;">
+            <div class="ui special cards" style="width: 100%; height: 100%;">
                 <div class="card">
                     <div class="blurring dimmable image">
                         <div class="ui dimmer">
@@ -81,7 +84,8 @@
                                         <label for="foto" class="ui icon button">
                                             <i class="photo icon"></i>
                                             Cargar foto</label>
-                                        <input type="file" id="foto" name="foto" accept="image/*" style="display:none" (change)="cargarFoto($event)">
+                                        <input type="file" id="foto" name="foto" accept="image/*" style="display:none"
+                                            (change)="cargarFoto($event)">
                                     </div>
                                 </div>
                             </div>
@@ -90,7 +94,7 @@
                     </div>
                 </div>
             </div>
-        
+
         </div>
 
         <div class="sixteen wide column">
@@ -110,23 +114,23 @@
                 <div [hidden]="base.editar">
 
                     <div class="ui right floated button positive" style="margin-right: 10px;" (click)="guardar()">
-                        <div><i class="save icon"></i> Guardar </div> 
-                     </div>
+                        <div><i class="save icon"></i> Guardar </div>
+                    </div>
 
                 </div>
 
                 <div [hidden]="!base.editar">
 
-                    <div class="ui right floated button secondary ok" style="margin-right: 10px;" (click)="editar()" >
+                    <div class="ui right floated button secondary ok" style="margin-right: 10px;" (click)="editar()">
                         <i class="edit icon"></i> Editar
                     </div>
 
                 </div>
-        
+
                 <div class="ui right floated button negative " style="margin-right: 20px;" (click)="cancelar()">
                     <i class="reply icon"></i> Cancelar
                 </div>
-        
+
             </div>
 
         </div>
@@ -134,4 +138,3 @@
     </div>
 
 </form>
-

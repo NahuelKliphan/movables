@@ -3,6 +3,8 @@ import { Producto } from '../model/Producto';
 import { ElectronService } from 'ngx-electron';
 import { Categoria } from '../model/Categoria';
 
+declare var alertify:any;
+
 @Injectable({
   providedIn: 'root'
 })
@@ -57,19 +59,24 @@ export class BaseService {
     if(Array.isArray(res)){
       this.listadoProducto = res;
     }else{
-      console.log(res);
+      alertify.notify(res.name + ' ' + res.code, 'error', 5);
     }
   }
 
   verificarCodigo(codigo: string) {
     const consulta = `SELECT COUNT(*) FROM PRODUCTOS WHERE codigo = '${codigo}';`;
     let res = this.ipc.ipcRenderer.sendSync('base', consulta);
-    if (res[0].count == 0) {
-      return true;
+    if(Array.isArray(res)){
+      if (res[0].count == 0) {
+        return true;
+      }
+      else {
+        return false;
+      }
+    }else{
+      alertify.notify(res.name + ' ' + res.code, 'error', 5);
     }
-    else {
-      return false;
-    }
+
   }
 
   buscarProducto(cod: string) {
@@ -90,25 +97,42 @@ export class BaseService {
     }
 
     let res = this.ipc.ipcRenderer.sendSync('base', consulta);
-    this.listadoProducto = res;
+    if(Array.isArray(res)){
+      this.listadoProducto = res;
+    }else{
+      alertify.notify(res.name + ' ' + res.code, 'error', 5);
+    }
+
   }
 
   guardarProducto(unProdcuto: Producto) {
     const consulta = `INSERT INTO PRODUCTOS (codigo,nombre,precio,cantidad,descripcion,foto,idcategoria) VALUES ('${unProdcuto.codigo}','${unProdcuto.nombre}',${unProdcuto.precio},${unProdcuto.cantidad},'${unProdcuto.descripcion}','${unProdcuto.foto}',${unProdcuto.idcategoria});`;
-    this.ipc.ipcRenderer.sendSync('base', consulta);
-    this.listadoProducto.unshift(unProdcuto);
+    let res = this.ipc.ipcRenderer.sendSync('base', consulta);
+    if(Array.isArray(res)){
+      this.getProductos();
+    }else{
+      alertify.notify(res.name + ' ' + res.code, 'error', 5);
+    }
   }
 
   borrarProducto(unProdcuto: Producto) {
     const consulta = `DELETE FROM PRODUCTOS WHERE codigo = '${unProdcuto.codigo}';`;
-    this.ipc.ipcRenderer.sendSync('base', consulta);
-    this.listadoProducto.splice(this.listadoProducto.indexOf(unProdcuto),1);
+    let res = this.ipc.ipcRenderer.sendSync('base', consulta);
+    if(Array.isArray(res)){
+      this.getProductos();
+    }else{
+      alertify.notify(res.name + ' ' + res.code, 'error', 5);
+    }
   }
 
   editarProducto(unProdcuto: Producto) {
     const consulta = `UPDATE PRODUCTOS P SET nombre = '${unProdcuto.nombre}', precio = ${this.adaptarDecimal(unProdcuto.precio)} , cantidad = ${unProdcuto.cantidad} , descripcion = '${unProdcuto.descripcion}', idcategoria = ${unProdcuto.idcategoria} , foto = '${unProdcuto.foto}' WHERE P.codigo = '${unProdcuto.codigo}';`;
-    this.ipc.ipcRenderer.sendSync('base', consulta);
-    this.getProductos();
+    let res = this.ipc.ipcRenderer.sendSync('base', consulta);
+    if(Array.isArray(res)){
+      this.getProductos();
+    }else{
+      alertify.notify(res.name + ' ' + res.code, 'error', 5);
+    }
   }
 
   //Metodos de Categoria
