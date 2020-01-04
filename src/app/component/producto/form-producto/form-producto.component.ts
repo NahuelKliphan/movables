@@ -3,7 +3,7 @@ import { Producto } from 'src/app/model/Producto';
 import { BaseService } from 'src/app/servicio/base.service';
 
 declare var $: any;
-declare var alertify:any;
+declare var alertify: any;
 
 @Component({
   selector: 'app-form-producto',
@@ -39,7 +39,7 @@ export class FormProductoComponent implements OnInit {
     } else {
       alertify.notify('Faltan datos', 'error', 5);
     }
-    
+
     this.base.editar = false;
   }
 
@@ -104,15 +104,23 @@ export class FormProductoComponent implements OnInit {
 
   cargarFoto(fileInput: any) {
 
-    this.fileData = <File>fileInput.target.files[0];
-    var reader = new FileReader();
-    reader.readAsDataURL(this.fileData);
-    reader.onload = (_event) => {
-
-      this.previewUrl = reader.result;
-      this.base.unProducto.foto = this.previewUrl;
+    if (this.cargar) {
+      this.fileData = <File>fileInput.target.files[0];
+      var reader = new FileReader();
+      reader.readAsDataURL(this.fileData);
+      reader.onload = (_event) => {
+        this.previewUrl = reader.result;
+        this.base.unProducto.foto = this.previewUrl;
+      }
     }
+  }
 
+  cargar: boolean = true;
+
+  borrarFoto() {
+    this.cargar = false;
+    this.base.unProducto.foto = null;
+    this.cargar = true;
   }
 
 }
