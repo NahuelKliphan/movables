@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FormBorrarComponent } from './form-borrar.component';
+import { FormBorrarProductoComponent } from './form-borrar-producto.component';
 
 describe('FormModalComponent', () => {
-  let component: FormBorrarComponent;
-  let fixture: ComponentFixture<FormBorrarComponent>;
+  let component: FormBorrarProductoComponent;
+  let fixture: ComponentFixture<FormBorrarProductoComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FormBorrarComponent ]
+      declarations: [ FormBorrarProductoComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(FormBorrarComponent);
+    fixture = TestBed.createComponent(FormBorrarProductoComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
