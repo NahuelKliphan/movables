@@ -17,7 +17,7 @@ import { SidebarComponent } from './component/menu/sidebar/sidebar/sidebar.compo
 import {ProductoComponent} from 'src/app/component/producto/producto/producto.component';
 import {FormProductoComponent} from 'src/app/component/producto/form-producto/form-producto.component';
 import {ListaProductoComponent} from 'src/app/component/producto/lista-producto/lista-producto.component';
-import { FormConfirmarComponent } from './component/producto/form-confirmar/form-confirmar.component';
+import { FormBorrarComponent } from './component/producto/form-borrar/form-borrar.component';
 //Venta
 import { VentaComponent } from './component/venta/venta/venta.component';
 import { FormVentaComponent } from './component/venta/form-venta/form-venta.component';
@@ -79,7 +79,7 @@ const routes : Routes = [
     FormCategoriaComponent,
     ListaCategoriaComponent,
     SidebarComponent,
-    FormConfirmarComponent
+    FormBorrarComponent
   ],
   imports: [
     BrowserModule,

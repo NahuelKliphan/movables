@@ -5,11 +5,11 @@ import { Producto } from 'src/app/model/Producto';
 declare var alertify:any;
 
 @Component({
-  selector: 'app-form-confirmar',
-  templateUrl: './form-confirmar.component.html',
-  styleUrls: ['./form-confirmar.component.css']
+  selector: 'app-form-borrar',
+  templateUrl: './form-borrar.component.html',
+  styleUrls: ['./form-borrar.component.css']
 })
-export class FormConfirmarComponent implements OnInit {
+export class FormBorrarComponent implements OnInit {
 
   constructor(private base: BaseService) { }
 
