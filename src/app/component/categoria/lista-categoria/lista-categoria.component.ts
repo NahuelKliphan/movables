@@ -26,7 +26,8 @@ export class ListaCategoriaComponent implements OnInit {
   }
 
   borrar(unaCategoria: Categoria) {
-    this.base.borrarCategoria(unaCategoria);
+    this.base.unaCategoria = unaCategoria;
+    $('#formBorrarCategoria').modal({closable: false}).modal('show');
   }
 
   editar(unaCategoria: Categoria) {

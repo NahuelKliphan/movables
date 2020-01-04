@@ -1,0 +1,18 @@
+<div class="ui tiny modal" id="formBorrarCategoria">
+    <div class="header">
+        <i class="trash alternate outline icon"></i> Borrar Categoria
+    </div>
+    <div class="content">
+        <div class="description">
+            <div class="ui header">¿Seguro desea eliminar la categoria {{base.unaCategoria.nombre}}?</div>
+        </div>
+    </div>
+    <div class="actions">
+        <div class="ui negative deny button">
+            <i class="reply icon"></i> Cancelar
+        </div>
+        <div class="ui positive right icon button" (click)="borrar()">
+            <i class="checkmark icon"></i> Confirmar
+        </div>
+    </div>
+</div>

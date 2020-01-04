@@ -11,7 +11,7 @@
             <div class="field">
                 <div class="ui input right labeled left icon">
                     <i class="tag icon"></i>
-                    <input type="text" name="codigo" placeholder="Nombre" [(ngModel)]="base.unaCategoria.nombre">
+                    <input type="text" name="codigo" placeholder="Nombre" [(ngModel)]="base.unaCategoria.nombre" (keyup.enter)="guardar()">
                     <a class="ui tag label">
                         Nombre
                     </a>

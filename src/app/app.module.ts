@@ -30,6 +30,7 @@ import { ListaItemComponent } from './component/Item/lista-item/lista-item.compo
 import { CategoriaComponent } from './component/categoria/categoria/categoria.component';
 import { FormCategoriaComponent } from './component/categoria/form-categoria/form-categoria.component';
 import { ListaCategoriaComponent } from './component/categoria/lista-categoria/lista-categoria.component';
+import { FormBorrarCategoriaComponent } from './component/categoria/form-borrar-categoria/form-borrar-categoria.component';
 
 
 const routes : Routes = [
@@ -79,7 +80,8 @@ const routes : Routes = [
     FormCategoriaComponent,
     ListaCategoriaComponent,
     SidebarComponent,
-    FormBorrarComponent
+    FormBorrarComponent,
+    FormBorrarCategoriaComponent
   ],
   imports: [
     BrowserModule,

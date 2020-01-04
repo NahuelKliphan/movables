@@ -46,7 +46,7 @@ export class ListaProductoComponent implements OnInit {
 
   borrar(unProducto: Producto) {
     this.base.unProducto = unProducto;
-    $('#formConfirmar').modal({closable: false}).modal('show');
+    $('#formBorrarProducto').modal({closable: false}).modal('show');
   }
 
   editar(unProducto: Producto) {
