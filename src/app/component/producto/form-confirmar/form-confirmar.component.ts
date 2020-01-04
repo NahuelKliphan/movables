@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { BaseService } from 'src/app/servicio/base.service';
 
+declare var alertify:any;
+
 @Component({
   selector: 'app-form-confirmar',
   templateUrl: './form-confirmar.component.html',
@@ -15,6 +17,7 @@ export class FormConfirmarComponent implements OnInit {
 
   borrar(){
     this.base.borrarProducto(this.base.unProducto);
+    alertify.notify('Producto eliminado', 'success', 5);
   }
 
 }

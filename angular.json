@@ -25,9 +25,11 @@
             ],
             "styles": [
               "src/styles.css",
-              "semantic/semantic.css"
+              "semantic/semantic.css",
+              "node_modules/alertifyjs/build/css/alertify.min.css",
+              "node_modules/alertifyjs/build/css/themes/default.min.css"
             ],
-            "scripts": ["node_modules/jquery/dist/jquery.min.js", "semantic/semantic.js"]
+            "scripts": ["node_modules/jquery/dist/jquery.min.js", "semantic/semantic.js", "node_modules/alertifyjs/build/alertify.min.js"]
           },
           "configurations": {
             "production": {
