@@ -1,29 +1,13 @@
 const { app, BrowserWindow, ipcMain } = require('electron')
 const { Client } = require('pg')
 
+
+//Ruta de la app
+const ruta = app.getPath('userData');
+
 //Ventana principal.
 let win;
 let client;
-
-//Base de datos.
-
-//Prueba
-const config1 = {
-  user: 'taiahceb',
-  host: 'motty.db.elephantsql.com',
-  database: 'taiahceb',
-  password: 'aDVvMH3RwfzpulKkCNFAaWT1QBWPdUSw',
-  port: 5432,
-}
-
-//Produccion.
-const config = {
-  user: 'postgres',
-  host: 'localhost',
-  database: 'stock',
-  password: 'postgres',
-  port: 5432,
-}
 
 function createWindow() {
   //Crea la ventana principal.
@@ -79,7 +63,7 @@ ipcMain.on('salir', () => {
 //Metodo para conectar la base de datos.
 async function ConectarBD() {
 
-  client = new Client(config1)
+  client = new Client(LeerBase())
 
   await client.connect(err => {
     if (err) {
@@ -111,6 +95,17 @@ ipcMain.on('base', (e, consulta) => {
 async function DesconectarBD() {
   await client.end()
 }
+
+function LeerBase() {
+  const fs = require("fs");
+  let data = fs.readFileSync(ruta + '\\base.txt').toString().split(';')
+  return JSON.parse(data[0]);
+}
+
+
+
+
+
 
 
 

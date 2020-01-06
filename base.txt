@@ -1,0 +1,2 @@
+{"user": "postgres","host": "localhost","database": "stock","password": "postgres","port": 5432};
+{"user": "taiahceb","host": "motty.db.elephantsql.com","database": "taiahceb","password": "aDVvMH3RwfzpulKkCNFAaWT1QBWPdUSw","port": 5432};
