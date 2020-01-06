@@ -20,7 +20,7 @@ export class ListaCategoriaComponent implements OnInit {
     this.base.getCategorias();
 
     var height = $(window).height();
-    height = height-360;
+    height = height-460;
     $('.lista-categoria').css('height', `${height}px`);
 
   }
