@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Categoria } from 'src/app/model/Categoria';
 import { BaseService } from 'src/app/servicio/base.service';
 
-declare var alertify:any;
+declare var alertify: any;
 
 @Component({
   selector: 'app-form-categoria',
@@ -16,17 +16,12 @@ export class FormCategoriaComponent implements OnInit {
   ngOnInit() {
   }
 
-  guardar(){
-    if(this.formCompleto()){
-
-      if(this.base.verificarNombre(this.base.unaCategoria.nombre)){
-        this.base.guardarCategoria(new Categoria(this.base.unaCategoria.id,this.base.unaCategoria.nombre));
-        alertify.notify('Categoria agregada', 'success', 5);
-      }else{
-        alertify.notify('Nombre repetido', 'error', 5);
+  guardar() {
+    if (this.formCompleto()) {
+      if (this.base.verificarNombre(this.base.unaCategoria.nombre)) {
+        this.base.guardarCategoria(new Categoria(this.base.unaCategoria.id, this.base.unaCategoria.nombre));
       }
-
-    }else{
+    } else {
       alertify.notify('Faltan datos', 'error', 5);
     }
 
@@ -38,7 +33,6 @@ export class FormCategoriaComponent implements OnInit {
 
     if (this.formCompleto()) {
       this.base.editarCategoria(this.base.unaCategoria);
-      alertify.notify('Categoria editada', 'success', 5);
       this.vaciarCampos();
     } else {
       alertify.notify('Faltan datos', 'error', 5);

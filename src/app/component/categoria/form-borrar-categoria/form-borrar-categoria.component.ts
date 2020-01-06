@@ -19,7 +19,6 @@ export class FormBorrarCategoriaComponent implements OnInit {
   
   borrar(){
     this.base.borrarCategoria(this.base.unaCategoria);
-    alertify.notify('Categoria eliminada', 'success', 5);
     this.vaciarCampos();
   }
 
