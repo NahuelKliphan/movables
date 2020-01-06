@@ -19,7 +19,6 @@ export class FormBorrarProductoComponent implements OnInit {
 
   borrar(){
     this.base.borrarProducto(this.base.unProducto);
-    alertify.notify('Producto eliminado', 'success', 5);
     this.vaciarCampos();
   }
 

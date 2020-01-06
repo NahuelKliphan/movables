@@ -30,12 +30,8 @@ export class FormProductoComponent implements OnInit {
 
       if (this.base.verificarCodigo(this.base.unProducto.codigo)) {
         this.base.guardarProducto(new Producto(this.base.unProducto.codigo, this.base.unProducto.nombre, this.base.adaptarDecimal(this.base.unProducto.precio), this.base.unProducto.cantidad, this.base.unProducto.descripcion, this.base.unProducto.foto, this.base.unProducto.idcategoria));
-        alertify.notify('Producto agregado', 'success', 5);
         this.vaciarCampos();
-      } else {
-        alertify.notify('Codigo repetido', 'error', 5);
       }
-
     } else {
       alertify.notify('Faltan datos', 'error', 5);
     }
@@ -47,7 +43,6 @@ export class FormProductoComponent implements OnInit {
 
     if (this.formCompleto()) {
       this.base.editarProducto(this.base.unProducto);
-      alertify.notify('Producto editado', 'success', 5);
     } else {
       alertify.notify('Faltan datos', 'error', 5);
     }

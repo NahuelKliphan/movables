@@ -3,7 +3,7 @@ import { Producto } from '../model/Producto';
 import { ElectronService } from 'ngx-electron';
 import { Categoria } from '../model/Categoria';
 
-declare var alertify:any;
+declare var alertify: any;
 
 @Injectable({
   providedIn: 'root'
@@ -33,7 +33,7 @@ export class BaseService {
   adaptarDecimal(numero: number) {
     return Number(numero.toString().replace(',', '.'));
   }
-  
+
   setFiltro(id: number) {
 
     if (id == null) {
@@ -56,25 +56,27 @@ export class BaseService {
   getProductos() {
     const consulta = `SELECT * FROM PRODUCTOS ${this.filtro} ORDER BY OID DESC LIMIT 100`;
     let res = this.ipc.ipcRenderer.sendSync('base', consulta);
-    if(Array.isArray(res)){
-      this.listadoProducto = res;
-    }else{
-      alertify.notify(res.name + ' ' + res.code, 'error', 5);
+    if (res[0] == 'ok') {
+      this.listadoProducto = res[1];
+    } else {
+      alertify.notify('Error ' + res[1].code, 'warning', 5);
     }
   }
 
   verificarCodigo(codigo: string) {
-    const consulta = `SELECT COUNT(*) FROM PRODUCTOS WHERE codigo = '${codigo}';`;
+    const consulta = `SELECT * FROM PRODUCTOS WHERE codigo = '${codigo}';`;
     let res = this.ipc.ipcRenderer.sendSync('base', consulta);
-    if(Array.isArray(res)){
-      if (res[0].count == 0) {
+    if (res[0] == 'ok') {
+      console.log(res[1]);
+      if (res[1].length == 0) {
         return true;
       }
       else {
+        alertify.notify('Codigo repetido', 'error', 5);
         return false;
       }
-    }else{
-      alertify.notify(res.name + ' ' + res.code, 'error', 5);
+    } else {
+      alertify.notify('Error ' + res[1].code, 'warning', 5);
     }
 
   }
@@ -97,10 +99,11 @@ export class BaseService {
     }
 
     let res = this.ipc.ipcRenderer.sendSync('base', consulta);
-    if(Array.isArray(res)){
-      this.listadoProducto = res;
-    }else{
-      alertify.notify(res.name + ' ' + res.code, 'error', 5);
+
+    if (res[0] == 'ok') {
+      this.listadoProducto = res[0];
+    } else {
+      alertify.notify('Error ' + res[1].code, 'warning', 5);
     }
 
   }
@@ -108,30 +111,33 @@ export class BaseService {
   guardarProducto(unProdcuto: Producto) {
     const consulta = `INSERT INTO PRODUCTOS (codigo,nombre,precio,cantidad,descripcion,foto,idcategoria) VALUES ('${unProdcuto.codigo}','${unProdcuto.nombre}',${unProdcuto.precio},${unProdcuto.cantidad},'${unProdcuto.descripcion}','${unProdcuto.foto}',${unProdcuto.idcategoria});`;
     let res = this.ipc.ipcRenderer.sendSync('base', consulta);
-    if(Array.isArray(res)){
+    if (res[0] == 'ok') {
       this.getProductos();
-    }else{
-      alertify.notify(res.name + ' ' + res.code, 'error', 5);
+      alertify.notify('Producto agregado', 'success', 5);
+    } else {
+      alertify.notify('Error ' + res[1].code, 'warning', 5);
     }
   }
 
   borrarProducto(unProdcuto: Producto) {
     const consulta = `DELETE FROM PRODUCTOS WHERE codigo = '${unProdcuto.codigo}';`;
     let res = this.ipc.ipcRenderer.sendSync('base', consulta);
-    if(Array.isArray(res)){
+    if (res[0] == 'ok') {
       this.getProductos();
-    }else{
-      alertify.notify(res.name + ' ' + res.code, 'error', 5);
+      alertify.notify('Producto eliminado', 'error', 5);
+    } else {
+      alertify.notify('Error ' + res[1].code, 'warning', 5);
     }
   }
 
   editarProducto(unProdcuto: Producto) {
     const consulta = `UPDATE PRODUCTOS P SET nombre = '${unProdcuto.nombre}', precio = ${this.adaptarDecimal(unProdcuto.precio)} , cantidad = ${unProdcuto.cantidad} , descripcion = '${unProdcuto.descripcion}', idcategoria = ${unProdcuto.idcategoria} , foto = '${unProdcuto.foto}' WHERE P.codigo = '${unProdcuto.codigo}';`;
     let res = this.ipc.ipcRenderer.sendSync('base', consulta);
-    if(Array.isArray(res)){
+    if (res[0] == 'ok') {
       this.getProductos();
-    }else{
-      alertify.notify(res.name + ' ' + res.code, 'error', 5);
+      alertify.notify('Producto editado', 'success', 5);
+    } else {
+      alertify.notify('Error ' + res[1].code, 'warning', 5);
     }
   }
 

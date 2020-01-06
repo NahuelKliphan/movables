@@ -98,9 +98,9 @@ ipcMain.on('base', (e, consulta) => {
   client.query(consulta, function (err, res) {
 
     if (err) {
-      e.returnValue = err;
+      e.returnValue = ['error', err];
     } else {
-      e.returnValue = res.rows;
+      e.returnValue = ['ok', res.rows];
     }
 
   });
