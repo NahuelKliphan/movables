@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { Producto } from 'src/app/model/Producto';
 import { BaseService } from 'src/app/servicio/base.service';
 
@@ -10,6 +10,7 @@ declare var alertify: any;
   templateUrl: './form-producto.component.html',
   styleUrls: ['./form-producto.component.css']
 })
+
 export class FormProductoComponent implements OnInit {
 
   constructor(private base: BaseService) { }
@@ -24,35 +25,34 @@ export class FormProductoComponent implements OnInit {
     this.base.getCategorias();
   }
 
+  @HostListener('keydown.enter')
   guardar() {
 
-    if (this.formCompleto()) {
-
-      if (this.base.verificarCodigo(this.base.unProducto.codigo)) {
-        this.base.guardarProducto(new Producto(this.base.unProducto.codigo, this.base.unProducto.nombre, this.base.adaptarDecimal(this.base.unProducto.precio), this.base.unProducto.cantidad, this.base.unProducto.descripcion, this.base.unProducto.foto, this.base.unProducto.idcategoria));
-        this.vaciarCampos();
+    if (this.base.editar) {
+      if (this.formCompleto()) {
+        this.base.editarProducto(this.base.unProducto);
       }
-    }
-    this.base.editar = false;
-  }
-
-  editar() {
-
-    if (this.formCompleto()) {
-      this.base.editarProducto(this.base.unProducto);
+      this.vaciarCampos();
+      this.base.getProductos();
+      this.base.editar = false;
     } else {
-      alertify.notify('Faltan datos', 'error', 5);
-    }
+      if (this.formCompleto()) {
 
-    this.vaciarCampos();
-    this.base.getProductos();
-    this.base.editar = false;
+        if (this.base.verificarCodigo(this.base.unProducto.codigo)) {
+          this.base.guardarProducto(new Producto(this.base.unProducto.codigo, this.base.unProducto.nombre, this.base.adaptarDecimal(this.base.unProducto.precio), this.base.unProducto.cantidad, this.base.unProducto.descripcion, this.base.unProducto.foto, this.base.unProducto.idcategoria));
+          this.vaciarCampos();
+        }
+      }
+      this.base.editar = false;
+    }
 
   }
 
+  @HostListener('keydown.escape')
   cancelar() {
     this.vaciarCampos();
     this.base.editar = false;
+    $('#formProducto').modal('hide');
   }
 
   formCompleto() {

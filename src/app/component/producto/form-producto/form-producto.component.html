@@ -115,7 +115,7 @@
 
                 <div [hidden]="base.editar">
 
-                    <div class="ui right floated button positive" style="margin-right: 10px;" (click)="guardar()">
+                    <div class="ui right floated button green" style="margin-right: 10px;" (click)="guardar()">
                         <div><i class="save icon"></i> Guardar </div>
                     </div>
 
@@ -123,13 +123,13 @@
 
                 <div [hidden]="!base.editar">
 
-                    <div class="ui right floated button secondary ok" style="margin-right: 10px;" (click)="editar()">
+                    <div class="ui right floated button secondary" style="margin-right: 10px;" (click)="guardar()">
                         <i class="edit icon"></i> Editar
                     </div>
 
                 </div>
 
-                <div class="ui right floated button negative " style="margin-right: 20px;" (click)="cancelar()">
+                <div class="ui right floated button red" style="margin-right: 20px;" (click)="cancelar()">
                     <i class="reply icon"></i> Cancelar
                 </div>
 

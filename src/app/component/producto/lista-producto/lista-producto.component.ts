@@ -19,11 +19,11 @@ export class ListaProductoComponent implements OnInit {
 
     this.base.getCategorias();
     this.base.getProductos();
-    
+
     $('#filtrar').dropdown();
 
     var height = $(window).height();
-    height = height-360;
+    height = height - 360;
     $('.lista-producto').css('height', `${height}px`);
 
   }
@@ -31,7 +31,6 @@ export class ListaProductoComponent implements OnInit {
   busqueda: string = "";
 
   abrirModal() {
-
     $('#formProducto').modal({closable: false}).modal('show');
   }
 
@@ -46,7 +45,7 @@ export class ListaProductoComponent implements OnInit {
 
   borrar(unProducto: Producto) {
     this.base.unProducto = unProducto;
-    $('#formBorrarProducto').modal({closable: false}).modal('show');
+    $('#formBorrarProducto').modal({ closable: false }).modal('show');
   }
 
   editar(unProducto: Producto) {
@@ -54,7 +53,7 @@ export class ListaProductoComponent implements OnInit {
     this.base.unProducto = unProducto;
   }
 
-  filtrar(){
+  filtrar() {
     this.base.setFiltro(this.base.idFiltrar);
     this.base.getProductos();
   }
