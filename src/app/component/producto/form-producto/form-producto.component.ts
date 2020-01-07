@@ -32,10 +32,7 @@ export class FormProductoComponent implements OnInit {
         this.base.guardarProducto(new Producto(this.base.unProducto.codigo, this.base.unProducto.nombre, this.base.adaptarDecimal(this.base.unProducto.precio), this.base.unProducto.cantidad, this.base.unProducto.descripcion, this.base.unProducto.foto, this.base.unProducto.idcategoria));
         this.vaciarCampos();
       }
-    } else {
-      alertify.notify('Faltan datos', 'error', 5);
     }
-
     this.base.editar = false;
   }
 
@@ -65,24 +62,28 @@ export class FormProductoComponent implements OnInit {
     //Codigo
     if (this.base.unProducto.codigo == null || this.base.unProducto.codigo == "") {
       ret = false;
+      alertify.notify('Codigo no válido', 'error', 5);
       return false;
     }
 
     //Nombre
     if (this.base.unProducto.nombre == null || this.base.unProducto.nombre == "") {
       ret = false;
+      alertify.notify('Nombre no válido', 'error', 5);
       return false;
     }
 
     //Precio
     if (this.base.unProducto.precio == null || this.base.unProducto.precio < 0) {
       ret = false;
+      alertify.notify('Precio no válido', 'error', 5);
       return false;
     }
 
     //Cantidad
     if (this.base.unProducto.cantidad == null || this.base.unProducto.cantidad < 0) {
       ret = false;
+      alertify.notify('Cantidad no válida', 'error', 5);
       return false;
     }
 
