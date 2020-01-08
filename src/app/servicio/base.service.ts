@@ -3,6 +3,7 @@ import { Producto } from '../model/Producto';
 import { ElectronService } from 'ngx-electron';
 import { Categoria } from '../model/Categoria';
 import { Item } from '../model/Item';
+import { Venta } from '../model/Venta';
 
 declare var alertify: any;
 declare var $: any;
@@ -32,9 +33,13 @@ export class BaseService {
   listadoCategoria: Categoria[] = [];
   unaCategoria: Categoria = new Categoria(null, null);
 
+  //Venta
+  listadoVenta: Venta[] = [];
+  unaVenta: Venta = new Venta(null, null, null, null);
+
   //Item
   listadoItem: Item[] = [];
-  unItem: Item = new Item(null,null,null,null,null,null,null);
+  unItem: Item = new Item(null, null, null, null, null, null, null);
 
   //Metodos globales
   adaptarDecimal(numero: number) {

@@ -1,14 +1,14 @@
 export class Venta {
 
     id: number;
-    clienteNombre: string;
+    clientenombre: string;
     fecha: Date;
     total: number;
 
-    constructor(id: number, clienteNombre: string, fecha: Date, total: number) {
+    constructor(id: number, clientenombre: string, fecha: Date, total: number) {
 
         this.id = id;
-        this.clienteNombre = clienteNombre;
+        this.clientenombre = clientenombre;
         this.fecha = fecha;
         this.total = total;
     }

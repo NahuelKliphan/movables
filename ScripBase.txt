@@ -25,7 +25,7 @@ create table ventas(
 ) with oids;
 
 create table items(
-	id integer,
+	id serial,
     idVenta integer,
     total decimal,
     codigo varchar(30),
