@@ -31,7 +31,7 @@ export class ListaProductoComponent implements OnInit {
   busqueda: string = "";
 
   abrirModal() {
-    $('#formProducto').modal({closable: false}).modal('show');
+    $('#formProducto').modal({ closable: false }).modal('show');
   }
 
   buscar() {

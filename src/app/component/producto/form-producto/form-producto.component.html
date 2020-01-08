@@ -12,7 +12,7 @@
         <div class="eleven wide column">
 
             <div class="field">
-                <div class="ui input right labeled left icon">
+                <div class="ui input labeled left icon">
                     <i class="barcode icon"></i>
                     <input *ngIf="!base.editar" type="text" name="codigo" placeholder="Codigo"
                         [(ngModel)]="base.unProducto.codigo">
@@ -25,7 +25,7 @@
             </div>
 
             <div class="field">
-                <div class="ui input right labeled left icon">
+                <div class="ui input labeled left icon">
                     <i class="tag icon"></i>
                     <input type="text" name="nombre" placeholder="Nombre" [(ngModel)]="base.unProducto.nombre">
                     <a class="ui tag label">
@@ -35,7 +35,7 @@
             </div>
 
             <div class="field">
-                <div class="ui right labeled left icon input">
+                <div class="ui input labeled left icon">
                     <i class="dollar green sign icon"></i>
                     <input type="text" name="precio" placeholder="Precio" [(ngModel)]="base.unProducto.precio">
                     <a class="ui tag label">
@@ -45,7 +45,7 @@
             </div>
 
             <div class="field">
-                <div class="ui right labeled left icon input">
+                <div class="ui input labeled left icon">
                     <i class="th red icon"></i>
                     <input type="text" name="cantidad" placeholder="Cantidad" [(ngModel)]="base.unProducto.cantidad">
                     <a class="ui tag label">
@@ -55,7 +55,7 @@
             </div>
 
             <div class="field">
-                <div class="ui right labeled left icon input">
+                <div class="ui input labeled left icon">
 
                     <select class="ui dropdown fluid" name="idcategoria" [(ngModel)]="base.unProducto.idcategoria">
                         <option [ngValue]="null"><i class="tags grey icon"></i> Categoria</option>

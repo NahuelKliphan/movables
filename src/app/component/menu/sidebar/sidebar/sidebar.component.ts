@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { BaseService } from 'src/app/servicio/base.service';
 
 declare var $: any;
 
@@ -9,7 +10,7 @@ declare var $: any;
 })
 export class SidebarComponent implements OnInit {
 
-  constructor() { }
+  constructor(private base: BaseService) { }
 
   ngOnInit() {
 
@@ -17,6 +18,13 @@ export class SidebarComponent implements OnInit {
 
   hide(){
     $('#app .ui.sidebar').sidebar('hide');
+  }
+
+  ventaOff(){
+    this.base.enVenta = false;
+  }
+  ventaOn(){
+    this.base.enVenta = true;
   }
 
 }

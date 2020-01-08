@@ -1,10 +1,10 @@
 <div class="ui labeled icon sidebar left vertical menu">
 
-    <a class="item" routerLink="/producto" (click)="hide()">
+    <a class="item" routerLink="/producto" (click)="hide();ventaOff();">
         <i class="teal archive icon"></i>
         <b>Productos</b>
     </a>
-    <a class="item" routerLink="/venta" (click)="hide()">
+    <a class="item" routerLink="/venta" (click)="hide();ventaOn();">
         <i class="big green money bill alternate outline icon"></i>
         <b>Ventas</b>
     </a>

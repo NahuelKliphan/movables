@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Producto } from '../model/Producto';
 import { ElectronService } from 'ngx-electron';
 import { Categoria } from '../model/Categoria';
+import { Item } from '../model/Item';
 
 declare var alertify: any;
 declare var $: any;
@@ -20,6 +21,7 @@ export class BaseService {
   editar: boolean = false;
   filtro: string = '';
   idFiltrar: number = -1;
+  enVenta: boolean = false;
 
   //Producto
   listadoProducto: Producto[] = [];
@@ -29,6 +31,10 @@ export class BaseService {
   listadoNombreCategoria: string[] = [];
   listadoCategoria: Categoria[] = [];
   unaCategoria: Categoria = new Categoria(null, null);
+
+  //Item
+  listadoItem: Item[] = [];
+  unItem: Item = new Item(null,null,null,null,null,null,null);
 
   //Metodos globales
   adaptarDecimal(numero: number) {
