@@ -31,6 +31,7 @@ import { CategoriaComponent } from './component/categoria/categoria/categoria.co
 import { FormCategoriaComponent } from './component/categoria/form-categoria/form-categoria.component';
 import { ListaCategoriaComponent } from './component/categoria/lista-categoria/lista-categoria.component';
 import { FormBorrarCategoriaComponent } from './component/categoria/form-borrar-categoria/form-borrar-categoria.component';
+import { FormCantidadComponent } from './component/Item/form-cantidad/form-cantidad.component';
 
 
 const routes : Routes = [
@@ -81,7 +82,8 @@ const routes : Routes = [
     ListaCategoriaComponent,
     SidebarComponent,
     FormBorrarProductoComponent,
-    FormBorrarCategoriaComponent
+    FormBorrarCategoriaComponent,
+    FormCantidadComponent
   ],
   imports: [
     BrowserModule,

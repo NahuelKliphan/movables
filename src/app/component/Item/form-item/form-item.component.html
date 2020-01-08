@@ -13,11 +13,11 @@
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <td>12154200000000015</td>
-            <td>P0000000000os</td>
-            <td>000000000000000000</td>
-            <td>800000000000000</td>
+        <tr *ngFor="let unItem of base.listadoItem">
+            <td>{{unItem.codigo}}</td>
+            <td>{{unItem.nombre}}</td>
+            <td>{{unItem.cantidad}}</td>
+            <td>{{unItem.precio | number :'1.2-2' | currency}}</td>
         </tr>
     </tbody>
 </table>

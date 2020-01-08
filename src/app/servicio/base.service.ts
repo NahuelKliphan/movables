@@ -35,11 +35,11 @@ export class BaseService {
 
   //Venta
   listadoVenta: Venta[] = [];
-  unaVenta: Venta = new Venta(null, null, null, null);
+  unaVenta: Venta = new Venta(null, null, new Date() , 0);
 
   //Item
   listadoItem: Item[] = [];
-  unItem: Item = new Item(null, null, null, null, null, null, null);
+  unItem: Item = new Item(null, null, null, null, null, 1, null);
 
   //Metodos globales
   adaptarDecimal(numero: number) {

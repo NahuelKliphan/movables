@@ -45,7 +45,7 @@
       <a class="header"><i class="barcode icon blue"></i>{{unProducto.codigo}}</a>
       <div class="description">
         <p><i class="tag icon"></i> <b>Nombre: </b> {{unProducto.nombre}} </p>
-        <p><i class="green dollar sign icon"></i> <b>Precio: </b> {{unProducto.precio}} </p>
+        <p><i class="green dollar sign icon"></i> <b>Precio: </b> {{unProducto.precio | number :'1.2-2'  | currency}} </p>
         <div *ngIf="!base.enVenta" class="ui right floated button inverted red" style="margin-right: 30px;"
           (click)="borrar(unProducto)">
           <i class="trash alternate outline icon"></i> Borrar
@@ -54,7 +54,7 @@
           (click)="editar(unProducto); abrirModal();">
           <i class="edit icon"></i> Editar
         </div>
-        <div class="ui right floated button inverted green " style="margin-right: 10px;">
+        <div class="ui right floated button inverted green " style="margin-right: 10px;" (click)="vender(unProducto)">
           <i class="shopping cart icon"></i> Vender
         </div>
         <p><i class="th orange icon"></i> <b>Cantidad: </b> {{unProducto.cantidad}} </p>

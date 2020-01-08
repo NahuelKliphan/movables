@@ -1,0 +1,26 @@
+<div class="ui mini modal" id="formCantidadItem">
+    <div class="header">
+        <i class="th icon red"></i> Cantidad
+    </div>
+    <div class="content">
+        <div class="description">
+            <div class="field" style="text-align: center;">
+                <div class="ui input labeled right icon">
+                    <a class="ui label">
+                        Cantidad
+                    </a>
+                    <i class="th red icon"></i>
+                    <input type="text" name="cantidad" placeholder="Cantidad" [(ngModel)]="base.unItem.cantidad" (keyup.enter)="aceptar()" (keyup.escape)="cancelar()">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="actions">
+        <div class="ui button secondary" (click)="cancelar()">
+            <i class="reply icon"></i> Cancelar
+        </div>
+        <div class="ui button primary" (click)="aceptar()" >
+            <i class="checkmark icon"></i> Aceptar
+        </div>
+    </div>
+</div>

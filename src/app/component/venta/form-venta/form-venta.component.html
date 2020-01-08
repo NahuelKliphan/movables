@@ -4,7 +4,7 @@
 
         <div class="sixteen wide column" style="text-align: center;margin-bottom: 20px;">
 
-            <h2><i class="large cart plus icon"></i> Nueva venta </h2>
+            <h2><i class="large money bill alternate outline icon"></i> Nueva venta </h2>
 
         </div>
 
@@ -75,7 +75,7 @@
                             Total:
                         </a>
                         <i class="dollar sign icon green"></i>
-                        <input readonly type="text" name="nombre" [(ngModel)]="base.unaVenta.total">
+                        <input readonly type="text" name="nombre" value="{{base.unaVenta.total | number :'1.2-2' | currency }}">
                     </div>
                 </div>
 
@@ -90,3 +90,9 @@
     </div>
 
 </div>
+
+<app-form-cantidad></app-form-cantidad>
+
+unaVenta: {{base.unaVenta | json }}
+
+unItem: {{base.unItem | json }}

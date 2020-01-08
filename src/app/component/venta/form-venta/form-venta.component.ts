@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { BaseService } from 'src/app/servicio/base.service';
 
 @Component({
   selector: 'app-form-venta',
@@ -7,9 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FormVentaComponent implements OnInit {
 
-  constructor() { }
+  constructor(private base: BaseService) { }
 
   ngOnInit() {
+    
   }
 
 }

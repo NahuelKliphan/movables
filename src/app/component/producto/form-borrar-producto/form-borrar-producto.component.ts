@@ -1,6 +1,6 @@
-import { Component, OnInit, HostListener, Directive } from '@angular/core';
-import { BaseService } from 'src/app/servicio/base.service';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { Producto } from 'src/app/model/Producto';
+import { BaseService } from 'src/app/servicio/base.service';
 
 declare var $: any;
 
