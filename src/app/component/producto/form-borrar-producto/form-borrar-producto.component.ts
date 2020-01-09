@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Producto } from 'src/app/model/Producto';
 import { BaseService } from 'src/app/servicio/base.service';
 
@@ -18,13 +18,11 @@ export class FormBorrarProductoComponent implements OnInit {
     
   }
 
-  @HostListener('keydown.enter')
   borrar(){
     this.base.borrarProducto(this.base.unProducto);
     this.vaciarCampos();
   }
 
-  @HostListener('keydown.escape')
   cancelar(){
     $('#formBorrarProducto').modal('hide');
     this.vaciarCampos();

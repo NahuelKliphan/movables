@@ -8,6 +8,10 @@
     </div>
     <div class="description">
       <div class="ui header">¿Seguro desea eliminar el producto {{base.unProducto.nombre}}?</div>
+      <div style="text-indent:-999em;">
+        <input type="text" (keyup.enter)="borrar()" (keyup.escape)="cancelar()">
+      </div>
+      
     </div>
   </div>
   <div class="actions">

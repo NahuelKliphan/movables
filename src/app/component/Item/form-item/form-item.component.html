@@ -8,16 +8,19 @@
         <tr>
             <th> <i class="barcode icon blue"></i> Codigo</th>
             <th> <i class="tag icon"></i> Nombre</th>
-            <th> <i class="th icon red"></i> Cantidad</th>
             <th> <i class="dollar sign icon green"></i> Precio</th>
+            <th> <i class="th icon red"></i> Cantidad</th>
+            <th> <i class=" money bill alternate outline icon green"></i> Total</th>
         </tr>
     </thead>
     <tbody>
         <tr *ngFor="let unItem of base.listadoItem">
             <td>{{unItem.codigo}}</td>
             <td>{{unItem.nombre}}</td>
+            <td>{{unItem.precio | currency}}</td>
             <td>{{unItem.cantidad}}</td>
-            <td>{{unItem.precio | number :'1.2-2' | currency}}</td>
+            <td>{{unItem.total | currency}}</td>
+
         </tr>
     </tbody>
 </table>

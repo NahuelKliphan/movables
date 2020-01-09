@@ -17,7 +17,7 @@ create table productos(
 ) with oids;
 
 create table ventas(
-	id integer,
+	id serial,
 	clienteNombre varchar(30),
 	fecha date,
 	total decimal,
@@ -29,9 +29,9 @@ create table items(
     idVenta integer,
     total decimal,
     codigo varchar(30),
-    descripcion varchar(50),
+    nombre varchar(50),
     cantidad integer,
     precio decimal,
 	primary key (id),
-	foreign key (idVenta) references ventas
+	foreign key (idVenta) references ventas on delete cascade
 ) with oids;

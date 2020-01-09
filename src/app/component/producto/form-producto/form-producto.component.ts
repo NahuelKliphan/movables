@@ -52,6 +52,7 @@ export class FormProductoComponent implements OnInit {
   cancelar() {
     this.vaciarCampos();
     this.base.editar = false;
+    this.base.getProductos();
     $('#formProducto').modal('hide');
   }
 

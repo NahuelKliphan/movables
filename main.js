@@ -99,7 +99,7 @@ async function DesconectarBD() {
 function LeerBase() {
   const fs = require("fs");
   let data = fs.readFileSync(ruta + '\\base.txt').toString().split(';')
-  return JSON.parse(data[0]);
+  return JSON.parse(data[1]);
 }
 
 

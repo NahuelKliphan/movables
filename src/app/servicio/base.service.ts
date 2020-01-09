@@ -5,6 +5,7 @@ import { Categoria } from '../model/Categoria';
 import { Item } from '../model/Item';
 import { Venta } from '../model/Venta';
 
+
 declare var alertify: any;
 declare var $: any;
 
@@ -35,7 +36,7 @@ export class BaseService {
 
   //Venta
   listadoVenta: Venta[] = [];
-  unaVenta: Venta = new Venta(null, null, new Date() , 0);
+  unaVenta: Venta = new Venta(null, null, new Date(), 0);
 
   //Item
   listadoItem: Item[] = [];
@@ -215,6 +216,62 @@ export class BaseService {
     } else {
       alertify.notify('Error ' + res[1].code, 'warning', 5);
     }
+  }
+
+  //Metodos de Venta
+
+  getVentas() {
+    const consulta = "SELECT * FROM VENTAS ORDER BY fecha DESC";
+    let res = this.ipc.ipcRenderer.sendSync('base', consulta);
+    if (res[0] == 'ok') {
+      this.listadoVenta = res[1];
+    } else {
+      alertify.notify('Error ' + res[1].code, 'warning', 5);
+    }
+  }
+
+  guardarVenta(unaVenta: Venta) {
+    const consulta = `INSERT INTO VENTAS (clientenombre, fecha, total) VALUES ('${unaVenta.clientenombre}','${new Date().toDateString()}', ${unaVenta.total}) RETURNING ID;`;
+    let res = this.ipc.ipcRenderer.sendSync('base', consulta);
+    if (res[0] == 'ok') {
+      let id = res[1][0].id;
+      this.listadoItem.forEach(item => { item.idventa = id });
+      this.guardarItems(this.listadoItem);
+      alertify.notify('Venta agregada', 'success', 5);
+      this.listadoItem = [];
+    } else {
+      alertify.notify('Error ' + res[1].code, 'warning', 5);
+    }
+  }
+
+  borrarVenta(unaVenta: Venta) {
+    const consulta = `DELETE FROM VENTAS WHERE id = '${unaVenta.id}';`;
+    let res = this.ipc.ipcRenderer.sendSync('base', consulta);
+    if (res[0] == 'ok') {
+      this.getVentas();
+      alertify.notify('Venta eliminada', 'error', 5);
+    } else {
+      alertify.notify('Error ' + res[1].code, 'warning', 5);
+    }
+  }
+
+  //Metodos de Item
+
+  guardarItems(unosItems: Item[]) {
+
+    let consulta = "";
+    let todobien = true;
+    unosItems.forEach(item => {
+      if (todobien) {
+        consulta = `INSERT INTO ITEMS (idventa, total, codigo, nombre, cantidad, precio) values (${item.idventa},${item.total},'${item.codigo}','${item.nombre}',${item.cantidad},${item.precio});`;
+        let res = this.ipc.ipcRenderer.sendSync('base', consulta);
+        if (res[0] == 'error') {
+          todobien = false;
+          alertify.notify('Error ' + res[1].code, 'warning', 5);
+        }
+      }
+    });
+
   }
 
 }

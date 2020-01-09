@@ -38,7 +38,7 @@
                                 Fecha:
                             </a>
                             <i class="calendar alternate outline icon"></i>
-                            <input type="date" name="nombre" [(ngModel)]="base.unaVenta.fecha">
+                            <input type="date" name="fecha" [ngModel]="base.unaVenta.fecha | date:'yyyy-MM-dd'" [(ngModel)]= "base.unaVenta.fecha" >
                         </div>
                     </div>
 
@@ -61,7 +61,7 @@
                     <i class="reply icon"></i> Cancelar
                 </div>
     
-                <div class="ui left floated button primary">
+                <div class="ui left floated button primary" (click)="guardar(base.unaVenta)">
                     <div><i class="save icon"></i> Guardar </div>
                 </div>
 
@@ -75,7 +75,7 @@
                             Total:
                         </a>
                         <i class="dollar sign icon green"></i>
-                        <input readonly type="text" name="nombre" value="{{base.unaVenta.total | number :'1.2-2' | currency }}">
+                        <input readonly type="text" name="nombre" value="{{base.unaVenta.total | currency }}">
                     </div>
                 </div>
 
@@ -93,6 +93,6 @@
 
 <app-form-cantidad></app-form-cantidad>
 
-unaVenta: {{base.unaVenta | json }}
+unaVenta: {{base.unaVenta | json }} <br>
 
 unItem: {{base.unItem | json }}
