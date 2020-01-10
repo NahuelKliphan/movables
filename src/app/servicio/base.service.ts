@@ -24,6 +24,7 @@ export class BaseService {
   filtro: string = '';
   idFiltrar: number = -1;
   enVenta: boolean = false;
+  scanner: boolean = false;
 
   //Producto
   listadoProducto: Producto[] = [];

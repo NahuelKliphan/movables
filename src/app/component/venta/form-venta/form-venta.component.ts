@@ -3,6 +3,7 @@ import { BaseService } from 'src/app/servicio/base.service';
 import { Venta } from 'src/app/model/Venta';
 
 declare var $: any;
+declare var alertify: any;
 
 @Component({
   selector: 'app-form-venta',
@@ -22,8 +23,13 @@ export class FormVentaComponent implements OnInit {
   }
 
   guardar(unaVenta: Venta) {
-    this.base.guardarVenta(unaVenta);
-    this.vaciarForm();
+    if(this.formCompleto()){
+      this.base.guardarVenta(unaVenta);
+      this.vaciarForm();
+    }else{
+      alertify.notify('No hay ningun item', 'error', 5);
+    }
+
   }
 
   cancelar(){
@@ -39,6 +45,15 @@ export class FormVentaComponent implements OnInit {
     this.base.enVenta = true;
     $('#listaProducto').modal({ closable: false }).modal('show');
     $("#buscarProducto").focus();
+  }
+
+  formCompleto(){
+    if(this.base.listadoItem.length>0){
+      return true;
+    }
+    else{
+      return false;
+    }
   }
 
 }
