@@ -17,19 +17,19 @@ export class ListaProductoComponent implements OnInit {
 
   ngOnInit() {
 
-    this.base.getCategorias();
-    this.base.getProductos();
+    //this.base.getCategorias();
+    //this.base.getProductos();
 
-    //this.base.listadoProducto.push(new Producto('123','123',123,20,'123','',0));
-    //this.base.listadoProducto.push(new Producto('124','123',123,20,'123','',0));
-    //this.base.listadoProducto.push(new Producto('125','123',123,20,'123','',0));
-    //this.base.listadoProducto.push(new Producto('126','123',123,20,'123','',0));
+    this.base.listadoProducto.push(new Producto('123','123',123,20,'123','',0));
+    this.base.listadoProducto.push(new Producto('124','123',123,20,'123','',0));
+    this.base.listadoProducto.push(new Producto('125','123',123,20,'123','',0));
+    this.base.listadoProducto.push(new Producto('126','123',123,20,'123','',0));
 
     $('#filtrar').dropdown();
 
-    var height = $(window).height();
-    height = height - 360;
-    $('.lista-producto').css('height', `${height}px`);
+    var pantalla = $(window).height();
+    pantalla = pantalla - 135;
+    $('.pantalla').css('height', `${pantalla}px`);
 
   }
 

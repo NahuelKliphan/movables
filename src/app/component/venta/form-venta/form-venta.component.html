@@ -1,50 +1,33 @@
 <div class="ui grid">
 
-    <div class="eight wide column card ui grid" style="padding: 2%;">
+    <div class="sixteen wide column card ui grid">
 
-        <div class="sixteen wide column" style="text-align: center;margin-bottom: 20px;">
+        <div class="sixteen wide column" style="text-align: center; ">
 
-            <h2><i class="large money bill alternate outline icon"></i> Nueva venta </h2>
+            <h2><i class="large money bill alternate outline icon green"></i> Nueva venta </h2>
 
         </div>
 
-        <hr>
+        <div class="sixteen wide column">
 
-        <div class="sixteen wide column" style="margin-bottom: 30px;">
+            <div class="field" style="text-align: left;">
 
-            <div class="ui grid">
-
-                <div class="eight wide column" style="text-align: left;">
-
-                    <div class="field ">
-                        <div class="ui input labeled right icon">
-                            <a class="ui label">
-                                Cliente:
-                            </a>
-                            <i class="user icon"></i>
-                            <input type="text" name="nombre" placeholder="Nombre"
-                                [(ngModel)]="base.unaVenta.clientenombre">
-                        </div>
-                    </div>
-
+                <div class="ui input labeled right icon" style="margin-right: 20px;">
+                    <a class="ui label">
+                        Cliente:
+                    </a>
+                    <i class="user icon"></i>
+                    <input type="text" name="nombre" placeholder="Nombre" [(ngModel)]="base.unaVenta.clientenombre">
                 </div>
 
-
-                <div class="eight wide column">
-
-                    <div class="field ">
-                        <div class="ui input labeled right icon">
-                            <a class="ui label">
-                                Fecha:
-                            </a>
-                            <i class="calendar alternate outline icon"></i>
-                            <input type="date" name="fecha" [ngModel]="base.unaVenta.fecha | date:'yyyy-MM-dd'" [(ngModel)]= "base.unaVenta.fecha" >
-                        </div>
-                    </div>
-
-
+                <div class="ui input labeled right icon">
+                    <a class="ui label">
+                        Fecha:
+                    </a>
+                    <i class="calendar alternate outline icon"></i>
+                    <input type="date" name="fecha" [ngModel]="base.unaVenta.fecha | date:'yyyy-MM-dd'"
+                        [(ngModel)]="base.unaVenta.fecha">
                 </div>
-
             </div>
 
         </div>
@@ -54,18 +37,6 @@
         </div>
 
         <div class="sixteen wide column" style="text-align: right;">
-
-            <div style="text-align: left;">
-
-                <div class="ui left floated button secondary" style="margin-right: 20px;">
-                    <i class="reply icon"></i> Cancelar
-                </div>
-    
-                <div class="ui left floated button primary" (click)="guardar(base.unaVenta)">
-                    <div><i class="save icon"></i> Guardar </div>
-                </div>
-
-            </div>
 
             <div style="text-align: right;">
 
@@ -83,10 +54,22 @@
 
         </div>
 
-    </div>
+        <div class="sixteen wide column">
 
-    <div class="eight wide column card" style="padding: 2%;">
-        <app-lista-producto></app-lista-producto>
+            <div style="text-align: left;">
+
+                <div class="ui floated button secondary" style="margin-right: 20px;">
+                    <i class="reply icon"></i> Cancelar
+                </div>
+
+                <div class="ui floated button primary" (click)="guardar(base.unaVenta)">
+                    <div><i class="save icon"></i> Guardar </div>
+                </div>
+
+            </div>
+
+        </div>
+
     </div>
 
 </div>

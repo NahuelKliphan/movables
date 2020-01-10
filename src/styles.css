@@ -26,7 +26,6 @@
 
 .lista-producto
 {
-    overflow:scroll; 
     overflow-x: hidden;
 }
 
@@ -34,6 +33,11 @@
 {
     overflow:scroll; 
     max-height:50vh;
+    overflow-x: hidden;
+}
+
+.pantalla{
+    overflow:scroll; 
     overflow-x: hidden;
 }
 
