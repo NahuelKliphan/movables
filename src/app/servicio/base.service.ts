@@ -28,6 +28,7 @@ export class BaseService {
   //Producto
   listadoProducto: Producto[] = [];
   unProducto: Producto = new Producto(null, null, null, null, null, null, null);
+  updateProductos: string = "";
 
   //Categoria
   listadoNombreCategoria: string[] = [];
@@ -41,6 +42,7 @@ export class BaseService {
   //Item
   listadoItem: Item[] = [];
   unItem: Item = new Item(null, null, null, null, null, 1, null);
+  insertItems: string = "";
 
   //Metodos globales
   adaptarDecimal(numero: number) {
@@ -76,7 +78,7 @@ export class BaseService {
     }
   }
 
-  verificarCodigo(codigo: string) {
+  verificarCodigoProducto(codigo: string) {
     const consulta = `SELECT * FROM PRODUCTOS WHERE codigo = '${codigo}';`;
     let res = this.ipc.ipcRenderer.sendSync('base', consulta);
     if (res[0] == 'ok') {
@@ -93,19 +95,30 @@ export class BaseService {
 
   }
 
+  consultarCantidadProducto(unProducto: Producto) {
+    const consulta = `SELECT P.cantidad FROM PRODUCTOS P WHERE codigo = '${unProducto.codigo}';`;
+    let res = this.ipc.ipcRenderer.sendSync('base', consulta);
+    if (res[0] == 'ok') {
+      return res[1][0].cantidad;
+    } else {
+      alertify.notify('Error ' + res[1].code, 'warning', 5);
+      return -1;
+    }
+  }
+
   buscarProducto(cod: string) {
 
     let consulta = "";
 
     if (this.idFiltrar == -1) {
-      consulta = `SELECT * FROM PRODUCTOS P WHERE P.codigo ilike '%${cod}%' or p.nombre ilike '%${cod}%' LIMIT 20`;
+      consulta = `SELECT * FROM PRODUCTOS P WHERE P.codigo ilike '%${cod}%' or p.nombre ilike '%${cod}%' LIMIT 20;`;
     }
     else {
 
       if (this.idFiltrar == null) {
-        consulta = `SELECT * FROM PRODUCTOS P WHERE (P.codigo ilike '%${cod}%' or p.nombre ilike '%${cod}%') and P.idcategoria is ${this.idFiltrar} LIMIT 20`;
+        consulta = `SELECT * FROM PRODUCTOS P WHERE (P.codigo ilike '%${cod}%' or p.nombre ilike '%${cod}%') and P.idcategoria is ${this.idFiltrar} LIMIT 20;`;
       } else {
-        consulta = `SELECT * FROM PRODUCTOS P WHERE (P.codigo ilike '%${cod}%' or p.nombre ilike '%${cod}%') and P.idcategoria = ${this.idFiltrar} LIMIT 20`;
+        consulta = `SELECT * FROM PRODUCTOS P WHERE (P.codigo ilike '%${cod}%' or p.nombre ilike '%${cod}%') and P.idcategoria = ${this.idFiltrar} LIMIT 20;`;
       }
 
     }
@@ -231,12 +244,21 @@ export class BaseService {
   }
 
   guardarVenta(unaVenta: Venta) {
+    this.insertItems = "";
+    this.updateProductos = "";
     const consulta = `INSERT INTO VENTAS (clientenombre, fecha, total) VALUES ('${unaVenta.clientenombre}','${new Date().toDateString()}', ${unaVenta.total}) RETURNING ID;`;
     let res = this.ipc.ipcRenderer.sendSync('base', consulta);
     if (res[0] == 'ok') {
       let id = res[1][0].id;
-      this.listadoItem.forEach(item => { item.idventa = id });
-      this.guardarItems(this.listadoItem);
+      this.listadoItem.forEach(unItem => {
+        unItem.idventa = id;
+        this.insertItems = this.insertItems + `INSERT INTO ITEMS (idventa, total, codigo, nombre, cantidad, precio) values (${unItem.idventa},${unItem.total},'${unItem.codigo}','${unItem.nombre}',${unItem.cantidad},${unItem.precio});`;
+        this.updateProductos = this.updateProductos + `UPDATE PRODUCTOS P SET cantidad = cantidad - ${unItem.cantidad}  WHERE P.codigo = '${unItem.codigo}';`;
+      });
+      this.guardarItemsActualizarCantidad(this.insertItems + this.updateProductos);
+      this.updateProductos = "";
+      this.insertItems = "";
+      this.getProductos();
       alertify.notify('Venta agregada', 'success', 5);
       this.listadoItem = [];
     } else {
@@ -257,21 +279,11 @@ export class BaseService {
 
   //Metodos de Item
 
-  guardarItems(unosItems: Item[]) {
-
-    let consulta = "";
-    let todobien = true;
-    unosItems.forEach(item => {
-      if (todobien) {
-        consulta = `INSERT INTO ITEMS (idventa, total, codigo, nombre, cantidad, precio) values (${item.idventa},${item.total},'${item.codigo}','${item.nombre}',${item.cantidad},${item.precio});`;
-        let res = this.ipc.ipcRenderer.sendSync('base', consulta);
-        if (res[0] == 'error') {
-          todobien = false;
-          alertify.notify('Error ' + res[1].code, 'warning', 5);
-        }
-      }
-    });
-
+  guardarItemsActualizarCantidad(consulta: string) {
+    let res = this.ipc.ipcRenderer.sendSync('base', consulta);
+    if (res[0] == 'error') {
+      alertify.notify('Error al guardar items' + res[1].code, 'warning', 5);
+    }
   }
 
 }

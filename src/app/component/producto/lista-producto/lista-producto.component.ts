@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { BaseService } from 'src/app/servicio/base.service';
 import { Producto } from 'src/app/model/Producto';
-import { Item } from 'src/app/model/Item';
+import { BaseService } from 'src/app/servicio/base.service';
 
 declare var $: any;
 
@@ -18,13 +17,13 @@ export class ListaProductoComponent implements OnInit {
 
   ngOnInit() {
 
-    //this.base.getCategorias();
-    //this.base.getProductos();
+    this.base.getCategorias();
+    this.base.getProductos();
 
-    this.base.listadoProducto.push(new Producto('123','123',123,20,'123','',0));
-    this.base.listadoProducto.push(new Producto('124','123',123,20,'123','',0));
-    this.base.listadoProducto.push(new Producto('125','123',123,20,'123','',0));
-    this.base.listadoProducto.push(new Producto('126','123',123,20,'123','',0));
+    //this.base.listadoProducto.push(new Producto('123','123',123,20,'123','',0));
+    //this.base.listadoProducto.push(new Producto('124','123',123,20,'123','',0));
+    //this.base.listadoProducto.push(new Producto('125','123',123,20,'123','',0));
+    //this.base.listadoProducto.push(new Producto('126','123',123,20,'123','',0));
 
     $('#filtrar').dropdown();
 

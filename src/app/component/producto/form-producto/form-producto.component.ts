@@ -38,7 +38,7 @@ export class FormProductoComponent implements OnInit {
     } else {
       if (this.formCompleto()) {
 
-        if (this.base.verificarCodigo(this.base.unProducto.codigo)) {
+        if (this.base.verificarCodigoProducto(this.base.unProducto.codigo)) {
           this.base.guardarProducto(new Producto(this.base.unProducto.codigo, this.base.unProducto.nombre, this.base.adaptarDecimal(this.base.unProducto.precio), this.base.unProducto.cantidad, this.base.unProducto.descripcion, this.base.unProducto.foto, this.base.unProducto.idcategoria));
           this.vaciarCampos();
         }
