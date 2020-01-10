@@ -44,7 +44,6 @@ export class FormVentaComponent implements OnInit {
   abrirLista(){
     this.base.enVenta = true;
     $('#listaProducto').modal({ closable: false }).modal('show');
-    $("#buscarProducto").focus();
   }
 
   formCompleto(){
