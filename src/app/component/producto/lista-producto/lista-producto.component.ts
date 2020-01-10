@@ -26,11 +26,11 @@ export class ListaProductoComponent implements OnInit {
     this.base.listadoProducto.push(new Producto('126','123',123,20,'123','',0));
 
     $('#filtrar').dropdown();
-
     var pantalla = $(window).height();
     pantalla = pantalla - 135;
     $('.pantalla').css('height', `${pantalla}px`);
 
+    $("#buscarProducto").focus(); 
   }
 
   busqueda: string = "";
@@ -65,6 +65,7 @@ export class ListaProductoComponent implements OnInit {
 
   vender(unProducto: Producto){
     this.base.unProducto = unProducto;
+    $('#listaProducto').modal('hide');
     $('#formCantidadItem').modal({ closable: false }).modal('show');
   }
 

@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { BaseService } from 'src/app/servicio/base.service';
 
 @Component({
   selector: 'app-inicio',
@@ -8,9 +7,10 @@ import { BaseService } from 'src/app/servicio/base.service';
 })
 export class InicioComponent implements OnInit {
 
-  constructor(private base: BaseService) { }
+  constructor() { }
 
   ngOnInit() {
+
   }
 
 

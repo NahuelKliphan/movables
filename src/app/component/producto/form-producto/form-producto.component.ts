@@ -46,6 +46,8 @@ export class FormProductoComponent implements OnInit {
       this.base.editar = false;
     }
 
+    $("#buscarProducto").focus();
+
   }
 
   @HostListener('keydown.escape')
@@ -54,6 +56,7 @@ export class FormProductoComponent implements OnInit {
     this.base.editar = false;
     this.base.getProductos();
     $('#formProducto').modal('hide');
+    $("#buscarProducto").focus();
   }
 
   formCompleto() {

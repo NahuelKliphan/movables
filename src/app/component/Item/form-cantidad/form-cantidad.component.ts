@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Item } from 'src/app/model/Item';
 import { BaseService } from 'src/app/servicio/base.service';
+import { Producto } from 'src/app/model/Producto';
 
 declare var $: any;
 declare var alertify: any;
@@ -27,6 +28,8 @@ export class FormCantidadComponent implements OnInit {
         this.base.listadoItem.push(this.base.unItem);
         this.base.unaVenta.total = this.base.unaVenta.total + this.base.unItem.total;
         this.vaciarForm();
+        alertify.notify('Item cargado', 'success', 5);
+        $('#listaProducto').modal({ closable: false }).modal('show');
 
       } else {
         alertify.notify('No hay suficiente cantidad', 'error', 5);
@@ -46,6 +49,7 @@ export class FormCantidadComponent implements OnInit {
 
   vaciarForm() {
     this.base.unItem = new Item(null, null, null, null, null, 1, null);
+    this.base.unProducto = new Producto(null,null,null,null,null,null,null);
   }
 
   cantidad: number = 0;

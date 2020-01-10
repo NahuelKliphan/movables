@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { BaseService } from 'src/app/servicio/base.service';
 import { Venta } from 'src/app/model/Venta';
 
+declare var $: any;
+
 @Component({
   selector: 'app-form-venta',
   templateUrl: './form-venta.component.html',
@@ -13,6 +15,10 @@ export class FormVentaComponent implements OnInit {
 
   ngOnInit() {
 
+    var pantalla = $(window).height();
+    pantalla = pantalla - 135;
+    $('.pantalla').css('height', `${pantalla}px`);
+
   }
 
   guardar(unaVenta: Venta) {
@@ -20,8 +26,19 @@ export class FormVentaComponent implements OnInit {
     this.vaciarForm();
   }
 
+  cancelar(){
+    this.vaciarForm();
+    this.base.listadoItem = [];
+  }
+
   vaciarForm() {
     this.base.unaVenta = new Venta(null, null, new Date(), 0);
+  }
+
+  abrirLista(){
+    this.base.enVenta = true;
+    $('#listaProducto').modal({ closable: false }).modal('show');
+    $("#buscarProducto").focus();
   }
 
 }

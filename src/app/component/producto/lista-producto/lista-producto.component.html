@@ -1,29 +1,39 @@
 <div class="pantalla card" style="padding: 2%;">
 
-
   <div class="ui grid">
 
-    <div class="eight wide column">
+    <div class="four wide column">
 
       <h2><i class="large list icon"></i> Productos </h2>
 
     </div>
 
-    <div class="eight wide column">
+    <div class="twelve wide column">
 
       <div style="text-align: right;">
 
-        <select class="ui dropdown" name="idBuscar" [(ngModel)]="base.idFiltrar" id="filtrar" (change)="filtrar()">
-          <option value="-1"><i class="filter grey icon"></i> Filtro</option>
-          <option [ngValue]="null"><i class="tag icon"></i> Sin categoria</option>
-          <option [ngValue]="unaCategoria.id" *ngFor="let unaCategoria of base.listadoCategoria"><i
-              class="tag icon"></i>
-            {{unaCategoria.nombre}}
-          </option>
-        </select>
+        <div class="inline field">
 
-        <div style="margin-left: 30px;" class="ui button primary" (click)="abrirModal()">
-          Agregar producto
+          <div class="ui button inverted" style="margin-left: 30px;">
+            <div class="ui toggle checkbox">
+              <input type="checkbox">
+              <label>Scanner</label>
+            </div>
+          </div>
+
+          <select class="ui dropdown" name="idBuscar" [(ngModel)]="base.idFiltrar" id="filtrar" (change)="filtrar()">
+            <option value="-1"><i class="filter grey icon"></i> Filtro</option>
+            <option [ngValue]="null"><i class="tag icon"></i> Sin categoria</option>
+            <option [ngValue]="unaCategoria.id" *ngFor="let unaCategoria of base.listadoCategoria"><i
+                class="tag icon"></i>
+              {{unaCategoria.nombre}}
+            </option>
+          </select>
+
+          <div *ngIf="!base.enVenta" style="margin-left: 30px;" class="ui button primary" (click)="abrirModal()">
+            Agregar producto
+          </div>
+
         </div>
 
       </div>
@@ -32,8 +42,8 @@
 
   </div>
 
-  <div class="ui fluid action input left icon" style="margin-top: 30px;">
-    <input type="text" placeholder="Buscar..." (input)="buscar()" name="busqueda" [(ngModel)]="busqueda">
+  <div class="ui fluid action input left icon" style="margin-top: 20px;">
+    <input type="text" placeholder="Buscar..." (input)="buscar()" (keyup.enter)="buscar()" name="busqueda" [(ngModel)]="busqueda" id="buscarProducto">
     <div class="ui search ico button" (click)="buscar()">Buscar</div>
     <i class="search icon"></i>
   </div>
@@ -71,7 +81,6 @@
         </div>
       </div>
     </div>
-
 
   </div>
 

@@ -1,16 +1,16 @@
-<div class="ui grid">
+<div class="pantalla card" style="padding: 2%;">
 
-    <div class="sixteen wide column card ui grid">
+    <div class="ui grid">
 
-        <div class="sixteen wide column" style="text-align: center; ">
+        <div class="sixteen wide column ui grid">
 
-            <h2><i class="large money bill alternate outline icon green"></i> Nueva venta </h2>
+            <div class="sixteen wide column" style="text-align: center; ">
 
-        </div>
+                <h2><i class="large money bill alternate outline icon green"></i> Nueva venta </h2>
 
-        <div class="sixteen wide column">
+            </div>
 
-            <div class="field" style="text-align: left;">
+            <div class="ten wide column">
 
                 <div class="ui input labeled right icon" style="margin-right: 20px;">
                     <a class="ui label">
@@ -28,42 +28,51 @@
                     <input type="date" name="fecha" [ngModel]="base.unaVenta.fecha | date:'yyyy-MM-dd'"
                         [(ngModel)]="base.unaVenta.fecha">
                 </div>
+
             </div>
 
-        </div>
+            <div class="six wide column" style="text-align: right;">
 
-        <div class="sixteen wide column">
-            <app-form-item></app-form-item>
-        </div>
+                <div class="ui button green" (click)="abrirLista()">
+                    <i class="icon plus"></i> Agregar items
+                </div>
 
-        <div class="sixteen wide column" style="text-align: right;">
+            </div>
 
-            <div style="text-align: right;">
+            <div class="sixteen wide column">
+                <app-form-item></app-form-item>
+            </div>
 
-                <div class="field ">
-                    <div class="ui input labeled right icon">
-                        <a class="ui label">
-                            Total:
-                        </a>
-                        <i class="dollar sign icon green"></i>
-                        <input readonly type="text" name="nombre" value="{{base.unaVenta.total | currency }}">
+            <div class="sixteen wide column" style="text-align: right;">
+
+                <div style="text-align: right;">
+
+                    <div class="field ">
+                        <div class="ui input labeled right icon">
+                            <a class="ui label">
+                                Total:
+                            </a>
+                            <i class="dollar sign icon green"></i>
+                            <input readonly type="text" name="nombre" value="{{base.unaVenta.total | currency }}">
+                        </div>
                     </div>
+
                 </div>
 
             </div>
 
-        </div>
+            <div class="sixteen wide column">
 
-        <div class="sixteen wide column">
+                <div style="text-align: center;">
 
-            <div style="text-align: left;">
+                    <div class="ui floated button secondary" style="margin-right: 20px;" (click)="cancelar()">
+                        <i class="reply icon"></i> Cancelar
+                    </div>
 
-                <div class="ui floated button secondary" style="margin-right: 20px;">
-                    <i class="reply icon"></i> Cancelar
-                </div>
+                    <div class="ui floated button primary" (click)="guardar(base.unaVenta)">
+                        <div><i class="save icon"></i> Guardar </div>
+                    </div>
 
-                <div class="ui floated button primary" (click)="guardar(base.unaVenta)">
-                    <div><i class="save icon"></i> Guardar </div>
                 </div>
 
             </div>
@@ -75,3 +84,9 @@
 </div>
 
 <app-form-cantidad></app-form-cantidad>
+
+<div class="ui modal" id="listaProducto">
+
+    <app-lista-producto></app-lista-producto>
+
+</div>
