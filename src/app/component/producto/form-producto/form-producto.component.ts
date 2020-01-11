@@ -103,7 +103,6 @@ export class FormProductoComponent implements OnInit {
   previewUrl: any = null;
 
   cargarFoto(fileInput: any) {
-
     if (this.cargar) {
       this.fileData = <File>fileInput.target.files[0];
       var reader = new FileReader();
@@ -118,6 +117,7 @@ export class FormProductoComponent implements OnInit {
   cargar: boolean = true;
 
   borrarFoto() {
+    $("#foto").prop("value", "");
     this.cargar = false;
     this.base.unProducto.foto = null;
     this.cargar = true;
