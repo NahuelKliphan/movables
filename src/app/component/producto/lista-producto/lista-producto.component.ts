@@ -28,15 +28,13 @@ export class ListaProductoComponent implements OnInit {
     $("#buscarProducto").focus();
   }
 
-  busqueda: string = "";
-
   abrirModal() {
     $('#formProducto').modal({ closable: false }).modal('show');
   }
 
   buscar() {
-    if (this.busqueda.length > 0) {
-      this.base.buscarProducto(this.busqueda);
+    if (this.base.busqueda.length > 0) {
+      this.base.buscarProducto(this.base.busqueda);
       if (this.base.enVenta && this.base.scanner && this.base.listadoProducto.length == 1) {
         this.vender(this.base.listadoProducto[0]);
       }

@@ -30,6 +30,7 @@ export class BaseService {
   listadoProducto: Producto[] = [];
   unProducto: Producto = new Producto(null, null, null, null, null, null, null);
   updateProductos: string = "";
+  busqueda = "";
 
   //Categoria
   listadoNombreCategoria: string[] = [];

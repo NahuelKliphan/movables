@@ -14,8 +14,10 @@ export class FormItemComponent implements OnInit {
   ngOnInit() {
   }
 
-  borrar(unItem: Item){
+  borrar(unItem: Item) {
     this.base.listadoItem = this.base.listadoItem.filter(i => i.id != unItem.id);
+    this.base.unaVenta.total = 0;
+    this.base.listadoItem.forEach(i => { this.base.unaVenta.total = this.base.unaVenta.total + i.total; })
   }
 
 }
