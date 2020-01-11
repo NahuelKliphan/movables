@@ -262,7 +262,7 @@ export class BaseService {
       this.updateProductos = "";
       this.insertItems = "";
       this.getProductos();
-      alertify.notify('Venta agregada', 'success', 5);
+      alertify.notify('Vendido', 'success', 5);
       this.listadoItem = [];
     } else {
       alertify.notify('Error ' + res[1].code, 'warning', 5);
