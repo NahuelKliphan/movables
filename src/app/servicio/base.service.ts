@@ -44,6 +44,7 @@ export class BaseService {
   listadoItem: Item[] = [];
   unItem: Item = new Item(null, null, null, null, null, 1, null);
   insertItems: string = "";
+  idItemTemp = 0;
 
   //Metodos globales
   adaptarDecimal(numero: number) {

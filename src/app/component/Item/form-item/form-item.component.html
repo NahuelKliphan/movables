@@ -3,7 +3,7 @@
     <h2><i class="list alternate outline icon"></i> Items </h2>
 
   </div>
-<table class="ui blue unstackable selectable table ">
+<table class="ui blue unstackable selectable table" style="text-align: center;">
     <thead>
         <tr>
             <th> <i class="barcode icon blue"></i> Codigo</th>
@@ -14,13 +14,12 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let unItem of base.listadoItem">
+        <tr *ngFor="let unItem of base.listadoItem" (click)="borrar(unItem)">
             <td>{{unItem.codigo}}</td>
             <td>{{unItem.nombre}}</td>
             <td>{{unItem.precio | currency}}</td>
             <td>{{unItem.cantidad}}</td>
             <td>{{unItem.total | currency}}</td>
-
         </tr>
     </tbody>
 </table>

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { BaseService } from 'src/app/servicio/base.service';
 import { Venta } from 'src/app/model/Venta';
+import { BaseService } from 'src/app/servicio/base.service';
 
 declare var $: any;
 declare var alertify: any;
@@ -23,34 +23,36 @@ export class FormVentaComponent implements OnInit {
   }
 
   guardar(unaVenta: Venta) {
-    if(this.formCompleto()){
+    if (this.formCompleto()) {
       this.base.guardarVenta(unaVenta);
       this.vaciarForm();
-    }else{
+      this.base.idItemTemp = 0;
+    } else {
       alertify.notify('No hay ningun item', 'error', 5);
     }
 
   }
 
-  cancelar(){
+  cancelar() {
     this.vaciarForm();
     this.base.listadoItem = [];
+    this.base.idItemTemp = 0;
   }
 
   vaciarForm() {
     this.base.unaVenta = new Venta(null, null, new Date(), 0);
   }
 
-  abrirLista(){
+  abrirLista() {
     this.base.enVenta = true;
     $('#listaProducto').modal({ closable: false }).modal('show');
   }
 
-  formCompleto(){
-    if(this.base.listadoItem.length>0){
+  formCompleto() {
+    if (this.base.listadoItem.length > 0) {
       return true;
     }
-    else{
+    else {
       return false;
     }
   }

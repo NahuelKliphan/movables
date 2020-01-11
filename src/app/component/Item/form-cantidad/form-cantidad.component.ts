@@ -24,7 +24,8 @@ export class FormCantidadComponent implements OnInit {
       if (this.comprobarCantidad()) {
 
         $('#formCantidadItem').modal('hide');
-        this.base.unItem = new Item(0, 0, this.base.unProducto.precio * this.base.unItem.cantidad, this.base.unProducto.codigo, this.base.unProducto.nombre, this.base.unItem.cantidad, this.base.unProducto.precio);
+        this.base.unItem = new Item(this.base.idItemTemp, 1, this.base.unProducto.precio * this.base.unItem.cantidad, this.base.unProducto.codigo, this.base.unProducto.nombre, this.base.unItem.cantidad, this.base.unProducto.precio);
+        this.base.idItemTemp++;
         this.base.listadoItem.push(this.base.unItem);
         this.base.unaVenta.total = this.base.unaVenta.total + this.base.unItem.total;
         this.vaciarForm();
@@ -49,7 +50,7 @@ export class FormCantidadComponent implements OnInit {
 
   vaciarForm() {
     this.base.unItem = new Item(null, null, null, null, null, 1, null);
-    this.base.unProducto = new Producto(null,null,null,null,null,null,null);
+    this.base.unProducto = new Producto(null, null, null, null, null, null, null);
   }
 
   cantidad: number = 0;
