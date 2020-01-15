@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Venta } from 'src/app/model/Venta';
 import { BaseService } from 'src/app/servicio/base.service';
+import { Item } from 'src/app/model/Item';
 
 declare var $: any;
 declare var alertify: any;
@@ -15,11 +16,11 @@ export class FormVentaComponent implements OnInit {
   constructor(private base: BaseService) { }
 
   ngOnInit() {
-
     var pantalla = $(window).height();
     pantalla = pantalla - 135;
     $('.pantalla').css('height', `${pantalla}px`);
-
+    pantalla = pantalla - 450;
+    $('.tabla').css('height', `${pantalla}px`);
   }
 
   guardar(unaVenta: Venta) {

@@ -1,11 +1,1 @@
-tbody {
-    display:block;
-    height:39vh;
-    overflow:auto;
-}
-thead, tbody tr {
-    display:table;
-    width:100%;
-    table-layout:fixed;
-}
 

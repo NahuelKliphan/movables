@@ -13,7 +13,7 @@
             <th> <i class=" money bill alternate outline icon green"></i> Subtotal</th>
         </tr>
     </thead>
-    <tbody>
+    <tbody class="tabla">
         <tr *ngFor="let unItem of base.listadoItem" (click)="borrar(unItem)">
             <td>{{unItem.codigo}}</td>
             <td>{{unItem.nombre}}</td>
