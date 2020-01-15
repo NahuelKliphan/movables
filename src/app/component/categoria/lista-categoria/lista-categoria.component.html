@@ -2,18 +2,19 @@
     <h2><i class="large list icon"></i> Categorías: </h2>
 </div>
 <div class="ui divided items lista-categoria">
-
     <div class="item" *ngFor="let unaCategoria of base.listadoCategoria">
-        <div class="middle aligned content">
+        <div class="content">
             <div class="ui grid">
                 <div class="eight wide column">
-                    <p> <i class="tag icon"></i> <b>Nombre:</b> {{unaCategoria.nombre}}</p>
+                    <p> <i class="tag icon"></i> <b>{{unaCategoria.nombre}}</b> </p>
                 </div>
                 <div class="eight wide column">
-                    <div class="ui right floated button inverted red" style="margin-right: 30px;" (click)="borrar(unaCategoria)">
+                    <div class="ui right floated button inverted red" style="margin-right: 30px;"
+                        (click)="borrar(unaCategoria)">
                         <i class="trash alternate outline icon"></i> Borrar
                     </div>
-                    <div class="ui right floated button  inverted secondary " style="margin-right: 10px;" (click)="editar(unaCategoria)">
+                    <div class="ui right floated button  inverted secondary " style="margin-right: 10px;"
+                        (click)="editar(unaCategoria)">
                         <i class="edit icon"></i> Editar
                     </div>
                 </div>
@@ -21,5 +22,6 @@
         </div>
     </div>
 </div>
+
 
 <app-form-borrar-categoria></app-form-borrar-categoria>
