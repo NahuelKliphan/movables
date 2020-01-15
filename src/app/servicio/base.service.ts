@@ -72,7 +72,7 @@ export class BaseService {
   //Metodos de productos
 
   getProductos() {
-    const consulta = `SELECT * FROM PRODUCTOS ${this.filtro} ORDER BY OID DESC LIMIT 100`;
+    const consulta = `SELECT codigo, nombre, precio, cantidad, descripcion, idcategoria FROM PRODUCTOS ${this.filtro} ORDER BY OID DESC LIMIT 100`;
     let res = this.ipc.ipcRenderer.sendSync('base', consulta);
     if (res[0] == 'ok') {
       this.listadoProducto = res[1];
