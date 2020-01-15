@@ -56,8 +56,7 @@
 
             <div class="field">
                 <div class="ui input labeled left icon">
-
-                    <select class="ui dropdown fluid" name="idcategoria" [(ngModel)]="base.unProducto.idcategoria">
+                    <select id="idcategoria" class="ui active dropdown fluid " name="idcategoria" [(ngModel)]="base.unProducto.idcategoria">
                         <option [ngValue]="null"><i class="tags grey icon"></i> Categoria</option>
                         <option [ngValue]="unaCategoria.id" *ngFor="let unaCategoria of base.listadoCategoria"><i
                                 class="tags grey icon"></i>

@@ -21,6 +21,7 @@ export class ListaProductoComponent implements OnInit {
     this.base.getProductos();
 
     $('#filtrar').dropdown();
+    
     var pantalla = $(window).height();
     pantalla = pantalla - 135;
     $('.pantalla').css('height', `${pantalla}px`);
@@ -45,8 +46,8 @@ export class ListaProductoComponent implements OnInit {
   }
 
   borrar(unProducto: Producto) {
-    $("#foto").prop("value", "");
     this.base.unProducto = unProducto;
+    $("#foto").prop("value", "");
     $('#formBorrarProducto').modal({ closable: false }).modal('show');
   }
 

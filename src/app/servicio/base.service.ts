@@ -72,7 +72,7 @@ export class BaseService {
   //Metodos de productos
 
   getProductos() {
-    const consulta = `SELECT codigo, nombre, precio, cantidad, descripcion, idcategoria FROM PRODUCTOS ${this.filtro} ORDER BY OID DESC LIMIT 100`;
+    const consulta = `SELECT * FROM PRODUCTOS ${this.filtro} ORDER BY OID DESC LIMIT 50`;
     let res = this.ipc.ipcRenderer.sendSync('base', consulta);
     if (res[0] == 'ok') {
       this.listadoProducto = res[1];
@@ -139,8 +139,8 @@ export class BaseService {
   guardarProducto(unProdcuto: Producto) {
     const consulta = `INSERT INTO PRODUCTOS (codigo,nombre,precio,cantidad,descripcion,foto,idcategoria) VALUES ('${unProdcuto.codigo}','${unProdcuto.nombre}',${unProdcuto.precio},${unProdcuto.cantidad},'${unProdcuto.descripcion}','${unProdcuto.foto}',${unProdcuto.idcategoria});`;
     let res = this.ipc.ipcRenderer.sendSync('base', consulta);
+    $('#formProducto').modal('hide');
     if (res[0] == 'ok') {
-      $('#formProducto').modal('hide');
       this.getProductos();
       alertify.notify('Producto agregado', 'success', 5);
     } else {
@@ -152,7 +152,6 @@ export class BaseService {
     const consulta = `DELETE FROM PRODUCTOS WHERE codigo = '${unProdcuto.codigo}';`;
     let res = this.ipc.ipcRenderer.sendSync('base', consulta);
     if (res[0] == 'ok') {
-      $('#formBorrarProducto').modal('hide');
       this.getProductos();
       alertify.notify('Producto eliminado', 'error', 5);
     } else {
@@ -163,8 +162,8 @@ export class BaseService {
   editarProducto(unProdcuto: Producto) {
     const consulta = `UPDATE PRODUCTOS P SET nombre = '${unProdcuto.nombre}', precio = ${this.adaptarDecimal(unProdcuto.precio)} , cantidad = ${unProdcuto.cantidad} , descripcion = '${unProdcuto.descripcion}', idcategoria = ${unProdcuto.idcategoria} , foto = '${unProdcuto.foto}' WHERE P.codigo = '${unProdcuto.codigo}';`;
     let res = this.ipc.ipcRenderer.sendSync('base', consulta);
+    $('#formProducto').modal('hide');
     if (res[0] == 'ok') {
-      $('#formProducto').modal('hide');
       this.getProductos();
       alertify.notify('Producto editado', 'success', 5);
     } else {

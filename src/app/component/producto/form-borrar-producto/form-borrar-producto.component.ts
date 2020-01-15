@@ -19,6 +19,7 @@ export class FormBorrarProductoComponent implements OnInit {
   }
 
   borrar(){
+    $('#formBorrarProducto').modal('hide');
     this.base.borrarProducto(this.base.unProducto);
     this.vaciarCampos();
   }

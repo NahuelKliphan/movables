@@ -17,7 +17,6 @@ export class FormProductoComponent implements OnInit {
 
   ngOnInit() {
 
-    $('.ui.dropdown').dropdown();
     $('.special.cards .image').dimmer({
       on: 'hover'
     });
@@ -33,8 +32,8 @@ export class FormProductoComponent implements OnInit {
         this.base.editarProducto(this.base.unProducto);
       }
       this.vaciarCampos();
-      this.base.getProductos();
       this.base.editar = false;
+      this.base.getProductos();
     } else {
       if (this.formCompleto()) {
 
@@ -46,17 +45,16 @@ export class FormProductoComponent implements OnInit {
       this.base.editar = false;
     }
 
-    $("#buscarProducto").focus();
-
   }
 
   @HostListener('keydown.escape')
   cancelar() {
+
+    $('#formProducto').modal('hide');
     this.vaciarCampos();
     this.base.editar = false;
     this.base.getProductos();
-    $('#formProducto').modal('hide');
-    $("#buscarProducto").focus();
+    
   }
 
   formCompleto() {
