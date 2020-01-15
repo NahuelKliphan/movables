@@ -3,6 +3,7 @@ import { Categoria } from 'src/app/model/Categoria';
 import { BaseService } from 'src/app/servicio/base.service';
 
 declare var alertify: any;
+declare var $: any;
 
 @Component({
   selector: 'app-form-categoria',
@@ -24,7 +25,7 @@ export class FormCategoriaComponent implements OnInit {
     } else {
       alertify.notify('Faltan datos', 'error', 5);
     }
-
+    $('#nombreCategoria').focus();
     this.vaciarCampos();
 
   }
@@ -40,6 +41,7 @@ export class FormCategoriaComponent implements OnInit {
 
     this.base.getCategorias();
     this.base.editar = false;
+    $('#nombreCategoria').focus();
 
   }
 

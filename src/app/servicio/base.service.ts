@@ -204,8 +204,8 @@ export class BaseService {
     const consulta = `INSERT INTO CATEGORIAS (nombre) values ('${unaCategoria.nombre}');`;
     let res = this.ipc.ipcRenderer.sendSync('base', consulta);
     if (res[0] == 'ok') {
-      this.getCategorias();
       alertify.notify('Categoria agregada', 'success', 5);
+      this.getCategorias();
     } else {
       alertify.notify('Error ' + res[1].code, 'warning', 5);
     }
@@ -215,8 +215,8 @@ export class BaseService {
     const consulta = `DELETE FROM CATEGORIAS WHERE id = '${unaCategoria.id}';`;
     let res = this.ipc.ipcRenderer.sendSync('base', consulta);
     if (res[0] == 'ok') {
-      this.getCategorias();
       alertify.notify('Categoria eliminada', 'error', 5);
+      this.getCategorias();
     } else {
       alertify.notify('Error ' + res[1].code, 'warning', 5);
     }
@@ -226,8 +226,8 @@ export class BaseService {
     const consulta = `UPDATE CATEGORIAS SET nombre = '${unaCategoria.nombre}' WHERE id = ${unaCategoria.id};`;
     let res = this.ipc.ipcRenderer.sendSync('base', consulta);
     if (res[0] == 'ok') {
-      this.getCategorias();
       alertify.notify('Categoria editada', 'success', 5);
+      this.getCategorias();
     } else {
       alertify.notify('Error ' + res[1].code, 'warning', 5);
     }

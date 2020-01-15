@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { BaseService } from 'src/app/servicio/base.service';
 import { Categoria } from 'src/app/model/Categoria';
+import { BaseService } from 'src/app/servicio/base.service';
 
-declare var alertify:any;
+declare var $: any;
 
 @Component({
   selector: 'app-form-borrar-categoria',
@@ -15,10 +15,14 @@ export class FormBorrarCategoriaComponent implements OnInit {
 
   ngOnInit() {
   }
-
-  
   borrar(){
+    $('#formBorrarCategoria').modal('hide');
     this.base.borrarCategoria(this.base.unaCategoria);
+    this.vaciarCampos();
+  }
+
+  cancelar(){
+    $('#formBorrarCategoria').modal('hide');
     this.vaciarCampos();
   }
 
