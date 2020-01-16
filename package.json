@@ -17,8 +17,7 @@
     "e2e": "ng e2e",
     "start:electron": "ng build --base-href ./ && electron .",
     "pack": "electron-builder --dir",
-    "dist": "electron-builder",
-    "publish": "build --mac --win -p always"
+    "dist": "electron-builder"
   },
   "private": true,
   "dependencies": {
