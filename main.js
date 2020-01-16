@@ -19,6 +19,8 @@ function createWindow() {
     webPreferences: { nodeIntegration: true }
   })
 
+  ConectarBD();
+
   //Saca la barra de menu fea.
   //win.setMenu(null);
 
@@ -32,9 +34,6 @@ function createWindow() {
   win.on('closed', function () {
     win = null
   })
-
-  ConectarBD();
-
 }
 
 // Evento que ejecuta el metodo para crear la ventana.
@@ -73,9 +72,17 @@ async function ConectarBD() {
     }
   })
 
+
+
 }
 
 //Metodos consulta BD
+
+ipcMain.on('BaseStatus', (e) => {
+
+  e.returnValue = client._connected;
+
+});
 
 ipcMain.on('base', (e, consulta) => {
 
