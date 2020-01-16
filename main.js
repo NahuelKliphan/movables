@@ -1,5 +1,6 @@
 const { app, BrowserWindow, ipcMain } = require('electron')
 const { Client } = require('pg')
+const { autoUpdater } = require("electron-updater")
 
 
 //Ruta de la app
@@ -8,6 +9,9 @@ const ruta = app.getPath('userData');
 //Ventana principal.
 let win;
 let client;
+
+//Actualizar app
+autoUpdater.checkForUpdatesAndNotify()
 
 function createWindow() {
   //Crea la ventana principal.

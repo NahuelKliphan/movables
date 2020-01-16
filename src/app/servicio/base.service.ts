@@ -137,9 +137,9 @@ export class BaseService {
   }
 
   guardarProducto(unProdcuto: Producto) {
+    $('#formProducto').modal('hide');
     const consulta = `INSERT INTO PRODUCTOS (codigo,nombre,precio,cantidad,descripcion,foto,idcategoria) VALUES ('${unProdcuto.codigo}','${unProdcuto.nombre}',${unProdcuto.precio},${unProdcuto.cantidad},'${unProdcuto.descripcion}','${unProdcuto.foto}',${unProdcuto.idcategoria});`;
     let res = this.ipc.ipcRenderer.sendSync('base', consulta);
-    $('#formProducto').modal('hide');
     if (res[0] == 'ok') {
       this.getProductos();
       alertify.notify('Producto agregado', 'success', 5);
@@ -160,9 +160,9 @@ export class BaseService {
   }
 
   editarProducto(unProdcuto: Producto) {
+    $('#formProducto').modal('hide');
     const consulta = `UPDATE PRODUCTOS P SET nombre = '${unProdcuto.nombre}', precio = ${this.adaptarDecimal(unProdcuto.precio)} , cantidad = ${unProdcuto.cantidad} , descripcion = '${unProdcuto.descripcion}', idcategoria = ${unProdcuto.idcategoria} , foto = '${unProdcuto.foto}' WHERE P.codigo = '${unProdcuto.codigo}';`;
     let res = this.ipc.ipcRenderer.sendSync('base', consulta);
-    $('#formProducto').modal('hide');
     if (res[0] == 'ok') {
       this.getProductos();
       alertify.notify('Producto editado', 'success', 5);

@@ -1,6 +1,12 @@
 {
   "name": "system",
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "author": "NahuelKliphan",
+  "description": "Sistema de Gestion",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/NahuelKliphan/System"
+  },
   "main": "main.js",
   "scripts": {
     "ng": "ng",
@@ -11,7 +17,8 @@
     "e2e": "ng e2e",
     "start:electron": "ng build --base-href ./ && electron .",
     "pack": "electron-builder --dir",
-    "dist": "electron-builder"
+    "dist": "electron-builder",
+    "publish": "build --mac --win -p always"
   },
   "private": true,
   "dependencies": {
@@ -24,6 +31,7 @@
     "@angular/platform-browser-dynamic": "~8.2.14",
     "@angular/router": "~8.2.14",
     "alertifyjs": "^1.13.1",
+    "electron-updater": "^4.2.0",
     "jquery": "^3.4.1",
     "ngx-electron": "^2.2.0",
     "pg": "^7.17.1",
@@ -60,6 +68,13 @@
     "directories": {
       "output": "release/"
     },
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "NahuelKliphan",
+        "repo": "System"
+      }
+    ],
     "files": [
       "**/*",
       "!**/*.ts",
