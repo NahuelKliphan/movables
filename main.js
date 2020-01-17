@@ -10,10 +10,12 @@ const ruta = app.getPath('userData');
 let win;
 let client;
 
-//Actualizar app
-autoUpdater.checkForUpdatesAndNotify()
 
 function createWindow() {
+
+  //Actualizar app
+  autoUpdater.checkForUpdatesAndNotify()
+
   //Crea la ventana principal.
   win = new BrowserWindow({
     width: 1024,
@@ -62,6 +64,33 @@ ipcMain.on('salir', () => {
   DesconectarBD();
   app.quit();
 })
+
+//Autoupdate
+autoUpdater.on('checking-for-update', () => {
+  console.log('Checking for update...');
+})
+autoUpdater.on('update-available', (info) => {
+  console.log('Update available.');
+})
+autoUpdater.on('update-not-available', (info) => {
+  console.log('Update not available.');
+})
+autoUpdater.on('error', (err) => {
+  console.log('Error in auto-updater. ' + err);
+})
+autoUpdater.on('download-progress', (progressObj) => {
+  let log_message = "Download speed: " + progressObj.bytesPerSecond;
+  log_message = log_message + ' - Downloaded ' + progressObj.percent + '%';
+  log_message = log_message + ' (' + progressObj.transferred + "/" + progressObj.total + ')';
+  console.log(log_message);
+})
+autoUpdater.on('update-downloaded', (info) => {
+  console.log('Update downloaded');
+});
+
+autoUpdater.on('update-downloaded', (info) => {
+  autoUpdater.quitAndInstall();
+});
 
 //Metodo para conectar la base de datos.
 async function ConectarBD() {

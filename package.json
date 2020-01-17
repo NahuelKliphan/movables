@@ -17,7 +17,8 @@
     "e2e": "ng e2e",
     "start:electron": "ng build --base-href ./ && electron .",
     "pack": "electron-builder --dir",
-    "dist": "electron-builder"
+    "dist": "electron-builder --x64",
+    "gh-publish": "electron-builder --x64 -p always"
   },
   "private": true,
   "dependencies": {
@@ -63,6 +64,7 @@
     "typescript": "~3.5.3"
   },
   "build": {
+    "appId": "com.github.NahuelKliphan.System",
     "productName": "system",
     "directories": {
       "output": "release/"
