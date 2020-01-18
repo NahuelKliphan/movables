@@ -1,6 +1,6 @@
 {
   "name": "system",
-  "version": "1.0.1",
+  "version": "1.0.0",
   "author": "NahuelKliphan",
   "description": "Sistema de Gestion",
   "repository": {
@@ -17,8 +17,8 @@
     "e2e": "ng e2e",
     "start:electron": "ng build --base-href ./ && electron .",
     "pack": "electron-builder --dir",
-    "dist": "electron-builder --x64",
-    "gh-publish": "electron-builder --x64 -p always"
+    "dist": "electron-builder --x64 --win",
+    "gh-publish": "electron-builder --x64 --win -p always"
   },
   "private": true,
   "dependencies": {
@@ -73,6 +73,7 @@
       {
         "provider": "github",
         "owner": "NahuelKliphan",
+        "token":"61be6ff086c160db253ef08e04af4e4770fce325m",
         "repo": "System"
       }
     ],
@@ -95,7 +96,7 @@
     "win": {
       "icon": "build/icon.ico",
       "target": [
-        "portable"
+        "nsis"
       ]
     },
     "mac": {

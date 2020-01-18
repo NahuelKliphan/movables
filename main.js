@@ -13,9 +13,6 @@ let client;
 
 function createWindow() {
 
-  //Actualizar app
-  autoUpdater.checkForUpdatesAndNotify()
-
   //Crea la ventana principal.
   win = new BrowserWindow({
     width: 1024,
@@ -40,6 +37,9 @@ function createWindow() {
   win.on('closed', function () {
     win = null
   })
+
+  //Actualizar app
+  autoUpdater.checkForUpdatesAndNotify()
 }
 
 // Evento que ejecuta el metodo para crear la ventana.
