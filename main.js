@@ -10,6 +10,8 @@ const ruta = app.getPath('userData');
 let win;
 let client;
 
+//Actualizar app
+autoUpdater.checkForUpdates();
 
 function createWindow() {
 
@@ -38,8 +40,6 @@ function createWindow() {
     win = null
   })
 
-  //Actualizar app
-  autoUpdater.checkForUpdatesAndNotify()
 }
 
 // Evento que ejecuta el metodo para crear la ventana.
