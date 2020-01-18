@@ -73,7 +73,8 @@
       {
         "provider": "github",
         "owner": "NahuelKliphan",
-        "repo": "System"
+        "repo": "System",
+        "private":"true"
       }
     ],
     "files": [
