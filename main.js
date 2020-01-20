@@ -11,7 +11,7 @@ let win;
 let client;
 
 //Actualizar app
-autoUpdater.checkForUpdatesAndNotify();
+autoUpdater.checkForUpdates();
 
 function createWindow() {
 
