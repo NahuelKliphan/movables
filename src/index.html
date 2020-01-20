@@ -11,10 +11,21 @@
 <body>
   <app-root></app-root>
   <script>
-  
     window.$ = window.jQuery = require('jquery');
-
   </script>
 </body>
+
+<script>
+
+  const { ipcRenderer } = require('electron');
+
+  ipcRenderer.on('message', function (event, text) {
+
+    console.log(text);
+
+  })
+
+</script>
+
 
 </html>
