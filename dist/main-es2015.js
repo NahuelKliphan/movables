@@ -162,7 +162,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("Nahuel Kliphan");
+/* harmony default export */ __webpack_exports__["default"] = ("v1.0.2");
 
 /***/ }),
 
@@ -2423,7 +2423,7 @@ Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_2__["platformB
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\Nahuel\Desktop\System\System\src\main.ts */"./src/main.ts");
+module.exports = __webpack_require__(/*! C:\Users\ckliphan\Desktop\Archivos\System\System\src\main.ts */"./src/main.ts");
 
 
 /***/ })

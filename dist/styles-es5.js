@@ -494,19 +494,19 @@
   /***/
   function _(module, exports, __webpack_require__) {
     __webpack_require__(
-    /*! C:\Users\Nahuel\Desktop\System\System\src\styles.css */
+    /*! C:\Users\ckliphan\Desktop\Archivos\System\System\src\styles.css */
     "./src/styles.css");
 
     __webpack_require__(
-    /*! C:\Users\Nahuel\Desktop\System\System\semantic\semantic.css */
+    /*! C:\Users\ckliphan\Desktop\Archivos\System\System\semantic\semantic.css */
     "./semantic/semantic.css");
 
     __webpack_require__(
-    /*! C:\Users\Nahuel\Desktop\System\System\node_modules\alertifyjs\build\css\alertify.min.css */
+    /*! C:\Users\ckliphan\Desktop\Archivos\System\System\node_modules\alertifyjs\build\css\alertify.min.css */
     "./node_modules/alertifyjs/build/css/alertify.min.css");
 
     module.exports = __webpack_require__(
-    /*! C:\Users\Nahuel\Desktop\System\System\node_modules\alertifyjs\build\css\themes\default.min.css */
+    /*! C:\Users\ckliphan\Desktop\Archivos\System\System\node_modules\alertifyjs\build\css\themes\default.min.css */
     "./node_modules/alertifyjs/build/css/themes/default.min.css");
     /***/
   }

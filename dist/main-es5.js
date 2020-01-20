@@ -251,7 +251,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "Nahuel Kliphan";
+    __webpack_exports__["default"] = "v1.0.2";
     /***/
   },
 
@@ -4104,7 +4104,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
   /***/
   function _(module, exports, __webpack_require__) {
     module.exports = __webpack_require__(
-    /*! C:\Users\Nahuel\Desktop\System\System\src\main.ts */
+    /*! C:\Users\ckliphan\Desktop\Archivos\System\System\src\main.ts */
     "./src/main.ts");
     /***/
   }
