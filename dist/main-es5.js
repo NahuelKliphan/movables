@@ -251,7 +251,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "v1.0.6";
+    __webpack_exports__["default"] = "v1.0.7";
     /***/
   },
 
