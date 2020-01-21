@@ -26,12 +26,13 @@ import { ListaVentaComponent } from './component/venta/lista-venta/lista-venta.c
 import { ItemComponent } from './component/Item/item/item.component';
 import { FormItemComponent } from './component/Item/form-item/form-item.component';
 import { ListaItemComponent } from './component/Item/lista-item/lista-item.component';
+import { FormCantidadComponent } from './component/Item/form-cantidad/form-cantidad.component';
 //Categoria
 import { CategoriaComponent } from './component/categoria/categoria/categoria.component';
 import { FormCategoriaComponent } from './component/categoria/form-categoria/form-categoria.component';
 import { ListaCategoriaComponent } from './component/categoria/lista-categoria/lista-categoria.component';
 import { FormBorrarCategoriaComponent } from './component/categoria/form-borrar-categoria/form-borrar-categoria.component';
-import { FormCantidadComponent } from './component/Item/form-cantidad/form-cantidad.component';
+
 
 
 const routes : Routes = [

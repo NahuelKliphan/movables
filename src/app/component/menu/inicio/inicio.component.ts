@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ElectronService } from 'ngx-electron';
 
 declare var alertify: any;
+declare var $: any;
 
 @Component({
   selector: 'app-inicio',

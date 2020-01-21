@@ -22,6 +22,8 @@ function createWindow() {
     webPreferences: { nodeIntegration: true }
   })
 
+  win.maximize();
+
   if (!isDev) {
     win.setMenu(null);
   }

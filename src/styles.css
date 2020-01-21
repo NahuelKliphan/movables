@@ -50,3 +50,7 @@ thead, tbody tr {
     width:100%;
     table-layout:fixed;
 }
+
+.centro-vertical{
+    margin-top: 0;
+}

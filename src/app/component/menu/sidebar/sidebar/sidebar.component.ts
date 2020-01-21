@@ -14,6 +14,10 @@ export class SidebarComponent implements OnInit {
 
   ngOnInit() {
 
+    var pantalla = $(window).height();
+    pantalla = pantalla - 700;
+    $('.centro-vertical').css('margin-top', `${pantalla}px`);
+
   }
 
   hide(){
