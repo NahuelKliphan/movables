@@ -22,7 +22,8 @@ function createWindow() {
     webPreferences: { nodeIntegration: true }
   })
 
-  win.maximize();
+  //Carga el index.html de angular
+  win.loadURL(`file://${__dirname}/dist/index.html`)
 
   if (!isDev) {
     win.setMenu(null);
@@ -30,18 +31,47 @@ function createWindow() {
 
   ConectarBD();
 
-  //Carga el index.html de angular
-  win.loadURL(`file://${__dirname}/dist/index.html`)
+  win.maximize();
 
   // Evento cuando se cierra la ventana.
   win.on('closed', function () {
     win = null
   })
 
+  if (isDev) {
+    autoUpdater.checkForUpdates();
+  } else {
+    autoUpdater.checkForUpdatesAndNotify();
+  }
+
+}
+
+function createSplash() {
+  //Crea la ventana splash
+  splash = new BrowserWindow({
+    width: 800,
+    height: 600,
+    frame: false,
+    transparent: true
+  })
+
+  splash.loadURL(`file://${__dirname}/splash.html`)
 }
 
 // Evento que ejecuta el metodo para crear la ventana.
-app.on('ready', createWindow)
+app.on('ready', function () {
+
+  createSplash();
+
+  setTimeout(function () {
+
+    splash.hide();
+    splash = null;
+    createWindow();
+
+  }, 5000);
+
+})
 
 // Sale cuando todas las ventanas estan cerradas.
 app.on('window-all-closed', function () {
@@ -72,12 +102,6 @@ function sendStatuspercentToWindow(text) {
 }
 
 //Autoupdate
-
-if (isDev) {
-  autoUpdater.checkForUpdates();
-} else {
-  autoUpdater.checkForUpdatesAndNotify();
-}
 
 autoUpdater.on('checking-for-update', () => {
   sendStatusToWindow('Buscando Actualizaciones');
