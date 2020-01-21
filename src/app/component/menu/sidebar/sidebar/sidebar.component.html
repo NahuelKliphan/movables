@@ -1,5 +1,8 @@
 <div class="ui labeled icon sidebar left vertical menu">
-
+    <a class="item" routerLink="/inicio" (click)="hide();ventaOff();">
+        <i class="home icon"></i>
+        <b>Inicio</b>
+    </a>
     <a class="item" routerLink="/producto" (click)="hide();ventaOff();">
         <i class="teal archive icon"></i>
         <b>Productos</b>
@@ -16,5 +19,4 @@
         <i class="grey big cog icon"></i>
         <b>Configuración</b>
     </a>
-
 </div>

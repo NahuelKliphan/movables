@@ -19,9 +19,21 @@
 
   const { ipcRenderer } = require('electron');
 
-  ipcRenderer.on('message', function (event, text) {
+  ipcRenderer.on('update', function (event, text) {
 
-    console.log(text);
+    if (text == 'Actualización no disponible') {
+      $("#progreso").hide();
+    }
+
+    $("#EstadoDescarga").text(text);
+
+  })
+
+  ipcRenderer.on('percent', function (event, percent) {
+
+    $('#progreso').progress({
+      percent: percent
+    });
 
   })
 

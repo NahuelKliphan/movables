@@ -19,7 +19,7 @@ export class FormVentaComponent implements OnInit {
     var pantalla = $(window).height();
     pantalla = pantalla - 135;
     $('.pantalla').css('height', `${pantalla}px`);
-    pantalla = pantalla - 450;
+    pantalla = pantalla - 465;
     $('.tabla').css('height', `${pantalla}px`);
   }
 

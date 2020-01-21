@@ -1,7 +1,7 @@
 const { app, BrowserWindow, ipcMain } = require('electron')
 const { Client } = require('pg')
 const { autoUpdater } = require("electron-updater")
-
+const isDev = require('electron-is-dev');
 
 //Ruta de la app
 const ruta = app.getPath('userData');
@@ -9,9 +9,7 @@ const ruta = app.getPath('userData');
 //Ventana principal.
 let win;
 let client;
-
-//Actualizar app
-autoUpdater.checkForUpdatesAndNotify();
+let update = false;
 
 function createWindow() {
 
@@ -24,13 +22,11 @@ function createWindow() {
     webPreferences: { nodeIntegration: true }
   })
 
+  if (!isDev) {
+    win.setMenu(null);
+  }
+
   ConectarBD();
-
-  //Saca la barra de menu fea.
-  //win.setMenu(null);
-
-  //Inicia en pantalla completa.
-  win.maximize();
 
   //Carga el index.html de angular
   win.loadURL(`file://${__dirname}/dist/index.html`)
@@ -66,34 +62,47 @@ ipcMain.on('salir', () => {
 })
 
 function sendStatusToWindow(text) {
-  win.webContents.send('message', text);
+  win.webContents.send('update', text);
+}
+
+function sendStatuspercentToWindow(text) {
+  win.webContents.send('percent', text);
 }
 
 //Autoupdate
+
+if (isDev) {
+  autoUpdater.checkForUpdates();
+} else {
+  autoUpdater.checkForUpdatesAndNotify();
+}
+
 autoUpdater.on('checking-for-update', () => {
-  sendStatusToWindow('Checking for update...');
+  sendStatusToWindow('Buscando Actualizaciones');
 })
 autoUpdater.on('update-available', (info) => {
-  sendStatusToWindow('Update available.');
+  sendStatusToWindow('Actualización disponible');
+  update = true;
 })
 autoUpdater.on('update-not-available', (info) => {
-  sendStatusToWindow('Update not available.');
+  sendStatusToWindow('Actualización no disponible');
 })
 autoUpdater.on('error', (err) => {
-  sendStatusToWindow('Error in auto-updater. ' + err);
+  sendStatusToWindow('Error de Actualización' + err);
 })
 autoUpdater.on('download-progress', (progressObj) => {
-  let log_message = "Download speed: " + progressObj.bytesPerSecond;
-  log_message = log_message + ' - Downloaded ' + progressObj.percent + '%';
-  log_message = log_message + ' (' + progressObj.transferred + "/" + progressObj.total + ')';
+  let log_message = 'Descargando ' + Number.parseFloat(progressObj.percent).toFixed(2) + '%';
   sendStatusToWindow(log_message);
+  sendStatuspercentToWindow(progressObj.percent);
 })
 autoUpdater.on('update-downloaded', (info) => {
-  sendStatusToWindow('Update downloaded');
+  sendStatusToWindow('Actualización descargada');
 });
 
 autoUpdater.on('update-downloaded', (info) => {
-  autoUpdater.quitAndInstall();
+  if (update == true) {
+    autoUpdater.quitAndInstall();
+  }
 });
 
 //Metodo para conectar la base de datos.
@@ -130,7 +139,6 @@ ipcMain.on('base', (e, consulta) => {
     }
 
   });
-
 
 });
 

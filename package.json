@@ -1,6 +1,6 @@
 {
   "name": "system",
-  "version": "1.0.10",
+  "version": "1.0.9",
   "author": "NahuelKliphan",
   "description": "Sistema de Gestion",
   "repository": {
@@ -31,6 +31,7 @@
     "@angular/platform-browser-dynamic": "~8.2.14",
     "@angular/router": "~8.2.14",
     "alertifyjs": "^1.13.1",
+    "electron-is-dev": "^1.1.0",
     "electron-updater": "^4.2.0",
     "jquery": "^3.4.1",
     "ngx-electron": "^2.2.0",
