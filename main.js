@@ -19,7 +19,8 @@ function createWindow() {
     height: 768,
     backgroundColor: '#ffffff',
     icon: `file://${__dirname}/dist/assets/logo.png`,
-    webPreferences: { nodeIntegration: true }
+    webPreferences: { nodeIntegration: true },
+    show: false
   })
 
   //Carga el index.html de angular
@@ -30,8 +31,6 @@ function createWindow() {
   }
 
   ConectarBD();
-
-  win.maximize();
 
   // Evento cuando se cierra la ventana.
   win.on('closed', function () {
@@ -61,15 +60,17 @@ function createSplash() {
 // Evento que ejecuta el metodo para crear la ventana.
 app.on('ready', function () {
 
+  createWindow();
   createSplash();
 
   setTimeout(function () {
 
     splash.hide();
     splash = null;
-    createWindow();
+    win.show();
+    win.maximize();
 
-  }, 5000);
+  }, 5500);
 
 })
 
