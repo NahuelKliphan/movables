@@ -9,7 +9,6 @@ const ruta = app.getPath('userData');
 //Ventana principal.
 let win;
 let client;
-let update = false;
 
 function createWindow() {
 
@@ -37,12 +36,6 @@ function createWindow() {
     win = null
   })
 
-  if (isDev) {
-    autoUpdater.checkForUpdates();
-  } else {
-    autoUpdater.checkForUpdatesAndNotify();
-  }
-
 }
 
 function createSplash() {
@@ -56,12 +49,20 @@ function createSplash() {
   })
 
   splash.loadURL(`file://${__dirname}/splash.html`)
+
+  if (isDev) {
+    autoUpdater.checkForUpdates();
+  } else {
+    autoUpdater.checkForUpdatesAndNotify();
+  }
+
 }
 
 // Evento que ejecuta el metodo para crear la ventana.
 app.on('ready', function () {
 
   createWindow();
+
   createSplash();
 
   setTimeout(function () {
@@ -78,8 +79,8 @@ app.on('ready', function () {
 // Libera los recursos de la ventana
 app.on('window-all-closed', app.quit);
 app.on('before-quit', () => {
-    win.removeAllListeners('close');
-    win.close();
+  win.removeAllListeners('close');
+  win.close();
 });
 
 app.on('activate', function () {
@@ -106,31 +107,31 @@ function sendStatuspercentToWindow(text) {
 
 autoUpdater.on('checking-for-update', () => {
   sendStatusToWindow('Buscando Actualizaciones');
+
 })
 autoUpdater.on('update-available', (info) => {
   sendStatusToWindow('Actualización disponible');
-  update = true;
+
 })
 autoUpdater.on('update-not-available', (info) => {
   sendStatusToWindow('Actualización no disponible');
+
 })
 autoUpdater.on('error', (err) => {
   sendStatusToWindow('Error de Actualización ' + err);
+
 })
 autoUpdater.on('download-progress', (progressObj) => {
   let log_message = 'Descargando ' + Number.parseFloat(progressObj.percent).toFixed(2) + '%';
   sendStatusToWindow(log_message);
   sendStatuspercentToWindow(progressObj.percent);
+
 })
 autoUpdater.on('update-downloaded', (info) => {
   sendStatusToWindow('Actualización descargada');
+  autoUpdater.quitAndInstall();
 });
 
-autoUpdater.on('update-downloaded', (info) => {
-  if (update == true) {
-    autoUpdater.quitAndInstall();
-  }
-});
 
 //Metodo para conectar la base de datos.
 async function ConectarBD() {
