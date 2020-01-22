@@ -64,3 +64,14 @@ thead, tbody tr {
     -ms-transform: translateY(-50%);
     transform: translateY(-50%);
 }
+
+.inferior {   
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    margin-bottom: 20px;
+    z-index: 0;
+    margin-left: 40px;
+    margin-right: 40px;
+}

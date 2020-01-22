@@ -114,7 +114,7 @@ autoUpdater.on('update-not-available', (info) => {
   sendStatusToWindow('Actualización no disponible');
 })
 autoUpdater.on('error', (err) => {
-  sendStatusToWindow('Error de Actualización' + err);
+  sendStatusToWindow('Error de Actualización ' + err);
 })
 autoUpdater.on('download-progress', (progressObj) => {
   let log_message = 'Descargando ' + Number.parseFloat(progressObj.percent).toFixed(2) + '%';
