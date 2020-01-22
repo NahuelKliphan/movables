@@ -51,6 +51,16 @@ thead, tbody tr {
     table-layout:fixed;
 }
 
-.centro-vertical{
-    margin-top: 0;
+.container {
+    height: 100%;
+    width: 122px;
+    position: relative;
+}
+
+.vertical-center {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
 }

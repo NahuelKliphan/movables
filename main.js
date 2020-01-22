@@ -65,7 +65,7 @@ app.on('ready', function () {
 
   setTimeout(function () {
 
-    splash.hide();
+    splash.close();
     splash = null;
     win.show();
     win.maximize();
@@ -74,13 +74,12 @@ app.on('ready', function () {
 
 })
 
-// Sale cuando todas las ventanas estan cerradas.
-app.on('window-all-closed', function () {
-  // Proceso especifico de macOS.
-  if (process.platform !== 'darwin') {
-    app.quit()
-  }
-})
+// Libera los recursos de la ventana
+app.on('window-all-closed', app.quit);
+app.on('before-quit', () => {
+    win.removeAllListeners('close');
+    win.close();
+});
 
 app.on('activate', function () {
   // Proceso especifico de macOS.
