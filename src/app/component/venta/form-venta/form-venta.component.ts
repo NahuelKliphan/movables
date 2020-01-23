@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Venta } from 'src/app/model/Venta';
 import { BaseService } from 'src/app/servicio/base.service';
-import { Item } from 'src/app/model/Item';
 
 declare var $: any;
 declare var alertify: any;
