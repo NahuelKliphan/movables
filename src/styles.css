@@ -5,7 +5,7 @@
     margin-right: auto;
 }
 
-.card
+ .card
 {
     position:relative;
     display:-webkit-box;
@@ -19,7 +19,7 @@
     background-color:#fff;
     background-clip:border-box;
     border:1px solid rgba(0,0,0,0.125)
-}
+} 
 
 .lista-producto
 {
@@ -28,8 +28,6 @@
 
 .lista-categoria
 {
-    overflow:scroll; 
-    max-height:50vh;
     overflow-x: hidden;
 }
 

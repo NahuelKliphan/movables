@@ -1,36 +1,41 @@
-<div style="text-align: center;">
-    <h2><i class="large tags icon"></i> Nueva categoría </h2>
-</div>
+<form class="ui form">
 
-<form class="ui form"  style="margin-top: 20px;">
+    <div class="inline fields">
 
-    <div class="ui grid">
+        <div class="ui grid" style="width: 100%;">
 
-        <div class="ten wide column">
+            <div class="six wide column">
+                <h2><i class="large tags icon"></i> Nueva categoría </h2>
+            </div>
 
-            <div class="field">
-                <div class="ui input right labeled left icon">
-                    <i class="tag icon"></i>
-                    <input type="text" name="codigo" placeholder="Nombre" [(ngModel)]="base.unaCategoria.nombre" id="nombreCategoria">
-                    <a class="ui tag label">
-                        Nombre
-                    </a>
+            <div class="five wide column">
+
+                <div class="field">
+                    <div class="ui input right labeled left icon">
+                        <i class="tag icon"></i>
+                        <input type="text" name="codigo" placeholder="Nombre" [(ngModel)]="base.unaCategoria.nombre"
+                            id="nombreCategoria">
+                        <a class="ui tag label">
+                            Nombre
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="five wide column">
+                <div *ngIf="!base.editar" class="ui button primary right floated"
+                    (click)="guardar()">
+                    <i class="plus icon"></i> Agregar
+                </div>
+                <div *ngIf="base.editar" class="ui button secondary right floated"
+                    (click)="editar()">
+                    <i class="edit icon"></i> Editar
                 </div>
             </div>
 
         </div>
 
-        <div class="six wide column">
-            <div *ngIf="!base.editar" class="ui button  primary right floated" style="margin-right: 10px;" (click)="guardar()">
-                <i class="plus icon"></i> Agregar
-            </div>
-            <div *ngIf="base.editar" class="ui button secondary right floated" style="margin-right: 10px;" (click)="editar()">
-                <i class="edit icon"></i> Editar
-            </div>
-        </div>
-
     </div>
-
-
 
 </form>
