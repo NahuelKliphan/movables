@@ -1,0 +1,93 @@
+<div class="ui modal small" id="modificarPrecioProducto">
+    <div class="header">
+        <i class="arrows alternate vertical icon blue"></i> Modificar precio
+    </div>
+    <div class="content">
+
+        <div class="description">
+
+            <div class="ui form">
+
+                <div  class="ui grid">
+
+                    <div class="eight wide column">
+
+                        <div class="field">
+                            <div class="ui input labeled right icon">
+                                <a class="ui label">
+                                    Cantidad:
+                                </a>
+                                <i id="iconoValor" class="percent icon"></i>
+                                <input type="text" name="valor" placeholder="Valor" [(ngModel)] = "valor">
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="eight wide column">
+
+                        <div class="ui button inverted" style="margin-left: 30px;">
+                            <div class="ui checkbox">
+                              <input type="checkbox" name="porcentaje" [(ngModel)]="porcentaje" (change)="selectPercent()">
+                              <label>Porcentaje</label>
+                            </div>
+                          </div>
+
+                          <div class="ui button inverted" style="margin-left: 30px;">
+                            <div class="ui checkbox">
+                              <input type="checkbox" name="monto" [(ngModel)]="monto" (change)="selectMotno()">
+                              <label>Monto</label>
+                            </div>
+                          </div>
+
+                    </div>
+
+                    <div class="eight wide column">
+
+                        <select class="ui dropdown fluid" name="idFiltro" [(ngModel)]="idFiltro" id="filtrar" (change)="setFiltro()">
+                            <option value="-1"><i class="filter grey icon"></i> Categoria</option>
+                            <option [ngValue]="null"><i class="tag icon"></i> Sin categoria</option>
+                            <option [ngValue]="unaCategoria.id" *ngFor="let unaCategoria of base.listadoCategoria"><i
+                                class="tag icon"></i>
+                              {{unaCategoria.nombre}}
+                            </option>
+                          </select>
+
+                    </div>
+
+                    <div class="eight wide column">
+
+                        <div class="ui button inverted" style="margin-left: 30px;">
+                            <div class="ui checkbox">
+                              <input type="checkbox" name="aumentar" [(ngModel)]="aumentar"  (change)="selectAumentar()">
+                              <label>Aumentar</label>
+                            </div>
+                          </div>
+
+                          <div class="ui button inverted" style="margin-left: 30px;">
+                            <div class="ui checkbox">
+                              <input type="checkbox" name="bajar" [(ngModel)]="bajar" (change)="selectBajar()">
+                              <label>Bajar</label>
+                            </div>
+                          </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+    <div class="actions">
+        <div class="ui button secondary" (click)="cancelar()">
+            <i class="close icon"></i> Cancelar
+        </div>
+        <div class="ui button primary" (click)="aceptar()">
+            <i class="checkmark icon"></i> Aceptar
+        </div>
+    </div>
+
+</div>
