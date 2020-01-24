@@ -12,6 +12,9 @@ export class ConfiguracionComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    var pantalla = $(window).height();
+    pantalla = pantalla - 135;
+    $('.pantalla').css('height', `${pantalla}px`);
   }
 
   abrirModal(){

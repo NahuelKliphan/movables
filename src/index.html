@@ -21,7 +21,10 @@
 
   ipcRenderer.on('update', function (event, text) {
 
-    if (text == 'Actualización no disponible') {
+    console.log(text);
+
+    if (text == 'Actualización no disponible' || text == 'Actualización descargada') {
+      console.log('entro');
       $("#progreso").hide();
     }
 
@@ -34,6 +37,20 @@
     $('#progreso').progress({
       percent: percent
     });
+
+  })
+
+  ipcRenderer.on('BaseStatus', function (event, res) {
+
+    var pantalla = $(window).height();
+    pantalla = pantalla - 250;
+    $('.contenedor-inicio').css('height', `${pantalla}px`);
+
+    if (res) {
+      alertify.notify('Base de datos conectada ', 'success', 5);
+    } else {
+      alertify.notify('Error al conectar base de datos ', 'error', 5);
+    }
 
   })
 

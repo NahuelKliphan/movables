@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ElectronService } from 'ngx-electron';
 
-declare var alertify: any;
 declare var $: any;
 
 @Component({
@@ -15,13 +14,9 @@ export class InicioComponent implements OnInit {
 
   ngOnInit() {
 
-    var res = this.ipc.ipcRenderer.sendSync('BaseStatus');
-
-    if(res){
-      alertify.notify( 'Base de datos conectada ', 'success', 5);
-    }else{
-      alertify.notify('Error al conectar base de datos ' , 'error', 5);
-    }
+    var pantalla = $(window).height();
+    pantalla = pantalla - 250;
+    $('.contenedor-inicio').css('height', `${pantalla}px`);
 
   }
 
