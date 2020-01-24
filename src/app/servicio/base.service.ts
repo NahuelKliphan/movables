@@ -52,6 +52,12 @@ export class BaseService {
     return Number(numero.toString().replace(',', '.'));
   }
 
+  isNumber(value: string | number): boolean {
+    return ((value != null) &&
+      (value !== '') &&
+      !isNaN(Number(value.toString())));
+  }
+
   setFiltro(id: number) {
 
     if (id == null) {
@@ -130,6 +136,18 @@ export class BaseService {
 
     if (res[0] == 'ok') {
       this.listadoProducto = res[1];
+    } else {
+      alertify.notify('Error ' + res[1].code, 'warning', 5);
+    }
+
+  }
+
+  modificarPrecioProducto(consulta:string){
+
+    let res = this.ipc.ipcRenderer.sendSync('base', consulta);
+    if (res[0] == 'ok') {
+      alertify.notify('Precios modificados', 'success', 5);
+      this.getProductos();
     } else {
       alertify.notify('Error ' + res[1].code, 'warning', 5);
     }

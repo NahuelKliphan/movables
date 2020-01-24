@@ -25,6 +25,9 @@ export class ListaProductoComponent implements OnInit {
     $("#buscarProducto").focus();
     this.base.getCategorias();
     this.base.getProductos();
+
+    console.log(this.base.idFiltrar);
+    console.log(this.base.filtro);
   }
 
   abrirModal() {

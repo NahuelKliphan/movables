@@ -18,6 +18,7 @@ import {ProductoComponent} from 'src/app/component/producto/producto/producto.co
 import {FormProductoComponent} from 'src/app/component/producto/form-producto/form-producto.component';
 import {ListaProductoComponent} from 'src/app/component/producto/lista-producto/lista-producto.component';
 import { FormBorrarProductoComponent } from './component/producto/form-borrar-producto/form-borrar-producto.component';
+import { ModificarPrecioProductoComponent } from './component/producto/modificar-precio-producto/modificar-precio-producto.component';
 //Venta
 import { VentaComponent } from './component/venta/venta/venta.component';
 import { FormVentaComponent } from './component/venta/form-venta/form-venta.component';
@@ -32,7 +33,6 @@ import { CategoriaComponent } from './component/categoria/categoria/categoria.co
 import { FormCategoriaComponent } from './component/categoria/form-categoria/form-categoria.component';
 import { ListaCategoriaComponent } from './component/categoria/lista-categoria/lista-categoria.component';
 import { FormBorrarCategoriaComponent } from './component/categoria/form-borrar-categoria/form-borrar-categoria.component';
-
 
 
 const routes : Routes = [
@@ -84,7 +84,8 @@ const routes : Routes = [
     SidebarComponent,
     FormBorrarProductoComponent,
     FormBorrarCategoriaComponent,
-    FormCantidadComponent
+    FormCantidadComponent,
+    ModificarPrecioProductoComponent
   ],
   imports: [
     BrowserModule,

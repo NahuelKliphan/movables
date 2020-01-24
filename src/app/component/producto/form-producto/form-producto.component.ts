@@ -76,18 +76,14 @@ export class FormProductoComponent implements OnInit {
     }
 
     //Precio
-    if (this.base.unProducto.precio < 0 || !this.isNumber(this.base.unProducto.precio)) {
+    if (this.base.unProducto.precio < 0 || !this.base.isNumber(this.base.unProducto.precio)) {
       ret = false;
       alertify.notify('Precio no válido', 'error', 5);
       return false;
     }
 
-    console.log('Is number' + this.isNumber(this.base.unProducto.cantidad));
-    console.log('Is integer' + Number.isInteger(this.base.unProducto.cantidad));
-
-
     //Cantidad
-    if (this.base.unProducto.cantidad == null || !this.isNumber(this.base.unProducto.cantidad) || !Number.isInteger(Number(this.base.unProducto.cantidad)) || this.base.unProducto.cantidad < 0) {
+    if (this.base.unProducto.cantidad == null || !this.base.isNumber(this.base.unProducto.cantidad) || !Number.isInteger(Number(this.base.unProducto.cantidad)) || this.base.unProducto.cantidad < 0) {
       ret = false;
       alertify.notify('Cantidad no válida', 'error', 5);
       return false;
@@ -99,12 +95,6 @@ export class FormProductoComponent implements OnInit {
 
   vaciarCampos() {
     this.base.unProducto = new Producto(null, null, null, null, null, null, null);
-  }
-
-  isNumber(value: string | number): boolean {
-    return ((value != null) &&
-      (value !== '') &&
-      !isNaN(Number(value.toString())));
   }
 
   fileData: File = null;

@@ -16,7 +16,7 @@ export class CategoriaComponent implements OnInit {
     var pantalla = $(window).height();
     pantalla = pantalla - 135;
     $('.pantalla').css('height', `${pantalla}px`);
-    pantalla = pantalla - 240;
+    pantalla = pantalla - 280;
     $('.lista-categoria').css('height', `${pantalla}px`);
 
   }
