@@ -25,36 +25,48 @@ export class ModificarPrecioProductoComponent implements OnInit {
     $('#filtrar').dropdown();
     this.base.getCategorias();
     this.base.filtro = '';
-    
+
   }
 
   aceptar() {
 
-    if(this.formCompleto()){
+    if (this.formCompleto()) {
+
+      let operacion = "";
+      let tipo_valor = "";
 
       let consulta = "UPDATE PRODUCTOS SET PRECIO = PRECIO ";
 
-      if(this.aumentar){
+      if (this.aumentar) {
         consulta += '+ ';
-      }else{
+        operacion = '+';
+      } else {
         consulta += '- ';
+        operacion = "-";
       }
-  
-      if(this.porcentaje){
-        this.valor = this.valor/100;
+
+      if (this.porcentaje) {
+        this.valor = this.valor / 100;
         consulta += `PRECIO * ${this.valor} `;
-      }else{
+        tipo_valor = 'P';
+      } else {
         consulta += `${this.valor} `;
+        tipo_valor = 'M';
       }
-  
+
       consulta += this.base.filtro + ";"
+
+      let registro = `INSERT INTO REGISTRO_PRECIOS (fecha, operacion, tipo_valor, valor, id_categoria) VALUES (current_date, '${operacion}', '${tipo_valor}', ${this.valor}, ${this.idFiltro});`;
+
+      consulta += registro;
+
       this.vaciarForm();
       $('#modificarPrecioProducto').modal('hide');
       this.base.modificarPrecioProducto(consulta);
     }
   }
 
-  cancelar(){
+  cancelar() {
     this.vaciarForm();
     $('#modificarPrecioProducto').modal('hide');
   }
@@ -79,7 +91,7 @@ export class ModificarPrecioProductoComponent implements OnInit {
     this.aumentar = false;
   }
 
-  setFiltro(){
+  setFiltro() {
     this.base.setFiltro(this.idFiltro);
   }
 
@@ -98,7 +110,7 @@ export class ModificarPrecioProductoComponent implements OnInit {
 
   }
 
-  vaciarForm(){
+  vaciarForm() {
     this.valor = null;
     this.idFiltro = -1;
     this.base.filtro = '';

@@ -35,3 +35,12 @@ create table items(
 	primary key (id),
 	foreign key (idVenta) references ventas on delete cascade
 ) with oids;
+
+create table registro_precios(
+	id serial primary key,
+	fecha date,
+	operacion varchar(20),
+	tipo_valor varchar(20),
+	valor numeric,
+	id_categoria integer
+) with oids;
