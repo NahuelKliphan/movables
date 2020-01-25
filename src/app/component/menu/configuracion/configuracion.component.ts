@@ -21,4 +21,18 @@ export class ConfiguracionComponent implements OnInit {
     $('#modificarPrecioProducto').modal({ closable: false }).modal('show');
   }
 
+  configEmpresa(){
+    $("#itemProducto").removeClass("active");
+    $("#segmentoProducto").hide();
+    $("#itemEmpresa").addClass("active");
+    $("#segmentoEmpresa").show();
+  }
+
+  configProducto(){
+    $("#itemEmpresa").removeClass("active");
+    $("#segmentoEmpresa").hide();
+    $("#itemProducto").addClass("active");
+    $("#segmentoProducto").show();
+  }
+
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ElectronService } from 'ngx-electron';
+import { BaseService } from 'src/app/servicio/base.service';
 
 declare var $: any;
 
@@ -10,13 +10,15 @@ declare var $: any;
 })
 export class InicioComponent implements OnInit {
 
-  constructor(private ipc: ElectronService) { }
+  constructor(private base: BaseService) { }
 
   ngOnInit() {
 
     var pantalla = $(window).height();
     pantalla = pantalla - 250;
     $('.contenedor-inicio').css('height', `${pantalla}px`);
+
+    this.base.getEmpresa();
 
   }
 

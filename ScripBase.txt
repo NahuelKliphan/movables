@@ -50,6 +50,7 @@ create table entidades(
 	nombre varchar(50),
 	direccion varchar(50),
 	telefono varchar(50),
+	mail varchar(50),
 	cuit varchar(50),
 	facebook varchar(50),
 	instagram varchar(50),

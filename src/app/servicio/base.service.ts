@@ -4,6 +4,7 @@ import { ElectronService } from 'ngx-electron';
 import { Categoria } from '../model/Categoria';
 import { Item } from '../model/Item';
 import { Venta } from '../model/Venta';
+import { Empresa } from '../model/Empresa';
 
 
 declare var alertify: any;
@@ -46,6 +47,9 @@ export class BaseService {
   unItem: Item = new Item(null, null, null, null, null, 1, null);
   insertItems: string = "";
   idItemTemp = 0;
+
+  //Empresa
+  unaEmpresa = new Empresa(1, null, null, null, null, null, null, null, null);
 
   //Metodos globales
   adaptarDecimal(numero: number) {
@@ -142,7 +146,7 @@ export class BaseService {
 
   }
 
-  modificarPrecioProducto(consulta:string){
+  modificarPrecioProducto(consulta: string) {
 
     let res = this.ipc.ipcRenderer.sendSync('base', consulta);
     if (res[0] == 'ok') {
@@ -303,6 +307,58 @@ export class BaseService {
     let res = this.ipc.ipcRenderer.sendSync('base', consulta);
     if (res[0] == 'error') {
       alertify.notify('Error al guardar items' + res[1].code, 'warning', 5);
+    }
+  }
+
+  //Metodos Empresa
+
+  existeEmpresa(unaEmpresa: Empresa){
+    const consulta = `SELECT * FROM ENTIDADES WHERE id = '${unaEmpresa.id}';`;
+    let res = this.ipc.ipcRenderer.sendSync('base', consulta);
+    if (res[0] == 'ok') {
+      if (res[1].length > 0) {
+        return true;
+      }
+      else {
+        return false;
+      }
+    } else {
+      alertify.notify('Error ' + res[1].code, 'warning', 5);
+    }
+  }
+
+  getEmpresa() {
+
+    const consulta = `SELECT * FROM ENTIDADES WHERE id = 1`;
+    let res = this.ipc.ipcRenderer.sendSync('base', consulta);
+    if (res[0] == 'ok') {
+      this.unaEmpresa = res[1][0];
+    } else {
+      alertify.notify('Error ' + res[1].code, 'warning', 5);
+    }
+
+  }
+
+  guardarEmpresa(unaEmpresa: Empresa) {
+    const consulta = `INSERT INTO ENTIDADES (id, nombre, direccion, telefono, mail, cuit, facebook, instagram, twitter) 
+    values (${unaEmpresa.id},'${unaEmpresa.nombre}','${unaEmpresa.direccion}','${unaEmpresa.telefono}','${unaEmpresa.mail}','${unaEmpresa.cuit}','${unaEmpresa.facebook}','${unaEmpresa.instagram}','${unaEmpresa.twitter}');`;
+    let res = this.ipc.ipcRenderer.sendSync('base', consulta);
+    if (res[0] == 'ok') {
+      alertify.notify('Empresa guardada', 'success', 5);
+      this.getEmpresa();
+    } else {
+      alertify.notify('Error ' + res[1].code, 'warning', 5);
+    }
+  }
+
+  editarEmpresa(unaEmpresa: Empresa){
+    const consulta = `UPDATE ENTIDADES E SET nombre = '${unaEmpresa.nombre}', direccion = '${unaEmpresa.direccion}', telefono = '${unaEmpresa.telefono}', mail = '${unaEmpresa.mail}', cuit = '${unaEmpresa.cuit}', facebook = '${unaEmpresa.facebook}', instagram = '${unaEmpresa.instagram}', twitter = '${unaEmpresa.twitter}' WHERE E.id = '${unaEmpresa.id}';`;
+    let res = this.ipc.ipcRenderer.sendSync('base', consulta);
+    if (res[0] == 'ok') {
+      this.getEmpresa();
+      alertify.notify('Empresa editado', 'success', 5);
+    } else {
+      alertify.notify('Error ' + res[1].code, 'warning', 5);
     }
   }
 

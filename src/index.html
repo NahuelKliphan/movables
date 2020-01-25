@@ -20,12 +20,11 @@
   const { ipcRenderer } = require('electron');
 
   ipcRenderer.on('update', function (event, text) {
-
-    console.log(text);
-
+    
     if (text == 'Actualización no disponible' || text == 'Actualización descargada') {
-      console.log('entro');
       $("#progreso").hide();
+    }else{
+      $("#progreso").show();
     }
 
     $("#EstadoDescarga").text(text);
