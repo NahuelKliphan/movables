@@ -1,0 +1,114 @@
+<form class="ui form" style="padding: 2%;">
+
+    <div class="ui grid">
+
+        <div class="eight wide column">
+
+            <div class="field">
+                <div class="ui input labeled left icon">
+                    <i class="tag icon"></i>
+                    <input type="text" name="nombre" placeholder="No definido" [(ngModel)]="base.unaEmpresa.nombre">
+                    <a class="ui tag label">
+                        Nombre
+                    </a>
+                </div>
+            </div>
+
+            <div class="field">
+                <div class="ui input labeled left icon">
+                    <i class="map marker alternate icon"></i>
+                    <input type="text" name="direccion" placeholder="No definido"
+                        [(ngModel)]="base.unaEmpresa.direccion">
+                    <a class="ui tag label">
+                        Dirección
+                    </a>
+                </div>
+            </div>
+
+
+        </div>
+
+        <div class="eight wide column">
+
+            <div class="field">
+                <div class="ui input labeled left icon">
+                    <i class="phone icon"></i>
+                    <input type="text" name="telefono" placeholder="No definido" [(ngModel)]="base.unaEmpresa.telefono">
+                    <a class="ui tag label">
+                        Telefono
+                    </a>
+                </div>
+            </div>
+
+            <div class="field">
+                <div class="ui input labeled left icon">
+                    <i class="id card outline icon"></i>
+                    <input type="text" name="cuit" placeholder="No definido" [(ngModel)]="base.unaEmpresa.cuit">
+                    <a class="ui tag label">
+                        CUIT
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="eight wide column">
+
+
+            <div class="field">
+                <div class="ui input labeled left icon">
+                    <i class="envelope outline icon"></i>
+                    <input type="text" name="mail" placeholder="No definido" [(ngModel)]="base.unaEmpresa.mail">
+                    <a class="ui tag label">
+                        Mail
+                    </a>
+                </div>
+            </div>
+
+            <div class="field">
+                <div class="ui input labeled left icon">
+                    <i class="facebook blue icon"></i>
+                    <input type="text" name="facebook" placeholder="No definido" [(ngModel)]="base.unaEmpresa.facebook">
+                    <a class="ui tag label">
+                        Facebook
+                    </a>
+                </div>
+            </div>
+
+
+        </div>
+
+        <div class="eight wide column">
+
+            <div class="field">
+                <div class="ui input labeled left icon">
+                    <i class="instagram pink icon"></i>
+                    <input type="text" name="instagram" placeholder="No definido"
+                        [(ngModel)]="base.unaEmpresa.instagram">
+                    <a class="ui tag label">
+                        Instagram
+                    </a>
+                </div>
+            </div>
+
+            <div class="field">
+                <div class="ui input labeled left icon">
+                    <i class="twitter blue icon"></i>
+                    <input type="text" name="twitter" placeholder="No definido" [(ngModel)]="base.unaEmpresa.twitter">
+                    <a class="ui tag label">
+                        Twitter
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="sixteen wide column" style="text-align: right;">
+            <div class="ui button secondary" (click)="editar()">
+                <i class="edit icon"></i> Editar
+            </div>
+        </div>
+
+    </div>
+
+</form>

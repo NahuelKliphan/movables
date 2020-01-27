@@ -79,6 +79,7 @@ app.on('ready', function () {
     splash = null;
     win.show();
     win.maximize();
+    sendStatusBaseToWindow(client._connected);
 
   }, 5500);
 
@@ -109,6 +110,10 @@ function sendStatusToWindow(text) {
 
 function sendStatuspercentToWindow(text) {
   win.webContents.send('percent', text);
+}
+
+function sendStatusBaseToWindow(text){
+  win.webContents.send('BaseStatus', text);
 }
 
 //Autoupdate
@@ -157,12 +162,6 @@ async function ConectarBD() {
 }
 
 //Metodos consulta BD
-
-ipcMain.on('BaseStatus', (e) => {
-
-  e.returnValue = client._connected;
-
-});
 
 ipcMain.on('base', (e, consulta) => {
 

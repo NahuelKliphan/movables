@@ -44,3 +44,15 @@ create table registro_precios(
 	valor numeric,
 	id_categoria integer
 ) with oids;
+
+create table entidades(
+	id serial primary key,
+	nombre varchar(50),
+	direccion varchar(50),
+	telefono varchar(50),
+	mail varchar(50),
+	cuit varchar(50),
+	facebook varchar(50),
+	instagram varchar(50),
+	twitter varchar(50)
+) with oids;

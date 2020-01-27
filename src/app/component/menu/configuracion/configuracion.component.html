@@ -1,2 +1,30 @@
-<button class="ui button primary" (click)="abrirModal()"> Modificar precios </button>
+<div class="pantalla card" style="padding: 2%;">
+
+    <h2><i class="large cog icon"></i> Configuraciones </h2>
+
+    <div class="ui grid">
+        <div class="four wide column">
+            <div class="ui vertical fluid tabular menu">
+                <a id="itemProducto" class="active item" (click)="configProducto()">
+                    Productos
+                </a>
+                <a id="itemEmpresa" class="item" (click)="configEmpresa()">
+                    Empresa
+                </a>
+            </div>
+        </div>
+        <div class="twelve wide stretched column">
+            <div class="ui segment" id="segmentoProducto">
+                <button class="ui button secondary icon" (click)="abrirModal()"> <i class="dollar sign icon"></i> Modificar precios </button>
+            </div>
+            <div class="ui segment" id="segmentoEmpresa" style="display: none;">
+                <app-form-empresa></app-form-empresa>
+            </div>
+        </div>
+    </div>
+
+</div>
+
 <app-modificar-precio-producto></app-modificar-precio-producto>
+
+

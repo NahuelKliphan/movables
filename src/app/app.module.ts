@@ -33,6 +33,8 @@ import { CategoriaComponent } from './component/categoria/categoria/categoria.co
 import { FormCategoriaComponent } from './component/categoria/form-categoria/form-categoria.component';
 import { ListaCategoriaComponent } from './component/categoria/lista-categoria/lista-categoria.component';
 import { FormBorrarCategoriaComponent } from './component/categoria/form-borrar-categoria/form-borrar-categoria.component';
+//Empresa
+import { FormEmpresaComponent } from './component/empresa/form-empresa/form-empresa.component';
 
 
 const routes : Routes = [
@@ -85,7 +87,8 @@ const routes : Routes = [
     FormBorrarProductoComponent,
     FormBorrarCategoriaComponent,
     FormCantidadComponent,
-    ModificarPrecioProductoComponent
+    ModificarPrecioProductoComponent,
+    FormEmpresaComponent
   ],
   imports: [
     BrowserModule,

@@ -73,3 +73,17 @@ thead, tbody tr {
     margin-left: 40px;
     margin-right: 40px;
 }
+
+.contenedor-inicio {
+    height:0px;
+    position: relative;
+}
+  
+.centro-inicio {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}

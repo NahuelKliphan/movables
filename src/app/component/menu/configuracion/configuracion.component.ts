@@ -12,10 +12,27 @@ export class ConfiguracionComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    var pantalla = $(window).height();
+    pantalla = pantalla - 135;
+    $('.pantalla').css('height', `${pantalla}px`);
   }
 
   abrirModal(){
     $('#modificarPrecioProducto').modal({ closable: false }).modal('show');
+  }
+
+  configEmpresa(){
+    $("#itemProducto").removeClass("active");
+    $("#segmentoProducto").hide();
+    $("#itemEmpresa").addClass("active");
+    $("#segmentoEmpresa").show();
+  }
+
+  configProducto(){
+    $("#itemEmpresa").removeClass("active");
+    $("#segmentoEmpresa").hide();
+    $("#itemProducto").addClass("active");
+    $("#segmentoProducto").show();
   }
 
 }
