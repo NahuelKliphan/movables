@@ -17,10 +17,6 @@ export class ConfiguracionComponent implements OnInit {
     $('.pantalla').css('height', `${pantalla}px`);
   }
 
-  abrirModal(){
-    $('#modificarPrecioProducto').modal({ closable: false }).modal('show');
-  }
-
   configEmpresa(){
     $("#itemProducto").removeClass("active");
     $("#segmentoProducto").hide();

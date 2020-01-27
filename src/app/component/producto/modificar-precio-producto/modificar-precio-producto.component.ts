@@ -11,12 +11,10 @@ declare var alertify: any;
 })
 export class ModificarPrecioProductoComponent implements OnInit {
 
-  valor: number = null;
   porcentaje: boolean = true;
   monto: boolean = false;
   aumentar: boolean = true;
   bajar: boolean = false;
-  idFiltro: number;
 
   constructor(private base: BaseService) { }
 
@@ -32,36 +30,35 @@ export class ModificarPrecioProductoComponent implements OnInit {
 
     if (this.formCompleto()) {
 
-      let operacion = "";
-      let tipo_valor = "";
+      $('#modificarPrecioProducto').modal('hide');
 
       let consulta = "UPDATE PRODUCTOS SET PRECIO = PRECIO ";
 
       if (this.aumentar) {
         consulta += '+ ';
-        operacion = '+';
+        this.base.unRegistroPrecio.operacion = 'Aumento';
       } else {
         consulta += '- ';
-        operacion = "-";
+        this.base.unRegistroPrecio.operacion = "Descuento";
       }
 
       if (this.porcentaje) {
-        this.valor = this.valor / 100;
-        consulta += `PRECIO * ${this.valor} `;
-        tipo_valor = 'P';
+        this.base.unRegistroPrecio.valor = this.base.unRegistroPrecio.valor / 100;
+        consulta += `PRECIO * ${this.base.unRegistroPrecio.valor} `;
+        this.base.unRegistroPrecio.tipo_valor = 'Porcentaje';
       } else {
-        consulta += `${this.valor} `;
-        tipo_valor = 'M';
+        consulta += `${this.base.unRegistroPrecio.valor} `;
+        this.base.unRegistroPrecio.tipo_valor = 'Monto';
       }
 
       consulta += this.base.filtro + ";"
 
-      let registro = `INSERT INTO REGISTRO_PRECIOS (fecha, operacion, tipo_valor, valor, id_categoria) VALUES (current_date, '${operacion}', '${tipo_valor}', ${this.valor}, ${this.idFiltro});`;
+      let registro = `INSERT INTO REGISTRO_PRECIOS (fecha, operacion, tipo_valor, valor, id_categoria) 
+      VALUES (current_date, '${this.base.unRegistroPrecio.operacion}', '${this.base.unRegistroPrecio.tipo_valor}', ${this.base.unRegistroPrecio.valor}, ${this.base.unRegistroPrecio.id_categoria});`;
 
       consulta += registro;
 
       this.vaciarForm();
-      $('#modificarPrecioProducto').modal('hide');
       this.base.modificarPrecioProducto(consulta);
     }
   }
@@ -92,7 +89,7 @@ export class ModificarPrecioProductoComponent implements OnInit {
   }
 
   setFiltro() {
-    this.base.setFiltro(this.idFiltro);
+    this.base.setFiltro(this.base.unRegistroPrecio.id_categoria);
   }
 
   formCompleto() {
@@ -100,7 +97,7 @@ export class ModificarPrecioProductoComponent implements OnInit {
     let ret = true;
 
     //Valor
-    if (this.valor == null || !this.base.isNumber(this.valor) || this.valor < 1) {
+    if (this.base.unRegistroPrecio.valor == null || !this.base.isNumber(this.base.unRegistroPrecio.valor) || this.base.unRegistroPrecio.valor < 1) {
       ret = false;
       alertify.notify('Valor no válido', 'error', 5);
       return false;
@@ -111,9 +108,11 @@ export class ModificarPrecioProductoComponent implements OnInit {
   }
 
   vaciarForm() {
-    this.valor = null;
-    this.idFiltro = -1;
-    this.base.filtro = '';
+    this.base.unRegistroPrecio.valor = null;
+    this.porcentaje= true;
+    this.monto = false;
+    this.aumentar = true;
+    this.bajar = false;
   }
 
 }

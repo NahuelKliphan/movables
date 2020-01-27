@@ -1,0 +1,43 @@
+<form class="ui form" style="padding: 2%;">
+    <div class="ui grid">
+        <div class="sixteen wide column">
+            <div class="ui label icon">
+                <h2> <i class="history icon"></i> Historial Precios  </h2>
+            </div>
+            <button class="ui button red icon right floated" (click)="abrirModal()"> <i
+                    class="dollar sign icon"></i>Modificar precios </button>
+        </div>
+        <div class="sixteen wide column">
+            <table class="ui red unstackable selectable table celled" style="text-align: center;">
+                <thead>
+                    <tr>
+                        <th> <i class="calendar alternate outline icon"></i> Fecha</th>
+                        <th> <i class="sort icon"></i> Aumento/Descuento</th>
+                        <th> <i class="th icon"></i> Cantidad</th>
+                        <th> <i class="tag icon"></i>Categoria</th>
+                        <th> <i class="hand pointer outline icon"></i> Accion </th>
+                    </tr>
+                </thead>
+                <tbody class="tabla">
+                    <tr *ngFor="let unRegistroPrecio of base.listadoRegistroPrecio">
+                        <td>{{unRegistroPrecio.fecha | date: 'dd/MM/yyyy'}}</td>
+                        <td>{{unRegistroPrecio.operacion}}</td>
+                        <td *ngIf="unRegistroPrecio.tipo_valor == 'Monto'">{{ unRegistroPrecio.valor | currency}}</td>
+                        <td *ngIf="unRegistroPrecio.tipo_valor == 'Porcentaje'">{{unRegistroPrecio.valor | percent }}</td>
+                        <td *ngIf="unRegistroPrecio.id_categoria != null && unRegistroPrecio.id_categoria >= 0">
+                            {{ base.listadoNombreCategoria[unRegistroPrecio.id_categoria] }}
+                        </td>
+                        <td *ngIf="unRegistroPrecio.id_categoria == null">
+                            Sin Categoria
+                        </td>
+                        <td *ngIf="unRegistroPrecio.id_categoria == -1">
+                            Todas
+                        </td>
+                        <td class="negative" style="cursor: pointer;" (click)="deshacer(unRegistroPrecio)"><i class="reply icon"></i></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</form>
+<app-modificar-precio-producto></app-modificar-precio-producto>

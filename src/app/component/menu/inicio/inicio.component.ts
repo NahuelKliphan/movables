@@ -18,6 +18,10 @@ export class InicioComponent implements OnInit {
     pantalla = pantalla - 250;
     $('.contenedor-inicio').css('height', `${pantalla}px`);
 
+    if(!this.base.existeEmpresa(this.base.unaEmpresa)){
+      this.base.guardarEmpresa(this.base.unaEmpresa);
+    }
+
     this.base.getEmpresa();
 
   }

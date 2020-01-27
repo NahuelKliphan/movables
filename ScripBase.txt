@@ -42,6 +42,7 @@ create table registro_precios(
 	operacion varchar(20),
 	tipo_valor varchar(20),
 	valor numeric,
+	anulada char(1) default 'N',
 	id_categoria integer
 ) with oids;
 

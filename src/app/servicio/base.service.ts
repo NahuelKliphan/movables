@@ -5,6 +5,7 @@ import { Categoria } from '../model/Categoria';
 import { Item } from '../model/Item';
 import { Venta } from '../model/Venta';
 import { Empresa } from '../model/Empresa';
+import { RegistroPrecio } from '../model/RegistroPrecio';
 
 
 declare var alertify: any;
@@ -49,7 +50,11 @@ export class BaseService {
   idItemTemp = 0;
 
   //Empresa
-  unaEmpresa = new Empresa(1, null, null, null, null, null, null, null, null);
+  unaEmpresa = new Empresa(1, "", "", "", "", "", "", "", "");
+
+  //RegistroPrecio
+  unRegistroPrecio = new RegistroPrecio(null, null, null, null, null, null);
+  listadoRegistroPrecio: RegistroPrecio[] = [];
 
   //Metodos globales
   adaptarDecimal(numero: number) {
@@ -151,7 +156,7 @@ export class BaseService {
     let res = this.ipc.ipcRenderer.sendSync('base', consulta);
     if (res[0] == 'ok') {
       alertify.notify('Precios modificados', 'success', 5);
-      this.getProductos();
+      this.getRegistroPrecios();
     } else {
       alertify.notify('Error ' + res[1].code, 'warning', 5);
     }
@@ -312,7 +317,7 @@ export class BaseService {
 
   //Metodos Empresa
 
-  existeEmpresa(unaEmpresa: Empresa){
+  existeEmpresa(unaEmpresa: Empresa) {
     const consulta = `SELECT * FROM ENTIDADES WHERE id = '${unaEmpresa.id}';`;
     let res = this.ipc.ipcRenderer.sendSync('base', consulta);
     if (res[0] == 'ok') {
@@ -351,7 +356,7 @@ export class BaseService {
     }
   }
 
-  editarEmpresa(unaEmpresa: Empresa){
+  editarEmpresa(unaEmpresa: Empresa) {
     const consulta = `UPDATE ENTIDADES E SET nombre = '${unaEmpresa.nombre}', direccion = '${unaEmpresa.direccion}', telefono = '${unaEmpresa.telefono}', mail = '${unaEmpresa.mail}', cuit = '${unaEmpresa.cuit}', facebook = '${unaEmpresa.facebook}', instagram = '${unaEmpresa.instagram}', twitter = '${unaEmpresa.twitter}' WHERE E.id = '${unaEmpresa.id}';`;
     let res = this.ipc.ipcRenderer.sendSync('base', consulta);
     if (res[0] == 'ok') {
@@ -360,6 +365,60 @@ export class BaseService {
     } else {
       alertify.notify('Error ' + res[1].code, 'warning', 5);
     }
+  }
+
+  //Metodos Registro Precios
+
+  getRegistroPrecios() {
+    const consulta = "SELECT * FROM REGISTRO_PRECIOS WHERE anulada = 'N' ORDER BY id DESC limit 50;";
+    let res = this.ipc.ipcRenderer.sendSync('base', consulta);
+    if (res[0] == 'ok') {
+      this.listadoRegistroPrecio = res[1];
+    } else {
+      alertify.notify('Error ' + res[1].code, 'warning', 5);
+    }
+  }
+
+  deshacerPrecios(unRegistro: RegistroPrecio) {
+
+    let consulta = `UPDATE REGISTRO_PRECIOS RP SET anulada = 'S' WHERE id = ${unRegistro.id};`;
+    consulta += "UPDATE PRODUCTOS SET PRECIO = PRECIO ";
+    if (unRegistro.operacion =="Aumento") {
+      consulta += '- ';
+    } else {
+      consulta += '+ ';
+    }
+    if (unRegistro.tipo_valor == "Porcentaje") {
+      consulta += `PRECIO * ${unRegistro.valor} `;
+    } else {
+      consulta += `${unRegistro.valor} `;
+    }
+    this.setFiltro(unRegistro.id_categoria);
+    consulta += this.filtro + ";"
+    let res = this.ipc.ipcRenderer.sendSync('base', consulta);
+    if (res[0] == 'ok') {
+      this.getRegistroPrecios();
+    } else {
+      alertify.notify('Error ' + res[1].code, 'warning', 5);
+    } 
+    
+  }
+
+  esUltimoRegistroPrecio(id: number) {
+
+    const consulta = "SELECT id FROM REGISTRO_PRECIOS WHERE anulada = 'N' ORDER BY id DESC limit 1";
+    let res = this.ipc.ipcRenderer.sendSync('base', consulta);
+    if (res[0] == 'ok') {
+      if (res[1][0].id == id) {
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      alertify.notify('Error ' + res[1].code, 'warning', 5);
+      return false;
+    }
+
   }
 
 }
