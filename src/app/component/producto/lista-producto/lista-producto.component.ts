@@ -47,7 +47,7 @@ export class ListaProductoComponent implements OnInit {
   borrar(unProducto: Producto) {
     this.base.unProducto = unProducto;
     $("#foto").prop("value", "");
-    $('#formBorrarProducto').modal({ closable: false }).modal('show');
+    $('#formBorrarProducto').modal({ closable: false }).modal('show').modal('show dimmer');
   }
 
   editar(unProducto: Producto) {
@@ -63,7 +63,7 @@ export class ListaProductoComponent implements OnInit {
   vender(unProducto: Producto) {
     this.base.unProducto = unProducto;
     $('#listaProducto').modal('hide');
-    $('#formCantidadItem').modal({ closable: false }).modal('show');
+    $('#formCantidadItem').modal({ closable: false }).modal('show').modal('show dimmer');
   }
 
   salir() {
