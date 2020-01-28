@@ -2,7 +2,7 @@
     <div class="ui grid">
         <div class="sixteen wide column">
             <div class="ui label icon">
-                <h2> <i class="history icon"></i> Historial Precios  </h2>
+                <h2> <i class="history icon"></i> Historial Precios </h2>
             </div>
             <button class="ui button red icon right floated" (click)="abrirModal()"> <i
                     class="dollar sign icon"></i>Modificar precios </button>
@@ -23,7 +23,8 @@
                         <td>{{unRegistroPrecio.fecha | date: 'dd/MM/yyyy'}}</td>
                         <td>{{unRegistroPrecio.operacion}}</td>
                         <td *ngIf="unRegistroPrecio.tipo_valor == 'Monto'">{{ unRegistroPrecio.valor | currency}}</td>
-                        <td *ngIf="unRegistroPrecio.tipo_valor == 'Porcentaje'">{{unRegistroPrecio.valor | percent }}</td>
+                        <td *ngIf="unRegistroPrecio.tipo_valor == 'Porcentaje'">{{unRegistroPrecio.valor | percent }}
+                        </td>
                         <td *ngIf="unRegistroPrecio.id_categoria != null && unRegistroPrecio.id_categoria >= 0">
                             {{ base.listadoNombreCategoria[unRegistroPrecio.id_categoria] }}
                         </td>
@@ -33,7 +34,8 @@
                         <td *ngIf="unRegistroPrecio.id_categoria == -1">
                             Todas
                         </td>
-                        <td class="negative" style="cursor: pointer;" (click)="deshacer(unRegistroPrecio)"><i class="reply icon"></i></td>
+                        <td class="negative" style="cursor: pointer;" (click)="deshacer(unRegistroPrecio)"><i
+                                class="reply icon"></i></td>
                     </tr>
                 </tbody>
             </table>

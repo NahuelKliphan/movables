@@ -9,7 +9,6 @@
 </head>
 
 <body>
-
     <style>
         body {
             display: flex;
@@ -39,24 +38,17 @@
             background: white;
         }
     </style>
-
     <div class="wrapper"></div>
-
     <script>
-
-
         const anime = require('animejs');
-
         const wrapperEl = document.querySelector('.wrapper');
         const numberOfEls = 90;
         const duration = 6000;
         const delay = duration / numberOfEls;
-
         let tl = anime.timeline({
             duration: delay,
             complete: function () { tl.restart(); }
         });
-
         function createEl(i) {
             let el = document.createElement('div');
             const rotate = (360 / numberOfEls) * i;
@@ -81,13 +73,8 @@
             });
             wrapperEl.appendChild(el);
         };
-
         for (let i = 0; i < numberOfEls; i++) createEl(i);
-
     </script>
-
-
-
 </body>
 
 </html>

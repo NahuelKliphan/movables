@@ -14,46 +14,31 @@
     window.$ = window.jQuery = require('jquery');
   </script>
 </body>
-
 <script>
-
   const { ipcRenderer } = require('electron');
-
   ipcRenderer.on('update', function (event, text) {
-    
     if (text == 'Actualización no disponible' || text == 'Actualización descargada') {
       $("#progreso").hide();
-    }else{
+    } else {
       $("#progreso").show();
     }
-
     $("#EstadoDescarga").text(text);
-
   })
-
   ipcRenderer.on('percent', function (event, percent) {
-
     $('#progreso').progress({
       percent: percent
     });
-
   })
-
   ipcRenderer.on('BaseStatus', function (event, res) {
-
     var pantalla = $(window).height();
     pantalla = pantalla - 250;
     $('.contenedor-inicio').css('height', `${pantalla}px`);
-
     if (res) {
       alertify.notify('Base de datos conectada ', 'success', 5);
     } else {
       alertify.notify('Error al conectar base de datos ', 'error', 5);
     }
-
   })
-
 </script>
-
 
 </html>

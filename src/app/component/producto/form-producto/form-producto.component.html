@@ -1,16 +1,10 @@
 <div style="text-align: center;">
-
     <h2 *ngIf="!base.editar"><i class="big product hunt icon"></i> Nuevo producto </h2>
     <h2 *ngIf="base.editar"><i class="big product hunt icon"></i> Editar producto </h2>
-
 </div>
-
 <form class="ui form" style="margin-top: 2%;">
-
     <div class="ui grid">
-
         <div class="eleven wide column">
-
             <div class="field">
                 <div class="ui input labeled left icon">
                     <i class="barcode icon"></i>
@@ -23,7 +17,6 @@
                     </a>
                 </div>
             </div>
-
             <div class="field">
                 <div class="ui input labeled left icon">
                     <i class="tag icon"></i>
@@ -33,7 +26,6 @@
                     </a>
                 </div>
             </div>
-
             <div class="field">
                 <div class="ui input labeled left icon">
                     <i class="dollar green sign icon"></i>
@@ -43,7 +35,6 @@
                     </a>
                 </div>
             </div>
-
             <div class="field">
                 <div class="ui input labeled left icon">
                     <i class="th red icon"></i>
@@ -53,10 +44,10 @@
                     </a>
                 </div>
             </div>
-
             <div class="field">
                 <div class="ui input labeled left icon">
-                    <select id="idcategoria" class="ui active dropdown fluid " name="idcategoria" [(ngModel)]="base.unProducto.idcategoria">
+                    <select id="idcategoria" class="ui active dropdown fluid " name="idcategoria"
+                        [(ngModel)]="base.unProducto.idcategoria">
                         <option [ngValue]="null"><i class="tags grey icon"></i> Categoria</option>
                         <option [ngValue]="unaCategoria.id" *ngFor="let unaCategoria of base.listadoCategoria"><i
                                 class="tags grey icon"></i>
@@ -68,11 +59,8 @@
                     </a>
                 </div>
             </div>
-
         </div>
-
         <div class="five wide column">
-
             <div class="ui special cards" style="width: 100%; height: 100%;">
                 <div class="card">
                     <div class="blurring dimmable image">
@@ -95,47 +83,30 @@
                     </div>
                 </div>
             </div>
-
         </div>
-
         <div class="sixteen wide column">
-
             <div class="field">
                 <label>Descripción</label>
                 <textarea style="resize: none;" rows="4" type="text" name="descripcion" placeholder="Descripción"
                     [(ngModel)]="base.unProducto.descripcion"></textarea>
             </div>
-
         </div>
-
         <div class="sixteen wide column">
-
             <div class="actions">
-
                 <div [hidden]="base.editar">
-
                     <div class="ui right floated button green" style="margin-right: 10px;" (click)="guardar()">
                         <div><i class="save icon"></i> Guardar </div>
                     </div>
-
                 </div>
-
                 <div [hidden]="!base.editar">
-
                     <div class="ui right floated button secondary" style="margin-right: 10px;" (click)="guardar()">
                         <i class="edit icon"></i> Editar
                     </div>
-
                 </div>
-
                 <div class="ui right floated button red" style="margin-right: 20px;" (click)="cancelar()">
                     <i class="close icon"></i> Cancelar
                 </div>
-
             </div>
-
         </div>
-
     </div>
-
 </form>
