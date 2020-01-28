@@ -1,26 +1,17 @@
 <div class="pantalla card" style="padding: 2%;">
-
   <div class="ui grid">
-
     <div class="four wide column">
-
       <h2><i class="large list icon"></i> Productos </h2>
-
     </div>
-
     <div class="twelve wide column">
-
       <div style="text-align: right;">
-
         <div class="inline field">
-
           <div *ngIf="base.enVenta" class="ui button inverted" style="margin-left: 30px;">
             <div class="ui toggle checkbox">
               <input type="checkbox" name="scanner" [(ngModel)]="base.scanner">
               <label>Scanner</label>
             </div>
           </div>
-
           <select class="ui dropdown" name="idBuscar" [(ngModel)]="base.idFiltrar" id="filtrar" (change)="filtrar()">
             <option value="-1"><i class="filter grey icon"></i> Filtro</option>
             <option [ngValue]="null"><i class="tag icon"></i> Sin categoria</option>
@@ -29,31 +20,23 @@
               {{unaCategoria.nombre}}
             </option>
           </select>
-
           <div *ngIf="!base.enVenta" style="margin-left: 30px;" class="ui button primary" (click)="abrirModal()">
             Agregar producto
           </div>
-
           <div *ngIf="base.enVenta" class="ui button red" style="margin-left: 30px;" (click)="salir()">
             <i class="icon close"></i> Salir
           </div>
-
         </div>
-
       </div>
-
     </div>
-
   </div>
-
   <div class="ui fluid action input left icon" style="margin-top: 20px;">
-    <input type="text" placeholder="Buscar..." (input)="buscar()" (keyup.enter)="buscar()" (keyup.escape)="salir()" name="busqueda" [(ngModel)]="base.busqueda" id="buscarProducto" autofocus>
+    <input type="text" placeholder="Buscar..." (input)="buscar()" (keyup.enter)="buscar()" (keyup.escape)="salir()"
+      name="busqueda" [(ngModel)]="base.busqueda" id="buscarProducto" autofocus>
     <div class="ui search ico button" (click)="buscar()">Buscar</div>
     <i class="search icon"></i>
   </div>
-
   <div class="ui divided items lista-producto">
-
     <div class="item" *ngFor="let unProducto of base.listadoProducto">
       <div class="image">
         <img [src]="unProducto.foto" onerror="this.src ='assets/images/producto.png'">
@@ -76,22 +59,19 @@
             <i class="shopping cart icon"></i> Vender
           </div>
           <p><i class="th orange icon"></i> <b>Cantidad: </b> {{unProducto.cantidad}} </p>
-          <p><i class="archive teal icon"></i><b>Descripcion: </b> {{unProducto.descripcion}} </p>
+          <p *ngIf="unProducto.descripcion != null"><i class="archive teal icon"></i><b>Descripcion: </b>
+            {{unProducto.descripcion}} </p>
         </div>
         <div class="extra">
-          <div *ngIf="unProducto.idcategoria" class="ui label"><i class="tags icon"></i>
+          <div *ngIf="unProducto.idcategoria != null" class="ui label"><i class="tags icon"></i>
             {{ base.listadoNombreCategoria[unProducto.idcategoria] }} </div>
-          <div *ngIf="!unProducto.idcategoria" class="ui label"><i class="tags icon"></i> Sin Categoria </div>
+          <div *ngIf="unProducto.idcategoria == null" class="ui label"><i class="tags icon"></i> Sin Categoria </div>
         </div>
       </div>
     </div>
-
   </div>
-
 </div>
-
 <div id="formProducto" class="ui modal">
   <app-form-producto style="padding: 2%;" class="card"></app-form-producto>
 </div>
-
 <app-form-borrar-producto></app-form-borrar-producto>

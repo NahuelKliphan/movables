@@ -1,13 +1,12 @@
 export class Empresa {
 
-    constructor(id: number, nombre: string, direccion: string, telefono: string, mail: string, cuit: string, facebook: string, instagram: string, twitter: string) {
+    constructor(id: number, nombre: string, direccion: string, telefono: string, mail: string, facebook: string, instagram: string, twitter: string, facebook_link: string, instagram_link: string, twitter_link: string) {
 
         this.id = id;
         this.nombre = nombre;
         this.direccion = direccion;
         this.telefono = telefono;
         this.mail = mail;
-        this.cuit = cuit;
         this.facebook = facebook;
         this.instagram = instagram;
         this.twitter = twitter;
@@ -18,9 +17,12 @@ export class Empresa {
     nombre: string;
     direccion: string;
     telefono: string;
-    cuit: string;
+    mail: string;
     facebook: string;
     instagram: string;
     twitter: string;
-    mail: string;
+    facebook_link: string;
+    instagram_link: string;
+    twitter_link: string;
+
 }

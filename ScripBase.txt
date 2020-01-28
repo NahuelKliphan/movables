@@ -42,6 +42,7 @@ create table registro_precios(
 	operacion varchar(20),
 	tipo_valor varchar(20),
 	valor numeric,
+	anulada char(1) default 'N',
 	id_categoria integer
 ) with oids;
 
@@ -54,5 +55,8 @@ create table entidades(
 	cuit varchar(50),
 	facebook varchar(50),
 	instagram varchar(50),
-	twitter varchar(50)
+	twitter varchar(50),
+	facebook_link varchar(50),
+	instagram_link varchar(50),
+	twitter_link varchar(50)
 ) with oids;

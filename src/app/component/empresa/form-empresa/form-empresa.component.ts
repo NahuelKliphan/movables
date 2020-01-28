@@ -11,9 +11,6 @@ export class FormEmpresaComponent implements OnInit {
   constructor(private base: BaseService) { }
 
   ngOnInit() {
-    if(!this.base.existeEmpresa(this.base.unaEmpresa)){
-      this.base.guardarEmpresa(this.base.unaEmpresa);
-    }
     this.base.getEmpresa();
   }
 
