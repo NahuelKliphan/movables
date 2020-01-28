@@ -50,7 +50,7 @@ export class BaseService {
   idItemTemp = 0;
 
   //Empresa
-  unaEmpresa = new Empresa(1, "", "", "", "", "", "", "", "");
+  unaEmpresa = new Empresa(1, "", "", "", "", "", "", "", "", "", "");
 
   //RegistroPrecio
   unRegistroPrecio = new RegistroPrecio(null, null, null, null, null, null);
@@ -345,8 +345,8 @@ export class BaseService {
   }
 
   guardarEmpresa(unaEmpresa: Empresa) {
-    const consulta = `INSERT INTO ENTIDADES (id, nombre, direccion, telefono, mail, cuit, facebook, instagram, twitter) 
-    values (${unaEmpresa.id},'${unaEmpresa.nombre}','${unaEmpresa.direccion}','${unaEmpresa.telefono}','${unaEmpresa.mail}','${unaEmpresa.cuit}','${unaEmpresa.facebook}','${unaEmpresa.instagram}','${unaEmpresa.twitter}');`;
+    const consulta = `INSERT INTO ENTIDADES (id, nombre, direccion, telefono, mail, facebook, instagram, twitter, facebook_link, instagram_link, twitter_link) 
+    values (${unaEmpresa.id},'${unaEmpresa.nombre}','${unaEmpresa.direccion}','${unaEmpresa.telefono}','${unaEmpresa.mail}','${unaEmpresa.facebook}','${unaEmpresa.instagram}','${unaEmpresa.twitter}','${unaEmpresa.facebook_link}','${unaEmpresa.instagram_link}','${unaEmpresa.twitter_link}');`;
     let res = this.ipc.ipcRenderer.sendSync('base', consulta);
     if (res[0] == 'ok') {
       alertify.notify('Empresa guardada', 'success', 5);
@@ -357,11 +357,11 @@ export class BaseService {
   }
 
   editarEmpresa(unaEmpresa: Empresa) {
-    const consulta = `UPDATE ENTIDADES E SET nombre = '${unaEmpresa.nombre}', direccion = '${unaEmpresa.direccion}', telefono = '${unaEmpresa.telefono}', mail = '${unaEmpresa.mail}', cuit = '${unaEmpresa.cuit}', facebook = '${unaEmpresa.facebook}', instagram = '${unaEmpresa.instagram}', twitter = '${unaEmpresa.twitter}' WHERE E.id = '${unaEmpresa.id}';`;
+    const consulta = `UPDATE ENTIDADES E SET nombre = '${unaEmpresa.nombre}', direccion = '${unaEmpresa.direccion}', telefono = '${unaEmpresa.telefono}', mail = '${unaEmpresa.mail}', facebook = '${unaEmpresa.facebook}', instagram = '${unaEmpresa.instagram}', twitter = '${unaEmpresa.twitter}', facebook_link = '${unaEmpresa.facebook_link}', instagram_link = '${unaEmpresa.instagram_link}', twitter_link = '${unaEmpresa.twitter_link}' WHERE E.id = '${unaEmpresa.id}';`;
     let res = this.ipc.ipcRenderer.sendSync('base', consulta);
     if (res[0] == 'ok') {
       this.getEmpresa();
-      alertify.notify('Empresa editado', 'success', 5);
+      alertify.notify('Empresa editada', 'success', 5);
     } else {
       alertify.notify('Error ' + res[1].code, 'warning', 5);
     }
@@ -383,7 +383,7 @@ export class BaseService {
 
     let consulta = `UPDATE REGISTRO_PRECIOS RP SET anulada = 'S' WHERE id = ${unRegistro.id};`;
     consulta += "UPDATE PRODUCTOS SET PRECIO = PRECIO ";
-    if (unRegistro.operacion =="Aumento") {
+    if (unRegistro.operacion == "Aumento") {
       consulta += '- ';
     } else {
       consulta += '+ ';
@@ -400,8 +400,8 @@ export class BaseService {
       this.getRegistroPrecios();
     } else {
       alertify.notify('Error ' + res[1].code, 'warning', 5);
-    } 
-    
+    }
+
   }
 
   esUltimoRegistroPrecio(id: number) {

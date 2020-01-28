@@ -26,5 +26,8 @@ export class InicioComponent implements OnInit {
 
   }
 
+  abrirLink(link:string){
+    window.open(link, "Link");
+  }
 
 }
