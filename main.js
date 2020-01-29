@@ -56,14 +56,6 @@ function createSplash() {
 
   splash.loadURL(`file://${__dirname}/splash.html`)
 
-  autoUpdater.setFeedURL({
-    provider: 'github',
-    repo: 'System',
-    owner: 'NahuelKliphan',
-    private: true,
-    token: '88c5dcf83aee3cf1b0aacedd97cea95349f90c8f'
-  })
-
   if (isDev) {
     autoUpdater.checkForUpdates();
   } else {
