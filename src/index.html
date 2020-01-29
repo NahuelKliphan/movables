@@ -39,6 +39,19 @@
       alertify.notify('Error al conectar base de datos ', 'error', 5);
     }
   })
+  ipcRenderer.on('cambio', function (event, res) {
+    var pantalla = $(window).height();
+    pantalla = pantalla - 250;
+    $('.contenedor-inicio').css('height', `${pantalla}px`);
+    pantalla = $(window).height();
+    pantalla = pantalla - 135;
+    $('.pantalla').css('height', `${pantalla}px`);
+    pantalla = $(window).height();
+    pantalla = pantalla - 135;
+    $('.pantalla').css('height', `${pantalla}px`);
+    pantalla = pantalla - 401;
+    $('.tabla').css('height', `${pantalla}px`);
+  })
 </script>
 
 </html>

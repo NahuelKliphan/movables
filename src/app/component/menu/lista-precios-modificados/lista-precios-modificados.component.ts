@@ -25,7 +25,7 @@ export class ListaPreciosModificadosComponent implements OnInit {
   }
 
   abrirModal() {
-    $('#modificarPrecioProducto').modal({ closable: false }).modal('show');
+    $('#modificarPrecioProducto').modal({ closable: false }).modal('show').modal('show dimmer');
   }
 
   deshacer(unRegistro: RegistroPrecio) {

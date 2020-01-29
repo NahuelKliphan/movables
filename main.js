@@ -36,6 +36,12 @@ function createWindow() {
     win = null
   })
 
+  win.on('resize', function () {
+  
+    win.webContents.send('cambio');
+
+  })
+
 }
 
 function createSplash() {

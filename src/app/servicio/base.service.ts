@@ -380,28 +380,34 @@ export class BaseService {
   }
 
   deshacerPrecios(unRegistro: RegistroPrecio) {
-
     let consulta = `UPDATE REGISTRO_PRECIOS RP SET anulada = 'S' WHERE id = ${unRegistro.id};`;
-    consulta += "UPDATE PRODUCTOS SET PRECIO = PRECIO ";
-    if (unRegistro.operacion == "Aumento") {
-      consulta += '- ';
-    } else {
-      consulta += '+ ';
-    }
+    consulta += "UPDATE PRODUCTOS SET PRECIO = ";
     if (unRegistro.tipo_valor == "Porcentaje") {
-      consulta += `PRECIO * ${unRegistro.valor} `;
+
+      if (unRegistro.operacion == "Aumento") {
+        //Aumento
+        consulta += `round(precio/(1+${unRegistro.valor}), 2)`;
+      } else {
+        //Descuento
+        consulta += `round(precio/(1-${unRegistro.valor}), 2)`;
+      }
     } else {
-      consulta += `${unRegistro.valor} `;
+      if (unRegistro.operacion == "Aumento") {
+        consulta += `PRECIO - ${unRegistro.valor} `;
+      } else {
+        consulta += `PRECIO + ${unRegistro.valor} `
+      }
     }
     this.setFiltro(unRegistro.id_categoria);
     consulta += this.filtro + ";"
+    this.filtro = '';
     let res = this.ipc.ipcRenderer.sendSync('base', consulta);
     if (res[0] == 'ok') {
+      alertify.notify('Cambios deshechos', 'success', 5);
       this.getRegistroPrecios();
     } else {
       alertify.notify('Error ' + res[1].code, 'warning', 5);
     }
-
   }
 
   esUltimoRegistroPrecio(id: number) {

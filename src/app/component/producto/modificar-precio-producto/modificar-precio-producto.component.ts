@@ -30,8 +30,6 @@ export class ModificarPrecioProductoComponent implements OnInit {
 
     if (this.formCompleto()) {
 
-      $('#modificarPrecioProducto').modal('hide');
-
       let consulta = "UPDATE PRODUCTOS SET PRECIO = PRECIO ";
 
       if (this.aumentar) {
@@ -58,6 +56,7 @@ export class ModificarPrecioProductoComponent implements OnInit {
 
       consulta += registro;
 
+      $('#modificarPrecioProducto').modal('hide').modal('hide dimmer');
       this.vaciarForm();
       this.base.modificarPrecioProducto(consulta);
     }
@@ -65,7 +64,7 @@ export class ModificarPrecioProductoComponent implements OnInit {
 
   cancelar() {
     this.vaciarForm();
-    $('#modificarPrecioProducto').modal('hide');
+    $('#modificarPrecioProducto').modal('hide').modal('hide dimmer');
   }
 
   selectPercent() {
@@ -113,6 +112,8 @@ export class ModificarPrecioProductoComponent implements OnInit {
     this.monto = false;
     this.aumentar = true;
     this.bajar = false;
+    this.base.filtro = '';
+    $('#filtrar').dropdown('restore defaults');
   }
 
 }

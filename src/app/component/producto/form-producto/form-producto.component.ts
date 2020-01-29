@@ -50,7 +50,7 @@ export class FormProductoComponent implements OnInit {
   @HostListener('keydown.escape')
   cancelar() {
 
-    $('#formProducto').modal('hide');
+    $('#formProducto').modal('hide').modal('hide dimmer');
     this.vaciarCampos();
     this.base.editar = false;
     this.base.getProductos();
@@ -99,6 +99,7 @@ export class FormProductoComponent implements OnInit {
 
   fileData: File = null;
   previewUrl: any = null;
+  cargar: boolean = true;
 
   cargarFoto(fileInput: any) {
     if (this.cargar) {
@@ -111,8 +112,6 @@ export class FormProductoComponent implements OnInit {
       }
     }
   }
-
-  cargar: boolean = true;
 
   borrarFoto() {
     $("#foto").prop("value", "");
