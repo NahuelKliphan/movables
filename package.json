@@ -20,7 +20,6 @@
     "dist": "electron-builder --x64",
     "publish": "electron-builder --x64 -p always"
   },
-  "private": true,
   "dependencies": {
     "@angular/animations": "~8.2.14",
     "@angular/common": "~8.2.14",
