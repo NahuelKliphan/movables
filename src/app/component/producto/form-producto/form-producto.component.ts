@@ -13,14 +13,21 @@ declare var alertify: any;
 
 export class FormProductoComponent implements OnInit {
 
-  constructor(private base: BaseService) { }
+  fileData: File = null;
+  previewUrl: any = null;
+  cargar: boolean = true;
+
+  constructor(private base: BaseService) {
+    $("#foto").prop("value", "");
+    this.fileData = null;
+    this.previewUrl = null;
+    this.cargar = true;
+  }
 
   ngOnInit() {
-
     $('.special.cards .image').dimmer({
       on: 'hover'
     });
-
     this.base.getCategorias();
   }
 
@@ -96,10 +103,6 @@ export class FormProductoComponent implements OnInit {
   vaciarCampos() {
     this.base.unProducto = new Producto(null, null, null, null, null, null, null);
   }
-
-  fileData: File = null;
-  previewUrl: any = null;
-  cargar: boolean = true;
 
   cargarFoto(fileInput: any) {
     if (this.cargar) {

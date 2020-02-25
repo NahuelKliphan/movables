@@ -4,6 +4,12 @@
         <app-nav-bar></app-nav-bar>
         <div class="contenedor">
             <router-outlet></router-outlet>
+            <!-- Se cambio de lugar el formulario de productos, antes estaba en la lista de productos -->
+            <div id="formProducto" class="ui modal">
+                <app-form-producto style="padding: 2%;" class="card"></app-form-producto>
+            </div>
+            <!-- Se cambio de lugar el confirmar eliminar productos, antes estaba en la lista de productos -->
+            <app-form-borrar-producto></app-form-borrar-producto>
         </div>
     </div>
 </div>
