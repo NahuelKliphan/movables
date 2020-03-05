@@ -25,7 +25,11 @@ export class ListaPreciosModificadosComponent implements OnInit {
   }
 
   abrirModal() {
-    $('#modificarPrecioProducto').modal({ closable: false }).modal('show').modal('show dimmer');
+    $('#avisoBackup').modal({ closable: false }).modal('show');
+    setTimeout(function () {
+      $('#avisoBackup').modal('hide');
+      $('#modificarPrecioProducto').modal({ closable: false }).modal('show').modal('show dimmer');
+    }, 5000);
   }
 
 }
