@@ -28,18 +28,4 @@ export class ListaPreciosModificadosComponent implements OnInit {
     $('#modificarPrecioProducto').modal({ closable: false }).modal('show').modal('show dimmer');
   }
 
-  deshacer(unRegistro: RegistroPrecio) {
-
-    console.log(unRegistro);
-
-    if (this.base.esUltimoRegistroPrecio(unRegistro.id)) {
-
-      this.base.deshacerPrecios(unRegistro);
-
-    } else {
-      alertify.notify('Solo se puede deshacer el ultimo registro', 'error', 5);
-    }
-
-  }
-
 }

@@ -30,7 +30,7 @@ export class BaseService {
 
   //Producto
   listadoProducto: Producto[] = [];
-  unProducto: Producto = new Producto(null, null, null, null, null, null, null);
+  unProducto: Producto = new Producto(null, null, null, null, null, null, null, null);
   updateProductos: string = "";
   busqueda = "";
 
@@ -53,7 +53,7 @@ export class BaseService {
   unaEmpresa = new Empresa(1, "", "", "", "", "", "", "", "", "", "");
 
   //RegistroPrecio
-  unRegistroPrecio = new RegistroPrecio(null, null, null, null, null, null);
+  unRegistroPrecio = new RegistroPrecio(null, null, null, null, null, null, null);
   listadoRegistroPrecio: RegistroPrecio[] = [];
 
   //Metodos globales
@@ -78,6 +78,24 @@ export class BaseService {
         this.filtro = `WHERE idcategoria = ${id}`;
       }
     }
+  }
+
+  redondearPrecio(multiplo: number, monto: number) {
+
+    var resto = monto % multiplo;
+    var ret = null;
+    if (this.isNumber(monto) && this.isNumber(multiplo)) {
+      if (resto == 0) {
+        ret = monto;
+      } else {
+        if (resto <= multiplo / 2) {
+          ret = parseFloat(monto.toString()) - resto;
+        } else {
+          ret = parseFloat(monto.toString()) + (multiplo - resto);
+        }
+      }
+    }
+    return ret;
   }
 
   cerrar() {
@@ -165,7 +183,7 @@ export class BaseService {
 
   guardarProducto(unProdcuto: Producto) {
     $('#formProducto').modal('hide');
-    const consulta = `INSERT INTO PRODUCTOS (codigo,nombre,precio,cantidad,descripcion,foto,idcategoria) VALUES ('${unProdcuto.codigo}','${unProdcuto.nombre}',${unProdcuto.precio},${unProdcuto.cantidad},'${unProdcuto.descripcion}','${unProdcuto.foto}',${unProdcuto.idcategoria});`;
+    const consulta = `INSERT INTO PRODUCTOS (codigo,nombre,precio_costo,precio_venta,cantidad,descripcion,foto,idcategoria) VALUES ('${unProdcuto.codigo}','${unProdcuto.nombre}',${unProdcuto.precio_costo},${unProdcuto.precio_venta},${unProdcuto.cantidad},'${unProdcuto.descripcion}','${unProdcuto.foto}',${unProdcuto.idcategoria});`;
     let res = this.ipc.ipcRenderer.sendSync('base', consulta);
     if (res[0] == 'ok') {
       this.getProductos();
@@ -188,7 +206,7 @@ export class BaseService {
 
   editarProducto(unProdcuto: Producto) {
     $('#formProducto').modal('hide');
-    const consulta = `UPDATE PRODUCTOS P SET nombre = '${unProdcuto.nombre}', precio = ${this.adaptarDecimal(unProdcuto.precio)} , cantidad = ${unProdcuto.cantidad} , descripcion = '${unProdcuto.descripcion}', idcategoria = ${unProdcuto.idcategoria} , foto = '${unProdcuto.foto}' WHERE P.codigo = '${unProdcuto.codigo}';`;
+    const consulta = `UPDATE PRODUCTOS P SET nombre = '${unProdcuto.nombre}', precio_costo = ${this.adaptarDecimal(unProdcuto.precio_costo)}, precio_venta = ${this.adaptarDecimal(unProdcuto.precio_venta)} , cantidad = ${unProdcuto.cantidad} , descripcion = '${unProdcuto.descripcion}', idcategoria = ${unProdcuto.idcategoria} , foto = '${unProdcuto.foto}' WHERE P.codigo = '${unProdcuto.codigo}';`;
     let res = this.ipc.ipcRenderer.sendSync('base', consulta);
     if (res[0] == 'ok') {
       this.getProductos();
@@ -378,55 +396,6 @@ export class BaseService {
       alertify.notify('Error ' + res[1].code, 'warning', 5);
     }
   }
-
-  deshacerPrecios(unRegistro: RegistroPrecio) {
-    let consulta = `UPDATE REGISTRO_PRECIOS RP SET anulada = 'S' WHERE id = ${unRegistro.id};`;
-    consulta += "UPDATE PRODUCTOS SET PRECIO = ";
-    if (unRegistro.tipo_valor == "Porcentaje") {
-
-      if (unRegistro.operacion == "Aumento") {
-        //Aumento
-        consulta += `round(precio/(1+${unRegistro.valor}), 2)`;
-      } else {
-        //Descuento
-        consulta += `round(precio/(1-${unRegistro.valor}), 2)`;
-      }
-    } else {
-      if (unRegistro.operacion == "Aumento") {
-        consulta += `PRECIO - ${unRegistro.valor} `;
-      } else {
-        consulta += `PRECIO + ${unRegistro.valor} `
-      }
-    }
-    this.setFiltro(unRegistro.id_categoria);
-    consulta += this.filtro + ";"
-    this.filtro = '';
-    let res = this.ipc.ipcRenderer.sendSync('base', consulta);
-    if (res[0] == 'ok') {
-      alertify.notify('Cambios deshechos', 'success', 5);
-      this.getRegistroPrecios();
-    } else {
-      alertify.notify('Error ' + res[1].code, 'warning', 5);
-    }
-  }
-
-  esUltimoRegistroPrecio(id: number) {
-
-    const consulta = "SELECT id FROM REGISTRO_PRECIOS WHERE anulada = 'N' ORDER BY id DESC limit 1";
-    let res = this.ipc.ipcRenderer.sendSync('base', consulta);
-    if (res[0] == 'ok') {
-      if (res[1][0].id == id) {
-        return true;
-      } else {
-        return false;
-      }
-    } else {
-      alertify.notify('Error ' + res[1].code, 'warning', 5);
-      return false;
-    }
-
-  }
-
 }
 
 

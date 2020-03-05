@@ -7,7 +7,8 @@ create table categorias(
 create table productos(
 	codigo varchar(30),
 	nombre varchar(30),
-	precio decimal,
+	precio_costo decimal,
+	precio_venta decimal,
 	cantidad integer,
 	descripcion varchar(50),
 	foto text,
@@ -41,6 +42,7 @@ create table registro_precios(
 	fecha date,
 	operacion varchar(20),
 	tipo_valor varchar(20),
+	tipo_precio varchar(20),
 	valor numeric,
 	anulada char(1) default 'N',
 	id_categoria integer

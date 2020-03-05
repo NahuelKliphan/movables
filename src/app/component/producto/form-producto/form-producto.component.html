@@ -29,9 +29,18 @@
             <div class="field">
                 <div class="ui input labeled left icon">
                     <i class="dollar green sign icon"></i>
-                    <input type="text" name="precio" placeholder="Precio" [(ngModel)]="base.unProducto.precio">
+                    <input type="text" name="precio_costo" placeholder="Precio Costo" (input)="autocompletarPrecioVenta()" [(ngModel)]="base.unProducto.precio_costo">
                     <a class="ui tag label">
-                        Precio (*)
+                        Precio Costo (*)
+                    </a>
+                </div>
+            </div>
+            <div class="field">
+                <div class="ui input labeled left icon">
+                    <i class="money bill alternate outline green icon"></i>
+                    <input type="text" name="precio_venta" placeholder="Precio Venta" [(ngModel)]="base.unProducto.precio_venta">
+                    <a class="ui tag label">
+                        Precio Venta (*)
                     </a>
                 </div>
             </div>

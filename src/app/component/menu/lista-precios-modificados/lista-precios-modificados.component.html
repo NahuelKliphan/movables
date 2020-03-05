@@ -15,7 +15,7 @@
                         <th> <i class="sort icon"></i> Aumento/Descuento</th>
                         <th> <i class="th icon"></i> Cantidad</th>
                         <th> <i class="tag icon"></i>Categoria</th>
-                        <th> <i class="hand pointer outline icon"></i> Accion </th>
+                        <th> <i class="balance scale icon"></i> Tipo precio </th>
                     </tr>
                 </thead>
                 <tbody class="tabla">
@@ -34,12 +34,12 @@
                         <td *ngIf="unRegistroPrecio.id_categoria == -1">
                             Todas
                         </td>
-                        <td class="negative" style="cursor: pointer;" (click)="deshacer(unRegistroPrecio)"><i
-                                class="reply icon"></i></td>
+                        <td>
+                            {{ unRegistroPrecio.tipo_precio }}
+                        </td>
                     </tr>
                 </tbody>
             </table>
         </div>
     </div>
 </form>
-<app-modificar-precio-producto></app-modificar-precio-producto>

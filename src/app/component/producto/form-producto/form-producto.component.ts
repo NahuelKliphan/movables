@@ -45,7 +45,7 @@ export class FormProductoComponent implements OnInit {
       if (this.formCompleto()) {
 
         if (this.base.verificarCodigoProducto(this.base.unProducto.codigo)) {
-          this.base.guardarProducto(new Producto(this.base.unProducto.codigo, this.base.unProducto.nombre, this.base.adaptarDecimal(this.base.unProducto.precio), this.base.unProducto.cantidad, this.base.unProducto.descripcion, this.base.unProducto.foto, this.base.unProducto.idcategoria));
+          this.base.guardarProducto(new Producto(this.base.unProducto.codigo, this.base.unProducto.nombre, this.base.adaptarDecimal(this.base.unProducto.precio_costo), this.base.adaptarDecimal(this.base.unProducto.precio_venta), this.base.unProducto.cantidad, this.base.unProducto.descripcion, this.base.unProducto.foto, this.base.unProducto.idcategoria));
           this.vaciarCampos();
         }
       }
@@ -82,10 +82,17 @@ export class FormProductoComponent implements OnInit {
       return false;
     }
 
-    //Precio
-    if (this.base.unProducto.precio < 0 || !this.base.isNumber(this.base.unProducto.precio)) {
+    //Precio Costo
+    if (this.base.unProducto.precio_costo < 0 || !this.base.isNumber(this.base.unProducto.precio_costo)) {
       ret = false;
-      alertify.notify('Precio no válido', 'error', 5);
+      alertify.notify('Precio costo no válido', 'error', 5);
+      return false;
+    }
+
+    //Precio Costo
+    if (this.base.unProducto.precio_venta < 0 || !this.base.isNumber(this.base.unProducto.precio_venta)) {
+      ret = false;
+      alertify.notify('Precio venta no válido', 'error', 5);
       return false;
     }
 
@@ -101,7 +108,7 @@ export class FormProductoComponent implements OnInit {
   }
 
   vaciarCampos() {
-    this.base.unProducto = new Producto(null, null, null, null, null, null, null);
+    this.base.unProducto = new Producto(null, null, null, null, null, null, null, null);
   }
 
   cargarFoto(fileInput: any) {
@@ -121,6 +128,12 @@ export class FormProductoComponent implements OnInit {
     this.cargar = false;
     this.base.unProducto.foto = null;
     this.cargar = true;
+  }
+
+  autocompletarPrecioVenta() {
+    if(this.base.isNumber(this.base.unProducto.precio_costo)){
+      this.base.unProducto.precio_venta = this.base.redondearPrecio(10, this.base.unProducto.precio_costo * 1.85);
+    }
   }
 
 }

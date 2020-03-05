@@ -18,13 +18,13 @@
             </div>
           </div>
           <div class="eight wide column">
-            <div class="ui button inverted" style="margin-left: 30px;">
+            <div class="ui button inverted">
               <div class="ui checkbox">
                 <input type="checkbox" name="porcentaje" [(ngModel)]="porcentaje" (change)="selectPercent()">
                 <label>Porcentaje</label>
               </div>
             </div>
-            <div class="ui button inverted" style="margin-left: 30px;">
+            <div class="ui button inverted">
               <div class="ui checkbox">
                 <input type="checkbox" name="monto" [(ngModel)]="monto" (change)="selectMotno()">
                 <label>Monto</label>
@@ -43,16 +43,31 @@
             </select>
           </div>
           <div class="eight wide column">
-            <div class="ui button inverted" style="margin-left: 30px;">
+            <div class="ui button inverted">
               <div class="ui checkbox">
                 <input type="checkbox" name="aumentar" [(ngModel)]="aumentar" (change)="selectAumentar()">
                 <label>Aumentar</label>
               </div>
             </div>
-            <div class="ui button inverted" style="margin-left: 30px;">
+            <div class="ui button inverted">
               <div class="ui checkbox">
                 <input type="checkbox" name="bajar" [(ngModel)]="bajar" (change)="selectBajar()">
                 <label>Bajar</label>
+              </div>
+            </div>
+          </div>
+          <div class="eight wide column"></div>
+          <div class="eight wide column">
+            <div class="ui button inverted">
+              <div class="ui checkbox">
+                <input type="checkbox" name="precio_costo" [(ngModel)]="precio_costo" (change)="selectPrecioCosto()">
+                <label>Precio Costo</label>
+              </div>
+            </div>
+            <div class="ui button inverted">
+              <div class="ui checkbox">
+                <input type="checkbox" name="precio_venta" [(ngModel)]="precio_venta" (change)="selectPrecioVenta()">
+                <label>Precio Venta</label>
               </div>
             </div>
           </div>
