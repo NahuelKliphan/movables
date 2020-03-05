@@ -109,6 +109,7 @@ export class BaseService {
     let res = this.ipc.ipcRenderer.sendSync('base', consulta);
     if (res[0] == 'ok') {
       this.listadoProducto = res[1];
+      this.buscarProducto(this.busqueda);
     } else {
       alertify.notify('Error ' + res[1].code, 'warning', 5);
     }
