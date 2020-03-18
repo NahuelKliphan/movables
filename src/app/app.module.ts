@@ -36,6 +36,7 @@ import { ListaCategoriaComponent } from './component/categoria/lista-categoria/l
 import { FormBorrarCategoriaComponent } from './component/categoria/form-borrar-categoria/form-borrar-categoria.component';
 //Empresa
 import { FormEmpresaComponent } from './component/empresa/form-empresa/form-empresa.component';
+import { FormBorrarVentaComponent } from './component/venta/form-borrar-venta/form-borrar-venta.component';
 
 
 
@@ -47,6 +48,10 @@ const routes : Routes = [
   {
     path:'venta',
     component :VentaComponent
+  },
+  {
+    path:'listaVenta',
+    component :ListaVentaComponent
   },
   {
     path:'configuracion',
@@ -91,7 +96,8 @@ const routes : Routes = [
     FormCantidadComponent,
     ModificarPrecioProductoComponent,
     FormEmpresaComponent,
-    ListaPreciosModificadosComponent
+    ListaPreciosModificadosComponent,
+    FormBorrarVentaComponent
   ],
   imports: [
     BrowserModule,

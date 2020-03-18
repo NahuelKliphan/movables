@@ -8,16 +8,18 @@
             <th> <i class="tag icon"></i> Nombre</th>
             <th> <i class="dollar sign icon green"></i> Precio</th>
             <th> <i class="th icon red"></i> Cantidad</th>
-            <th> <i class=" money bill alternate outline icon green"></i> Subtotal</th>
+            <th> <i class="money bill alternate outline icon green"></i> Subtotal</th>
+            <th> <i class="close icon red"></i> Eliminar</th>
         </tr>
     </thead>
     <tbody class="tabla">
-        <tr *ngFor="let unItem of base.listadoItem" (click)="borrar(unItem)">
+        <tr *ngFor="let unItem of base.listadoItem">
             <td>{{unItem.codigo}}</td>
             <td>{{unItem.nombre}}</td>
             <td>{{unItem.precio | currency}}</td>
             <td>{{unItem.cantidad}}</td>
             <td>{{unItem.total | currency}}</td>
+            <td><i class="close icon red" (click)="borrar(unItem)"></i></td>
         </tr>
     </tbody>
 </table>

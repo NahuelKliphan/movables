@@ -61,7 +61,7 @@
           <p><i class="green money bill alternate outline icon"></i> <b>Precio venta: </b>
             {{unProducto.precio_venta | currency}} </p>
           <p><i class="th orange icon"></i> <b>Cantidad: </b> {{unProducto.cantidad}} </p>
-          <p *ngIf="unProducto.descripcion != null"><i class="archive teal icon"></i><b>Descripcion: </b>
+          <p *ngIf="unProducto.descripcion != 'null'"><i class="archive teal icon"></i><b>Descripcion: </b>
             {{unProducto.descripcion}} </p>
         </div>
         <div class="extra">

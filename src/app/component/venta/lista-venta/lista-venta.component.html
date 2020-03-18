@@ -1,1 +1,69 @@
-<p>lista-venta works!</p>
+<div class="pantalla card" style="padding: 2%;">
+    <div class="ui grid">
+        <div class="sixteen wide column">
+            <h2><i class="large list icon"></i> Ventas </h2>
+        </div>
+        <div class="sixteen wide column card" style="margin: 1%;">
+            <div class="ui grid">
+                <div class="ten wide column" style="text-align: center; margin-top: 25px;">
+                    <div class="ui labeled icon input" style="margin-right: 30px;">
+                        <a class="ui label">Desde</a>
+                        <input (input)="buscarVentas()" type="date" [(ngModel)]="base.desde">
+                        <i class="calendar alternate outline icon"></i>
+                    </div>
+                    <div class="ui labeled icon input" style="margin-right: 60px;">
+                        <a class="ui label">Hasta</a>
+                        <input (input)="buscarVentas()" type="date" [(ngModel)]="base.hasta">
+                        <i class="calendar alternate outline icon"></i>
+                    </div>
+                    <button class="ui button icon" (click)="buscarVentas()"> Buscar <i class="search icon"></i></button>
+                </div>
+                <div class="six wide column">
+                    <div class="ui statistics" style="  display: table;margin: 0 auto;">
+                        <div class="statistic">
+                            <div class="value" id="cantidad">
+                                {{this.base.listadoVenta.length}}
+                            </div>
+                            <div class="label">
+                                Cantidad
+                            </div>
+                        </div>
+                        <div class="statistic green">
+                            <div class="value">
+                                {{this.base.totalVentas | currency}}
+                            </div>
+                            <div class="label">
+                                Total Venta
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="sixteen wide column">
+            <table class="ui blue unstackable selectable table" style="text-align: center;">
+                <thead>
+                    <tr>
+                        <th> <i class="hashtag blue icon"></i> Numero </th>
+                        <th> <i class="user icon"></i> Cliente</th>
+                        <th> <i class="calendar alternate outline icon"></i> Fecha</th>
+                        <th> <i class="search blue icon"></i> Detalle</th>
+                        <th> <i class="close red icon"></i> Eliminar </th>
+                        <th> <i class="dollar sign green icon"></i> Total</th>
+                    </tr>
+                </thead>
+                <tbody class="tabla">
+                    <tr *ngFor="let unaVenta of base.listadoVenta">
+                        <td>{{unaVenta.id}}</td>
+                        <td *ngIf="unaVenta.clientenombre != 'null'">{{unaVenta.clientenombre}}</td>
+                        <td *ngIf="unaVenta.clientenombre == 'null'">No informado</td>
+                        <td>{{unaVenta.fecha | date: 'dd/MM/yyyy'}}</td>
+                        <td (click)="buscarItems(unaVenta)"><i class="eye blue icon"></i></td>
+                        <td (click)="eliminarVenta(unaVenta)"><i class="close icon red"></i></td>
+                        <td>{{unaVenta.total | currency }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

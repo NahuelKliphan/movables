@@ -120,7 +120,6 @@ export class ModificarPrecioProductoComponent implements OnInit {
     this.aumentar = true;
     this.bajar = false;
     this.base.filtro = '';
-    $('#filtrar').dropdown('restore defaults');
   }
 
 }

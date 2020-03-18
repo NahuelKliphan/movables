@@ -42,12 +42,16 @@ export class BaseService {
   //Venta
   listadoVenta: Venta[] = [];
   unaVenta: Venta = new Venta(null, null, new Date(), 0);
+  desde: string = "";
+  hasta: string = "";
+  totalVentas: number = 0;
 
   //Item
   listadoItem: Item[] = [];
   unItem: Item = new Item(null, null, null, null, null, 1, null);
   insertItems: string = "";
   idItemTemp = 0;
+  totalItems:number = 0;
 
   //Empresa
   unaEmpresa = new Empresa(1, "", "", "", "", "", "", "", "", "", "");
@@ -282,7 +286,17 @@ export class BaseService {
   //Metodos de Venta
 
   getVentas() {
-    const consulta = "SELECT * FROM VENTAS ORDER BY fecha DESC";
+    const consulta = "SELECT * FROM VENTAS ORDER BY fecha DESC LIMIT 100";
+    let res = this.ipc.ipcRenderer.sendSync('base', consulta);
+    if (res[0] == 'ok') {
+      this.listadoVenta = res[1];
+    } else {
+      alertify.notify('Error ' + res[1].code, 'warning', 5);
+    }
+  }
+
+  getVentasEntreFechas(desde: string, hasta: string) {
+    const consulta = `SELECT * FROM VENTAS WHERE fecha BETWEEN '${desde}' and '${hasta}' ORDER BY fecha DESC`;
     let res = this.ipc.ipcRenderer.sendSync('base', consulta);
     if (res[0] == 'ok') {
       this.listadoVenta = res[1];
@@ -318,11 +332,19 @@ export class BaseService {
     const consulta = `DELETE FROM VENTAS WHERE id = '${unaVenta.id}';`;
     let res = this.ipc.ipcRenderer.sendSync('base', consulta);
     if (res[0] == 'ok') {
-      this.getVentas();
       alertify.notify('Venta eliminada', 'error', 5);
+      this.getVentasEntreFechas(this.desde, this.hasta);
+      this.actualizarEstadisticasVentas();
     } else {
       alertify.notify('Error ' + res[1].code, 'warning', 5);
     }
+  }
+
+  actualizarEstadisticasVentas() {
+    this.totalVentas = Number(0);
+    this.listadoVenta.forEach(v => {
+      this.totalVentas = Number(this.totalVentas) + Number(v.total);
+    })
   }
 
   //Metodos de Item
@@ -331,6 +353,21 @@ export class BaseService {
     let res = this.ipc.ipcRenderer.sendSync('base', consulta);
     if (res[0] == 'error') {
       alertify.notify('Error al guardar items' + res[1].code, 'warning', 5);
+    }
+  }
+
+  getItems(unaVenta: Venta) {
+    const consulta = `SELECT * FROM ITEMS WHERE idventa = ${unaVenta.id};`;
+    let res = this.ipc.ipcRenderer.sendSync('base', consulta);
+    if (res[0] == 'ok') {
+      this.listadoItem = res[1];
+      this.totalItems = Number(0);
+      this.listadoItem.forEach(i =>{
+        this.totalItems = Number(this.totalItems) + Number(i.total);
+      });
+      console.log(this.totalItems);
+    } else {
+      alertify.notify('Error ' + res[1].code, 'warning', 5);
     }
   }
 
