@@ -5,7 +5,7 @@
         </div>
         <div class="sixteen wide column card" style="margin: 1%;">
             <div class="ui grid">
-                <div class="ten wide column" style="text-align: center; margin-top: 25px;">
+                <div class="ten wide column" style="text-align: center; margin-top: 15px;">
                     <div class="ui labeled icon input" style="margin-right: 30px;">
                         <a class="ui label">Desde</a>
                         <input (input)="buscarVentas()" type="date" [(ngModel)]="base.desde">
@@ -19,7 +19,7 @@
                     <button class="ui button icon" (click)="buscarVentas()"> Buscar <i class="search icon"></i></button>
                 </div>
                 <div class="six wide column">
-                    <div class="ui statistics" style="  display: table;margin: 0 auto;">
+                    <div class="ui statistics small" style="  display: table;margin: 0 auto;">
                         <div class="statistic">
                             <div class="value" id="cantidad">
                                 {{this.base.listadoVenta.length}}

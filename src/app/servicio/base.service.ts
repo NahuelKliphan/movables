@@ -365,7 +365,6 @@ export class BaseService {
       this.listadoItem.forEach(i =>{
         this.totalItems = Number(this.totalItems) + Number(i.total);
       });
-      console.log(this.totalItems);
     } else {
       alertify.notify('Error ' + res[1].code, 'warning', 5);
     }

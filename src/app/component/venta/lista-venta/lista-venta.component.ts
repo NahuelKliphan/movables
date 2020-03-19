@@ -17,10 +17,11 @@ export class ListaVentaComponent implements OnInit {
     var pantalla = $(window).height();
     pantalla = pantalla - 135;
     $('.pantalla').css('height', `${pantalla}px`);
-    pantalla = pantalla - 401;
+    pantalla = pantalla - 300;
     $('.tabla').css('height', `${pantalla}px`);
     this.base.getVentas();
     this.base.actualizarEstadisticasVentas();
+    this.base.listadoItem = [];
   }
 
   eliminarVenta(unaVenta: Venta) {

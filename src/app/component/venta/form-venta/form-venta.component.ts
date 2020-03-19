@@ -20,6 +20,7 @@ export class FormVentaComponent implements OnInit {
     $('.pantalla').css('height', `${pantalla}px`);
     pantalla = pantalla - 401;
     $('.tabla').css('height', `${pantalla}px`);
+    this.base.listadoItem = [];
   }
 
   guardar(unaVenta: Venta) {
