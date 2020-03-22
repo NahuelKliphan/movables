@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Categoria } from 'src/app/model/Categoria';
-import { BaseService } from 'src/app/servicio/base.service';
+import { CategoriaService } from 'src/app/servicio/categoria.service';
 
 declare var $: any;
 
@@ -11,23 +11,23 @@ declare var $: any;
 })
 export class FormBorrarCategoriaComponent implements OnInit {
 
-  constructor(private base: BaseService) { }
+  constructor(private categoria: CategoriaService) { }
 
   ngOnInit() {
   }
-  borrar(){
+  borrar() {
     $('#formBorrarCategoria').modal('hide');
-    this.base.borrarCategoria(this.base.unaCategoria);
+    this.categoria.borrarCategoria(this.categoria.unaCategoria);
     this.vaciarCampos();
   }
 
-  cancelar(){
+  cancelar() {
     $('#formBorrarCategoria').modal('hide');
     this.vaciarCampos();
   }
 
   vaciarCampos() {
-    this.base.unaCategoria = new Categoria(null, null);
+    this.categoria.unaCategoria = new Categoria(null, null);
   }
 
 }

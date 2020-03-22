@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Venta } from 'src/app/model/Venta';
 import { BaseService } from 'src/app/servicio/base.service';
+import { ItemService } from 'src/app/servicio/item.service';
+import { VentaService } from 'src/app/servicio/venta.service';
 
 declare var $: any;
 declare var alertify: any;
@@ -12,7 +14,7 @@ declare var alertify: any;
 })
 export class FormVentaComponent implements OnInit {
 
-  constructor(private base: BaseService) { }
+  constructor(private venta: VentaService, private item: ItemService, private base: BaseService) { }
 
   ngOnInit() {
     var pantalla = $(window).height();
@@ -20,14 +22,14 @@ export class FormVentaComponent implements OnInit {
     $('.pantalla').css('height', `${pantalla}px`);
     pantalla = pantalla - 401;
     $('.tabla').css('height', `${pantalla}px`);
-    this.base.listadoItem = [];
+    this.item.listadoItem = [];
   }
 
   guardar(unaVenta: Venta) {
     if (this.formCompleto()) {
-      this.base.guardarVenta(unaVenta);
+      this.venta.guardarVenta(unaVenta);
       this.vaciarForm();
-      this.base.idItemTemp = 0;
+      this.item.idItemTemp = 0;
     } else {
       alertify.notify('No hay ningun item', 'error', 5);
     }
@@ -36,12 +38,12 @@ export class FormVentaComponent implements OnInit {
 
   cancelar() {
     this.vaciarForm();
-    this.base.listadoItem = [];
-    this.base.idItemTemp = 0;
+    this.item.listadoItem = [];
+    this.item.idItemTemp = 0;
   }
 
   vaciarForm() {
-    this.base.unaVenta = new Venta(null, null, new Date(), 0);
+    this.venta.unaVenta = new Venta(null, null, new Date(), 0);
   }
 
   abrirLista() {
@@ -50,7 +52,7 @@ export class FormVentaComponent implements OnInit {
   }
 
   formCompleto() {
-    if (this.base.listadoItem.length > 0) {
+    if (this.item.listadoItem.length > 0) {
       return true;
     }
     else {

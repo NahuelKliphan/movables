@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { BaseService } from 'src/app/servicio/base.service';
+import { CategoriaService } from 'src/app/servicio/categoria.service';
+import { ProductoService } from 'src/app/servicio/producto.service';
+import { RegistroPrecioService } from 'src/app/servicio/registro-precio.service';
+
 
 declare var $: any;
 declare var alertify: any;
@@ -18,12 +22,12 @@ export class ModificarPrecioProductoComponent implements OnInit {
   precio_costo: boolean = true;
   precio_venta: boolean = false;
 
-  constructor(private base: BaseService) { }
+  constructor(private categoria: CategoriaService, private base: BaseService, private registroPrecio: RegistroPrecioService, private producto: ProductoService) { }
 
   ngOnInit() {
 
     $('#filtrar').dropdown();
-    this.base.getCategorias();
+    this.categoria.getCategorias();
     this.base.filtro = '';
 
   }
@@ -34,30 +38,30 @@ export class ModificarPrecioProductoComponent implements OnInit {
 
       var consulta = "UPDATE PRODUCTOS SET ";
       if (this.aumentar) {
-        this.base.unRegistroPrecio.operacion = '+';
+        this.registroPrecio.unRegistroPrecio.operacion = '+';
       } else {
-        this.base.unRegistroPrecio.operacion = "-";
+        this.registroPrecio.unRegistroPrecio.operacion = "-";
       }
       if (this.precio_costo) {
-        this.base.unRegistroPrecio.tipo_precio = "precio_costo";
+        this.registroPrecio.unRegistroPrecio.tipo_precio = "precio_costo";
       } else {
-        this.base.unRegistroPrecio.tipo_precio = "precio_venta";
+        this.registroPrecio.unRegistroPrecio.tipo_precio = "precio_venta";
       }
       if (this.porcentaje) {
-        this.base.unRegistroPrecio.valor = this.base.unRegistroPrecio.valor / 100;
-        this.base.unRegistroPrecio.tipo_valor = 'Porcentaje';
-        consulta += `${this.base.unRegistroPrecio.tipo_precio} = case when mod((${this.base.unRegistroPrecio.tipo_precio} ${this.base.unRegistroPrecio.operacion} ${this.base.unRegistroPrecio.tipo_precio} *${this.base.unRegistroPrecio.valor}),10) = 0 then (${this.base.unRegistroPrecio.tipo_precio} ${this.base.unRegistroPrecio.operacion} ${this.base.unRegistroPrecio.tipo_precio} *${this.base.unRegistroPrecio.valor}) else case when mod((${this.base.unRegistroPrecio.tipo_precio} ${this.base.unRegistroPrecio.operacion} ${this.base.unRegistroPrecio.tipo_precio} *${this.base.unRegistroPrecio.valor}),10) <= 5 then (${this.base.unRegistroPrecio.tipo_precio} ${this.base.unRegistroPrecio.operacion} ${this.base.unRegistroPrecio.tipo_precio} *${this.base.unRegistroPrecio.valor}) - mod((${this.base.unRegistroPrecio.tipo_precio} ${this.base.unRegistroPrecio.operacion} ${this.base.unRegistroPrecio.tipo_precio} *${this.base.unRegistroPrecio.valor}),10) else (${this.base.unRegistroPrecio.tipo_precio} ${this.base.unRegistroPrecio.operacion} ${this.base.unRegistroPrecio.tipo_precio} *${this.base.unRegistroPrecio.valor}) + (10 - mod((${this.base.unRegistroPrecio.tipo_precio} ${this.base.unRegistroPrecio.operacion} ${this.base.unRegistroPrecio.tipo_precio} *${this.base.unRegistroPrecio.valor}),10)) end end `;
+        this.registroPrecio.unRegistroPrecio.valor = this.registroPrecio.unRegistroPrecio.valor / 100;
+        this.registroPrecio.unRegistroPrecio.tipo_valor = 'Porcentaje';
+        consulta += `${this.registroPrecio.unRegistroPrecio.tipo_precio} = case when mod((${this.registroPrecio.unRegistroPrecio.tipo_precio} ${this.registroPrecio.unRegistroPrecio.operacion} ${this.registroPrecio.unRegistroPrecio.tipo_precio} *${this.registroPrecio.unRegistroPrecio.valor}),10) = 0 then (${this.registroPrecio.unRegistroPrecio.tipo_precio} ${this.registroPrecio.unRegistroPrecio.operacion} ${this.registroPrecio.unRegistroPrecio.tipo_precio} *${this.registroPrecio.unRegistroPrecio.valor}) else case when mod((${this.registroPrecio.unRegistroPrecio.tipo_precio} ${this.registroPrecio.unRegistroPrecio.operacion} ${this.registroPrecio.unRegistroPrecio.tipo_precio} *${this.registroPrecio.unRegistroPrecio.valor}),10) <= 5 then (${this.registroPrecio.unRegistroPrecio.tipo_precio} ${this.registroPrecio.unRegistroPrecio.operacion} ${this.registroPrecio.unRegistroPrecio.tipo_precio} *${this.registroPrecio.unRegistroPrecio.valor}) - mod((${this.registroPrecio.unRegistroPrecio.tipo_precio} ${this.registroPrecio.unRegistroPrecio.operacion} ${this.registroPrecio.unRegistroPrecio.tipo_precio} *${this.registroPrecio.unRegistroPrecio.valor}),10) else (${this.registroPrecio.unRegistroPrecio.tipo_precio} ${this.registroPrecio.unRegistroPrecio.operacion} ${this.registroPrecio.unRegistroPrecio.tipo_precio} *${this.registroPrecio.unRegistroPrecio.valor}) + (10 - mod((${this.registroPrecio.unRegistroPrecio.tipo_precio} ${this.registroPrecio.unRegistroPrecio.operacion} ${this.registroPrecio.unRegistroPrecio.tipo_precio} *${this.registroPrecio.unRegistroPrecio.valor}),10)) end end `;
       } else {
-        this.base.unRegistroPrecio.tipo_valor = 'Monto';
-        consulta += `${this.base.unRegistroPrecio.tipo_precio} = case when mod(${this.base.unRegistroPrecio.valor} + ${this.base.unRegistroPrecio.tipo_precio},10) = 0 then ${this.base.unRegistroPrecio.valor} + ${this.base.unRegistroPrecio.tipo_precio} else case when mod(${this.base.unRegistroPrecio.valor} + ${this.base.unRegistroPrecio.tipo_precio},10) <= 5 then ${this.base.unRegistroPrecio.valor} + ${this.base.unRegistroPrecio.tipo_precio} - mod(${this.base.unRegistroPrecio.valor} + ${this.base.unRegistroPrecio.tipo_precio},10) else ${this.base.unRegistroPrecio.valor} + ${this.base.unRegistroPrecio.tipo_precio} ${this.base.unRegistroPrecio.operacion} (10 - mod(${this.base.unRegistroPrecio.valor} + ${this.base.unRegistroPrecio.tipo_precio},10)) end end `;
+        this.registroPrecio.unRegistroPrecio.tipo_valor = 'Monto';
+        consulta += `${this.registroPrecio.unRegistroPrecio.tipo_precio} = case when mod(${this.registroPrecio.unRegistroPrecio.valor} + ${this.registroPrecio.unRegistroPrecio.tipo_precio},10) = 0 then ${this.registroPrecio.unRegistroPrecio.valor} + ${this.registroPrecio.unRegistroPrecio.tipo_precio} else case when mod(${this.registroPrecio.unRegistroPrecio.valor} + ${this.registroPrecio.unRegistroPrecio.tipo_precio},10) <= 5 then ${this.registroPrecio.unRegistroPrecio.valor} + ${this.registroPrecio.unRegistroPrecio.tipo_precio} - mod(${this.registroPrecio.unRegistroPrecio.valor} + ${this.registroPrecio.unRegistroPrecio.tipo_precio},10) else ${this.registroPrecio.unRegistroPrecio.valor} + ${this.registroPrecio.unRegistroPrecio.tipo_precio} ${this.registroPrecio.unRegistroPrecio.operacion} (10 - mod(${this.registroPrecio.unRegistroPrecio.valor} + ${this.registroPrecio.unRegistroPrecio.tipo_precio},10)) end end `;
       }
       consulta += this.base.filtro + ";"
       let registro = `INSERT INTO REGISTRO_PRECIOS (fecha, operacion, tipo_valor, tipo_precio , valor, id_categoria) 
-      VALUES (current_date, '${this.base.unRegistroPrecio.operacion}', '${this.base.unRegistroPrecio.tipo_valor}', '${this.base.unRegistroPrecio.tipo_precio}', ${this.base.unRegistroPrecio.valor}, ${this.base.unRegistroPrecio.id_categoria});`;
+      VALUES (current_date, '${this.registroPrecio.unRegistroPrecio.operacion}', '${this.registroPrecio.unRegistroPrecio.tipo_valor}', '${this.registroPrecio.unRegistroPrecio.tipo_precio}', ${this.registroPrecio.unRegistroPrecio.valor}, ${this.registroPrecio.unRegistroPrecio.id_categoria});`;
       consulta += registro;
       $('#modificarPrecioProducto').modal('hide').modal('hide dimmer');
       this.vaciarForm();
-      this.base.modificarPrecioProducto(consulta);
+      this.producto.modificarPrecioProducto(consulta);
     }
   }
 
@@ -95,7 +99,7 @@ export class ModificarPrecioProductoComponent implements OnInit {
   }
 
   setFiltro() {
-    this.base.setFiltro(this.base.unRegistroPrecio.id_categoria);
+    this.producto.setFiltro(this.registroPrecio.unRegistroPrecio.id_categoria);
   }
 
   formCompleto() {
@@ -103,7 +107,7 @@ export class ModificarPrecioProductoComponent implements OnInit {
     let ret = true;
 
     //Valor
-    if (this.base.unRegistroPrecio.valor == null || !this.base.isNumber(this.base.unRegistroPrecio.valor) || this.base.unRegistroPrecio.valor < 1) {
+    if (this.registroPrecio.unRegistroPrecio.valor == null || !this.base.isNumber(this.registroPrecio.unRegistroPrecio.valor) || this.registroPrecio.unRegistroPrecio.valor < 1) {
       ret = false;
       alertify.notify('Valor no válido', 'error', 5);
       return false;
@@ -114,7 +118,7 @@ export class ModificarPrecioProductoComponent implements OnInit {
   }
 
   vaciarForm() {
-    this.base.unRegistroPrecio.valor = null;
+    this.registroPrecio.unRegistroPrecio.valor = null;
     this.porcentaje = true;
     this.monto = false;
     this.aumentar = true;

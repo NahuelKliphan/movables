@@ -8,7 +8,7 @@
                 <div class="field">
                     <div class="ui input right labeled left icon">
                         <i class="tag icon"></i>
-                        <input type="text" name="codigo" placeholder="Nombre" [(ngModel)]="base.unaCategoria.nombre"
+                        <input type="text" name="codigo" placeholder="Nombre" [(ngModel)]="categoria.unaCategoria.nombre"
                             id="nombreCategoria">
                         <a class="ui tag label">
                             Nombre
@@ -17,11 +17,11 @@
                 </div>
             </div>
             <div class="five wide column">
-                <div *ngIf="!base.editar" class="ui button primary right floated"
+                <div *ngIf="!categoria.editar" class="ui button primary right floated"
                     (click)="guardar()">
                     <i class="plus icon"></i> Agregar
                 </div>
-                <div *ngIf="base.editar" class="ui button secondary right floated"
+                <div *ngIf="categoria.editar" class="ui button secondary right floated"
                     (click)="editar()">
                     <i class="edit icon"></i> Editar
                 </div>

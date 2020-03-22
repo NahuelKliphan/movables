@@ -19,14 +19,14 @@
                     </tr>
                 </thead>
                 <tbody class="tabla">
-                    <tr *ngFor="let unRegistroPrecio of base.listadoRegistroPrecio">
+                    <tr *ngFor="let unRegistroPrecio of registroPrecio.listadoRegistroPrecio">
                         <td>{{unRegistroPrecio.fecha | date: 'dd/MM/yyyy'}}</td>
                         <td>{{unRegistroPrecio.operacion}}</td>
                         <td *ngIf="unRegistroPrecio.tipo_valor == 'Monto'">{{ unRegistroPrecio.valor | currency}}</td>
                         <td *ngIf="unRegistroPrecio.tipo_valor == 'Porcentaje'">{{unRegistroPrecio.valor | percent }}
                         </td>
                         <td *ngIf="unRegistroPrecio.id_categoria != null && unRegistroPrecio.id_categoria >= 0">
-                            {{ base.listadoNombreCategoria[unRegistroPrecio.id_categoria] }}
+                            {{ categoria.listadoNombreCategoria[unRegistroPrecio.id_categoria] }}
                         </td>
                         <td *ngIf="unRegistroPrecio.id_categoria == null">
                             Sin Categoria

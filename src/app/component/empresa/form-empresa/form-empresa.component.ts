@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { BaseService } from 'src/app/servicio/base.service';
+import { EmpresaService } from 'src/app/servicio/empresa.service';
 
 @Component({
   selector: 'app-form-empresa',
@@ -8,14 +8,14 @@ import { BaseService } from 'src/app/servicio/base.service';
 })
 export class FormEmpresaComponent implements OnInit {
 
-  constructor(private base: BaseService) { }
+  constructor(private empresa: EmpresaService) { }
 
   ngOnInit() {
-    this.base.getEmpresa();
+    this.empresa.getEmpresa();
   }
 
-  editar(){
-    this.base.editarEmpresa(this.base.unaEmpresa);
+  editar() {
+    this.empresa.editarEmpresa(this.empresa.unaEmpresa);
   }
 
 }

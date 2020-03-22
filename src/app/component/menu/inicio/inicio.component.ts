@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { BaseService } from 'src/app/servicio/base.service';
+import { EmpresaService } from 'src/app/servicio/empresa.service';
 
 declare var $: any;
 
@@ -10,7 +10,7 @@ declare var $: any;
 })
 export class InicioComponent implements OnInit {
 
-  constructor(private base: BaseService) { }
+  constructor(private empresa: EmpresaService) { }
 
   ngOnInit() {
 
@@ -18,15 +18,15 @@ export class InicioComponent implements OnInit {
     pantalla = pantalla - 250;
     $('.contenedor-inicio').css('height', `${pantalla}px`);
 
-    if(!this.base.existeEmpresa(this.base.unaEmpresa)){
-      this.base.guardarEmpresa(this.base.unaEmpresa);
+    if (!this.empresa.existeEmpresa(this.empresa.unaEmpresa)) {
+      this.empresa.guardarEmpresa(this.empresa.unaEmpresa);
     }
 
-    this.base.getEmpresa();
+    this.empresa.getEmpresa();
 
   }
 
-  abrirLink(link:string){
+  abrirLink(link: string) {
     window.open(link, "Link");
   }
 

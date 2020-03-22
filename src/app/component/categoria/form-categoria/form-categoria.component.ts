@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Categoria } from 'src/app/model/Categoria';
-import { BaseService } from 'src/app/servicio/base.service';
+import { CategoriaService } from 'src/app/servicio/categoria.service';
 
 declare var alertify: any;
 declare var $: any;
@@ -12,15 +12,15 @@ declare var $: any;
 })
 export class FormCategoriaComponent implements OnInit {
 
-  constructor(private base: BaseService) { }
+  constructor(private categoria: CategoriaService) { }
 
   ngOnInit() {
   }
 
   guardar() {
     if (this.formCompleto()) {
-      if (this.base.verificarNombre(this.base.unaCategoria.nombre)) {
-        this.base.guardarCategoria(new Categoria(this.base.unaCategoria.id, this.base.unaCategoria.nombre));
+      if (this.categoria.verificarNombre(this.categoria.unaCategoria.nombre)) {
+        this.categoria.guardarCategoria(new Categoria(this.categoria.unaCategoria.id, this.categoria.unaCategoria.nombre));
       }
     } else {
       alertify.notify('Faltan datos', 'error', 5);
@@ -33,14 +33,14 @@ export class FormCategoriaComponent implements OnInit {
   editar() {
 
     if (this.formCompleto()) {
-      this.base.editarCategoria(this.base.unaCategoria);
+      this.categoria.editarCategoria(this.categoria.unaCategoria);
       this.vaciarCampos();
     } else {
       alertify.notify('Faltan datos', 'error', 5);
     }
 
-    this.base.getCategorias();
-    this.base.editar = false;
+    this.categoria.getCategorias();
+    this.categoria.editar = false;
     $('#nombreCategoria').focus();
 
   }
@@ -50,7 +50,7 @@ export class FormCategoriaComponent implements OnInit {
     let ret = true;
 
     //Nombre
-    if (this.base.unaCategoria.nombre == null || this.base.unProducto.nombre == "") {
+    if (this.categoria.unaCategoria.nombre == null || this.categoria.unaCategoria.nombre == "") {
       ret = false;
       return false;
     }
@@ -58,7 +58,7 @@ export class FormCategoriaComponent implements OnInit {
   }
 
   vaciarCampos() {
-    this.base.unaCategoria = new Categoria(null, null);
+    this.categoria.unaCategoria = new Categoria(null, null);
   }
 
 }

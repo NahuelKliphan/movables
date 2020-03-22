@@ -1,6 +1,6 @@
 <div style="text-align: center;">
-    <h2 *ngIf="!base.editar"><i class="big product hunt icon"></i> Nuevo producto </h2>
-    <h2 *ngIf="base.editar"><i class="big product hunt icon"></i> Editar producto </h2>
+    <h2 *ngIf="!producto.editar"><i class="big product hunt icon"></i> Nuevo producto </h2>
+    <h2 *ngIf="producto.editar"><i class="big product hunt icon"></i> Editar producto </h2>
 </div>
 <form class="ui form" style="margin-top: 2%;">
     <div class="ui grid">
@@ -8,10 +8,10 @@
             <div class="field">
                 <div class="ui input labeled left icon">
                     <i class="barcode icon"></i>
-                    <input *ngIf="!base.editar" type="text" name="codigo" placeholder="Codigo"
-                        [(ngModel)]="base.unProducto.codigo">
-                    <input readonly *ngIf="base.editar" type="text" name="codigo" placeholder="Codigo"
-                        [(ngModel)]="base.unProducto.codigo">
+                    <input *ngIf="!producto.editar" type="text" name="codigo" placeholder="Codigo"
+                        [(ngModel)]="producto.unProducto.codigo">
+                    <input readonly *ngIf="producto.editar" type="text" name="codigo" placeholder="Codigo"
+                        [(ngModel)]="producto.unProducto.codigo">
                     <a class="ui tag label">
                         Codigo (*)
                     </a>
@@ -20,7 +20,7 @@
             <div class="field">
                 <div class="ui input labeled left icon">
                     <i class="tag icon"></i>
-                    <input type="text" name="nombre" placeholder="Nombre" [(ngModel)]="base.unProducto.nombre">
+                    <input type="text" name="nombre" placeholder="Nombre" [(ngModel)]="producto.unProducto.nombre">
                     <a class="ui tag label">
                         Nombre (*)
                     </a>
@@ -29,7 +29,7 @@
             <div class="field">
                 <div class="ui input labeled left icon">
                     <i class="dollar green sign icon"></i>
-                    <input type="text" name="precio_costo" placeholder="Precio Costo" (input)="autocompletarPrecioVenta()" [(ngModel)]="base.unProducto.precio_costo">
+                    <input type="text" name="precio_costo" placeholder="Precio Costo" (input)="autocompletarPrecioVenta()" [(ngModel)]="producto.unProducto.precio_costo">
                     <a class="ui tag label">
                         Precio Costo (*)
                     </a>
@@ -38,7 +38,7 @@
             <div class="field">
                 <div class="ui input labeled left icon">
                     <i class="money bill alternate outline green icon"></i>
-                    <input type="text" name="precio_venta" placeholder="Precio Venta" [(ngModel)]="base.unProducto.precio_venta">
+                    <input type="text" name="precio_venta" placeholder="Precio Venta" [(ngModel)]="producto.unProducto.precio_venta">
                     <a class="ui tag label">
                         Precio Venta (*)
                     </a>
@@ -47,7 +47,7 @@
             <div class="field">
                 <div class="ui input labeled left icon">
                     <i class="th red icon"></i>
-                    <input type="text" name="cantidad" placeholder="Cantidad" [(ngModel)]="base.unProducto.cantidad">
+                    <input type="text" name="cantidad" placeholder="Cantidad" [(ngModel)]="producto.unProducto.cantidad">
                     <a class="ui tag label">
                         Cantidad (*)
                     </a>
@@ -56,9 +56,9 @@
             <div class="field">
                 <div class="ui input labeled left icon">
                     <select id="idcategoria" class="ui active dropdown fluid " name="idcategoria"
-                        [(ngModel)]="base.unProducto.idcategoria">
+                        [(ngModel)]="producto.unProducto.idcategoria">
                         <option [ngValue]="null"><i class="tags grey icon"></i> Categoria</option>
-                        <option [ngValue]="unaCategoria.id" *ngFor="let unaCategoria of base.listadoCategoria"><i
+                        <option [ngValue]="unaCategoria.id" *ngFor="let unaCategoria of categoria.listadoCategoria"><i
                                 class="tags grey icon"></i>
                             {{unaCategoria.nombre}}
                         </option>
@@ -88,7 +88,7 @@
                                 </div>
                             </div>
                         </div>
-                        <img [src]="base.unProducto.foto" onerror="this.src ='assets/images/producto.png'">
+                        <img [src]="producto.unProducto.foto" onerror="this.src ='assets/images/producto.png'">
                     </div>
                 </div>
             </div>
@@ -97,17 +97,17 @@
             <div class="field">
                 <label>Descripción</label>
                 <textarea style="resize: none;" rows="4" type="text" name="descripcion" placeholder="Descripción"
-                    [(ngModel)]="base.unProducto.descripcion"></textarea>
+                    [(ngModel)]="producto.unProducto.descripcion"></textarea>
             </div>
         </div>
         <div class="sixteen wide column">
             <div class="actions">
-                <div [hidden]="base.editar">
+                <div [hidden]="producto.editar">
                     <div class="ui right floated button green" style="margin-right: 10px;" (click)="guardar()">
                         <div><i class="save icon"></i> Guardar </div>
                     </div>
                 </div>
-                <div [hidden]="!base.editar">
+                <div [hidden]="!producto.editar">
                     <div class="ui right floated button secondary" style="margin-right: 10px;" (click)="guardar()">
                         <i class="edit icon"></i> Editar
                     </div>

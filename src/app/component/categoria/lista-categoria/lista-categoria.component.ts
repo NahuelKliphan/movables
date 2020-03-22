@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Categoria } from 'src/app/model/Categoria';
 import { BaseService } from 'src/app/servicio/base.service';
+import { CategoriaService } from 'src/app/servicio/categoria.service';
 
 declare var $: any;
 
@@ -11,22 +12,20 @@ declare var $: any;
 })
 export class ListaCategoriaComponent implements OnInit {
 
-  constructor(private base: BaseService) {
-
-   }
+  constructor(private categoria: CategoriaService) { }
 
   ngOnInit() {
-    this.base.getCategorias();
+    this.categoria.getCategorias();
   }
 
   borrar(unaCategoria: Categoria) {
-    this.base.unaCategoria = unaCategoria;
-    $('#formBorrarCategoria').modal({closable: false}).modal('show');
+    this.categoria.unaCategoria = unaCategoria;
+    $('#formBorrarCategoria').modal({ closable: false }).modal('show');
   }
 
   editar(unaCategoria: Categoria) {
-    this.base.editar = true;
-    this.base.unaCategoria = unaCategoria;
+    this.categoria.editar = true;
+    this.categoria.unaCategoria = unaCategoria;
   }
 
 }

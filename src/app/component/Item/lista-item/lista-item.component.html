@@ -10,7 +10,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let unItem of base.listadoItem">
+            <tr *ngFor="let unItem of item.listadoItem">
                 <td>{{unItem.codigo}}</td>
                 <td>{{unItem.nombre}}</td>
                 <td>{{unItem.cantidad}}</td>
@@ -22,7 +22,7 @@
                 <td></td>
                 <td></td>
                 <td><b>Total:</b></td>
-                <td><b>{{base.totalItems | currency}}</b></td>
+                <td><b>{{item.totalItems | currency}}</b></td>
             </tr>
         </tbody>
     </table>

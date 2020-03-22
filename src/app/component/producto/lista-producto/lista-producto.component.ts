@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Producto } from 'src/app/model/Producto';
 import { BaseService } from 'src/app/servicio/base.service';
+import { CategoriaService } from 'src/app/servicio/categoria.service';
+import { ProductoService } from 'src/app/servicio/producto.service';
 
 declare var $: any;
 
@@ -11,20 +13,17 @@ declare var $: any;
 })
 export class ListaProductoComponent implements OnInit {
 
-  constructor(private base: BaseService) {
-
-  }
+  constructor(private producto: ProductoService, private base: BaseService, private categoria: CategoriaService) { }
 
   ngOnInit() {
 
     var pantalla = $(window).height();
     pantalla = pantalla - 135;
     $('.pantalla').css('height', `${pantalla}px`);
-
     $('#filtrar').dropdown();
     $("#buscarProducto").focus();
-    this.base.getCategorias();
-    this.base.getProductos();
+    this.categoria.getCategorias();
+    this.producto.getProductos();
 
   }
 
@@ -35,33 +34,33 @@ export class ListaProductoComponent implements OnInit {
 
   buscar() {
     if (this.base.busqueda.length > 0) {
-      this.base.buscarProducto(this.base.busqueda);
-      if (this.base.enVenta && this.base.scanner && this.base.listadoProducto.length == 1) {
-        this.vender(this.base.listadoProducto[0]);
+      this.producto.buscarProducto(this.base.busqueda);
+      if (this.base.enVenta && this.producto.scanner && this.producto.listadoProducto.length == 1) {
+        this.vender(this.producto.listadoProducto[0]);
       }
     } else {
-      this.base.getProductos();
+      this.producto.getProductos();
     }
   }
 
   borrar(unProducto: Producto) {
-    this.base.unProducto = unProducto;
+    this.producto.unProducto = unProducto;
     $("#foto").prop("value", "");
     $('#formBorrarProducto').modal({ closable: false }).modal('show').modal('show dimmer');
   }
 
   editar(unProducto: Producto) {
-    this.base.editar = true;
-    this.base.unProducto = unProducto;
+    this.producto.editar = true;
+    this.producto.unProducto = unProducto;
   }
 
   filtrar() {
-    this.base.setFiltro(this.base.idFiltrar);
-    this.base.getProductos();
+    this.producto.setFiltro(this.base.idFiltrar);
+    this.producto.getProductos();
   }
 
   vender(unProducto: Producto) {
-    this.base.unProducto = unProducto;
+    this.producto.unProducto = unProducto;
     $('#listaProducto').modal('hide');
     $('#formCantidadItem').modal({ closable: false }).modal('show').modal('show dimmer');
   }
@@ -69,5 +68,4 @@ export class ListaProductoComponent implements OnInit {
   salir() {
     $('#listaProducto').modal('hide');
   }
-
 }

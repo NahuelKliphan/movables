@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { BaseService } from 'src/app/servicio/base.service';
-import { RegistroPrecio } from 'src/app/model/RegistroPrecio';
+import { CategoriaService } from 'src/app/servicio/categoria.service';
+import { RegistroPrecioService } from 'src/app/servicio/registro-precio.service';
 
 declare var $: any;
 declare var alertify: any;
@@ -12,7 +12,7 @@ declare var alertify: any;
 })
 export class ListaPreciosModificadosComponent implements OnInit {
 
-  constructor(private base: BaseService) { }
+  constructor(private registroPrecio: RegistroPrecioService, private categoria: CategoriaService) { }
 
   ngOnInit() {
 
@@ -20,8 +20,8 @@ export class ListaPreciosModificadosComponent implements OnInit {
     pantalla = pantalla - 536;
     $('.tabla').css('height', `${pantalla}px`);
 
-    this.base.getRegistroPrecios();
-    this.base.getCategorias();
+    this.registroPrecio.getRegistroPrecios();
+    this.categoria.getCategorias();
   }
 
   abrirModal() {

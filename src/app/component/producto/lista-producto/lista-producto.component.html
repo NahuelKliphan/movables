@@ -8,14 +8,14 @@
         <div class="inline field">
           <div *ngIf="base.enVenta" class="ui button inverted" style="margin-left: 30px;">
             <div class="ui toggle checkbox">
-              <input type="checkbox" name="scanner" [(ngModel)]="base.scanner">
+              <input type="checkbox" name="scanner" [(ngModel)]="producto.scanner">
               <label>Scanner</label>
             </div>
           </div>
           <select class="ui dropdown" name="idBuscar" [(ngModel)]="base.idFiltrar" id="filtrar" (change)="filtrar()">
             <option value="-1"><i class="filter grey icon"></i> Filtro</option>
             <option [ngValue]="null"><i class="tag icon"></i> Sin categoria</option>
-            <option [ngValue]="unaCategoria.id" *ngFor="let unaCategoria of base.listadoCategoria"><i
+            <option [ngValue]="unaCategoria.id" *ngFor="let unaCategoria of categoria.listadoCategoria"><i
                 class="tag icon"></i>
               {{unaCategoria.nombre}}
             </option>
@@ -37,7 +37,7 @@
     <i class="search icon"></i>
   </div>
   <div class="ui divided items lista-producto">
-    <div class="item" *ngFor="let unProducto of base.listadoProducto">
+    <div class="item" *ngFor="let unProducto of producto.listadoProducto">
       <div class="image">
         <img [src]="unProducto.foto" onerror="this.src ='assets/images/producto.png'">
       </div>
@@ -65,9 +65,9 @@
             {{unProducto.descripcion}} </p>
         </div>
         <div class="extra">
-          <div *ngIf="unProducto.idcategoria != null" class="ui label"><i class="tags icon"></i>
-            {{ base.listadoNombreCategoria[unProducto.idcategoria] }} </div>
-          <div *ngIf="unProducto.idcategoria == null" class="ui label"><i class="tags icon"></i> Sin Categoria </div>
+          <div *ngIf="unProducto.idcategoria != 'null'" class="ui label"><i class="tags icon"></i>
+            {{ categoria.listadoNombreCategoria[unProducto.idcategoria] }} </div>
+          <div *ngIf="unProducto.idcategoria == 'null'" class="ui label"><i class="tags icon"></i> Sin Categoria </div>
         </div>
       </div>
     </div>

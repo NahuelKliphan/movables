@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { BaseService } from 'src/app/servicio/base.service';
 import { Venta } from 'src/app/model/Venta';
+import { VentaService } from 'src/app/servicio/venta.service';
 
 declare var $: any;
 
@@ -11,24 +11,24 @@ declare var $: any;
 })
 export class FormBorrarVentaComponent implements OnInit {
 
-  constructor(private base: BaseService) { }
+  constructor(private venta: VentaService) { }
 
   ngOnInit() {
   }
 
-  borrar(){
+  borrar() {
     $('#formBorrarVenta').modal('hide');
-    this.base.borrarVenta(this.base.unaVenta);
+    this.venta.borrarVenta(this.venta.unaVenta);
     this.vaciarCampos();
   }
 
-  cancelar(){
+  cancelar() {
     $('#formBorrarVenta').modal('hide');
     this.vaciarCampos();
   }
 
   vaciarCampos() {
-    this.base.unaVenta = new Venta(null, null, new Date(), 0); 
+    this.venta.unaVenta = new Venta(null, null, new Date(), 0);
   }
 
 }

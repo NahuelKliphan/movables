@@ -4,10 +4,10 @@
   </div>
   <div class="image content">
     <div class="ui medium image">
-      <img [src]="base.unProducto.foto" onerror="this.src ='assets/images/producto.png'">
+      <img [src]="producto.unProducto.foto" onerror="this.src ='assets/images/producto.png'">
     </div>
     <div class="description">
-      <div class="ui header">¿Seguro desea eliminar el producto {{base.unProducto.nombre}}?</div>
+      <div class="ui header">¿Seguro desea eliminar el producto {{producto.unProducto.nombre}}?</div>
       <div style="text-indent:-999em;">
         <input type="text" (keyup.enter)="borrar()" (keyup.escape)="cancelar()">
       </div>

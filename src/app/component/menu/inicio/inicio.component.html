@@ -4,19 +4,19 @@
     </div>
 </div>
 <div class="inferior">
-    <i *ngIf="base.unaEmpresa.telefono != ''" class="whatsapp icon large green"></i> <a
-        *ngIf="base.unaEmpresa.telefono != ''" href="javascript:;"><b
-            style="margin-right: 10px;">{{base.unaEmpresa.telefono}}</b> </a>
-    <i *ngIf="base.unaEmpresa.instagram != ''" class="instagram icon large pink"></i> <a
-        *ngIf="base.unaEmpresa.instagram != ''" href="javascript:;"
-        (click)="abrirLink(base.unaEmpresa.instagram_link)"><b style="margin-right: 10px;">{{base.unaEmpresa.instagram}}
+    <i *ngIf="empresa.unaEmpresa.telefono != ''" class="whatsapp icon large green"></i> <a
+        *ngIf="empresa.unaEmpresa.telefono != ''" href="javascript:;"><b
+            style="margin-right: 10px;">{{empresa.unaEmpresa.telefono}}</b> </a>
+    <i *ngIf="empresa.unaEmpresa.instagram != ''" class="instagram icon large pink"></i> <a
+        *ngIf="empresa.unaEmpresa.instagram != ''" href="javascript:;"
+        (click)="abrirLink(empresa.unaEmpresa.instagram_link)"><b style="margin-right: 10px;">{{empresa.unaEmpresa.instagram}}
         </b> </a>
-    <i *ngIf="base.unaEmpresa.facebook != ''" class="facebook icon large blue"></i> <a
-        *ngIf="base.unaEmpresa.facebook != ''" href="javascript:;" (click)="abrirLink(base.unaEmpresa.facebook_link)"><b
-            style="margin-right: 10px;">{{base.unaEmpresa.facebook}} </b> </a>
-    <i *ngIf="base.unaEmpresa.twitter != ''" class="twitter icon large blue"></i> <a
-        *ngIf="base.unaEmpresa.twitter != ''" href="javascript:;" (click)="abrirLink(base.unaEmpresa.twitter_link)"><b
-            style="margin-right: 10px;">{{base.unaEmpresa.twitter}} </b></a>
+    <i *ngIf="empresa.unaEmpresa.facebook != ''" class="facebook icon large blue"></i> <a
+        *ngIf="empresa.unaEmpresa.facebook != ''" href="javascript:;" (click)="abrirLink(empresa.unaEmpresa.facebook_link)"><b
+            style="margin-right: 10px;">{{empresa.unaEmpresa.facebook}} </b> </a>
+    <i *ngIf="empresa.unaEmpresa.twitter != ''" class="twitter icon large blue"></i> <a
+        *ngIf="empresa.unaEmpresa.twitter != ''" href="javascript:;" (click)="abrirLink(empresa.unaEmpresa.twitter_link)"><b
+            style="margin-right: 10px;">{{empresa.unaEmpresa.twitter}} </b></a>
     <div class="ui progress green" id="progreso" style="display: none;">
         <div class="label"><label id="EstadoDescarga" for="estado">Buscando actualizaciones...</label></div>
         <div class="bar"></div>

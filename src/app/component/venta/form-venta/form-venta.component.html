@@ -10,15 +10,15 @@
                         Cliente:
                     </a>
                     <i class="user icon"></i>
-                    <input type="text" name="nombre" placeholder="Nombre" [(ngModel)]="base.unaVenta.clientenombre">
+                    <input type="text" name="nombre" placeholder="Nombre" [(ngModel)]="venta.unaVenta.clientenombre">
                 </div>
                 <div class="ui input labeled right icon">
                     <a class="ui label">
                         Fecha:
                     </a>
                     <i class="calendar alternate outline icon"></i>
-                    <input type="date" name="fecha" [ngModel]="base.unaVenta.fecha | date:'yyyy-MM-dd'"
-                        [(ngModel)]="base.unaVenta.fecha">
+                    <input type="date" name="fecha" [ngModel]="venta.unaVenta.fecha | date:'yyyy-MM-dd'"
+                        [(ngModel)]="venta.unaVenta.fecha">
                 </div>
             </div>
             <div class="six wide column" style="text-align: right;">
@@ -37,7 +37,7 @@
                                 Total:
                             </a>
                             <i class="dollar sign icon green"></i>
-                            <input readonly type="text" name="nombre" value="{{base.unaVenta.total | currency }}">
+                            <input readonly type="text" name="nombre" value="{{venta.unaVenta.total | currency }}">
                         </div>
                     </div>
                 </div>
@@ -47,7 +47,7 @@
                     <div class="ui floated button secondary" style="margin-right: 20px;" (click)="cancelar()">
                         <i class="close icon"></i> Cancelar
                     </div>
-                    <div class="ui floated button primary" (click)="guardar(base.unaVenta)">
+                    <div class="ui floated button primary" (click)="guardar(venta.unaVenta)">
                         <div><i class="dollar sign icon"></i> Vender </div>
                     </div>
                 </div>

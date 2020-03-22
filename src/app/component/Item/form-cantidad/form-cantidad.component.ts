@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Item } from 'src/app/model/Item';
-import { BaseService } from 'src/app/servicio/base.service';
 import { Producto } from 'src/app/model/Producto';
+import { BaseService } from 'src/app/servicio/base.service';
+import { ItemService } from 'src/app/servicio/item.service';
+import { ProductoService } from 'src/app/servicio/producto.service';
+import { VentaService } from 'src/app/servicio/venta.service';
 
 declare var $: any;
 declare var alertify: any;
@@ -13,21 +16,21 @@ declare var alertify: any;
 })
 export class FormCantidadComponent implements OnInit {
 
-  constructor(private base: BaseService) { }
+  constructor(private item: ItemService, private venta: VentaService, private producto: ProductoService, private base: BaseService) { }
 
   ngOnInit() {
   }
 
   aceptar() {
-    if (this.base.unItem.cantidad > 0) {
+    if (this.item.unItem.cantidad > 0) {
 
       if (this.comprobarCantidad()) {
 
         $('#formCantidadItem').modal('hide');
-        this.base.unItem = new Item(this.base.idItemTemp, 1, this.base.unProducto.precio_venta * this.base.unItem.cantidad, this.base.unProducto.codigo, this.base.unProducto.nombre, this.base.unItem.cantidad, this.base.unProducto.precio_venta);
-        this.base.idItemTemp++;
-        this.base.listadoItem.push(this.base.unItem);
-        this.base.unaVenta.total = this.base.unaVenta.total + this.base.unItem.total;
+        this.item.unItem = new Item(this.item.idItemTemp, 1, this.producto.unProducto.precio_venta * this.item.unItem.cantidad, this.producto.unProducto.codigo, this.producto.unProducto.nombre, this.item.unItem.cantidad, this.producto.unProducto.precio_venta);
+        this.item.idItemTemp++;
+        this.item.listadoItem.push(this.item.unItem);
+        this.venta.unaVenta.total = this.venta.unaVenta.total + this.item.unItem.total;
         this.vaciarForm();
         alertify.notify('Item cargado', 'success', 5);
         $('#listaProducto').modal({ closable: false }).modal('show');
@@ -49,22 +52,22 @@ export class FormCantidadComponent implements OnInit {
 
 
   vaciarForm() {
-    this.base.unItem = new Item(null, null, null, null, null, 1, null);
-    this.base.unProducto = new Producto(null, null, null, null, null, null, null, null);
-    this.base.busqueda="";
+    this.item.unItem = new Item(null, null, null, null, null, 1, null);
+    this.producto.unProducto = new Producto(null, null, null, null, null, null, null, null);
+    this.base.busqueda = "";
   }
 
   cantidad: number = 0;
 
   comprobarCantidad() {
     this.cantidad = 0;
-    this.base.listadoItem.forEach(unItem => {
-      if (unItem.codigo == this.base.unProducto.codigo) {
+    this.item.listadoItem.forEach(unItem => {
+      if (unItem.codigo == this.producto.unProducto.codigo) {
         this.cantidad = Number(this.cantidad) + Number(unItem.cantidad);
       }
     });
-    this.cantidad = Number(this.cantidad) + Number(this.base.unItem.cantidad);
-    if (this.base.consultarCantidadProducto(this.base.unProducto) >= this.cantidad) {
+    this.cantidad = Number(this.cantidad) + Number(this.item.unItem.cantidad);
+    if (this.producto.consultarCantidadProducto(this.producto.unProducto) >= this.cantidad) {
       return true;
     } else {
       return false;

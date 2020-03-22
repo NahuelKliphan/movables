@@ -1,6 +1,8 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { Producto } from 'src/app/model/Producto';
 import { BaseService } from 'src/app/servicio/base.service';
+import { CategoriaService } from 'src/app/servicio/categoria.service';
+import { ProductoService } from 'src/app/servicio/producto.service';
 
 declare var $: any;
 declare var alertify: any;
@@ -17,7 +19,7 @@ export class FormProductoComponent implements OnInit {
   previewUrl: any = null;
   cargar: boolean = true;
 
-  constructor(private base: BaseService) {
+  constructor(private producto: ProductoService, private base: BaseService, private categoria: CategoriaService) {
     $("#foto").prop("value", "");
     this.fileData = null;
     this.previewUrl = null;
@@ -28,28 +30,28 @@ export class FormProductoComponent implements OnInit {
     $('.special.cards .image').dimmer({
       on: 'hover'
     });
-    this.base.getCategorias();
+    this.categoria.getCategorias();
   }
 
   @HostListener('keydown.enter')
   guardar() {
 
-    if (this.base.editar) {
+    if (this.producto.editar) {
       if (this.formCompleto()) {
-        this.base.editarProducto(this.base.unProducto);
+        this.producto.editarProducto(this.producto.unProducto);
       }
       this.vaciarCampos();
-      this.base.editar = false;
-      this.base.getProductos();
+      this.producto.editar = false;
+      this.producto.getProductos();
     } else {
       if (this.formCompleto()) {
 
-        if (this.base.verificarCodigoProducto(this.base.unProducto.codigo)) {
-          this.base.guardarProducto(new Producto(this.base.unProducto.codigo, this.base.unProducto.nombre, this.base.adaptarDecimal(this.base.unProducto.precio_costo), this.base.adaptarDecimal(this.base.unProducto.precio_venta), this.base.unProducto.cantidad, this.base.unProducto.descripcion, this.base.unProducto.foto, this.base.unProducto.idcategoria));
+        if (this.producto.verificarCodigoProducto(this.producto.unProducto.codigo)) {
+          this.producto.guardarProducto(new Producto(this.producto.unProducto.codigo, this.producto.unProducto.nombre, this.base.adaptarDecimal(this.producto.unProducto.precio_costo), this.base.adaptarDecimal(this.producto.unProducto.precio_venta), this.producto.unProducto.cantidad, this.producto.unProducto.descripcion, this.producto.unProducto.foto, this.producto.unProducto.idcategoria));
           this.vaciarCampos();
         }
       }
-      this.base.editar = false;
+      this.producto.editar = false;
     }
 
   }
@@ -59,8 +61,8 @@ export class FormProductoComponent implements OnInit {
 
     $('#formProducto').modal('hide').modal('hide dimmer');
     this.vaciarCampos();
-    this.base.editar = false;
-    this.base.getProductos();
+    this.producto.editar = false;
+    this.producto.getProductos();
 
   }
 
@@ -69,35 +71,35 @@ export class FormProductoComponent implements OnInit {
     let ret = true;
 
     //Codigo
-    if (this.base.unProducto.codigo == null || this.base.unProducto.codigo == "") {
+    if (this.producto.unProducto.codigo == null || this.producto.unProducto.codigo == "") {
       ret = false;
       alertify.notify('Codigo no válido', 'error', 5);
       return false;
     }
 
     //Nombre
-    if (this.base.unProducto.nombre == null || this.base.unProducto.nombre == "") {
+    if (this.producto.unProducto.nombre == null || this.producto.unProducto.nombre == "") {
       ret = false;
       alertify.notify('Nombre no válido', 'error', 5);
       return false;
     }
 
     //Precio Costo
-    if (this.base.unProducto.precio_costo < 0 || !this.base.isNumber(this.base.unProducto.precio_costo)) {
+    if (this.producto.unProducto.precio_costo < 0 || !this.base.isNumber(this.producto.unProducto.precio_costo)) {
       ret = false;
       alertify.notify('Precio costo no válido', 'error', 5);
       return false;
     }
 
     //Precio Costo
-    if (this.base.unProducto.precio_venta < 0 || !this.base.isNumber(this.base.unProducto.precio_venta)) {
+    if (this.producto.unProducto.precio_venta < 0 || !this.base.isNumber(this.producto.unProducto.precio_venta)) {
       ret = false;
       alertify.notify('Precio venta no válido', 'error', 5);
       return false;
     }
 
     //Cantidad
-    if (this.base.unProducto.cantidad == null || !this.base.isNumber(this.base.unProducto.cantidad) || !Number.isInteger(Number(this.base.unProducto.cantidad)) || this.base.unProducto.cantidad < 0) {
+    if (this.producto.unProducto.cantidad == null || !this.base.isNumber(this.producto.unProducto.cantidad) || !Number.isInteger(Number(this.producto.unProducto.cantidad)) || this.producto.unProducto.cantidad < 0) {
       ret = false;
       alertify.notify('Cantidad no válida', 'error', 5);
       return false;
@@ -108,7 +110,7 @@ export class FormProductoComponent implements OnInit {
   }
 
   vaciarCampos() {
-    this.base.unProducto = new Producto(null, null, null, null, null, null, null, null);
+    this.producto.unProducto = new Producto(null, null, null, null, null, null, null, null);
   }
 
   cargarFoto(fileInput: any) {
@@ -118,7 +120,7 @@ export class FormProductoComponent implements OnInit {
       reader.readAsDataURL(this.fileData);
       reader.onload = (_event) => {
         this.previewUrl = reader.result;
-        this.base.unProducto.foto = this.previewUrl;
+        this.producto.unProducto.foto = this.previewUrl;
       }
     }
   }
@@ -126,13 +128,13 @@ export class FormProductoComponent implements OnInit {
   borrarFoto() {
     $("#foto").prop("value", "");
     this.cargar = false;
-    this.base.unProducto.foto = null;
+    this.producto.unProducto.foto = null;
     this.cargar = true;
   }
 
   autocompletarPrecioVenta() {
-    if(this.base.isNumber(this.base.unProducto.precio_costo)){
-      this.base.unProducto.precio_venta = this.base.redondearPrecio(10, this.base.unProducto.precio_costo * 1.85);
+    if (this.base.isNumber(this.producto.unProducto.precio_costo)) {
+      this.producto.unProducto.precio_venta = this.base.redondearPrecio(10, this.producto.unProducto.precio_costo * 1.85);
     }
   }
 

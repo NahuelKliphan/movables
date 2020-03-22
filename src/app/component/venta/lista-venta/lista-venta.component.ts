@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { BaseService } from 'src/app/servicio/base.service';
 import { Venta } from 'src/app/model/Venta';
+import { ItemService } from 'src/app/servicio/item.service';
+import { VentaService } from 'src/app/servicio/venta.service';
 
 declare var $: any;
 
@@ -11,7 +12,7 @@ declare var $: any;
 })
 export class ListaVentaComponent implements OnInit {
 
-  constructor(private base: BaseService) { }
+  constructor(private venta: VentaService, private item: ItemService) { }
 
   ngOnInit() {
     var pantalla = $(window).height();
@@ -19,25 +20,25 @@ export class ListaVentaComponent implements OnInit {
     $('.pantalla').css('height', `${pantalla}px`);
     pantalla = pantalla - 300;
     $('.tabla').css('height', `${pantalla}px`);
-    this.base.getVentas();
-    this.base.actualizarEstadisticasVentas();
-    this.base.listadoItem = [];
+    this.venta.getVentas();
+    this.venta.actualizarEstadisticasVentas();
+    this.item.listadoItem = [];
   }
 
   eliminarVenta(unaVenta: Venta) {
-    this.base.unaVenta = unaVenta;
-    $('#formBorrarVenta').modal({closable: false}).modal('show');
+    this.venta.unaVenta = unaVenta;
+    $('#formBorrarVenta').modal({ closable: false }).modal('show');
   }
 
   buscarItems(unaVenta: Venta) {
-    this.base.getItems(unaVenta);
+    this.item.getItems(unaVenta);
     $("#ventanaItems").modal("show");
   }
 
   buscarVentas() {
-    if (this.base.desde != "" && this.base.hasta != "") {
-      this.base.getVentasEntreFechas(this.base.desde, this.base.hasta);
-      this.base.actualizarEstadisticasVentas();
+    if (this.venta.desde != "" && this.venta.hasta != "") {
+      this.venta.getVentasEntreFechas(this.venta.desde, this.venta.hasta);
+      this.venta.actualizarEstadisticasVentas();
     }
   }
 
