@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Categoria } from '../model/Categoria';
 import { ElectronService } from 'ngx-electron';
+import { Categoria } from '../model/Categoria';
 
 declare var alertify: any;
+declare var $: any;
 
 @Injectable({
   providedIn: 'root'
@@ -14,10 +15,15 @@ export class CategoriaService {
   //Categoria
   listadoNombreCategoria: string[] = [];
   listadoCategoria: Categoria[] = [];
-  unaCategoria: Categoria = new Categoria(null, null);
+  unaCategoria: Categoria = new Categoria(null, null, null);
   editar: boolean = false;
+  busqueda: string = "";
 
   //Metodos de Categoria
+
+  vaciarCampos() {
+    this.unaCategoria = new Categoria(null, null, null);
+  }
 
   getCategorias() {
     const consulta = "SELECT * FROM CATEGORIAS ORDER BY OID DESC";
@@ -47,7 +53,8 @@ export class CategoriaService {
   }
 
   guardarCategoria(unaCategoria: Categoria) {
-    const consulta = `INSERT INTO CATEGORIAS (nombre) values ('${unaCategoria.nombre}');`;
+    $('#formCategoria').modal('hide').modal('hide dimmer');
+    const consulta = `INSERT INTO CATEGORIAS (nombre, descripcion) values ('${unaCategoria.nombre}', '${unaCategoria.descripcion}');`;
     let res = this.ipc.ipcRenderer.sendSync('base', consulta);
     if (res[0] == 'ok') {
       alertify.notify('Categoria agregada', 'success', 5);
@@ -69,7 +76,8 @@ export class CategoriaService {
   }
 
   editarCategoria(unaCategoria: Categoria) {
-    const consulta = `UPDATE CATEGORIAS SET nombre = '${unaCategoria.nombre}' WHERE id = ${unaCategoria.id};`;
+    $('#formCategoria').modal('hide').modal('hide dimmer');
+    const consulta = `UPDATE CATEGORIAS SET nombre = '${unaCategoria.nombre}', descripcion = '${unaCategoria.descripcion}' WHERE id = ${unaCategoria.id};`;
     let res = this.ipc.ipcRenderer.sendSync('base', consulta);
     if (res[0] == 'ok') {
       alertify.notify('Categoria editada', 'success', 5);

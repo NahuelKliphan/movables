@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { Categoria } from 'src/app/model/Categoria';
 import { CategoriaService } from 'src/app/servicio/categoria.service';
 
@@ -17,48 +17,46 @@ export class FormCategoriaComponent implements OnInit {
   ngOnInit() {
   }
 
+  @HostListener('keydown.enter')
   guardar() {
-    if (this.formCompleto()) {
-      if (this.categoria.verificarNombre(this.categoria.unaCategoria.nombre)) {
-        this.categoria.guardarCategoria(new Categoria(this.categoria.unaCategoria.id, this.categoria.unaCategoria.nombre));
+    if (this.categoria.editar) {
+      if (this.formCompleto()) {
+        this.categoria.editarCategoria(this.categoria.unaCategoria);
+        this.categoria.vaciarCampos();
       }
+      this.categoria.getCategorias();
+      this.categoria.editar = false;
+      $('#nombreCategoria').focus();
     } else {
-      alertify.notify('Faltan datos', 'error', 5);
+      if (this.formCompleto()) {
+        if (this.categoria.verificarNombre(this.categoria.unaCategoria.nombre)) {
+          this.categoria.guardarCategoria(new Categoria(this.categoria.unaCategoria.id, this.categoria.unaCategoria.nombre, this.categoria.unaCategoria.descripcion));
+        }
+      }
+      this.categoria.editar = false;
     }
     $('#nombreCategoria').focus();
-    this.vaciarCampos();
+    this.categoria.vaciarCampos();
 
   }
 
-  editar() {
-
-    if (this.formCompleto()) {
-      this.categoria.editarCategoria(this.categoria.unaCategoria);
-      this.vaciarCampos();
-    } else {
-      alertify.notify('Faltan datos', 'error', 5);
-    }
-
-    this.categoria.getCategorias();
+  @HostListener('keydown.escape')
+  cancelar() {
+    $('#formCategoria').modal('hide').modal('hide dimmer');
+    this.categoria.vaciarCampos();
     this.categoria.editar = false;
-    $('#nombreCategoria').focus();
-
+    this.categoria.getCategorias();
   }
 
   formCompleto() {
-
     let ret = true;
-
     //Nombre
     if (this.categoria.unaCategoria.nombre == null || this.categoria.unaCategoria.nombre == "") {
       ret = false;
+      alertify.notify('Nombre no válido', 'error', 5);
       return false;
     }
     return ret;
-  }
-
-  vaciarCampos() {
-    this.categoria.unaCategoria = new Categoria(null, null);
   }
 
 }

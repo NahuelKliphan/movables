@@ -1,29 +1,41 @@
-<form class="ui form">
-    <div class="inline fields">
-        <div class="ui grid" style="width: 100%;">
-            <div class="six wide column">
-                <h2><i class="large tags icon"></i> Nueva categoría </h2>
+<div style="text-align: center;">
+    <h2 *ngIf="!categoria.editar"><i class="big tag icon"></i> Nueva categoria </h2>
+    <h2 *ngIf="categoria.editar"><i class="big tag icon"></i> Editar categoria </h2>
+</div>
+<form class="ui form" style="margin-top: 2%;">
+    <div class="ui grid">
+        <div class="sixteen wide column">
+            <div class="field">
+                <div class="ui input labeled left icon">
+                    <i class="tag icon"></i>
+                    <input type="text" name="nombre" placeholder="Nombre" [(ngModel)]="categoria.unaCategoria.nombre">
+                    <a class="ui tag label">
+                        Nombre (*)
+                    </a>
+                </div>
             </div>
-            <div class="five wide column">
-                <div class="field">
-                    <div class="ui input right labeled left icon">
-                        <i class="tag icon"></i>
-                        <input type="text" name="codigo" placeholder="Nombre" [(ngModel)]="categoria.unaCategoria.nombre"
-                            id="nombreCategoria">
-                        <a class="ui tag label">
-                            Nombre
-                        </a>
+        </div>
+        <div class="sixteen wide column">
+            <div class="field">
+                <label>Descripción</label>
+                <textarea style="resize: none;" rows="3" type="text" name="descripcion" placeholder="Descripción"
+                    [(ngModel)]="categoria.unaCategoria.descripcion"></textarea>
+            </div>
+        </div>
+        <div class="sixteen wide column">
+            <div class="actions">
+                <div [hidden]="categoria.editar">
+                    <div class="ui right floated button green" style="margin-right: 10px;" (click)="guardar()">
+                        <div><i class="save icon"></i> Guardar </div>
                     </div>
                 </div>
-            </div>
-            <div class="five wide column">
-                <div *ngIf="!categoria.editar" class="ui button primary right floated"
-                    (click)="guardar()">
-                    <i class="plus icon"></i> Agregar
+                <div [hidden]="!categoria.editar">
+                    <div class="ui right floated button secondary" style="margin-right: 10px;" (click)="guardar()">
+                        <i class="edit icon"></i> Editar
+                    </div>
                 </div>
-                <div *ngIf="categoria.editar" class="ui button secondary right floated"
-                    (click)="editar()">
-                    <i class="edit icon"></i> Editar
+                <div class="ui right floated button red" style="margin-right: 20px;" (click)="cancelar()">
+                    <i class="close icon"></i> Cancelar
                 </div>
             </div>
         </div>

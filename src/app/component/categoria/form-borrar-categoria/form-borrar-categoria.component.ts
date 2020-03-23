@@ -18,16 +18,12 @@ export class FormBorrarCategoriaComponent implements OnInit {
   borrar() {
     $('#formBorrarCategoria').modal('hide');
     this.categoria.borrarCategoria(this.categoria.unaCategoria);
-    this.vaciarCampos();
+    this.categoria.vaciarCampos();
   }
 
   cancelar() {
     $('#formBorrarCategoria').modal('hide');
-    this.vaciarCampos();
-  }
-
-  vaciarCampos() {
-    this.categoria.unaCategoria = new Categoria(null, null);
+    this.categoria.vaciarCampos();
   }
 
 }

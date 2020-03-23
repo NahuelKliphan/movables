@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Categoria } from 'src/app/model/Categoria';
-import { BaseService } from 'src/app/servicio/base.service';
 import { CategoriaService } from 'src/app/servicio/categoria.service';
 
 declare var $: any;
@@ -15,7 +14,15 @@ export class ListaCategoriaComponent implements OnInit {
   constructor(private categoria: CategoriaService) { }
 
   ngOnInit() {
+    var pantalla = $(window).height();
+    pantalla = pantalla - 135;
+    $('.pantalla').css('height', `${pantalla}px`);
+    $("#buscarCategoria").focus();
     this.categoria.getCategorias();
+  }
+
+  abrirModal() {
+    $('#formCategoria').modal({ closable: false }).modal('show');
   }
 
   borrar(unaCategoria: Categoria) {
@@ -26,6 +33,9 @@ export class ListaCategoriaComponent implements OnInit {
   editar(unaCategoria: Categoria) {
     this.categoria.editar = true;
     this.categoria.unaCategoria = unaCategoria;
+    if(this.categoria.unaCategoria.descripcion == 'null'){
+      this.categoria.unaCategoria.descripcion = '';
+    }
   }
 
 }

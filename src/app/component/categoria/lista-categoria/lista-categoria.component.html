@@ -1,22 +1,44 @@
-<div class="sixteen wide column">
-    <h2><i class="large list icon"></i> Categorías: </h2>
-</div>
-<div class="ui divided items lista-categoria">
-    <div class="item" *ngFor="let unaCategoria of categoria.listadoCategoria">
-        <div class="content">
-            <div class="ui grid">
-                <div class="eight wide column">
-                    <p> <i class="tag icon"></i> <b>{{unaCategoria.nombre}}</b> </p>
+<div class="pantalla card" style="padding: 2%;">
+    <div class="ui grid">
+        <div class="four wide column">
+            <h2><i class="large list icon"></i> Categorías: </h2>
+        </div>
+        <div class="twelve wide column">
+            <div style="text-align: right;">
+                <div class="inline field">
+                    <div style="margin-left: 30px;" class="ui button primary" (click)="abrirModal()">
+                        Agregar Categoria
+                    </div>
                 </div>
-                <div class="eight wide column">
-                    <div class="ui right floated button inverted red" style="margin-right: 30px;"
-                        (click)="borrar(unaCategoria)">
-                        <i class="trash alternate outline icon"></i> Borrar
-                    </div>
-                    <div class="ui right floated button  inverted secondary " style="margin-right: 10px;"
-                        (click)="editar(unaCategoria)">
-                        <i class="edit icon"></i> Editar
-                    </div>
+            </div>
+        </div>
+    </div>
+    <div class="ui fluid action input left icon" style="margin-top: 20px;">
+        <input type="text" placeholder="Buscar..." (input)="buscar()" (keyup.enter)="buscar()" (keyup.escape)="salir()"
+            name="busqueda" [(ngModel)]="categoria.busqueda" id="buscarCategoria" autofocus>
+        <div class="ui search ico button" (click)="buscar()">Buscar</div>
+        <i class="search icon"></i>
+    </div>
+    <div class="ui divided items lista-categoria">
+        <div class="item" *ngFor="let unaCategoria of categoria.listadoCategoria">
+            <a class="ui icon">
+                <i class="icon tag huge"></i>
+            </a>
+            <div class="content">
+                <a class="header"> {{unaCategoria.nombre}} </a>
+                <button class="ui right floated button red icon" style="margin-right: 30px; margin-top: 1%;"
+                    (click)="borrar();">
+                    <i class="trash alternate outline icon"></i>
+                </button>
+                <button class="ui right floated button secondary icon" style="margin-right: 10px; margin-top: 1%;"
+                    (click)="editar(unaCategoria);abrirModal();">
+                    <i class="edit icon"></i>
+                </button>
+                <div *ngIf="unaCategoria.descripcion != 'null'" class="description">
+                    <p>{{unaCategoria.descripcion}}</p>
+                </div>
+                <div *ngIf="unaCategoria.descripcion == 'null'" class="description">
+                    <p>Sin descripcion</p>
                 </div>
             </div>
         </div>
