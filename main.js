@@ -37,7 +37,7 @@ function createWindow() {
   })
 
   win.on('resize', function () {
-  
+
     win.webContents.send('cambio');
 
   })
@@ -110,7 +110,7 @@ function sendStatuspercentToWindow(text) {
   win.webContents.send('percent', text);
 }
 
-function sendStatusBaseToWindow(text){
+function sendStatusBaseToWindow(text) {
   win.webContents.send('BaseStatus', text);
 }
 
@@ -118,25 +118,21 @@ function sendStatusBaseToWindow(text){
 
 autoUpdater.on('checking-for-update', () => {
   sendStatusToWindow('Buscando Actualizaciones');
-
 })
 autoUpdater.on('update-available', (info) => {
   sendStatusToWindow('Actualización disponible');
-
+  ActualizarBase();
 })
 autoUpdater.on('update-not-available', (info) => {
   sendStatusToWindow('Actualización no disponible');
-
 })
 autoUpdater.on('error', (err) => {
   sendStatusToWindow('Error de Actualización ' + err);
-
 })
 autoUpdater.on('download-progress', (progressObj) => {
   let log_message = 'Descargando ' + Number.parseFloat(progressObj.percent).toFixed(2) + '%';
   sendStatusToWindow(log_message);
   sendStatuspercentToWindow(progressObj.percent);
-
 })
 autoUpdater.on('update-downloaded', (info) => {
   sendStatusToWindow('Actualización descargada');
@@ -183,4 +179,13 @@ function LeerBase() {
   const fs = require("fs");
   let data = fs.readFileSync(ruta + '\\base.txt').toString().split(';')
   return JSON.parse(data[0]);
+}
+
+function ActualizarBase() {
+  ActualizadorINC0006();
+}
+
+function ActualizadorINC0006() {
+  var consulta = 'alter table categorias ADD COLUMN IF NOT EXISTS descripcion varchar(50);';
+  client.query(consulta);
 }
