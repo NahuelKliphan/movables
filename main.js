@@ -68,9 +68,7 @@ function createSplash() {
 app.on('ready', function () {
 
   createWindow();
-
   createSplash();
-
   setTimeout(function () {
 
     splash.close();
@@ -121,7 +119,6 @@ autoUpdater.on('checking-for-update', () => {
 })
 autoUpdater.on('update-available', (info) => {
   sendStatusToWindow('Actualización disponible');
-  ActualizarBase();
 })
 autoUpdater.on('update-not-available', (info) => {
   sendStatusToWindow('Actualización no disponible');
@@ -153,6 +150,8 @@ async function ConectarBD() {
     }
   })
 
+  ActualizarBase();
+
 }
 
 //Metodos consulta BD
@@ -182,10 +181,16 @@ function LeerBase() {
 }
 
 function ActualizarBase() {
-  ActualizadorINC0006();
+  ActualizadorINC0006(); //Sin ejecutar en produccion
+  ActualizadorINC0007(); //Sin ejecutar en produccion
 }
 
 function ActualizadorINC0006() {
   var consulta = 'alter table categorias ADD COLUMN IF NOT EXISTS descripcion varchar(50);';
+  client.query(consulta);
+}
+
+function ActualizadorINC0007() {
+  var consulta = 'alter table entidades ADD COLUMN IF NOT EXISTS logo text;';
   client.query(consulta);
 }

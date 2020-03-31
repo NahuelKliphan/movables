@@ -4,6 +4,11 @@
             <div class="ui label">
                 <h2> <i class="building outline icon"></i> Datos Empresa </h2>
             </div>
+            <label for="logo" class="ui icon button right floated">
+                <i class="photo icon"></i> Cargar imagen
+            </label>
+            <input type="file" id="logo" name="logo" accept="image/*" style="display:none;"
+                (change)="cargarFoto($event)">
         </div>
         <div class="eight wide column">
             <div class="field">
@@ -32,7 +37,8 @@
             <div class="field">
                 <div class="ui input labeled left icon">
                     <i class="phone icon"></i>
-                    <input type="text" name="telefono" placeholder="No definido" [(ngModel)]="empresa.unaEmpresa.telefono">
+                    <input type="text" name="telefono" placeholder="No definido"
+                        [(ngModel)]="empresa.unaEmpresa.telefono">
                     <a class="ui tag label">
                         Telefono
                     </a>
@@ -54,7 +60,8 @@
             <div class="field">
                 <div class="ui input labeled left icon">
                     <i class="facebook blue icon"></i>
-                    <input type="text" name="facebook" placeholder="No definido" [(ngModel)]="empresa.unaEmpresa.facebook">
+                    <input type="text" name="facebook" placeholder="No definido"
+                        [(ngModel)]="empresa.unaEmpresa.facebook">
                     <a class="ui tag label">
                         Facebook
                     </a>
@@ -102,7 +109,8 @@
             <div class="field">
                 <div class="ui input labeled left icon">
                     <i class="twitter blue icon"></i>
-                    <input type="text" name="twitter" placeholder="No definido" [(ngModel)]="empresa.unaEmpresa.twitter">
+                    <input type="text" name="twitter" placeholder="No definido"
+                        [(ngModel)]="empresa.unaEmpresa.twitter">
                     <a class="ui tag label">
                         Twitter
                     </a>
