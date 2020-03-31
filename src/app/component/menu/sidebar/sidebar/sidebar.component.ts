@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { BaseService } from 'src/app/servicio/base.service';
+import { ProductoService } from 'src/app/servicio/producto.service';
 
 declare var $: any;
 
@@ -10,7 +10,7 @@ declare var $: any;
 })
 export class SidebarComponent implements OnInit {
 
-  constructor(private base: BaseService) { }
+  constructor(private producto: ProductoService) { }
 
   ngOnInit() {
 
@@ -25,10 +25,10 @@ export class SidebarComponent implements OnInit {
   }
 
   ventaOff(){
-    this.base.enVenta = false;
+    this.producto.enVenta = false;
   }
   ventaOn(){
-    this.base.enVenta = true;
+    this.producto.enVenta = true;
   }
 
 }

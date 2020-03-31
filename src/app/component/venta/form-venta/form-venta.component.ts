@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Venta } from 'src/app/model/Venta';
-import { BaseService } from 'src/app/servicio/base.service';
 import { ItemService } from 'src/app/servicio/item.service';
+import { ProductoService } from 'src/app/servicio/producto.service';
 import { VentaService } from 'src/app/servicio/venta.service';
 
 declare var $: any;
@@ -14,7 +14,7 @@ declare var alertify: any;
 })
 export class FormVentaComponent implements OnInit {
 
-  constructor(private venta: VentaService, private item: ItemService, private base: BaseService) { }
+  constructor(private venta: VentaService, private item: ItemService, private producto: ProductoService) { }
 
   ngOnInit() {
     var pantalla = $(window).height();
@@ -47,7 +47,7 @@ export class FormVentaComponent implements OnInit {
   }
 
   abrirLista() {
-    this.base.enVenta = true;
+    this.producto.enVenta = true;
     $('#listaProducto').modal({ closable: false }).modal('show');
   }
 

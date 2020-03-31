@@ -26,7 +26,7 @@ export class CategoriaService {
   }
 
   getCategorias() {
-    const consulta = "SELECT * FROM CATEGORIAS ORDER BY OID DESC";
+    const consulta = `SELECT * FROM CATEGORIAS ORDER BY id DESC`;
     let res = this.ipc.ipcRenderer.sendSync('base', consulta);
     if (res[0] == 'ok') {
       this.listadoCategoria = res[1];
@@ -85,5 +85,18 @@ export class CategoriaService {
     } else {
       alertify.notify('Error ' + res[1].code, 'warning', 5);
     }
+  }
+
+  buscarCategoria(cod: string) {
+
+    let consulta = "";
+    consulta = `SELECT * FROM CATEGORIAS C WHERE C.nombre ilike '%${cod}%' or c.descripcion ilike '%${cod}%' LIMIT 50;`;
+    let res = this.ipc.ipcRenderer.sendSync('base', consulta);
+    if (res[0] == 'ok') {
+      this.listadoCategoria = res[1];
+    } else {
+      alertify.notify('Error ' + res[1].code, 'warning', 5);
+    }
+
   }
 }

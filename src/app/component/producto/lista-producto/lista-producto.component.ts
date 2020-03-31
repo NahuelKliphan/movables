@@ -33,9 +33,9 @@ export class ListaProductoComponent implements OnInit {
   }
 
   buscar() {
-    if (this.base.busqueda.length > 0) {
-      this.producto.buscarProducto(this.base.busqueda);
-      if (this.base.enVenta && this.producto.scanner && this.producto.listadoProducto.length == 1) {
+    if (this.producto.busqueda.length > 0) {
+      this.producto.buscarProducto(this.producto.busqueda);
+      if (this.producto.enVenta && this.producto.scanner && this.producto.listadoProducto.length == 1) {
         this.vender(this.producto.listadoProducto[0]);
       }
     } else {
@@ -55,7 +55,7 @@ export class ListaProductoComponent implements OnInit {
   }
 
   filtrar() {
-    this.producto.setFiltro(this.base.idFiltrar);
+    this.producto.setFiltro(this.producto.idFiltrar);
     this.producto.getProductos();
   }
 

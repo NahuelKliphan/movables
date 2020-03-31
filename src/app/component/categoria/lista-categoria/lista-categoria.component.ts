@@ -38,4 +38,12 @@ export class ListaCategoriaComponent implements OnInit {
     }
   }
 
+  buscar() {
+    if (this.categoria.busqueda.length > 0) {
+      this.categoria.buscarCategoria(this.categoria.busqueda);
+    } else {
+      this.categoria.getCategorias();
+    }
+  }
+
 }

@@ -3,7 +3,7 @@ create table categorias(
 	nombre varchar(30) unique,
 	descripcion varchar(50),
 	primary key (id)
-) with oids;
+);
 
 create table productos(
 	codigo varchar(30),
@@ -16,7 +16,7 @@ create table productos(
 	idCategoria integer,
 	primary key (codigo),
 	foreign key (idCategoria) references categorias on delete set null
-) with oids;
+);
 
 create table ventas(
 	id serial,
@@ -24,7 +24,7 @@ create table ventas(
 	fecha date,
 	total decimal,
 	primary key (id)
-) with oids;
+);
 
 create table items(
 	id serial,
@@ -36,7 +36,7 @@ create table items(
     precio decimal,
 	primary key (id),
 	foreign key (idVenta) references ventas on delete cascade
-) with oids;
+);
 
 create table registro_precios(
 	id serial primary key,
@@ -47,7 +47,7 @@ create table registro_precios(
 	valor numeric,
 	anulada char(1) default 'N',
 	id_categoria integer
-) with oids;
+);
 
 create table entidades(
 	id serial primary key,
@@ -61,5 +61,6 @@ create table entidades(
 	twitter varchar(50),
 	facebook_link varchar(50),
 	instagram_link varchar(50),
-	twitter_link varchar(50)
-) with oids;
+	twitter_link varchar(50),
+	logo text
+);

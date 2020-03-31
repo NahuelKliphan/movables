@@ -8,12 +8,6 @@ export class BaseService {
 
   constructor(private ipc: ElectronService) {}
   
-  //Varialbes globales
-  enVenta: boolean = false;
-  busqueda = "";
-  filtro: string = '';
-  idFiltrar: number = -1;
-
   //Metodos globales
   adaptarDecimal(numero: number) {
     return Number(numero.toString().replace(',', '.'));

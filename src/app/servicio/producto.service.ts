@@ -20,15 +20,19 @@ export class ProductoService {
   updateProductos: string = "";
   editar: boolean = false;
   scanner: boolean = false;
+  busqueda = "";
+  enVenta: boolean = false;
+  filtro: string = '';
+  idFiltrar: number = -1;
 
   //Metodos de productos
 
   getProductos() {
-    const consulta = `SELECT * FROM PRODUCTOS ${this.base.filtro} ORDER BY OID DESC LIMIT 50`;
+    const consulta = `SELECT * FROM PRODUCTOS ${this.filtro} LIMIT 50`;
     let res = this.ipc.ipcRenderer.sendSync('base', consulta);
     if (res[0] == 'ok') {
       this.listadoProducto = res[1];
-      this.buscarProducto(this.base.busqueda);
+      this.buscarProducto(this.busqueda);
     } else {
       alertify.notify('Error ' + res[1].code, 'warning', 5);
     }
@@ -66,15 +70,15 @@ export class ProductoService {
 
     let consulta = "";
 
-    if (this.base.idFiltrar == -1) {
+    if (this.idFiltrar == -1) {
       consulta = `SELECT * FROM PRODUCTOS P WHERE P.codigo ilike '%${cod}%' or p.nombre ilike '%${cod}%' LIMIT 20;`;
     }
     else {
 
-      if (this.base.idFiltrar == null) {
-        consulta = `SELECT * FROM PRODUCTOS P WHERE (P.codigo ilike '%${cod}%' or p.nombre ilike '%${cod}%') and P.idcategoria is ${this.base.idFiltrar} LIMIT 20;`;
+      if (this.idFiltrar == null) {
+        consulta = `SELECT * FROM PRODUCTOS P WHERE (P.codigo ilike '%${cod}%' or p.nombre ilike '%${cod}%') and P.idcategoria is ${this.idFiltrar} LIMIT 20;`;
       } else {
-        consulta = `SELECT * FROM PRODUCTOS P WHERE (P.codigo ilike '%${cod}%' or p.nombre ilike '%${cod}%') and P.idcategoria = ${this.base.idFiltrar} LIMIT 20;`;
+        consulta = `SELECT * FROM PRODUCTOS P WHERE (P.codigo ilike '%${cod}%' or p.nombre ilike '%${cod}%') and P.idcategoria = ${this.idFiltrar} LIMIT 20;`;
       }
 
     }
@@ -139,12 +143,12 @@ export class ProductoService {
   setFiltro(id: number) {
 
     if (id == null) {
-      this.base.filtro = `WHERE idcategoria is ${id}`;
+      this.filtro = `WHERE idcategoria is ${id}`;
     } else {
       if (id == -1) {
-        this.base.filtro = '';
+        this.filtro = '';
       } else {
-        this.base.filtro = `WHERE idcategoria = ${id}`;
+        this.filtro = `WHERE idcategoria = ${id}`;
       }
     }
   }

@@ -54,7 +54,7 @@ export class FormCantidadComponent implements OnInit {
   vaciarForm() {
     this.item.unItem = new Item(null, null, null, null, null, 1, null);
     this.producto.unProducto = new Producto(null, null, null, null, null, null, null, null);
-    this.base.busqueda = "";
+    this.producto.busqueda = "";
   }
 
   cantidad: number = 0;

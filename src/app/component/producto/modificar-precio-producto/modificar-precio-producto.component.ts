@@ -28,7 +28,7 @@ export class ModificarPrecioProductoComponent implements OnInit {
 
     $('#filtrar').dropdown();
     this.categoria.getCategorias();
-    this.base.filtro = '';
+    this.producto.filtro = '';
 
   }
 
@@ -55,7 +55,7 @@ export class ModificarPrecioProductoComponent implements OnInit {
         this.registroPrecio.unRegistroPrecio.tipo_valor = 'Monto';
         consulta += `${this.registroPrecio.unRegistroPrecio.tipo_precio} = case when mod(${this.registroPrecio.unRegistroPrecio.valor} + ${this.registroPrecio.unRegistroPrecio.tipo_precio},10) = 0 then ${this.registroPrecio.unRegistroPrecio.valor} + ${this.registroPrecio.unRegistroPrecio.tipo_precio} else case when mod(${this.registroPrecio.unRegistroPrecio.valor} + ${this.registroPrecio.unRegistroPrecio.tipo_precio},10) <= 5 then ${this.registroPrecio.unRegistroPrecio.valor} + ${this.registroPrecio.unRegistroPrecio.tipo_precio} - mod(${this.registroPrecio.unRegistroPrecio.valor} + ${this.registroPrecio.unRegistroPrecio.tipo_precio},10) else ${this.registroPrecio.unRegistroPrecio.valor} + ${this.registroPrecio.unRegistroPrecio.tipo_precio} ${this.registroPrecio.unRegistroPrecio.operacion} (10 - mod(${this.registroPrecio.unRegistroPrecio.valor} + ${this.registroPrecio.unRegistroPrecio.tipo_precio},10)) end end `;
       }
-      consulta += this.base.filtro + ";"
+      consulta += this.producto.filtro + ";"
       let registro = `INSERT INTO REGISTRO_PRECIOS (fecha, operacion, tipo_valor, tipo_precio , valor, id_categoria) 
       VALUES (current_date, '${this.registroPrecio.unRegistroPrecio.operacion}', '${this.registroPrecio.unRegistroPrecio.tipo_valor}', '${this.registroPrecio.unRegistroPrecio.tipo_precio}', ${this.registroPrecio.unRegistroPrecio.valor}, ${this.registroPrecio.unRegistroPrecio.id_categoria});`;
       consulta += registro;
@@ -123,7 +123,7 @@ export class ModificarPrecioProductoComponent implements OnInit {
     this.monto = false;
     this.aumentar = true;
     this.bajar = false;
-    this.base.filtro = '';
+    this.producto.filtro = '';
   }
 
 }
