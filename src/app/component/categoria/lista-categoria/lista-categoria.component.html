@@ -34,10 +34,10 @@
                     (click)="editar(unaCategoria);abrirModal();">
                     <i class="edit icon"></i>
                 </button>
-                <div *ngIf="unaCategoria.descripcion != 'null'" class="description">
+                <div *ngIf="unaCategoria.descripcion != 'null' && unaCategoria.descripcion != ''" class="description">
                     <p>{{unaCategoria.descripcion}}</p>
                 </div>
-                <div *ngIf="unaCategoria.descripcion == 'null'" class="description">
+                <div *ngIf="unaCategoria.descripcion == 'null' || unaCategoria.descripcion == ''" class="description">
                     <p>Sin descripcion</p>
                 </div>
             </div>
