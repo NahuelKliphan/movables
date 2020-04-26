@@ -67,6 +67,12 @@ function createSplash() {
 // Evento que ejecuta el metodo para crear la ventana.
 app.on('ready', function () {
 
+  var tiempoEspera = 5500;
+
+  if(isDev){
+    tiempoEspera = 0;
+  }
+
   createWindow();
   createSplash();
   setTimeout(function () {
@@ -77,7 +83,7 @@ app.on('ready', function () {
     win.maximize();
     sendStatusBaseToWindow(client._connected);
 
-  }, 5500);
+  }, tiempoEspera);
 
 });
 
