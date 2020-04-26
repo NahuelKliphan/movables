@@ -14,8 +14,8 @@
         </div>
     </div>
     <div class="ui fluid action input left icon" style="margin-top: 20px;">
-        <input type="text" placeholder="Buscar..." (input)="buscar()" (keyup.enter)="buscar()" (keyup.escape)="salir()"
-            name="busqueda" [(ngModel)]="categoria.busqueda" id="buscarCategoria" autofocus>
+        <input type="text" placeholder="Buscar..." (input)="buscar()" (keyup.enter)="buscar()" name="busqueda"
+            [(ngModel)]="categoria.busqueda" id="buscarCategoria" autofocus>
         <div class="ui search ico button" (click)="buscar()">Buscar</div>
         <i class="search icon"></i>
     </div>

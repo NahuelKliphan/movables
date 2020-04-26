@@ -1,6 +1,6 @@
-const { app, BrowserWindow, ipcMain } = require('electron')
-const { Client } = require('pg')
-const { autoUpdater } = require("electron-updater")
+const { app, BrowserWindow, ipcMain } = require('electron');
+const { Client } = require('pg');
+const { autoUpdater } = require("electron-updater");
 const isDev = require('electron-is-dev');
 
 //Ruta de la app
@@ -20,10 +20,10 @@ function createWindow() {
     icon: `file://${__dirname}/dist/assets/logo.png`,
     webPreferences: { nodeIntegration: true },
     show: false
-  })
+  });
 
   //Carga el index.html de angular
-  win.loadURL(`file://${__dirname}/dist/index.html`)
+  win.loadURL(`file://${__dirname}/dist/index.html`);
 
   if (!isDev) {
     win.setMenu(null);
@@ -34,13 +34,13 @@ function createWindow() {
   // Evento cuando se cierra la ventana.
   win.on('closed', function () {
     win = null
-  })
+  });
 
   win.on('resize', function () {
 
     win.webContents.send('cambio');
 
-  })
+  });
 
 }
 
@@ -52,9 +52,9 @@ function createSplash() {
     frame: false,
     webPreferences: { nodeIntegration: true },
     transparent: true
-  })
+  });
 
-  splash.loadURL(`file://${__dirname}/splash.html`)
+  splash.loadURL(`file://${__dirname}/splash.html`);
 
   if (isDev) {
     autoUpdater.checkForUpdates();
@@ -79,7 +79,7 @@ app.on('ready', function () {
 
   }, 5500);
 
-})
+});
 
 // Libera los recursos de la ventana
 app.on('window-all-closed', app.quit);
@@ -91,14 +91,14 @@ app.on('before-quit', () => {
 app.on('activate', function () {
   // Proceso especifico de macOS.
   if (win === null) {
-    createWindow()
+    createWindow();
   }
 })
 
 ipcMain.on('salir', () => {
   DesconectarBD();
   app.quit();
-})
+});
 
 function sendStatusToWindow(text) {
   win.webContents.send('update', text);
@@ -116,21 +116,21 @@ function sendStatusBaseToWindow(text) {
 
 autoUpdater.on('checking-for-update', () => {
   sendStatusToWindow('Buscando Actualizaciones');
-})
+});
 autoUpdater.on('update-available', (info) => {
   sendStatusToWindow('Actualización disponible');
-})
+});
 autoUpdater.on('update-not-available', (info) => {
   sendStatusToWindow('Actualización no disponible');
-})
+});
 autoUpdater.on('error', (err) => {
   sendStatusToWindow('Error de Actualización ' + err);
-})
+});
 autoUpdater.on('download-progress', (progressObj) => {
   let log_message = 'Descargando ' + Number.parseFloat(progressObj.percent).toFixed(2) + '%';
   sendStatusToWindow(log_message);
   sendStatuspercentToWindow(progressObj.percent);
-})
+});
 autoUpdater.on('update-downloaded', (info) => {
   sendStatusToWindow('Actualización descargada');
   autoUpdater.quitAndInstall();
@@ -140,7 +140,7 @@ autoUpdater.on('update-downloaded', (info) => {
 //Metodo para conectar la base de datos.
 async function ConectarBD() {
 
-  client = new Client(LeerBase())
+  client = new Client(LeerBase());
 
   await client.connect(err => {
     if (err) {
@@ -171,12 +171,12 @@ ipcMain.on('base', (e, consulta) => {
 });
 
 async function DesconectarBD() {
-  await client.end()
+  await client.end();
 }
 
 function LeerBase() {
   const fs = require("fs");
-  let data = fs.readFileSync(ruta + '\\base.txt').toString().split(';')
+  let data = fs.readFileSync(ruta + '\\base.txt').toString().split(';');
   return JSON.parse(data[0]);
 }
 
