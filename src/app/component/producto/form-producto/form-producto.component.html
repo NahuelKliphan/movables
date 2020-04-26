@@ -30,7 +30,7 @@
                 <div class="ui input labeled left icon">
                     <i class="dollar green sign icon"></i>
                     <input type="text" name="precio_costo" placeholder="Precio Costo"
-                        (input)="autocompletarPrecioVenta()" [(ngModel)]="producto.unProducto.precio_costo">
+                        [(ngModel)]="producto.unProducto.precio_costo">
                     <a class="ui tag label">
                         Precio Costo (*)
                     </a>
@@ -41,8 +41,20 @@
                     <i class="money bill alternate outline green icon"></i>
                     <input type="text" name="precio_venta" placeholder="Precio Venta"
                         [(ngModel)]="producto.unProducto.precio_venta">
-                    <a class="ui tag label">
+                    <a class="ui tag label icon" (click)="abrirModalPorcentaje()">
+                        <i *ngIf="!mostrarAumentoPrecioVenta" class="ui icon chevron circle down"></i>
+                        <i *ngIf="mostrarAumentoPrecioVenta" class="ui icon chevron circle up"></i>
                         Precio Venta (*)
+                    </a>
+                </div>
+            </div>
+            <div *ngIf="mostrarAumentoPrecioVenta" class="field">
+                <div class="ui input labeled left icon">
+                    <i class="percent icon blue"></i>
+                    <input type="text" name="precio_venta" placeholder="Porcentaje aumento"
+                        [(ngModel)]="aumentoPrecioVenta">
+                    <a class="ui button icon" (click)="calcularPrecioVenta()">
+                        <i class="ui icon calculator"></i> Calcular
                     </a>
                 </div>
             </div>

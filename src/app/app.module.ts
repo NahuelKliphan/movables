@@ -15,9 +15,9 @@ import { ConfiguracionComponent } from './component/menu/configuracion/configura
 import { SidebarComponent } from './component/menu/sidebar/sidebar/sidebar.component';
 import { ListaPreciosModificadosComponent } from './component/menu/lista-precios-modificados/lista-precios-modificados.component';
 //Producto
-import {ProductoComponent} from 'src/app/component/producto/producto/producto.component';
-import {FormProductoComponent} from 'src/app/component/producto/form-producto/form-producto.component';
-import {ListaProductoComponent} from 'src/app/component/producto/lista-producto/lista-producto.component';
+import { ProductoComponent } from 'src/app/component/producto/producto/producto.component';
+import { FormProductoComponent } from 'src/app/component/producto/form-producto/form-producto.component';
+import { ListaProductoComponent } from 'src/app/component/producto/lista-producto/lista-producto.component';
 import { FormBorrarProductoComponent } from './component/producto/form-borrar-producto/form-borrar-producto.component';
 import { ModificarPrecioProductoComponent } from './component/producto/modificar-precio-producto/modificar-precio-producto.component';
 //Venta
@@ -40,34 +40,35 @@ import { FormBorrarVentaComponent } from './component/venta/form-borrar-venta/fo
 
 
 
-const routes : Routes = [
+const routes: Routes = [
   {
-    path:'producto',
-    component :ProductoComponent
+    path: 'producto',
+    component: ProductoComponent
   },
   {
-    path:'venta',
-    component :VentaComponent
+    path: 'venta',
+    component: VentaComponent
   },
   {
-    path:'listaVenta',
-    component :ListaVentaComponent
+    path: 'listaVenta',
+    component: ListaVentaComponent
   },
   {
-    path:'configuracion',
-    component :ConfiguracionComponent
+    path: 'configuracion',
+    component: ConfiguracionComponent
   },
   {
-    path:'categoria',
-    component :CategoriaComponent
+    path: 'categoria',
+    component: CategoriaComponent
   },
   {
-    path:'inicio',
-    component :InicioComponent
+    path: 'inicio',
+    component: InicioComponent
   },
-  { path: '',
-  redirectTo: '/inicio',
-  pathMatch: 'full'
+  {
+    path: '',
+    redirectTo: '/inicio',
+    pathMatch: 'full'
   }
 ];
 
@@ -103,7 +104,7 @@ const routes : Routes = [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    RouterModule.forRoot(routes),
+    RouterModule.forRoot(routes, { useHash: true }),
     NgxElectronModule
   ],
   providers: [],

@@ -12,7 +12,7 @@
               <label>Scanner</label>
             </div>
           </div>
-          <select class="ui dropdown" name="idBuscar" [(ngModel)]="producto.idFiltrar" id="filtrar" (change)="filtrar()">
+          <select class="ui dropdown search" name="idBuscar" [(ngModel)]="producto.idFiltrar" id="filtrar" (change)="filtrar()">
             <option value="-1"><i class="filter grey icon"></i> Filtro</option>
             <option [ngValue]="null"><i class="tag icon"></i> Sin categoria</option>
             <option [ngValue]="unaCategoria.id" *ngFor="let unaCategoria of categoria.listadoCategoria"><i

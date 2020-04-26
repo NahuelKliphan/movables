@@ -18,6 +18,8 @@ export class FormProductoComponent implements OnInit {
   fileData: File = null;
   previewUrl: any = null;
   cargar: boolean = true;
+  mostrarAumentoPrecioVenta: boolean = false;
+  aumentoPrecioVenta: number = null;
 
   constructor(private producto: ProductoService, private base: BaseService, private categoria: CategoriaService) {
     $("#foto").prop("value", "");
@@ -39,10 +41,9 @@ export class FormProductoComponent implements OnInit {
     if (this.producto.editar) {
       if (this.formCompleto()) {
         this.producto.editarProducto(this.producto.unProducto);
+        this.vaciarCampos();
+        this.producto.editar = false;
       }
-      this.vaciarCampos();
-      this.producto.editar = false;
-      this.producto.getProductos();
     } else {
       if (this.formCompleto()) {
         if (this.producto.verificarCodigoProducto(this.producto.unProducto.codigo)) {
@@ -110,6 +111,8 @@ export class FormProductoComponent implements OnInit {
 
   vaciarCampos() {
     this.producto.unProducto = new Producto(null, null, null, null, null, null, null, null);
+    this.mostrarAumentoPrecioVenta = false;
+    this.aumentoPrecioVenta = null;
   }
 
   cargarFoto(fileInput: any) {
@@ -131,9 +134,23 @@ export class FormProductoComponent implements OnInit {
     this.cargar = true;
   }
 
-  autocompletarPrecioVenta() {
-    if (this.base.isNumber(this.producto.unProducto.precio_costo)) {
-      this.producto.unProducto.precio_venta = this.base.redondearPrecio(10, this.producto.unProducto.precio_costo * 1.85);
+  abrirModalPorcentaje() {
+    if (this.mostrarAumentoPrecioVenta) {
+      this.mostrarAumentoPrecioVenta = false;
+    } else {
+      this.mostrarAumentoPrecioVenta = true;
+    }
+  }
+
+  calcularPrecioVenta() {
+
+    if (this.base.isNumber(this.producto.unProducto.precio_costo) && this.base.isNumber(this.aumentoPrecioVenta)) {
+      this.aumentoPrecioVenta = (this.aumentoPrecioVenta / 100) + 1;
+      this.mostrarAumentoPrecioVenta = false;
+      this.producto.unProducto.precio_venta = parseFloat((this.producto.unProducto.precio_costo * this.aumentoPrecioVenta).toFixed(2));
+      this.aumentoPrecioVenta = null;
+    } else {
+      alertify.notify('No se pudo calcular el precio venta', 'error', 5);
     }
   }
 

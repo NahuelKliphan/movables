@@ -69,7 +69,7 @@ app.on('ready', function () {
 
   var tiempoEspera = 5500;
 
-  if(isDev){
+  if (isDev) {
     tiempoEspera = 0;
   }
 
@@ -187,16 +187,7 @@ function LeerBase() {
 }
 
 function ActualizarBase() {
-  ActualizadorINC0006(); //Sin ejecutar en produccion
-  ActualizadorINC0007(); //Sin ejecutar en produccion
-}
 
-function ActualizadorINC0006() {
-  var consulta = 'alter table categorias ADD COLUMN IF NOT EXISTS descripcion varchar(50);';
-  client.query(consulta);
-}
+  //Metodos para actualizar base por inc
 
-function ActualizadorINC0007() {
-  var consulta = 'alter table entidades ADD COLUMN IF NOT EXISTS logo text;';
-  client.query(consulta);
 }

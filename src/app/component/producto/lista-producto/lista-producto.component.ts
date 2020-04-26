@@ -20,7 +20,7 @@ export class ListaProductoComponent implements OnInit {
     var pantalla = $(window).height();
     pantalla = pantalla - 135;
     $('.pantalla').css('height', `${pantalla}px`);
-    $('#filtrar').dropdown();
+    $('#filtrar').dropdown({ fullTextSearch: true });
     $("#buscarProducto").focus();
     this.categoria.getCategorias();
     this.producto.getProductos();
@@ -51,7 +51,7 @@ export class ListaProductoComponent implements OnInit {
 
   editar(unProducto: Producto) {
     this.producto.editar = true;
-    this.producto.unProducto = unProducto;
+    this.producto.unProducto = new Producto(unProducto.codigo, unProducto.nombre, unProducto.precio_costo, unProducto.precio_venta, unProducto.cantidad, unProducto.descripcion, unProducto.foto, unProducto.idcategoria);
   }
 
   filtrar() {

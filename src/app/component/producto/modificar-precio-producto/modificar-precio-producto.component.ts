@@ -21,6 +21,7 @@ export class ModificarPrecioProductoComponent implements OnInit {
   bajar: boolean = false;
   precio_costo: boolean = true;
   precio_venta: boolean = false;
+  redondeo: boolean = null;
 
   constructor(private categoria: CategoriaService, private base: BaseService, private registroPrecio: RegistroPrecioService, private producto: ProductoService) { }
 
@@ -50,10 +51,18 @@ export class ModificarPrecioProductoComponent implements OnInit {
       if (this.porcentaje) {
         this.registroPrecio.unRegistroPrecio.valor = this.registroPrecio.unRegistroPrecio.valor / 100;
         this.registroPrecio.unRegistroPrecio.tipo_valor = 'Porcentaje';
-        consulta += `${this.registroPrecio.unRegistroPrecio.tipo_precio} = case when mod((${this.registroPrecio.unRegistroPrecio.tipo_precio} ${this.registroPrecio.unRegistroPrecio.operacion} ${this.registroPrecio.unRegistroPrecio.tipo_precio} *${this.registroPrecio.unRegistroPrecio.valor}),10) = 0 then (${this.registroPrecio.unRegistroPrecio.tipo_precio} ${this.registroPrecio.unRegistroPrecio.operacion} ${this.registroPrecio.unRegistroPrecio.tipo_precio} *${this.registroPrecio.unRegistroPrecio.valor}) else case when mod((${this.registroPrecio.unRegistroPrecio.tipo_precio} ${this.registroPrecio.unRegistroPrecio.operacion} ${this.registroPrecio.unRegistroPrecio.tipo_precio} *${this.registroPrecio.unRegistroPrecio.valor}),10) <= 5 then (${this.registroPrecio.unRegistroPrecio.tipo_precio} ${this.registroPrecio.unRegistroPrecio.operacion} ${this.registroPrecio.unRegistroPrecio.tipo_precio} *${this.registroPrecio.unRegistroPrecio.valor}) - mod((${this.registroPrecio.unRegistroPrecio.tipo_precio} ${this.registroPrecio.unRegistroPrecio.operacion} ${this.registroPrecio.unRegistroPrecio.tipo_precio} *${this.registroPrecio.unRegistroPrecio.valor}),10) else (${this.registroPrecio.unRegistroPrecio.tipo_precio} ${this.registroPrecio.unRegistroPrecio.operacion} ${this.registroPrecio.unRegistroPrecio.tipo_precio} *${this.registroPrecio.unRegistroPrecio.valor}) + (10 - mod((${this.registroPrecio.unRegistroPrecio.tipo_precio} ${this.registroPrecio.unRegistroPrecio.operacion} ${this.registroPrecio.unRegistroPrecio.tipo_precio} *${this.registroPrecio.unRegistroPrecio.valor}),10)) end end `;
+        if (this.redondeo) {
+          consulta += `${this.registroPrecio.unRegistroPrecio.tipo_precio} = case when mod((${this.registroPrecio.unRegistroPrecio.tipo_precio} ${this.registroPrecio.unRegistroPrecio.operacion} ${this.registroPrecio.unRegistroPrecio.tipo_precio} *${this.registroPrecio.unRegistroPrecio.valor}),10) = 0 then (${this.registroPrecio.unRegistroPrecio.tipo_precio} ${this.registroPrecio.unRegistroPrecio.operacion} ${this.registroPrecio.unRegistroPrecio.tipo_precio} *${this.registroPrecio.unRegistroPrecio.valor}) else case when mod((${this.registroPrecio.unRegistroPrecio.tipo_precio} ${this.registroPrecio.unRegistroPrecio.operacion} ${this.registroPrecio.unRegistroPrecio.tipo_precio} *${this.registroPrecio.unRegistroPrecio.valor}),10) <= 5 then (${this.registroPrecio.unRegistroPrecio.tipo_precio} ${this.registroPrecio.unRegistroPrecio.operacion} ${this.registroPrecio.unRegistroPrecio.tipo_precio} *${this.registroPrecio.unRegistroPrecio.valor}) - mod((${this.registroPrecio.unRegistroPrecio.tipo_precio} ${this.registroPrecio.unRegistroPrecio.operacion} ${this.registroPrecio.unRegistroPrecio.tipo_precio} *${this.registroPrecio.unRegistroPrecio.valor}),10) else (${this.registroPrecio.unRegistroPrecio.tipo_precio} ${this.registroPrecio.unRegistroPrecio.operacion} ${this.registroPrecio.unRegistroPrecio.tipo_precio} *${this.registroPrecio.unRegistroPrecio.valor}) + (10 - mod((${this.registroPrecio.unRegistroPrecio.tipo_precio} ${this.registroPrecio.unRegistroPrecio.operacion} ${this.registroPrecio.unRegistroPrecio.tipo_precio} *${this.registroPrecio.unRegistroPrecio.valor}),10)) end end `;
+        } else {
+          consulta += `${this.registroPrecio.unRegistroPrecio.tipo_precio} =  ${this.registroPrecio.unRegistroPrecio.tipo_precio} ${this.registroPrecio.unRegistroPrecio.operacion} ${this.registroPrecio.unRegistroPrecio.tipo_precio} *${this.registroPrecio.unRegistroPrecio.valor} `;
+        }
       } else {
         this.registroPrecio.unRegistroPrecio.tipo_valor = 'Monto';
-        consulta += `${this.registroPrecio.unRegistroPrecio.tipo_precio} = case when mod(${this.registroPrecio.unRegistroPrecio.valor} + ${this.registroPrecio.unRegistroPrecio.tipo_precio},10) = 0 then ${this.registroPrecio.unRegistroPrecio.valor} + ${this.registroPrecio.unRegistroPrecio.tipo_precio} else case when mod(${this.registroPrecio.unRegistroPrecio.valor} + ${this.registroPrecio.unRegistroPrecio.tipo_precio},10) <= 5 then ${this.registroPrecio.unRegistroPrecio.valor} + ${this.registroPrecio.unRegistroPrecio.tipo_precio} - mod(${this.registroPrecio.unRegistroPrecio.valor} + ${this.registroPrecio.unRegistroPrecio.tipo_precio},10) else ${this.registroPrecio.unRegistroPrecio.valor} + ${this.registroPrecio.unRegistroPrecio.tipo_precio} ${this.registroPrecio.unRegistroPrecio.operacion} (10 - mod(${this.registroPrecio.unRegistroPrecio.valor} + ${this.registroPrecio.unRegistroPrecio.tipo_precio},10)) end end `;
+        if (this.redondeo) {
+          consulta += `${this.registroPrecio.unRegistroPrecio.tipo_precio} = case when mod(${this.registroPrecio.unRegistroPrecio.valor} + ${this.registroPrecio.unRegistroPrecio.tipo_precio},10) = 0 then ${this.registroPrecio.unRegistroPrecio.valor} + ${this.registroPrecio.unRegistroPrecio.tipo_precio} else case when mod(${this.registroPrecio.unRegistroPrecio.valor} + ${this.registroPrecio.unRegistroPrecio.tipo_precio},10) <= 5 then ${this.registroPrecio.unRegistroPrecio.valor} + ${this.registroPrecio.unRegistroPrecio.tipo_precio} - mod(${this.registroPrecio.unRegistroPrecio.valor} + ${this.registroPrecio.unRegistroPrecio.tipo_precio},10) else ${this.registroPrecio.unRegistroPrecio.valor} + ${this.registroPrecio.unRegistroPrecio.tipo_precio} ${this.registroPrecio.unRegistroPrecio.operacion} (10 - mod(${this.registroPrecio.unRegistroPrecio.valor} + ${this.registroPrecio.unRegistroPrecio.tipo_precio},10)) end end `;
+        } else {
+          consulta += `${this.registroPrecio.unRegistroPrecio.tipo_precio} = ${this.registroPrecio.unRegistroPrecio.valor} ${this.registroPrecio.unRegistroPrecio.operacion} ${this.registroPrecio.unRegistroPrecio.tipo_precio} `;
+        }
       }
       consulta += this.producto.filtro + ";"
       let registro = `INSERT INTO REGISTRO_PRECIOS (fecha, operacion, tipo_valor, tipo_precio , valor, id_categoria) 
@@ -119,11 +128,14 @@ export class ModificarPrecioProductoComponent implements OnInit {
 
   vaciarForm() {
     this.registroPrecio.unRegistroPrecio.valor = null;
+    this.registroPrecio.unRegistroPrecio.id_categoria = null;
     this.porcentaje = true;
     this.monto = false;
     this.aumentar = true;
     this.bajar = false;
     this.producto.filtro = '';
+    this.redondeo = false;
+    $('#idFiltro').dropdown('set selected', '-1');
   }
 
 }
