@@ -2,6 +2,9 @@ const { app, BrowserWindow, ipcMain } = require('electron');
 const { Client } = require('pg');
 const { autoUpdater } = require("electron-updater");
 const isDev = require('electron-is-dev');
+const serve = require('electron-serve');
+
+const loadURL = serve({directory: 'dist'});
 
 //Ruta de la app
 const ruta = app.getPath('userData');
@@ -23,7 +26,7 @@ function createWindow() {
   });
 
   //Carga el index.html de angular
-  win.loadURL(`file://${__dirname}/dist/index.html`);
+  loadURL(win);
 
   if (!isDev) {
     win.setMenu(null);

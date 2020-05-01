@@ -31,6 +31,7 @@
     "@angular/router": "~8.2.14",
     "alertifyjs": "^1.13.1",
     "electron-is-dev": "^1.2.0",
+    "electron-serve": "^1.0.0",
     "electron-updater": "^4.2.5",
     "jquery": "^3.5.0",
     "pg": "^7.18.2"
