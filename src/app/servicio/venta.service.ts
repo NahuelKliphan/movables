@@ -45,13 +45,14 @@ export class VentaService {
   guardarVenta(unaVenta: Venta) {
     this.item.insertItems = "";
     this.producto.updateProductos = "";
-    const consulta = `INSERT INTO VENTAS (clientenombre, fecha, total) VALUES ('${unaVenta.clientenombre}','${new Date().toDateString()}', ${unaVenta.total}) RETURNING ID;`;
+    unaVenta.cliente_nombre = ((unaVenta.cliente_nombre != null && unaVenta.cliente_nombre != '') ? "'" + unaVenta.cliente_nombre + "'" : null);
+    const consulta = `INSERT INTO VENTAS (cliente_nombre, fecha, total) VALUES (${unaVenta.cliente_nombre},'${new Date().toDateString()}', ${unaVenta.total}) RETURNING ID;`;
     let res = this.ipc.ipcRenderer.sendSync('base', consulta);
     if (res[0] == 'ok') {
       let id = res[1][0].id;
       this.item.listadoItem.forEach(unItem => {
-        unItem.idventa = id;
-        this.item.insertItems = this.item.insertItems + `INSERT INTO ITEMS (idventa, total, codigo, nombre, cantidad, precio) values (${unItem.idventa},${unItem.total},'${unItem.codigo}','${unItem.nombre}',${unItem.cantidad},${unItem.precio});`;
+        unItem.id_venta = id;
+        this.item.insertItems = this.item.insertItems + `INSERT INTO ITEMS (id_venta, total, codigo, nombre, cantidad, precio) values (${unItem.id_venta},${unItem.total},'${unItem.codigo}','${unItem.nombre}',${unItem.cantidad},${unItem.precio});`;
         this.producto.updateProductos = this.producto.updateProductos + `UPDATE PRODUCTOS P SET cantidad = cantidad - ${unItem.cantidad}  WHERE P.codigo = '${unItem.codigo}';`;
       });
       this.item.guardarItemsActualizarCantidad(this.item.insertItems + this.producto.updateProductos);

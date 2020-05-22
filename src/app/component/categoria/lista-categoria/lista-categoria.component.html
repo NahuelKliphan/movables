@@ -37,7 +37,7 @@
                 <div *ngIf="unaCategoria.descripcion != 'null' && unaCategoria.descripcion != ''" class="description">
                     <p>{{unaCategoria.descripcion}}</p>
                 </div>
-                <div *ngIf="unaCategoria.descripcion == 'null' || unaCategoria.descripcion == ''" class="description">
+                <div *ngIf="unaCategoria.descripcion == null" class="description">
                     <p>Sin descripcion</p>
                 </div>
             </div>

@@ -61,13 +61,13 @@
           <p><i class="green money bill alternate outline icon"></i> <b>Precio venta: </b>
             {{unProducto.precio_venta | currency}} </p>
           <p><i class="th orange icon"></i> <b>Cantidad: </b> {{unProducto.cantidad}} </p>
-          <p *ngIf="unProducto.descripcion != 'null'"><i class="archive teal icon"></i><b>Descripcion: </b>
+          <p *ngIf="unProducto.descripcion != null"><i class="archive teal icon"></i><b>Descripcion: </b>
             {{unProducto.descripcion}} </p>
         </div>
         <div class="extra">
-          <div *ngIf="unProducto.idcategoria != 'null'" class="ui label"><i class="tags icon"></i>
-            {{ categoria.listadoNombreCategoria[unProducto.idcategoria] }} </div>
-          <div *ngIf="unProducto.idcategoria == 'null'" class="ui label"><i class="tags icon"></i> Sin Categoria </div>
+          <div *ngIf="unProducto.id_categoria != null" class="ui label"><i class="tags icon"></i>
+            {{ categoria.listadoNombreCategoria[unProducto.id_categoria] }} </div>
+          <div *ngIf="unProducto.id_categoria == null" class="ui label"><i class="tags icon"></i> Sin Categoria </div>
         </div>
       </div>
     </div>

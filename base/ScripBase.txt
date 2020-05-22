@@ -6,6 +6,7 @@ create table categorias(
 );
 
 create table productos(
+	id serial,
 	codigo varchar(30),
 	nombre varchar(30),
 	precio_costo decimal,
@@ -13,14 +14,14 @@ create table productos(
 	cantidad integer,
 	descripcion varchar(50),
 	foto text,
-	idCategoria integer,
-	primary key (codigo),
-	foreign key (idCategoria) references categorias on delete set null
+	id_categoria integer,
+	primary key (id),
+	foreign key (id_categoria) references categorias on delete set null
 );
 
 create table ventas(
 	id serial,
-	clienteNombre varchar(30),
+	cliente_nombre varchar(30),
 	fecha date,
 	total decimal,
 	primary key (id)
@@ -28,14 +29,14 @@ create table ventas(
 
 create table items(
 	id serial,
-    idVenta integer,
+    id_venta integer,
     total decimal,
     codigo varchar(30),
     nombre varchar(50),
     cantidad integer,
     precio decimal,
 	primary key (id),
-	foreign key (idVenta) references ventas on delete cascade
+	foreign key (id_venta) references ventas on delete cascade
 );
 
 create table registro_precios(

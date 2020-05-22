@@ -1,5 +1,6 @@
 export class Producto {
 
+    id: number;
     codigo: string;
     nombre: string;
     precio_costo: number;
@@ -7,10 +8,11 @@ export class Producto {
     cantidad: number;
     descripcion: string;
     foto: string;
-    idcategoria: number;
+    id_categoria: number;
 
-    constructor(codigo: string, nombre: string, precio_costo: number, precio_venta:number, cantidad: number, descripcion: string, foto: string, idcategoria: number) {
+    constructor(id: number, codigo: string, nombre: string, precio_costo: number, precio_venta: number, cantidad: number, descripcion: string, foto: string, id_categoria: number) {
 
+        this.id = id;
         this.codigo = codigo;
         this.nombre = nombre;
         this.precio_costo = precio_costo;
@@ -18,7 +20,7 @@ export class Producto {
         this.cantidad = cantidad;
         this.descripcion = descripcion;
         this.foto = foto;
-        this.idcategoria = idcategoria;
+        this.id_categoria = id_categoria;
     }
 
 }

@@ -55,8 +55,8 @@
                 <tbody class="tabla">
                     <tr *ngFor="let unaVenta of venta.listadoVenta">
                         <td>{{unaVenta.id}}</td>
-                        <td *ngIf="unaVenta.clientenombre != 'null'">{{unaVenta.clientenombre}}</td>
-                        <td *ngIf="unaVenta.clientenombre == 'null'">No informado</td>
+                        <td *ngIf="unaVenta.cliente_nombre != null">{{unaVenta.cliente_nombre}}</td>
+                        <td *ngIf="unaVenta.cliente_nombre == null">No informado</td>
                         <td>{{unaVenta.fecha | date: 'dd/MM/yyyy'}}</td>
                         <td (click)="buscarItems(unaVenta)"><i class="eye blue icon"></i></td>
                         <td (click)="eliminarVenta(unaVenta)"><i class="close icon red"></i></td>

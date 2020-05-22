@@ -1,29 +1,39 @@
 <div class="ui modal" id="ventanaItems">
-    <table class="ui blue unstackable selectable table" style="text-align: center;">
-        <thead>
-            <tr>
-                <th> <i class="hashtag blue icon"></i> Codigo </th>
-                <th> <i class="tag icon"></i> Nombre</th>
-                <th> <i class="th red icon"></i> Cantidad</th>
-                <th> <i class="dollar sign green icon"></i> Precio</th>
-                <th> <i class="money bill alternate outline green icon"></i> Total</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let unItem of item.listadoItem">
-                <td>{{unItem.codigo}}</td>
-                <td>{{unItem.nombre}}</td>
-                <td>{{unItem.cantidad}}</td>
-                <td>{{unItem.precio | currency}}</td>
-                <td>{{unItem.total | currency}}</td>
-            </tr>
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td><b>Total:</b></td>
-                <td><b>{{item.totalItems | currency}}</b></td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="header">
+        Items de la Venta
+    </div>
+    <div class="content">
+        <table class="ui blue unstackable selectable table" style="text-align: center;">
+            <thead>
+                <tr>
+                    <th> <i class="hashtag blue icon"></i> Codigo </th>
+                    <th> <i class="tag icon"></i> Nombre</th>
+                    <th> <i class="th red icon"></i> Cantidad</th>
+                    <th> <i class="dollar sign green icon"></i> Precio</th>
+                    <th> <i class="money bill alternate outline green icon"></i> Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let unItem of item.listadoItem">
+                    <td>{{unItem.codigo}}</td>
+                    <td>{{unItem.nombre}}</td>
+                    <td>{{unItem.cantidad}}</td>
+                    <td>{{unItem.precio | currency}}</td>
+                    <td>{{unItem.total | currency}}</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td><b>Total:</b></td>
+                    <td><b>{{item.totalItems | currency}}</b></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="actions">
+        <button class="ui blue button ok">
+            Aceptar
+        </button>
+    </div>
 </div>

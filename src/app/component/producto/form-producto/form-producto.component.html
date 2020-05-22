@@ -8,9 +8,7 @@
             <div class="field">
                 <div class="ui input labeled left icon">
                     <i class="barcode icon"></i>
-                    <input *ngIf="!producto.editar" type="text" name="codigo" placeholder="Codigo"
-                        [(ngModel)]="producto.unProducto.codigo">
-                    <input readonly *ngIf="producto.editar" type="text" name="codigo" placeholder="Codigo"
+                    <input type="text" name="codigo" placeholder="Codigo"
                         [(ngModel)]="producto.unProducto.codigo">
                     <a class="ui tag label">
                         Codigo (*)
@@ -70,8 +68,8 @@
             </div>
             <div class="field">
                 <div class="ui input labeled left icon">
-                    <select id="idcategoria" class="ui active dropdown fluid " name="idcategoria"
-                        [(ngModel)]="producto.unProducto.idcategoria">
+                    <select id="id_categoria" class="ui active dropdown fluid " name="id_categoria"
+                        [(ngModel)]="producto.unProducto.id_categoria">
                         <option [ngValue]="null"><i class="tags grey icon"></i> Categoria</option>
                         <option [ngValue]="unaCategoria.id" *ngFor="let unaCategoria of categoria.listadoCategoria"><i
                                 class="tags grey icon"></i>

@@ -30,7 +30,7 @@ export class FormBorrarProductoComponent implements OnInit {
   }
 
   vaciarCampos() {
-    this.producto.unProducto = new Producto(null, null, null, null, null, null, null, null);
+    this.producto.unProducto = new Producto(null, null, null, null, null, null, null, null, null);
   }
 
 }

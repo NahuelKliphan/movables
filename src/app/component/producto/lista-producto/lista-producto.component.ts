@@ -51,7 +51,7 @@ export class ListaProductoComponent implements OnInit {
 
   editar(unProducto: Producto) {
     this.producto.editar = true;
-    this.producto.unProducto = new Producto(unProducto.codigo, unProducto.nombre, unProducto.precio_costo, unProducto.precio_venta, unProducto.cantidad, unProducto.descripcion, unProducto.foto, unProducto.idcategoria);
+    this.producto.unProducto = new Producto(unProducto.id, unProducto.codigo, unProducto.nombre, unProducto.precio_costo, unProducto.precio_venta, unProducto.cantidad, unProducto.descripcion, unProducto.foto, unProducto.id_categoria);
   }
 
   filtrar() {

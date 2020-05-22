@@ -54,7 +54,8 @@ export class CategoriaService {
 
   guardarCategoria(unaCategoria: Categoria) {
     $('#formCategoria').modal('hide').modal('hide dimmer');
-    const consulta = `INSERT INTO CATEGORIAS (nombre, descripcion) values ('${unaCategoria.nombre}', '${unaCategoria.descripcion}');`;
+    unaCategoria.descripcion = ((unaCategoria.descripcion != null && unaCategoria.descripcion != '') ? "'" + unaCategoria.descripcion + "'" : null);
+    const consulta = `INSERT INTO CATEGORIAS (nombre, descripcion) values ('${unaCategoria.nombre}', ${unaCategoria.descripcion});`;
     let res = this.ipc.ipcRenderer.sendSync('base', consulta);
     if (res[0] == 'ok') {
       alertify.notify('Categoria agregada', 'success', 5);
@@ -77,7 +78,8 @@ export class CategoriaService {
 
   editarCategoria(unaCategoria: Categoria) {
     $('#formCategoria').modal('hide').modal('hide dimmer');
-    const consulta = `UPDATE CATEGORIAS SET nombre = '${unaCategoria.nombre}', descripcion = '${unaCategoria.descripcion}' WHERE id = ${unaCategoria.id};`;
+    unaCategoria.descripcion = ((unaCategoria.descripcion != null && unaCategoria.descripcion != '') ? "'" + unaCategoria.descripcion + "'" : null);
+    const consulta = `UPDATE CATEGORIAS SET nombre = '${unaCategoria.nombre}', descripcion = ${unaCategoria.descripcion} WHERE id = ${unaCategoria.id};`;
     let res = this.ipc.ipcRenderer.sendSync('base', consulta);
     if (res[0] == 'ok') {
       alertify.notify('Categoria editada', 'success', 5);

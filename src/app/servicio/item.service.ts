@@ -29,7 +29,7 @@ export class ItemService {
   }
 
   getItems(unaVenta: Venta) {
-    const consulta = `SELECT * FROM ITEMS WHERE idventa = ${unaVenta.id};`;
+    const consulta = `SELECT * FROM ITEMS WHERE id_venta = ${unaVenta.id};`;
     let res = this.ipc.ipcRenderer.sendSync('base', consulta);
     if (res[0] == 'ok') {
       this.listadoItem = res[1];
