@@ -15,7 +15,12 @@
   </script>
 </body>
 <script>
+
   const { ipcRenderer } = require('electron');
+  const { remote } = require('electron');
+  const { Menu, MenuItem } = remote;
+  const menu = new Menu();
+
   ipcRenderer.on('update', function (event, text) {
     if (text == 'Actualización no disponible' || text == 'Actualización descargada') {
       $("#progreso").hide();
@@ -28,7 +33,7 @@
     $('#progreso').progress({
       percent: percent
     });
-  })
+  });
   ipcRenderer.on('BaseStatus', function (event, res) {
     var pantalla = $(window).height();
     pantalla = pantalla - 250;
@@ -38,7 +43,7 @@
     } else {
       alertify.notify('Error al conectar base de datos ', 'error', 5);
     }
-  })
+  });
   ipcRenderer.on('cambio', function (event, res) {
     var pantalla = $(window).height();
     pantalla = pantalla - 250;
@@ -51,7 +56,25 @@
     $('.pantalla').css('height', `${pantalla}px`);
     pantalla = pantalla - 401;
     $('.tabla').css('height', `${pantalla}px`);
-  })
+  });
+
+  //Portapapeles
+  menu.append(new MenuItem({
+    label: 'Copiar', click() {
+      document.execCommand('copy');
+    }
+  }));
+  menu.append(new MenuItem({ type: 'separator' }));
+  menu.append(new MenuItem({
+    label: 'Pegar', click() {
+      document.execCommand('paste');
+    }
+  }));
+  window.addEventListener('contextmenu', (e) => {
+    e.preventDefault()
+    menu.popup({ window: remote.getCurrentWindow() })
+  }, false);
+
 </script>
 
 </html>
