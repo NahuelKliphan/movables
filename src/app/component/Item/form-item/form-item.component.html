@@ -16,7 +16,7 @@
         <tr *ngFor="let unItem of item.listadoItem">
             <td>{{unItem.codigo}}</td>
             <td>{{unItem.nombre}}</td>
-            <td>{{unItem.precio | currency}}</td>
+            <td>{{unItem.precio_venta | currency}}</td>
             <td>{{unItem.cantidad}}</td>
             <td>{{unItem.total | currency}}</td>
             <td><i class="close icon red" (click)="borrar(unItem)"></i></td>

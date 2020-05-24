@@ -43,7 +43,7 @@ export class FormVentaComponent implements OnInit {
   }
 
   vaciarForm() {
-    this.venta.unaVenta = new Venta(null, null, new Date(), 0);
+    this.venta.unaVenta = new Venta(null, null, new Date(), 0, 0);
   }
 
   abrirLista() {

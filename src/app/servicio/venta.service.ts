@@ -15,15 +15,18 @@ export class VentaService {
 
   //Venta
   listadoVenta: Venta[] = [];
-  unaVenta: Venta = new Venta(null, null, new Date(), 0);
+  unaVenta: Venta = new Venta(null, null, new Date(), 0, 0);
   desde: string = "";
   hasta: string = "";
   totalVentas: number = 0;
+  totalCostos: number = 0;
+  totalGanancias: number = 0;
+  filtro: string = "";
 
   //Metodos de Venta
 
   getVentas() {
-    const consulta = "SELECT * FROM VENTAS ORDER BY fecha DESC LIMIT 100";
+    const consulta = "SELECT * FROM VENTAS ORDER BY id DESC LIMIT 100";
     let res = this.ipc.ipcRenderer.sendSync('base', consulta);
     if (res[0] == 'ok') {
       this.listadoVenta = res[1];
@@ -33,7 +36,7 @@ export class VentaService {
   }
 
   getVentasEntreFechas(desde: string, hasta: string) {
-    const consulta = `SELECT * FROM VENTAS WHERE fecha BETWEEN '${desde}' and '${hasta}' ORDER BY fecha DESC`;
+    const consulta = `SELECT * FROM VENTAS WHERE fecha BETWEEN '${desde}' and '${hasta}' ORDER BY id DESC`;
     let res = this.ipc.ipcRenderer.sendSync('base', consulta);
     if (res[0] == 'ok') {
       this.listadoVenta = res[1];
@@ -46,13 +49,13 @@ export class VentaService {
     this.item.insertItems = "";
     this.producto.updateProductos = "";
     unaVenta.cliente_nombre = ((unaVenta.cliente_nombre != null && unaVenta.cliente_nombre != '') ? "'" + unaVenta.cliente_nombre + "'" : null);
-    const consulta = `INSERT INTO VENTAS (cliente_nombre, fecha, total) VALUES (${unaVenta.cliente_nombre},'${new Date().toDateString()}', ${unaVenta.total}) RETURNING ID;`;
+    const consulta = `INSERT INTO VENTAS (cliente_nombre, fecha, total, ganancia) VALUES (${unaVenta.cliente_nombre},'${new Date().toDateString()}', ${unaVenta.total}, ${unaVenta.ganancia}) RETURNING ID;`;
     let res = this.ipc.ipcRenderer.sendSync('base', consulta);
     if (res[0] == 'ok') {
       let id = res[1][0].id;
       this.item.listadoItem.forEach(unItem => {
         unItem.id_venta = id;
-        this.item.insertItems = this.item.insertItems + `INSERT INTO ITEMS (id_venta, total, codigo, nombre, cantidad, precio) values (${unItem.id_venta},${unItem.total},'${unItem.codigo}','${unItem.nombre}',${unItem.cantidad},${unItem.precio});`;
+        this.item.insertItems = this.item.insertItems + `INSERT INTO ITEMS (id_venta, total, codigo, nombre, cantidad, precio_venta, precio_costo, ganancia) values (${unItem.id_venta},${unItem.total},'${unItem.codigo}','${unItem.nombre}',${unItem.cantidad},${unItem.precio_venta}, ${unItem.precio_costo}, ${unItem.ganancia});`;
         this.producto.updateProductos = this.producto.updateProductos + `UPDATE PRODUCTOS P SET cantidad = cantidad - ${unItem.cantidad}  WHERE P.codigo = '${unItem.codigo}';`;
       });
       this.item.guardarItemsActualizarCantidad(this.item.insertItems + this.producto.updateProductos);
@@ -71,9 +74,9 @@ export class VentaService {
     let res = this.ipc.ipcRenderer.sendSync('base', consulta);
     if (res[0] == 'ok') {
       alertify.notify('Venta eliminada', 'error', 5);
-      if(this.desde != '' && this.hasta != ''){
+      if (this.desde != '' && this.hasta != '') {
         this.getVentasEntreFechas(this.desde, this.hasta);
-      }else{
+      } else {
         this.getVentas();
       }
       this.actualizarEstadisticasVentas();
@@ -84,8 +87,11 @@ export class VentaService {
 
   actualizarEstadisticasVentas() {
     this.totalVentas = Number(0);
+    this.totalGanancias = Number(0);
     this.listadoVenta.forEach(v => {
       this.totalVentas = Number(this.totalVentas) + Number(v.total);
-    })
+      this.totalGanancias = Number(this.totalGanancias) + Number(v.ganancia);
+    });
+    this.totalCostos = this.totalVentas - this.totalGanancias;
   }
 }

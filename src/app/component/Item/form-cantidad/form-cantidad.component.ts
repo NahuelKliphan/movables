@@ -27,10 +27,11 @@ export class FormCantidadComponent implements OnInit {
       if (this.comprobarCantidad()) {
 
         $('#formCantidadItem').modal('hide');
-        this.item.unItem = new Item(this.item.idItemTemp, 1, this.producto.unProducto.precio_venta * this.item.unItem.cantidad, this.producto.unProducto.codigo, this.producto.unProducto.nombre, this.item.unItem.cantidad, this.producto.unProducto.precio_venta);
+        this.item.unItem = new Item(this.item.idItemTemp, 1, this.producto.unProducto.precio_venta * this.item.unItem.cantidad, this.producto.unProducto.codigo, this.producto.unProducto.nombre, this.item.unItem.cantidad, this.producto.unProducto.precio_venta, this.producto.unProducto.precio_costo, this.producto.unProducto.precio_venta * this.item.unItem.cantidad - this.producto.unProducto.precio_costo * this.item.unItem.cantidad);
         this.item.idItemTemp++;
         this.item.listadoItem.push(this.item.unItem);
         this.venta.unaVenta.total = this.venta.unaVenta.total + this.item.unItem.total;
+        this.venta.unaVenta.ganancia = this.venta.unaVenta.ganancia + this.item.unItem.ganancia;
         this.vaciarForm();
         alertify.notify('Item cargado', 'success', 5);
         $('#listaProducto').modal({ closable: false }).modal('show');
@@ -52,7 +53,7 @@ export class FormCantidadComponent implements OnInit {
 
 
   vaciarForm() {
-    this.item.unItem = new Item(null, null, null, null, null, 1, null);
+    this.item.unItem = new Item(null, null, null, null, null, 1, null, null, null);
     this.producto.unProducto = new Producto(null, null, null, null, null, null, null, null, null);
     this.producto.busqueda = "";
   }

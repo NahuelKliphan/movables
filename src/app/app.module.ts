@@ -24,6 +24,7 @@ import { ModificarPrecioProductoComponent } from './component/producto/modificar
 import { VentaComponent } from './component/venta/venta/venta.component';
 import { FormVentaComponent } from './component/venta/form-venta/form-venta.component';
 import { ListaVentaComponent } from './component/venta/lista-venta/lista-venta.component';
+import { FormBorrarVentaComponent } from './component/venta/form-borrar-venta/form-borrar-venta.component';
 //Item
 import { ItemComponent } from './component/Item/item/item.component';
 import { FormItemComponent } from './component/Item/form-item/form-item.component';
@@ -36,7 +37,8 @@ import { ListaCategoriaComponent } from './component/categoria/lista-categoria/l
 import { FormBorrarCategoriaComponent } from './component/categoria/form-borrar-categoria/form-borrar-categoria.component';
 //Empresa
 import { FormEmpresaComponent } from './component/empresa/form-empresa/form-empresa.component';
-import { FormBorrarVentaComponent } from './component/venta/form-borrar-venta/form-borrar-venta.component';
+//Pipes
+import { Buscar } from './pipes/buscar';
 
 
 
@@ -98,7 +100,8 @@ const routes: Routes = [
     ModificarPrecioProductoComponent,
     FormEmpresaComponent,
     ListaPreciosModificadosComponent,
-    FormBorrarVentaComponent
+    FormBorrarVentaComponent,
+    Buscar
   ],
   imports: [
     BrowserModule,

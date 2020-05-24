@@ -18,7 +18,7 @@ export class ListaVentaComponent implements OnInit {
     var pantalla = $(window).height();
     pantalla = pantalla - 135;
     $('.pantalla').css('height', `${pantalla}px`);
-    pantalla = pantalla - 350;
+    pantalla = pantalla - 400;
     $('.tabla').css('height', `${pantalla}px`);
     this.venta.getVentas();
     this.venta.actualizarEstadisticasVentas();

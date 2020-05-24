@@ -14,10 +14,11 @@ export class ItemService {
 
   //Item
   listadoItem: Item[] = [];
-  unItem: Item = new Item(null, null, null, null, null, 1, null);
+  unItem: Item = new Item(null, null, null, null, null, 1, null, null, null);
   insertItems: string = "";
   idItemTemp = 0;
   totalItems: number = 0;
+  gananciaItems: number = 0;
 
   //Metodos de Item
 
@@ -34,8 +35,10 @@ export class ItemService {
     if (res[0] == 'ok') {
       this.listadoItem = res[1];
       this.totalItems = Number(0);
+      this.gananciaItems = Number(0);
       this.listadoItem.forEach(i => {
         this.totalItems = Number(this.totalItems) + Number(i.total);
+        this.gananciaItems = Number(this.gananciaItems) + Number(i.ganancia);
       });
     } else {
       alertify.notify('Error ' + res[1].code, 'warning', 5);

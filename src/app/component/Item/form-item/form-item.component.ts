@@ -18,7 +18,8 @@ export class FormItemComponent implements OnInit {
   borrar(unItem: Item) {
     this.item.listadoItem = this.item.listadoItem.filter(i => i.id != unItem.id);
     this.venta.unaVenta.total = 0;
-    this.item.listadoItem.forEach(i => { this.venta.unaVenta.total = this.venta.unaVenta.total + i.total; })
+    this.venta.unaVenta.ganancia = 0;
+    this.item.listadoItem.forEach(i => { this.venta.unaVenta.total = this.venta.unaVenta.total + i.total; this.venta.unaVenta.ganancia = this.venta.unaVenta.ganancia + i.ganancia; })
   }
 
 }

@@ -13,4 +13,8 @@ export class ListaItemComponent implements OnInit {
   ngOnInit() {
   }
 
+  imprimir() {
+    alert('Pendiente');
+  }
+
 }

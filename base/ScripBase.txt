@@ -24,6 +24,7 @@ create table ventas(
 	cliente_nombre varchar(30),
 	fecha date,
 	total decimal,
+	ganancia decimal,
 	primary key (id)
 );
 
@@ -34,7 +35,9 @@ create table items(
     codigo varchar(30),
     nombre varchar(50),
     cantidad integer,
-    precio decimal,
+    precio_costo decimal,
+	precio_venta decimal,
+	ganancia decimal,
 	primary key (id),
 	foreign key (id_venta) references ventas on delete cascade
 );
