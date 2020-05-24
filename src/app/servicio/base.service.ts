@@ -6,8 +6,8 @@ import { ElectronService } from 'ngx-electron';
 })
 export class BaseService {
 
-  constructor(private ipc: ElectronService) {}
-  
+  constructor(private ipc: ElectronService) { }
+
   //Metodos globales
   adaptarDecimal(numero: number) {
     return Number(numero.toString().replace(',', '.'));
@@ -39,6 +39,10 @@ export class BaseService {
 
   cerrar() {
     this.ipc.ipcRenderer.send('salir');
+  }
+
+  getVersion() {
+    return this.ipc.ipcRenderer.sendSync('version');
   }
 
 }

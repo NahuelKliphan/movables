@@ -20,15 +20,20 @@ export class SidebarComponent implements OnInit {
 
   }
 
-  hide(){
+  hide() {
     $('#app .ui.sidebar').sidebar('hide');
   }
 
-  ventaOff(){
+  ventaOff() {
     this.producto.enVenta = false;
   }
-  ventaOn(){
+
+  ventaOn() {
     this.producto.enVenta = true;
+  }
+
+  showAbout() {
+    $('#aboutModal').modal({ closable: false }).modal('show');
   }
 
 }

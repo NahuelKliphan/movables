@@ -4,7 +4,7 @@ const { autoUpdater } = require("electron-updater");
 const isDev = require('electron-is-dev');
 const serve = require('electron-serve');
 
-const loadURL = serve({directory: 'dist'});
+const loadURL = serve({ directory: 'dist' });
 
 //Ruta de la app
 const ruta = app.getPath('userData');
@@ -120,6 +120,11 @@ function sendStatuspercentToWindow(text) {
 function sendStatusBaseToWindow(text) {
   win.webContents.send('BaseStatus', text);
 }
+
+//Version
+ipcMain.on('version', (e) => {
+  e.returnValue = app.getVersion();
+});
 
 //Autoupdate
 
