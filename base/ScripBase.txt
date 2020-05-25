@@ -68,3 +68,13 @@ create table entidades(
 	twitter_link varchar(50),
 	logo text
 );
+
+create table variables(
+	id serial,
+	nombre varchar(50),
+	valor varchar(50),
+	primary key(id)
+);
+
+insert into variables (nombre, valor) values ('Version', '1.1.4');
+insert into variables (nombre, valor) values ('Scanner', 'N');

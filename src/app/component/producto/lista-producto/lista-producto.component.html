@@ -8,7 +8,7 @@
         <div class="inline field">
           <div *ngIf="producto.enVenta" class="ui button inverted" style="margin-left: 30px;">
             <div class="ui toggle checkbox">
-              <input type="checkbox" name="scanner" [(ngModel)]="producto.scanner">
+              <input type="checkbox" name="scanner" [(ngModel)]="producto.scanner" (change)="cambiarScanner();">
               <label>Scanner</label>
             </div>
           </div>

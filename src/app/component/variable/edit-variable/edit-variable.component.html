@@ -1,0 +1,27 @@
+<div class="ui mini modal" id="editVariable">
+    <div class="header">
+        <i class="th icon red"></i> Variable
+    </div>
+    <div class="content">
+        <div class="description">
+            <div class="field" style="text-align: center;">
+                <div class="ui input labeled right icon">
+                    <a class="ui label">
+                        Valor
+                    </a>
+                    <i class="th red icon"></i>
+                    <input type="text" name="valor" placeholder="Valor" [(ngModel)]="base.unaVariable.valor"
+                        (keyup.enter)="aceptar()" (keyup.escape)="cancelar()" autofocus>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="actions">
+        <div class="ui button secondary" (click)="cancelar()">
+            <i class="close icon"></i> Cancelar
+        </div>
+        <div class="ui button primary" (click)="aceptar()">
+            <i class="checkmark icon"></i> Aceptar
+        </div>
+    </div>
+</div>

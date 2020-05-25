@@ -19,7 +19,6 @@ export class ListaPreciosModificadosComponent implements OnInit {
     var pantalla = $(window).height();
     pantalla = pantalla - 536;
     $('.tabla').css('height', `${pantalla}px`);
-
     this.registroPrecio.getRegistroPrecios();
     this.categoria.getCategorias();
   }

@@ -17,18 +17,31 @@ export class ConfiguracionComponent implements OnInit {
     $('.pantalla').css('height', `${pantalla}px`);
   }
 
-  configEmpresa(){
+  ocultarTodo() {
     $("#itemProducto").removeClass("active");
+    $("#itemEmpresa").removeClass("active");
+    $("#itemVariables").removeClass("active");
     $("#segmentoProducto").hide();
+    $("#segmentoEmpresa").hide();
+    $("#segmentoVariable").hide();
+  }
+
+  mostrarEmpresa() {
+    this.ocultarTodo();
     $("#itemEmpresa").addClass("active");
     $("#segmentoEmpresa").show();
   }
 
-  configProducto(){
-    $("#itemEmpresa").removeClass("active");
-    $("#segmentoEmpresa").hide();
+  mostrarProducto() {
+    this.ocultarTodo();
     $("#itemProducto").addClass("active");
     $("#segmentoProducto").show();
   }
 
+  mostrarVariable() {
+    this.ocultarTodo();
+    $("#itemVariables").addClass("active");
+    $("#segmentoVariable").show();
+  }
+  
 }

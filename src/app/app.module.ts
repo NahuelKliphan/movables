@@ -15,6 +15,7 @@ import { ConfiguracionComponent } from './component/menu/configuracion/configura
 import { SidebarComponent } from './component/menu/sidebar/sidebar/sidebar.component';
 import { ListaPreciosModificadosComponent } from './component/menu/lista-precios-modificados/lista-precios-modificados.component';
 import { AboutComponent } from './component/menu/about/about.component';
+import { VariablesComponent } from './component/variable/variables/variables.component';
 //Producto
 import { ProductoComponent } from 'src/app/component/producto/producto/producto.component';
 import { FormProductoComponent } from 'src/app/component/producto/form-producto/form-producto.component';
@@ -40,6 +41,7 @@ import { FormBorrarCategoriaComponent } from './component/categoria/form-borrar-
 import { FormEmpresaComponent } from './component/empresa/form-empresa/form-empresa.component';
 //Pipes
 import { Buscar } from './pipes/buscar';
+import { EditVariableComponent } from './component/variable/edit-variable/edit-variable.component';
 
 const routes: Routes = [
   {
@@ -101,7 +103,9 @@ const routes: Routes = [
     ListaPreciosModificadosComponent,
     FormBorrarVentaComponent,
     Buscar,
-    AboutComponent
+    AboutComponent,
+    VariablesComponent,
+    EditVariableComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,37 @@
+<form class="ui form" style="padding: 2%;">
+    <div class="ui grid">
+        <div class="ten wide column">
+            <div class="ui label icon">
+                <h2> <i class="columns icon"></i> Variables de configuración </h2>
+            </div>
+        </div>
+        <div class="six wide column" style="text-align: right;">
+            <div class="ui search ">
+                <div class="ui icon input">
+                    <input name="busqueda" type="text" placeholder="Buscar" [(ngModel)]="busqueda">
+                    <i class="search icon"></i>
+                </div>
+            </div>
+        </div>
+        <div class="sixteen wide column">
+            <table class="ui blue unstackable selectable table" style="text-align: center;">
+                <thead>
+                    <tr>
+                        <th> <i class="hashtag icon blue"></i> Numero </th>
+                        <th> <i class="tag icon"></i> Nombre </th>
+                        <th> <i class="database icon"></i> Valor </th>
+                        <th> <i class="icon pencil alternate"></i> Editar</th>
+                    </tr>
+                </thead>
+                <tbody class="tabla">
+                    <tr *ngFor="let unaVariable of base.listadoVariable | buscar:busqueda">
+                        <td>{{unaVariable.id}}</td>
+                        <td>{{unaVariable.nombre}}</td>
+                        <td>{{unaVariable.valor}}</td>
+                        <td (click)="editar(unaVariable)"><i class="edit icon"></i></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</form>

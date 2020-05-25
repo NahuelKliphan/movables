@@ -24,7 +24,7 @@ export class ListaProductoComponent implements OnInit {
     $("#buscarProducto").focus();
     this.categoria.getCategorias();
     this.producto.getProductos();
-
+    this.producto.scanner = (this.base.getVariable('Scanner') == 'S') ? true : false;
   }
 
   abrirModal() {
@@ -67,5 +67,10 @@ export class ListaProductoComponent implements OnInit {
 
   salir() {
     $('#listaProducto').modal('hide');
+  }
+
+  cambiarScanner() {
+    var valor = (this.producto.scanner) ? 'S' : 'N';
+    this.base.setVariable('Scanner', valor);
   }
 }

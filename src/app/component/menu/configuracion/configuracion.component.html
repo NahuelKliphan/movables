@@ -3,11 +3,14 @@
     <div class="ui grid">
         <div class="four wide column">
             <div class="ui vertical fluid tabular menu">
-                <a id="itemProducto" class="active item" (click)="configProducto()">
+                <a id="itemProducto" class="active item" (click)="mostrarProducto()">
                     Productos
                 </a>
-                <a id="itemEmpresa" class="item" (click)="configEmpresa()">
+                <a id="itemEmpresa" class="item" (click)="mostrarEmpresa()">
                     Empresa
+                </a>
+                <a id="itemVariables" class="item" (click)="mostrarVariable()">
+                    Variables
                 </a>
             </div>
         </div>
@@ -17,6 +20,9 @@
             </div>
             <div class="ui segment" id="segmentoEmpresa" style="display: none;">
                 <app-form-empresa></app-form-empresa>
+            </div>
+            <div class="ui segment" id="segmentoVariable" style="display: none;">
+                <app-variables></app-variables>
             </div>
         </div>
     </div>
