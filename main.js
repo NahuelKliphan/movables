@@ -3,6 +3,7 @@ const { Client } = require('pg');
 const { autoUpdater } = require("electron-updater");
 const isDev = require('electron-is-dev');
 const serve = require('electron-serve');
+const Actualizador = require('./base/Actualizador');
 
 const loadURL = serve({ directory: 'dist' });
 
@@ -88,6 +89,9 @@ app.on('ready', function () {
 
   }, tiempoEspera);
 
+
+  checkBase();
+
 });
 
 // Libera los recursos de la ventana
@@ -164,8 +168,6 @@ async function ConectarBD() {
     }
   })
 
-  ActualizarBase();
-
 }
 
 //Metodos consulta BD
@@ -194,8 +196,16 @@ function LeerBase() {
   return JSON.parse(data[0]);
 }
 
-function ActualizarBase() {
+async function checkBase() {
 
-  //Metodos para actualizar base por inc
+  var consulta = "SELECT VALOR FROM VARIABLES WHERE NOMBRE = 'Version';";
+  var ret = await client.query(consulta);
+  if (ret.rows.length > 0) {
+    if (ret.rows[0].valor != app.getVersion()) {
+      Actualizador.Actualizar(LeerBase(), app.getVersion());
+    }
+  } else {
+    console.log("No se encontro version");
+  }
 
 }
