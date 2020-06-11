@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { EmpresaService } from 'src/app/servicio/empresa.service';
+import { BaseService } from 'src/app/servicio/base.service';
 
 @Component({
   selector: 'app-form-empresa',
@@ -11,7 +12,7 @@ export class FormEmpresaComponent implements OnInit {
   fileData: File = null;
   previewUrl: any = null;
 
-  constructor(private empresa: EmpresaService) { }
+  constructor(private empresa: EmpresaService, private base: BaseService) { }
 
   ngOnInit() {
     this.empresa.getEmpresa();

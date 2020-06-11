@@ -23,9 +23,9 @@
                         </div>
                         <input type="text" placeholder="Contenido" [(ngModel)]="venta.filtro">
                     </div>
-                    <button class="ui button icon primary" (click)="buscarVentas()" style="margin-right: 1rem;"> <i
+                    <button class="ui button icon {{base.unaSkin.botonBuscar}}" (click)="buscarVentas()" style="margin-right: 1rem;"> <i
                             class="search icon"></i> Buscar</button>
-                    <button class="ui button icon secondary"> <i class="print icon"></i>
+                    <button class="ui button icon {{base.unaSkin.botonImprimir}}"> <i class="print icon"></i>
                         Imprimir </button>
                 </div>
                 <div class="sixteen wide column">
@@ -67,14 +67,14 @@
             </div>
         </div>
         <div class="sixteen wide column">
-            <table class="ui blue unstackable selectable table" style="text-align: center;">
+            <table class="ui unstackable selectable table {{base.unaSkin.tabla}}" style="text-align: center;">
                 <thead>
                     <tr>
                         <th> <i class="hashtag blue icon"></i> Numero </th>
                         <th> <i class="user icon"></i> Cliente</th>
                         <th> <i class="calendar alternate outline icon"></i> Fecha</th>
                         <th> <i class="list alternate outline icon"></i> Items</th>
-                        <th> <i class="close red icon"></i> Eliminar </th>
+                        <th> <i class="trash alternate outline red icon"></i> Eliminar </th>
                         <th> <i class="dollar sign green icon"></i> Total</th>
                     </tr>
                 </thead>

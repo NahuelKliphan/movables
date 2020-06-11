@@ -116,16 +116,16 @@
         <div class="sixteen wide column">
             <div class="actions">
                 <div [hidden]="producto.editar">
-                    <div class="ui right floated button green" style="margin-right: 10px;" (click)="guardar()">
+                    <div class="ui right floated button {{base.unaSkin.botonGuardar}}" style="margin-right: 10px;" (click)="guardar()">
                         <div><i class="save icon"></i> Guardar </div>
                     </div>
                 </div>
                 <div [hidden]="!producto.editar">
-                    <div class="ui right floated button secondary" style="margin-right: 10px;" (click)="guardar()">
+                    <div class="ui right floated button {{base.unaSkin.botonEditar}}" style="margin-right: 10px;" (click)="guardar()">
                         <i class="edit icon"></i> Editar
                     </div>
                 </div>
-                <div class="ui right floated button red" style="margin-right: 20px;" (click)="cancelar()">
+                <div class="ui right floated button {{base.unaSkin.botonCancelar}}" style="margin-right: 20px;" (click)="cancelar()">
                     <i class="close icon"></i> Cancelar
                 </div>
             </div>

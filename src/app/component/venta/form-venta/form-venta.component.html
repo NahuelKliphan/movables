@@ -22,7 +22,7 @@
                 </div>
             </div>
             <div class="six wide column" style="text-align: right;">
-                <div class="ui button green" (click)="abrirLista()">
+                <div class="ui button {{base.unaSkin.botonAgregar}}" (click)="abrirLista()">
                     <i class="icon plus"></i> Agregar items
                 </div>
             </div>
@@ -44,10 +44,10 @@
             </div>
             <div class="sixteen wide column">
                 <div style="text-align: center;">
-                    <div class="ui floated button secondary" style="margin-right: 20px;" (click)="cancelar()">
+                    <div class="ui floated button {{base.unaSkin.botonCancelar}}" style="margin-right: 20px;" (click)="cancelar()">
                         <i class="close icon"></i> Cancelar
                     </div>
-                    <div class="ui floated button primary" (click)="guardar(venta.unaVenta)">
+                    <div class="ui floated button {{base.unaSkin.botonVender}}" (click)="guardar(venta.unaVenta)">
                         <div><i class="dollar sign icon"></i> Vender </div>
                     </div>
                 </div>

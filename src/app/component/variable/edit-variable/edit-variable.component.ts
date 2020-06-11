@@ -13,14 +13,25 @@ export class EditVariableComponent implements OnInit {
   constructor(private base: BaseService) { }
 
   ngOnInit() {
+    $("#comboColores").dropdown({ fullTextSearch: true });
   }
 
-  aceptar(){
+  aceptar() {
     $('#editVariable').modal({ closable: false }).modal('hide');
-    this.base.setVariable(this.base.unaVariable.nombre, this.base.unaVariable.valor);
+    var valor = null;
+    if (this.base.unaVariable.tipo == "color") {
+      valor = $("#comboColores").data("value");
+      if (valor != undefined) {
+        this.base.setVariable(this.base.unaVariable.nombre, valor);
+        this.base.refrescar();
+      }
+    } else {
+      this.base.setVariable(this.base.unaVariable.nombre, this.base.unaVariable.valor);
+    }
+
   }
 
-  cancelar(){
+  cancelar() {
     $('#editVariable').modal({ closable: false }).modal('hide');
   }
 

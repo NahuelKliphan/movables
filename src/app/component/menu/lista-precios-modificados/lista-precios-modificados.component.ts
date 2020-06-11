@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CategoriaService } from 'src/app/servicio/categoria.service';
 import { RegistroPrecioService } from 'src/app/servicio/registro-precio.service';
+import { BaseService } from 'src/app/servicio/base.service';
 
 declare var $: any;
 declare var alertify: any;
@@ -12,7 +13,7 @@ declare var alertify: any;
 })
 export class ListaPreciosModificadosComponent implements OnInit {
 
-  constructor(private registroPrecio: RegistroPrecioService, private categoria: CategoriaService) { }
+  constructor(private registroPrecio: RegistroPrecioService, private categoria: CategoriaService, private base: BaseService) { }
 
   ngOnInit() {
 

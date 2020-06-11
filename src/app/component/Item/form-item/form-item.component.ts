@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Item } from 'src/app/model/Item';
 import { ItemService } from 'src/app/servicio/item.service';
 import { VentaService } from 'src/app/servicio/venta.service';
+import { BaseService } from 'src/app/servicio/base.service';
 
 @Component({
   selector: 'app-form-item',
@@ -10,7 +11,7 @@ import { VentaService } from 'src/app/servicio/venta.service';
 })
 export class FormItemComponent implements OnInit {
 
-  constructor(private item: ItemService, private venta: VentaService) { }
+  constructor(private item: ItemService, private venta: VentaService, private base: BaseService) { }
 
   ngOnInit() {
   }

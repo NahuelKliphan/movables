@@ -2,31 +2,31 @@
   <div class="container">
     <div class="vertical-center">
       <a class="item" routerLink="/inicio" (click)="hide();ventaOff();">
-        <i class="home icon blue"></i>
+        <i class="home icon {{base.unaSkin.sidebar}}"></i>
         <b>Inicio</b>
       </a>
       <a class="item" routerLink="/producto" (click)="hide();ventaOff();">
-        <i class="archive icon blue"></i>
+        <i class="archive icon {{base.unaSkin.sidebar}}"></i>
         <b>Productos</b>
       </a>
       <a class="item" routerLink="/venta" (click)="hide();ventaOn();">
-        <i class="big shopping cart icon blue"></i>
+        <i class="big shopping cart icon {{base.unaSkin.sidebar}}"></i>
         <b>Nueva Venta</b>
       </a>
       <a class="item" routerLink="/listaVenta" (click)="hide();ventaOn();">
-        <i class="big money bill alternate outline icon blue"></i>
+        <i class="big chart bar icon {{base.unaSkin.sidebar}}"></i>
         <b>Lista Ventas</b>
       </a>
       <a class="item" routerLink="/categoria" (click)="hide()">
-        <i class="tags icon blue"></i>
+        <i class="tags icon {{base.unaSkin.sidebar}}"></i>
         <b>Categorias</b>
       </a>
       <a class="item" routerLink="/configuracion" (click)="hide()">
-        <i class="big cog icon blue"></i>
+        <i class="big cog icon {{base.unaSkin.sidebar}}"></i>
         <b>Configuración</b>
       </a>
       <a class="item" (click)="hide(); showAbout();">
-        <i class="big info circle icon blue"></i> 
+        <i class="big info circle icon {{base.unaSkin.sidebar}}"></i> 
         <b>Información</b>
       </a>
     </div>

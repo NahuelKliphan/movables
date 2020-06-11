@@ -113,6 +113,10 @@ ipcMain.on('salir', () => {
   app.quit();
 });
 
+ipcMain.on('refrescar', () => {
+  win.reload();
+});
+
 function sendStatusToWindow(text) {
   win.webContents.send('update', text);
 }

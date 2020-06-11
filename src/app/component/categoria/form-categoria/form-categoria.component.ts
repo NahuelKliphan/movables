@@ -1,6 +1,7 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { Categoria } from 'src/app/model/Categoria';
 import { CategoriaService } from 'src/app/servicio/categoria.service';
+import { BaseService } from 'src/app/servicio/base.service';
 
 declare var alertify: any;
 declare var $: any;
@@ -12,7 +13,7 @@ declare var $: any;
 })
 export class FormCategoriaComponent implements OnInit {
 
-  constructor(private categoria: CategoriaService) { }
+  constructor(private categoria: CategoriaService, private base: BaseService) { }
 
   ngOnInit() {
   }

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ElectronService } from 'ngx-electron';
 import { Variable } from '../model/Variable';
+import { Skin } from '../model/Skin';
 
 declare var alertify: any;
 
@@ -9,10 +10,29 @@ declare var alertify: any;
 })
 export class BaseService {
 
-  constructor(private ipc: ElectronService) { }
+  constructor(private ipc: ElectronService) {
+
+    this.unaSkin = new Skin(
+      this.getVariable("Color sidebar"),
+      this.getVariable("Color navbar"),
+      this.getVariable("Color tabla"),
+      this.getVariable("Color boton aceptar"),
+      this.getVariable("Color boton cancelar"),
+      this.getVariable("Color boton editar"),
+      this.getVariable("Color boton eliminar"),
+      this.getVariable("Color boton agregar"),
+      this.getVariable("Color boton buscar"),
+      this.getVariable("Color boton salir"),
+      this.getVariable("Color boton imprimir"),
+      this.getVariable("Color boton vender"),
+      this.getVariable("Color boton guardar"),
+      this.getVariable("Color icono categoria")
+    );
+  }
 
   listadoVariable: Variable[] = [];
-  unaVariable: Variable = new Variable(null, null, null);
+  unaVariable: Variable = new Variable(null, null, null, null);
+  unaSkin: Skin = new Skin(null, null, null, null, null, null, null, null, null, null, null, null, null, null);
 
   //Metodos globales
   adaptarDecimal(numero: number) {
@@ -45,6 +65,10 @@ export class BaseService {
 
   cerrar() {
     this.ipc.ipcRenderer.send('salir');
+  }
+
+  refrescar() {
+    this.ipc.ipcRenderer.send('refrescar');
   }
 
   getVersion() {

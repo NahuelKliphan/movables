@@ -6,7 +6,7 @@
         <div class="twelve wide column">
             <div style="text-align: right;">
                 <div class="inline field">
-                    <div style="margin-left: 30px;" class="ui button primary" (click)="abrirModal()">
+                    <div style="margin-left: 30px;" class="ui button {{base.unaSkin.botonAgregar}}" (click)="abrirModal()">
                         Agregar Categoria
                     </div>
                 </div>
@@ -21,16 +21,16 @@
     </div>
     <div class="ui divided items lista-categoria">
         <div class="item" *ngFor="let unaCategoria of categoria.listadoCategoria">
-            <a class="ui icon">
-                <i class="icon tag huge"></i>
-            </a>
+            <div class="ui icon">
+                <i class="icon tag huge {{base.unaSkin.iconoCategoria}}"></i>
+            </div>
             <div class="content">
                 <a class="header"> {{unaCategoria.nombre}} </a>
-                <button class="ui right floated button red icon" style="margin-right: 30px; margin-top: 1%;"
+                <button class="ui right floated button icon {{base.unaSkin.botonEliminar}}" style="margin-right: 30px; margin-top: 1%;"
                     (click)="borrar(unaCategoria);">
                     <i class="trash alternate outline icon"></i>
                 </button>
-                <button class="ui right floated button secondary icon" style="margin-right: 10px; margin-top: 1%;"
+                <button class="ui right floated button icon {{base.unaSkin.botonEditar}}" style="margin-right: 10px; margin-top: 1%;"
                     (click)="editar(unaCategoria);abrirModal();">
                     <i class="edit icon"></i>
                 </button>

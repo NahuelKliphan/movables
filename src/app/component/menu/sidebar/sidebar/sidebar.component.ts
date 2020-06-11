@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductoService } from 'src/app/servicio/producto.service';
+import { BaseService } from 'src/app/servicio/base.service';
 
 declare var $: any;
 
@@ -10,7 +11,7 @@ declare var $: any;
 })
 export class SidebarComponent implements OnInit {
 
-  constructor(private producto: ProductoService) { }
+  constructor(private producto: ProductoService, private base: BaseService) { }
 
   ngOnInit() {
 

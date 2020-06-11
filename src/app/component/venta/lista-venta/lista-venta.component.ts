@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Venta } from 'src/app/model/Venta';
 import { ItemService } from 'src/app/servicio/item.service';
 import { VentaService } from 'src/app/servicio/venta.service';
+import { BaseService } from 'src/app/servicio/base.service';
 
 declare var $: any;
 
@@ -12,7 +13,7 @@ declare var $: any;
 })
 export class ListaVentaComponent implements OnInit {
 
-  constructor(private venta: VentaService, private item: ItemService) { }
+  constructor(private venta: VentaService, private item: ItemService, private base: BaseService) { }
 
   ngOnInit() {
     var pantalla = $(window).height();

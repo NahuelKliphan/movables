@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Categoria } from 'src/app/model/Categoria';
 import { CategoriaService } from 'src/app/servicio/categoria.service';
+import { BaseService } from 'src/app/servicio/base.service';
 
 declare var $: any;
 
@@ -11,7 +12,7 @@ declare var $: any;
 })
 export class ListaCategoriaComponent implements OnInit {
 
-  constructor(private categoria: CategoriaService) { }
+  constructor(private categoria: CategoriaService, private base: BaseService) { }
 
   ngOnInit() {
     var pantalla = $(window).height();
@@ -33,7 +34,7 @@ export class ListaCategoriaComponent implements OnInit {
   editar(unaCategoria: Categoria) {
     this.categoria.editar = true;
     this.categoria.unaCategoria = unaCategoria;
-    if(this.categoria.unaCategoria.descripcion == 'null'){
+    if (this.categoria.unaCategoria.descripcion == 'null') {
       this.categoria.unaCategoria.descripcion = '';
     }
   }

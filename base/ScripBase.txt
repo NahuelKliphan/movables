@@ -73,6 +73,7 @@ create table variables(
 	id serial,
 	nombre varchar(50),
 	valor varchar(50),
+	tipo varchar(10),
 	primary key(id)
 );
 

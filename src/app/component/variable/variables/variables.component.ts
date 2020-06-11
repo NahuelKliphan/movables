@@ -24,8 +24,18 @@ export class VariablesComponent implements OnInit {
 
   }
 
-  editar(unaVariable: Variable){
+  editar(unaVariable: Variable) {
     this.base.unaVariable = unaVariable;
+    if (unaVariable.tipo == "color") {
+      $("#comboColores").show();
+      $("#valorInput").hide();
+      $("#valorTag").hide();
+    } else {
+      $("#comboColores").hide();
+      $("#valorInput").show();
+      $("#valorTag").show();
+    }
+
     $('#editVariable').modal({ closable: false }).modal('show');
   }
 

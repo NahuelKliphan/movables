@@ -12,7 +12,8 @@
               <label>Scanner</label>
             </div>
           </div>
-          <select class="ui dropdown search" name="idBuscar" [(ngModel)]="producto.idFiltrar" id="filtrar" (change)="filtrar()">
+          <select class="ui dropdown search" name="idBuscar" [(ngModel)]="producto.idFiltrar" id="filtrar"
+            (change)="filtrar()">
             <option value="-1"><i class="filter grey icon"></i> Filtro</option>
             <option [ngValue]="null"><i class="tag icon"></i> Sin categoria</option>
             <option [ngValue]="unaCategoria.id" *ngFor="let unaCategoria of categoria.listadoCategoria"><i
@@ -20,10 +21,12 @@
               {{unaCategoria.nombre}}
             </option>
           </select>
-          <div *ngIf="!producto.enVenta" style="margin-left: 30px;" class="ui button primary" (click)="abrirModal()">
-            Agregar producto
+          <div *ngIf="!producto.enVenta" style="margin-left: 30px;" class="ui button icon {{base.unaSkin.botonAgregar}}"
+            (click)="abrirModal()">
+            <i class="ui icon plus"></i> Nuevo producto
           </div>
-          <div *ngIf="producto.enVenta" class="ui button red" style="margin-left: 30px;" (click)="salir()">
+          <div *ngIf="producto.enVenta" class="ui button {{base.unaSkin.botonSalir}}" style="margin-left: 30px;"
+            (click)="salir()">
             <i class="icon close"></i> Salir
           </div>
         </div>
@@ -46,16 +49,16 @@
         <div class="description">
           <p><i class="tag icon"></i> <b>Nombre: </b> {{unProducto.nombre}} </p>
           <p><i class="green dollar sign icon"></i> <b>Precio costo: </b> {{unProducto.precio_costo | currency}} </p>
-          <div *ngIf="!producto.enVenta" class="ui right floated button inverted red" style="margin-right: 30px;"
-            (click)="borrar(unProducto)">
+          <div *ngIf="!producto.enVenta" class="ui right floated button {{base.unaSkin.botonEliminar}}"
+            style="margin-right: 30px;" (click)="borrar(unProducto)">
             <i class="trash alternate outline icon"></i> Borrar
           </div>
-          <div *ngIf="!producto.enVenta" class="ui right floated button inverted secondary " style="margin-right: 10px;"
-            (click)="editar(unProducto); abrirModal();">
+          <div *ngIf="!producto.enVenta" class="ui right floated button {{base.unaSkin.botonEditar}}"
+            style="margin-right: 10px;" (click)="editar(unProducto); abrirModal();">
             <i class="edit icon"></i> Editar
           </div>
-          <div *ngIf="producto.enVenta" class="ui right floated button inverted green " style="margin-right: 30px;"
-            (click)="vender(unProducto)">
+          <div *ngIf="producto.enVenta" class="ui right floated button {{base.unaSkin.botonVender}}"
+            style="margin-right: 30px;" (click)="vender(unProducto)">
             <i class="shopping cart icon"></i> Vender
           </div>
           <p><i class="green money bill alternate outline icon"></i> <b>Precio venta: </b>

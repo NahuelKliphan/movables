@@ -14,7 +14,7 @@
             </div>
         </div>
         <div class="sixteen wide column">
-            <table class="ui blue unstackable selectable table" style="text-align: center;">
+            <table class="ui unstackable selectable table {{base.unaSkin.tabla}}" style="text-align: center;">
                 <thead>
                     <tr>
                         <th> <i class="hashtag icon blue"></i> Numero </th>
@@ -27,7 +27,8 @@
                     <tr *ngFor="let unaVariable of base.listadoVariable | buscar:busqueda">
                         <td>{{unaVariable.id}}</td>
                         <td>{{unaVariable.nombre}}</td>
-                        <td>{{unaVariable.valor}}</td>
+                        <td *ngIf="unaVariable.tipo == 'texto'">{{unaVariable.valor}}</td>
+                        <td *ngIf="unaVariable.tipo == 'color'"> <a class="ui {{unaVariable.valor}} label"></a> </td>
                         <td (click)="editar(unaVariable)"><i class="edit icon"></i></td>
                     </tr>
                 </tbody>
