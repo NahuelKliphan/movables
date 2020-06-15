@@ -50,6 +50,7 @@ export class FormVentaComponent implements OnInit {
   abrirLista() {
     this.producto.enVenta = true;
     this.producto.scanner = (this.base.getVariable('Scanner') == 'S') ? true : false;
+    $("#inputCantidad").select();
     $('#listaProducto').modal({ closable: false }).modal('show');
   }
 
