@@ -1,54 +1,70 @@
-<div class="pantalla card" style="padding-left: 2%;">
-    <div class="ui grid">
-        <div class="sixteen wide column ui grid">
-            <div class="sixteen wide column" style="text-align: center; ">
-                <h2><i class="large money bill alternate outline icon green"></i> Nueva venta </h2>
-            </div>
-            <div class="ten wide column">
-                <div class="ui input labeled right icon" style="margin-right: 20px;">
-                    <a class="ui label">
-                        Cliente:
-                    </a>
-                    <i class="user icon"></i>
-                    <input type="text" name="nombre" placeholder="Nombre" [(ngModel)]="venta.unaVenta.cliente_nombre">
-                </div>
-                <div class="ui input labeled right icon">
-                    <a class="ui label">
-                        Fecha:
-                    </a>
-                    <i class="calendar alternate outline icon"></i>
-                    <input type="date" name="fecha" [ngModel]="venta.unaVenta.fecha | date:'yyyy-MM-dd'"
-                        [(ngModel)]="venta.unaVenta.fecha">
-                </div>
-            </div>
-            <div class="six wide column" style="text-align: right;">
-                <div class="ui button {{base.unaSkin.botonAgregar}}" (click)="abrirLista()">
-                    <i class="icon plus"></i> Agregar items
-                </div>
-            </div>
-            <div class="sixteen wide column">
-                <app-form-item></app-form-item>
-            </div>
-            <div class="sixteen wide column" style="text-align: right;">
-                <div style="text-align: right;">
-                    <div class="field ">
-                        <div class="ui input labeled right icon">
-                            <a class="ui label">
-                                Total:
-                            </a>
-                            <i class="dollar sign icon green"></i>
-                            <input readonly type="text" name="nombre" value="{{venta.unaVenta.total | currency }}">
+<div class="pantalla">
+    <div class="ui top attached tabular menu">
+        <a [ngClass]="{'active' : unaVenta.id == idVentaSeleccionada}" class="item"
+            (click)="seleccionarVenta(unaVenta);" *ngFor="let unaVenta of venta.listadoVenta">
+            <p *ngIf="unaVenta.cliente_nombre != null && unaVenta.cliente_nombre != ''">
+                {{unaVenta.cliente_nombre}}
+            </p>
+            <p *ngIf="unaVenta.cliente_nombre == null || unaVenta.cliente_nombre == ''">
+                Venta {{unaVenta.id}}
+            </p>
+        </a>
+        <a class="item" (click)="nuevaVenta();">
+            <i class="add icon"></i>
+        </a>
+    </div>
+    <div class="ui bottom attached segment">
+        <div style="padding-left: 2%;">
+            <div class="ui grid">
+                <div class="sixteen wide column ui grid">
+                    <div class="sixteen wide column"
+                        style="display: flex;align-items: flex-start;justify-content: space-between;">
+                        <div style="text-align: center;">
+                            <div class="ui input labeled right icon" style="margin-right: 20px;">
+                                <a class="ui label">
+                                    Cliente:
+                                </a>
+                                <i class="user icon"></i>
+                                <input type="text" name="nombre" placeholder="Nombre"
+                                    [(ngModel)]="venta.unaVenta.cliente_nombre">
+                            </div>
+                            <div class="ui input labeled right icon">
+                                <a class="ui label">
+                                    Fecha:
+                                </a>
+                                <i class="calendar alternate outline icon"></i>
+                                <input type="date" name="fecha" [ngModel]="venta.unaVenta.fecha | date:'yyyy-MM-dd'"
+                                    [(ngModel)]="venta.unaVenta.fecha">
+                            </div>
+                        </div>
+                        <div class="ui button {{base.unaSkin.botonAgregar}}" (click)="abrirLista()">
+                            <i class="icon plus"></i> Agregar items
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="sixteen wide column">
-                <div style="text-align: center;">
-                    <div class="ui floated button {{base.unaSkin.botonCancelar}}" style="margin-right: 20px;" (click)="cancelar()">
-                        <i class="close icon"></i> Cancelar
+                    <div class="sixteen wide column">
+                        <app-form-item></app-form-item>
                     </div>
-                    <div class="ui floated button {{base.unaSkin.botonVender}}" (click)="guardar(venta.unaVenta)">
-                        <div><i class="dollar sign icon"></i> Vender </div>
+                    <div class="sixteen wide column"
+                        style="display: flex;align-items: flex-start;justify-content: space-between;">
+                        <div style="text-align: center;">
+                            <div class="ui floated button {{base.unaSkin.botonCancelar}}" style="margin-right: 20px;"
+                                (click)="cancelar()">
+                                <i class="close icon"></i> Cancelar
+                            </div>
+                            <div class="ui floated button {{base.unaSkin.botonVender}}"
+                                (click)="guardar(venta.unaVenta)">
+                                <div><i class="dollar sign icon"></i> Vender </div>
+                            </div>
+                        </div>
+                        <div class="field ">
+                            <div class="ui input labeled right icon">
+                                <a class="ui label">
+                                    Total:
+                                </a>
+                                <i class="dollar sign icon green"></i>
+                                <input readonly type="text" name="nombre" value="{{venta.unaVenta.total | currency }}">
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

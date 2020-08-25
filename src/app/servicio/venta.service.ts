@@ -53,7 +53,7 @@ export class VentaService {
     let res = this.ipc.ipcRenderer.sendSync('base', consulta);
     if (res[0] == 'ok') {
       let id = res[1][0].id;
-      this.item.listadoItem.forEach(unItem => {
+      unaVenta.items.forEach(unItem => {
         unItem.id_venta = id;
         this.item.insertItems = this.item.insertItems + `INSERT INTO ITEMS (id_venta, total, codigo, nombre, cantidad, precio_venta, precio_costo, ganancia) values (${unItem.id_venta},${unItem.total},'${unItem.codigo}','${unItem.nombre}',${unItem.cantidad},${unItem.precio_venta}, ${unItem.precio_costo}, ${unItem.ganancia});`;
         this.producto.updateProductos = this.producto.updateProductos + `UPDATE PRODUCTOS P SET cantidad = cantidad - ${unItem.cantidad}  WHERE P.codigo = '${unItem.codigo}';`;
@@ -64,6 +64,7 @@ export class VentaService {
       this.producto.getProductos();
       alertify.notify('Vendido', 'success', 5);
       this.item.listadoItem = [];
+      this.unaVenta.items = [];
     } else {
       alertify.notify('Error ' + res[1].code, 'warning', 5);
     }

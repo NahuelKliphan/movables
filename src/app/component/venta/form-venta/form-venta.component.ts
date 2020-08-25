@@ -17,13 +17,18 @@ export class FormVentaComponent implements OnInit {
 
   constructor(private venta: VentaService, private item: ItemService, private producto: ProductoService, private base: BaseService) { }
 
+  idVentaTemporal: number = 1;
+  idVentaSeleccionada: number = 1;
+
   ngOnInit() {
     var pantalla = $(window).height();
     pantalla = pantalla - 135;
     $('.pantalla').css('height', `${pantalla}px`);
-    pantalla = pantalla - 401;
+    pantalla = pantalla - 335;
     $('.tabla').css('height', `${pantalla}px`);
     this.item.listadoItem = [];
+    this.venta.listadoVenta = [];
+    this.nuevaVenta();
   }
 
   guardar(unaVenta: Venta) {
@@ -34,13 +39,18 @@ export class FormVentaComponent implements OnInit {
     } else {
       alertify.notify('No hay ningun item', 'error', 5);
     }
-
   }
 
   cancelar() {
     this.vaciarForm();
     this.item.listadoItem = [];
+    this.venta.unaVenta.items = [];
     this.item.idItemTemp = 0;
+    if (this.idVentaSeleccionada == this.idVentaTemporal - 1 && this.idVentaSeleccionada != 1) {
+      this.venta.listadoVenta = this.venta.listadoVenta.filter(v => v.id != this.idVentaSeleccionada);
+      this.idVentaTemporal--;
+      this.idVentaSeleccionada = this.idVentaTemporal - 1;
+    }
   }
 
   vaciarForm() {
@@ -55,12 +65,24 @@ export class FormVentaComponent implements OnInit {
   }
 
   formCompleto() {
-    if (this.item.listadoItem.length > 0) {
+    if (this.venta.unaVenta.items.length > 0) {
       return true;
     }
     else {
       return false;
     }
+  }
+
+  nuevaVenta() {
+    this.venta.unaVenta = new Venta(this.idVentaTemporal, null, new Date(), 0, 0);
+    this.venta.listadoVenta.push(this.venta.unaVenta);
+    this.idVentaSeleccionada = this.idVentaTemporal;
+    this.idVentaTemporal++;
+  }
+
+  seleccionarVenta(unaVenta: Venta) {
+    this.idVentaSeleccionada = unaVenta.id;
+    this.venta.unaVenta = this.venta.listadoVenta.find(v => v.id == unaVenta.id);
   }
 
 }

@@ -1,3 +1,5 @@
+import { Item } from './Item';
+
 export class Venta {
 
     id: number;
@@ -5,7 +7,8 @@ export class Venta {
     fecha: Date;
     ganancia: number;
     total: number;
-
+    items: Item[];
+    
     constructor(id: number, cliente_nombre: string, fecha: Date, total: number, ganancia: number) {
 
         this.id = id;
@@ -13,6 +16,7 @@ export class Venta {
         this.fecha = fecha;
         this.ganancia = ganancia;
         this.total = total;
+        this.items = [];
     }
 
 }
