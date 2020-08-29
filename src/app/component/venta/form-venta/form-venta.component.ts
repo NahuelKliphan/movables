@@ -32,10 +32,12 @@ export class FormVentaComponent implements OnInit {
   }
 
   guardar(unaVenta: Venta) {
+    this.item.listadoItem = [...unaVenta.items];
     if (this.formCompleto()) {
       this.venta.guardarVenta(unaVenta);
       this.vaciarForm();
       this.item.idItemTemp = 0;
+      $('#formImrpimirVenta').modal({ closable: false }).modal('show').modal('show dimmer');
     } else {
       alertify.notify('No hay ningun item', 'error', 5);
     }

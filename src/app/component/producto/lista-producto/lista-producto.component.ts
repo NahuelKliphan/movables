@@ -62,6 +62,7 @@ export class ListaProductoComponent implements OnInit {
   vender(unProducto: Producto) {
     this.producto.unProducto = unProducto;
     $('#listaProducto').modal('hide');
+    $("#inputCantidad").select();
     $('#formCantidadItem').modal({ closable: false }).modal('show').modal('show dimmer');
   }
 

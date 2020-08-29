@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { ElectronService } from 'ngx-electron';
 import { Venta } from 'src/app/model/Venta';
+import { BaseService } from 'src/app/servicio/base.service';
 import { ItemService } from 'src/app/servicio/item.service';
 import { VentaService } from 'src/app/servicio/venta.service';
-import { BaseService } from 'src/app/servicio/base.service';
 
 declare var $: any;
 
@@ -13,7 +14,7 @@ declare var $: any;
 })
 export class ListaVentaComponent implements OnInit {
 
-  constructor(private venta: VentaService, private item: ItemService, private base: BaseService) { }
+  constructor(private venta: VentaService, private item: ItemService, private base: BaseService, private ipc: ElectronService) { }
 
   ngOnInit() {
     var pantalla = $(window).height();
@@ -41,6 +42,15 @@ export class ListaVentaComponent implements OnInit {
       this.venta.getVentasEntreFechas(this.venta.desde, this.venta.hasta);
       this.venta.actualizarEstadisticasVentas();
     }
+  }
+
+  imprimir() {
+
+    var data = {
+      nombre: "ventas",
+      listado: this.venta.listadoVenta
+    }
+    this.ipc.ipcRenderer.send('print', data);
   }
 
 }

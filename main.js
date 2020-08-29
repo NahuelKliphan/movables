@@ -4,6 +4,7 @@ const { autoUpdater } = require("electron-updater");
 const isDev = require('electron-is-dev');
 const serve = require('electron-serve');
 const Actualizador = require('./base/Actualizador');
+const printer = require('./printer/printer');
 
 const loadURL = serve({ directory: 'dist' });
 
@@ -12,7 +13,12 @@ const ruta = app.getPath('userData');
 
 //Ventana principal.
 let win;
+//Ventana printer
+let printerWindow;
+//Conector a pg
 let client;
+
+
 
 function createWindow() {
 
@@ -68,6 +74,12 @@ function createSplash() {
 
 }
 
+function createWindowPrint() {
+  //Crea la ventana para imprimir
+  printerWindow = new BrowserWindow({ show: false, webPreferences: { nodeIntegration: true } });
+  printerWindow.loadURL("file://" + __dirname + "/printer/templates/template.html");
+}
+
 // Evento que ejecuta el metodo para crear la ventana.
 app.on('ready', function () {
 
@@ -78,6 +90,7 @@ app.on('ready', function () {
   }
 
   createWindow();
+  createWindowPrint();
   createSplash();
   setTimeout(function () {
 
@@ -91,6 +104,7 @@ app.on('ready', function () {
 
 
   checkBase();
+
 
 });
 
@@ -211,5 +225,9 @@ async function checkBase() {
   } else {
     console.log("No se encontro version");
   }
-
 }
+
+//Imprimir
+ipcMain.on('print', (e, data) => {
+  printer.imprimirDelegator(printerWindow, data);
+});

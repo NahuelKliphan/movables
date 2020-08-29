@@ -63,7 +63,6 @@ export class VentaService {
       this.item.insertItems = "";
       this.producto.getProductos();
       alertify.notify('Vendido', 'success', 5);
-      this.item.listadoItem = [];
       this.unaVenta.items = [];
     } else {
       alertify.notify('Error ' + res[1].code, 'warning', 5);

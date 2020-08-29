@@ -25,7 +25,7 @@
                     </div>
                     <button class="ui button icon {{base.unaSkin.botonBuscar}}" (click)="buscarVentas()" style="margin-right: 1rem;"> <i
                             class="search icon"></i> Buscar</button>
-                    <button class="ui button icon {{base.unaSkin.botonImprimir}}"> <i class="print icon"></i>
+                    <button (click)="imprimir();" class="ui button icon {{base.unaSkin.botonImprimir}}"> <i class="print icon"></i>
                         Imprimir </button>
                 </div>
                 <div class="sixteen wide column">
@@ -84,7 +84,7 @@
                         <td *ngIf="unaVenta.cliente_nombre != null">{{unaVenta.cliente_nombre}}</td>
                         <td *ngIf="unaVenta.cliente_nombre == null">No informado</td>
                         <td>{{unaVenta.fecha | date: 'dd/MM/yyyy'}}</td>
-                        <td (click)="buscarItems(unaVenta)"><i class="eye blue icon"></i></td>
+                        <td (click)="buscarItems(unaVenta)"><i class="list alternate outline icon"></i></td>
                         <td (click)="eliminarVenta(unaVenta)"><i class="close icon red"></i></td>
                         <td>{{unaVenta.total | currency }}</td>
                     </tr>

@@ -27,6 +27,7 @@ import { VentaComponent } from './component/venta/venta/venta.component';
 import { FormVentaComponent } from './component/venta/form-venta/form-venta.component';
 import { ListaVentaComponent } from './component/venta/lista-venta/lista-venta.component';
 import { FormBorrarVentaComponent } from './component/venta/form-borrar-venta/form-borrar-venta.component';
+import { FormConfirmaImprimirComponent } from './component/venta/form-confirma-imprimir/form-confirma-imprimir.component';
 //Item
 import { ItemComponent } from './component/Item/item/item.component';
 import { FormItemComponent } from './component/Item/form-item/form-item.component';
@@ -42,6 +43,7 @@ import { FormEmpresaComponent } from './component/empresa/form-empresa/form-empr
 //Pipes
 import { Buscar } from './pipes/buscar';
 import { EditVariableComponent } from './component/variable/edit-variable/edit-variable.component';
+
 
 const routes: Routes = [
   {
@@ -105,7 +107,8 @@ const routes: Routes = [
     Buscar,
     AboutComponent,
     VariablesComponent,
-    EditVariableComponent
+    EditVariableComponent,
+    FormConfirmaImprimirComponent
   ],
   imports: [
     BrowserModule,

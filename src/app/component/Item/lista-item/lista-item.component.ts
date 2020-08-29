@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ItemService } from 'src/app/servicio/item.service';
 import { BaseService } from 'src/app/servicio/base.service';
+import { ItemService } from 'src/app/servicio/item.service';
+import { ElectronService } from 'ngx-electron';
+import { EmpresaService } from 'src/app/servicio/empresa.service';
+
+declare var alertify: any;
 
 @Component({
   selector: 'app-lista-item',
@@ -9,13 +13,19 @@ import { BaseService } from 'src/app/servicio/base.service';
 })
 export class ListaItemComponent implements OnInit {
 
-  constructor(private item: ItemService, private base: BaseService) { }
+  constructor(private item: ItemService, private base: BaseService, private ipc: ElectronService, private empresa: EmpresaService) { }
 
   ngOnInit() {
   }
 
   imprimir() {
-    alert('Pendiente');
+
+    var data = {
+      nombre: "venta",
+      empresa_nombre: this.empresa.unaEmpresa.nombre,
+      listado: this.item.listadoItem
+    }
+    this.ipc.ipcRenderer.send('print', data);
   }
 
 }

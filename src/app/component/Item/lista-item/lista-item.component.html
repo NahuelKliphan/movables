@@ -2,7 +2,7 @@
     <div class="header">
         Items de la Venta
     </div>
-    <div id="tablaItems" class="content">
+    <div id="tablaItems" class="scrolling content">
         <table class="ui unstackable selectable table {{base.unaSkin.tabla}}" style="text-align: center;">
             <thead>
                 <tr>
@@ -39,7 +39,7 @@
         </table>
     </div>
     <div class="actions">
-        <button (click)="imprimir();" class="ui button {{base.unaSkin.botonImprimir}}">
+        <button style="float: left;" (click)="imprimir();" class="ui button {{base.unaSkin.botonImprimir}}">
             <i class="print icon"></i> Imprimir
         </button>
         <button class="ui button icon ok {{base.unaSkin.botonAceptar}}">
