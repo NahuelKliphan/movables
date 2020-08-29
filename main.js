@@ -18,8 +18,6 @@ let printerWindow;
 //Conector a pg
 let client;
 
-
-
 function createWindow() {
 
   //Crea la ventana principal.
@@ -47,30 +45,8 @@ function createWindow() {
   });
 
   win.on('resize', function () {
-
     win.webContents.send('cambio');
-
   });
-
-}
-
-function createSplash() {
-  //Crea la ventana splash
-  splash = new BrowserWindow({
-    width: 800,
-    height: 600,
-    frame: false,
-    webPreferences: { nodeIntegration: true },
-    transparent: true
-  });
-
-  splash.loadURL(`file://${__dirname}/splash.html`);
-
-  if (isDev) {
-    autoUpdater.checkForUpdates();
-  } else {
-    autoUpdater.checkForUpdatesAndNotify();
-  }
 
 }
 
@@ -83,29 +59,14 @@ function createWindowPrint() {
 // Evento que ejecuta el metodo para crear la ventana.
 app.on('ready', function () {
 
-  var tiempoEspera = 5500;
-
-  if (isDev) {
-    tiempoEspera = 0;
-  }
-
   createWindow();
   createWindowPrint();
-  createSplash();
-  setTimeout(function () {
 
-    splash.close();
-    splash = null;
-    win.show();
-    win.maximize();
-    sendStatusBaseToWindow(client._connected);
-
-  }, tiempoEspera);
-
+  win.show();
+  win.maximize();
+  sendStatusBaseToWindow(client._connected);
 
   checkBase();
-
-
 });
 
 // Libera los recursos de la ventana
