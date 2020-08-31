@@ -52,6 +52,8 @@ export class FormVentaComponent implements OnInit {
       this.venta.listadoVenta = this.venta.listadoVenta.filter(v => v.id != this.idVentaSeleccionada);
       this.idVentaTemporal--;
       this.idVentaSeleccionada = this.idVentaTemporal - 1;
+      this.venta.unaVenta = this.venta.listadoVenta.find(v => v.id == this.idVentaSeleccionada);
+      this.item.listadoItem = this.venta.unaVenta.items;
     }
   }
 
