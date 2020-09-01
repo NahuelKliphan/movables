@@ -27,7 +27,7 @@ function createWindow() {
     backgroundColor: '#ffffff',
     icon: `file://${__dirname}/dist/assets/logo.png`,
     webPreferences: { nodeIntegration: true },
-    show: false
+    show: true
   });
 
   //Carga el index.html de angular
@@ -62,7 +62,6 @@ app.on('ready', function () {
   createWindow();
   createWindowPrint();
 
-  win.show();
   win.maximize();
   sendStatusBaseToWindow(client._connected);
 
