@@ -35,6 +35,9 @@ function createWindow() {
 
   if (!isDev) {
     win.setMenu(null);
+    autoUpdater.checkForUpdatesAndNotify();
+  } else {
+    autoUpdater.checkForUpdates();
   }
 
   ConectarBD();
