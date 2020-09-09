@@ -2,11 +2,8 @@ const { app, BrowserWindow, ipcMain } = require('electron');
 const { Client } = require('pg');
 const { autoUpdater } = require("electron-updater");
 const isDev = require('electron-is-dev');
-const serve = require('electron-serve');
 const Actualizador = require('./base/Actualizador');
 const printer = require('./printer/printer');
-
-const loadURL = serve({ directory: 'dist' });
 
 //Ruta de la app
 const ruta = app.getPath('userData');
@@ -31,8 +28,16 @@ function createWindow() {
   });
 
   //Carga el index.html de angular
-  loadURL(win);
-
+  try {
+    if (JSON.parse(process.env.npm_config_argv).original[1] == "develectron") {
+      win.loadURL('http://localhost:4200');
+    } else {
+      win.loadURL("file://" + __dirname + "/dist/index.html");
+    }
+  } catch (error) {
+    win.loadURL("file://" + __dirname + "/dist/index.html");
+  }
+  
   if (!isDev) {
     win.setMenu(null);
     autoUpdater.checkForUpdatesAndNotify();

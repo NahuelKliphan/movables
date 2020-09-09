@@ -7,18 +7,19 @@
     "type": "git",
     "url": "https://github.com/NahuelKliphan/System"
   },
-  "main": "main.js",
+  "main": "index.js",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "start:electron": "ng build --base-href ./ && electron .",
+    "start": "ng build --base-href ./ && electron .",
+    "dev": "concurrently -k \"ng serve\" \"npm run develectron\"",
     "pack": "electron-builder --dir",
     "dist": "electron-builder --x64",
-    "publish": "electron-builder --x64 -p always"
+    "publish": "electron-builder --x64 -p always",
+    "develectron": "wait-on http://localhost:4200 && electron ."
   },
   "dependencies": {
     "@angular/animations": "~8.2.14",
@@ -31,7 +32,6 @@
     "@angular/router": "~8.2.14",
     "alertifyjs": "^1.13.1",
     "electron-is-dev": "^1.2.0",
-    "electron-serve": "^1.0.0",
     "electron-updater": "^4.3.4",
     "jquery": "^3.5.1",
     "pg": "^7.18.2"
@@ -45,6 +45,7 @@
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "~8.9.4",
     "codelyzer": "^5.2.2",
+    "concurrently": "^5.3.0",
     "electron": "^7.3.2",
     "electron-builder": "^21.2.0",
     "jasmine-core": "~3.4.0",
@@ -62,6 +63,7 @@
     "tslib": "^1.13.0",
     "tslint": "~5.15.0",
     "typescript": "~3.5.3",
+    "wait-on": "^5.2.0",
     "zone.js": "~0.9.1"
   },
   "build": {
