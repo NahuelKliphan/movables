@@ -29,7 +29,8 @@
                         <td>{{unaVariable.nombre}}</td>
                         <td *ngIf="unaVariable.tipo == 'texto'">{{unaVariable.valor}}</td>
                         <td *ngIf="unaVariable.tipo == 'color'"> <a class="ui {{unaVariable.valor}} label"></a> </td>
-                        <td (click)="editar(unaVariable)"><i class="edit icon"></i></td>
+                        <td *ngIf="unaVariable.nombre == 'Version'"><i class="edit icon disabled"></i></td>
+                        <td *ngIf="unaVariable.nombre != 'Version'" (click)="editar(unaVariable)"><i class="edit icon"></i></td>
                     </tr>
                 </tbody>
             </table>

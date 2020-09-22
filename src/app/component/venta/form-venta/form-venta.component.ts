@@ -25,7 +25,7 @@ export class FormVentaComponent implements OnInit {
     pantalla = pantalla - 135;
     $('.pantalla').css('height', `${pantalla}px`);
     pantalla = pantalla - 335;
-    $('.tabla').css('height', `${pantalla}px`);
+    $('.tabla-nueva-venta').css('height', `${pantalla}px`);
     this.item.listadoItem = [];
     this.venta.listadoVenta = [];
     this.nuevaVenta();

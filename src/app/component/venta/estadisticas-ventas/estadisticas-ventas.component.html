@@ -1,0 +1,53 @@
+<div id="estadisticasModal" class="ui modal large">
+    <i class="close icon"></i>
+    <div class="header" style="position: relative;">
+        <i class="chart bar icon"></i> Estadísticas
+        <div class="ui buttons" style="position: absolute;right: 2.5rem;">
+            <button (click)="actualizar('-');"  class="ui button icon">
+                <i class="left chevron icon"></i>
+            </button>
+            <button class="ui button">
+                {{year}}
+            </button>
+            <button id="btnSumarYear" (click)="actualizar('+');" class="ui right button icon disabled">
+                <i class="right chevron icon"></i>
+            </button>
+        </div>
+    </div>
+    <div style="padding: 20px;">
+        <canvas id="graficoVentas"></canvas>
+    </div>
+    <div class="sixteen wide column">
+        <div class="ui statistics small" style="  display: table;margin: 0 auto;">
+            <div class="statistic green">
+                <div class="value">
+                    {{this.venta.totalVentas | currency}}
+                </div>
+                <div class="label">
+                    Total Venta
+                </div>
+            </div>
+            <div class="statistic red">
+                <div class="value">
+                    {{this.venta.totalCostos | currency}}
+                </div>
+                <div class="label">
+                    Total Costos
+                </div>
+            </div>
+            <div class="statistic blue">
+                <div class="value">
+                    {{this.venta.totalGanancias | currency}}
+                </div>
+                <div class="label">
+                    Total Ganancia
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="actions">
+        <button class="ui button icon ok {{base.unaSkin.botonAceptar}}">
+            <i class="checkmark icon"></i> Aceptar
+        </button>
+    </div>
+</div>

@@ -20,10 +20,9 @@ export class ListaVentaComponent implements OnInit {
     var pantalla = $(window).height();
     pantalla = pantalla - 135;
     $('.pantalla').css('height', `${pantalla}px`);
-    pantalla = pantalla - 400;
-    $('.tabla').css('height', `${pantalla}px`);
+    pantalla = pantalla - 240;
+    $('.tabla-ventas').css('height', `${pantalla}px`);
     this.venta.getVentas();
-    this.venta.actualizarEstadisticasVentas();
     this.item.listadoItem = [];
   }
 
@@ -40,7 +39,6 @@ export class ListaVentaComponent implements OnInit {
   buscarVentas() {
     if (this.venta.desde != "" && this.venta.hasta != "") {
       this.venta.getVentasEntreFechas(this.venta.desde, this.venta.hasta);
-      this.venta.actualizarEstadisticasVentas();
     }
   }
 
@@ -51,6 +49,10 @@ export class ListaVentaComponent implements OnInit {
       listado: this.venta.listadoVenta
     }
     this.ipc.ipcRenderer.send('print', data);
+  }
+
+  abrirModalEstadisticas(){
+    $('#estadisticasModal').modal({ closable: false }).modal('show');
   }
 
 }

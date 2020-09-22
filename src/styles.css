@@ -35,7 +35,11 @@
     overflow-x: hidden;
 }
 
-.tabla{
+.tabla-ventas{
+    height: 0;
+}
+
+.tabla-nueva-venta{
     height: 0;
 }
 

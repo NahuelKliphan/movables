@@ -26,13 +26,14 @@ export class BaseService {
       this.getVariable("Color boton imprimir"),
       this.getVariable("Color boton vender"),
       this.getVariable("Color boton guardar"),
-      this.getVariable("Color icono categoria")
+      this.getVariable("Color icono categoria"),
+      this.getVariable("Color boton estadistica")
     );
   }
 
   listadoVariable: Variable[] = [];
   unaVariable: Variable = new Variable(null, null, null, null);
-  unaSkin: Skin = new Skin(null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+  unaSkin: Skin = new Skin(null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
 
   //Metodos globales
   adaptarDecimal(numero: number) {
@@ -61,6 +62,26 @@ export class BaseService {
       }
     }
     return ret;
+  }
+
+  currencyFormat(value) {
+    value = Number(value);
+    if (!Number.isInteger(value)) {
+      value = value.toFixed(2);
+    }
+    var aux = value.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "1,");
+    var partes = aux.split(".");
+    var ret = this.replaceAll(partes[0], ',', '.') + ",";
+    if (partes[1] != undefined) {
+      ret += partes[1];
+    } else {
+      ret += "00";
+    }
+    return ret;
+  }
+
+  replaceAll(string, search, replace) {
+    return string.split(search).join(replace);
   }
 
   cerrar() {

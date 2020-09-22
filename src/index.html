@@ -47,15 +47,13 @@
   ipcRenderer.on('cambio', function (event, res) {
     var pantalla = $(window).height();
     pantalla = pantalla - 250;
-    $('.contenedor-inicio').css('height', `${pantalla}px`);
+    $('.contenedor-inicio').css('height', `${pantalla-250}px`);
     pantalla = $(window).height();
-    pantalla = pantalla - 135;
-    $('.pantalla').css('height', `${pantalla}px`);
-    pantalla = $(window).height();
-    pantalla = pantalla - 135;
-    $('.pantalla').css('height', `${pantalla}px`);
-    pantalla = pantalla - 401;
-    $('.tabla').css('height', `${pantalla}px`);
+    $('.pantalla').css('height', `${pantalla-385}px`);
+    $('.pantalla').css('height', `${pantalla - 135}px`);
+    $('.tabla-ventas').css('height', `${pantalla-375}px`);
+    $('.tabla-nueva-venta').css('height', `${pantalla - 470}px`);
+    $('.lista-categoria').css('height', `${pantalla-135}px`);
   });
 
   //Portapapeles

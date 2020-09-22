@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { BaseService } from 'src/app/servicio/base.service';
 
 declare var $: any;
+declare var alertify: any;
 
 @Component({
   selector: 'app-edit-variable',
@@ -23,7 +24,8 @@ export class EditVariableComponent implements OnInit {
       valor = $("#comboColores").data("value");
       if (valor != undefined) {
         this.base.setVariable(this.base.unaVariable.nombre, valor);
-        this.base.refrescar();
+        this.base.getVariables();
+        alertify.notify("Reiniciar para ver los cambios", 'warning', 10);
       }
     } else {
       this.base.setVariable(this.base.unaVariable.nombre, this.base.unaVariable.valor);

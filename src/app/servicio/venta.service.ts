@@ -79,19 +79,23 @@ export class VentaService {
       } else {
         this.getVentas();
       }
-      this.actualizarEstadisticasVentas();
     } else {
       alertify.notify('Error ' + res[1].code, 'warning', 5);
     }
   }
 
-  actualizarEstadisticasVentas() {
-    this.totalVentas = Number(0);
-    this.totalGanancias = Number(0);
-    this.listadoVenta.forEach(v => {
-      this.totalVentas = Number(this.totalVentas) + Number(v.total);
-      this.totalGanancias = Number(this.totalGanancias) + Number(v.ganancia);
-    });
-    this.totalCostos = this.totalVentas - this.totalGanancias;
+  getEstadisticas(year: string) {
+    const consulta = `select cast(date_part('month', fecha) as integer) as mes, count(id) as cantidad, trunc(sum(total)) as ventas, trunc(sum(ganancia)) as ganancias, trunc((sum(total) - sum (ganancia))) as costos
+    from ventas
+    where date_part('year', fecha) = '${year}'
+    group by 1`;
+    let res = this.ipc.ipcRenderer.sendSync('base', consulta);
+    if (res[0] == 'ok') {
+      return res[1];
+    } else {
+      alertify.notify('Error ' + res[1].code, 'warning', 5);
+      return [];
+    }
   }
+
 }

@@ -43,6 +43,7 @@ import { FormEmpresaComponent } from './component/empresa/form-empresa/form-empr
 //Pipes
 import { Buscar } from './pipes/buscar';
 import { EditVariableComponent } from './component/variable/edit-variable/edit-variable.component';
+import { EstadisticasVentasComponent } from './component/venta/estadisticas-ventas/estadisticas-ventas.component';
 
 
 const routes: Routes = [
@@ -108,7 +109,8 @@ const routes: Routes = [
     AboutComponent,
     VariablesComponent,
     EditVariableComponent,
-    FormConfirmaImprimirComponent
+    FormConfirmaImprimirComponent,
+    EstadisticasVentasComponent
   ],
   imports: [
     BrowserModule,

@@ -1,68 +1,39 @@
 <div class="pantalla card" style="padding: 2%;">
     <div class="ui grid">
-        <div class="sixteen wide column card" style="margin: 1%;">
-            <div class="sixteen wide column">
-                <h2><i class="large list icon"></i> Ventas </h2>
-            </div>
+        <div class="sixteen wide column" style="margin: 1%;">
             <div class="ui grid">
-                <div class="sixteen wide column" style="text-align: center; margin-top: 15px;">
-                    <div class="ui labeled icon input" style="margin-right: 1rem;">
-                        <a class="ui label">Desde</a>
-                        <input (input)="buscarVentas()" type="date" [(ngModel)]="venta.desde">
-                        <i class="calendar alternate outline icon"></i>
-                    </div>
-                    <div class="ui labeled icon input" style="margin-right: 2rem;">
-                        <a class="ui label">Hasta</a>
-                        <input (input)="buscarVentas()" type="date" [(ngModel)]="venta.hasta">
-                        <i class="calendar alternate outline icon"></i>
-                    </div>
-                    <div *ngIf="venta.listadoVenta.length > 0 || venta.filtro.length > 0" class="ui labeled input"
-                        style="margin-right: 2rem;">
-                        <div class="ui label icon">
-                            <i class="filter icon"></i> Filtrar
-                        </div>
-                        <input type="text" placeholder="Contenido" [(ngModel)]="venta.filtro">
-                    </div>
-                    <button class="ui button icon {{base.unaSkin.botonBuscar}}" (click)="buscarVentas()" style="margin-right: 1rem;"> <i
-                            class="search icon"></i> Buscar</button>
-                    <button (click)="imprimir();" class="ui button icon {{base.unaSkin.botonImprimir}}"> <i class="print icon"></i>
-                        Imprimir </button>
+                <div class="two wide column">
+                    <h2><i class="large list icon"></i> Ventas </h2>
                 </div>
-                <div class="sixteen wide column">
-                    <div class="ui statistics small" style="  display: table;margin: 0 auto;">
-                        <div class="statistic">
-                            <div class="value" id="cantidad">
-                                {{this.venta.listadoVenta.length}}
-                            </div>
-                            <div class="label">
-                                Cantidad
-                            </div>
+                <div class="twelve wide column">
+                    <div style="text-align: center;">
+                        <div class="ui labeled icon input" style="margin-right: 1rem;">
+                            <a style="padding-top: 14px;" class="ui label">Desde</a>
+                            <input (input)="buscarVentas()" type="date" [(ngModel)]="venta.desde">
+                            <i class="calendar alternate outline icon"></i>
                         </div>
-                        <div class="statistic green">
-                            <div class="value">
-                                {{this.venta.totalVentas | currency}}
-                            </div>
-                            <div class="label">
-                                Total Venta
-                            </div>
+                        <div class="ui labeled icon input" style="margin-right: 2rem;">
+                            <a style="padding-top: 14px;" class="ui label">Hasta</a>
+                            <input (input)="buscarVentas()" type="date" [(ngModel)]="venta.hasta">
+                            <i class="calendar alternate outline icon"></i>
                         </div>
-                        <div class="statistic red">
-                            <div class="value">
-                                {{this.venta.totalCostos | currency}}
+                        <div *ngIf="venta.listadoVenta.length > 0 || venta.filtro.length > 0" class="ui labeled input"
+                            style="margin-right: 2rem;">
+                            <div style="padding-top: 12px;" class="ui label icon">
+                                <i class="filter icon"></i> Filtrar
                             </div>
-                            <div class="label">
-                                Total Costos
-                            </div>
+                            <input type="text" placeholder="Contenido" [(ngModel)]="venta.filtro">
                         </div>
-                        <div class="statistic blue">
-                            <div class="value">
-                                {{this.venta.totalGanancias | currency}}
-                            </div>
-                            <div class="label">
-                                Total Ganancia
-                            </div>
-                        </div>
+                        <button (click)="imprimir();" class="ui button icon {{base.unaSkin.botonImprimir}}"> <i
+                                class="print icon"></i>
+                            Imprimir </button>
                     </div>
+                </div>
+                <div class="two wide column">
+                    <button (click)="abrirModalEstadisticas();" class="ui {{base.unaSkin.botonEstadistica}} button">
+                        <i class="chart bar icon"></i>
+                        Estadísticas
+                    </button>
                 </div>
             </div>
         </div>
@@ -74,19 +45,19 @@
                         <th> <i class="user icon"></i> Cliente</th>
                         <th> <i class="calendar alternate outline icon"></i> Fecha</th>
                         <th> <i class="list alternate outline icon"></i> Items</th>
-                        <th> <i class="trash alternate outline red icon"></i> Eliminar </th>
                         <th> <i class="dollar sign green icon"></i> Total</th>
+                        <th> <i class="trash alternate outline red icon"></i> Eliminar </th>
                     </tr>
                 </thead>
-                <tbody class="tabla">
+                <tbody class="tabla-ventas">
                     <tr *ngFor="let unaVenta of venta.listadoVenta | buscar:venta.filtro">
                         <td>{{unaVenta.id}}</td>
                         <td *ngIf="unaVenta.cliente_nombre != null">{{unaVenta.cliente_nombre}}</td>
                         <td *ngIf="unaVenta.cliente_nombre == null">No informado</td>
                         <td>{{unaVenta.fecha | date: 'dd/MM/yyyy'}}</td>
                         <td (click)="buscarItems(unaVenta)"><i class="list alternate outline icon"></i></td>
-                        <td (click)="eliminarVenta(unaVenta)"><i class="close icon red"></i></td>
                         <td>{{unaVenta.total | currency }}</td>
+                        <td (click)="eliminarVenta(unaVenta)"><i class="trash icon red"></i></td>
                     </tr>
                 </tbody>
             </table>

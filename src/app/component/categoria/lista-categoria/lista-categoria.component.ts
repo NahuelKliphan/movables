@@ -18,6 +18,7 @@ export class ListaCategoriaComponent implements OnInit {
     var pantalla = $(window).height();
     pantalla = pantalla - 135;
     $('.pantalla').css('height', `${pantalla}px`);
+    $('.lista-categoria').css('height', `${pantalla}px`);
     $("#buscarCategoria").focus();
     this.categoria.getCategorias();
   }

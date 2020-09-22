@@ -20,6 +20,7 @@ async function ActualizarBase(version) {
     await ActualizadorINC0010();
     await ActualizadorINC0013(version);
     await ActualizadorINC0015();
+    await ActualizadorINC0018();
 
     await ActualizarVersion(version);
     console.log("Base actualizada");
@@ -129,6 +130,15 @@ async function ActualizadorINC0015() {
         insert into variables (nombre, valor, tipo) values ('Color icono categoria', 'blue', 'color');
         END IF; END $$;`;
 
+    await client.query(consulta);
+}
+
+async function ActualizadorINC0018(verion) {
+
+    var consulta = `DO $$ BEGIN IF NOT EXISTS(SELECT * FROM variables
+        WHERE nombre='Color boton estadistica') THEN
+        insert into variables (nombre, valor, tipo) values ('Color boton estadistica', 'blue', 'color');
+        END IF; END $$;`;
     await client.query(consulta);
 }
 
