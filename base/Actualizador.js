@@ -133,7 +133,7 @@ async function ActualizadorINC0015() {
     await client.query(consulta);
 }
 
-async function ActualizadorINC0018(verion) {
+async function ActualizadorINC0018() {
 
     var consulta = `DO $$ BEGIN IF NOT EXISTS(SELECT * FROM variables
         WHERE nombre='Color boton estadistica') THEN
