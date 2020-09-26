@@ -48,9 +48,12 @@ export class FormVentaComponent implements OnInit {
     this.item.listadoItem = [];
     this.venta.unaVenta.items = [];
     this.item.idItemTemp = 0;
-    if (this.idVentaSeleccionada == this.idVentaTemporal - 1 && this.idVentaSeleccionada != 1) {
+    if (this.idVentaSeleccionada == this.idVentaTemporal - 1) {
       this.venta.listadoVenta = this.venta.listadoVenta.filter(v => v.id != this.idVentaSeleccionada);
       this.idVentaTemporal--;
+      if (this.venta.listadoVenta.length == 0) {
+        this.nuevaVenta();
+      }
       this.idVentaSeleccionada = this.idVentaTemporal - 1;
       this.venta.unaVenta = this.venta.listadoVenta.find(v => v.id == this.idVentaSeleccionada);
       this.item.listadoItem = this.venta.unaVenta.items;
@@ -58,7 +61,7 @@ export class FormVentaComponent implements OnInit {
   }
 
   vaciarForm() {
-    this.venta.unaVenta = new Venta(null, null, new Date(), 0, 0);
+    this.venta.unaVenta = new Venta(this.idVentaSeleccionada, null, new Date(), 0, 0);
   }
 
   abrirLista() {
