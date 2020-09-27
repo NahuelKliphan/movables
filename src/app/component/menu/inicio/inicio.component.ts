@@ -15,15 +15,12 @@ export class InicioComponent implements OnInit {
   ngOnInit() {
 
     var pantalla = $(window).height();
-    pantalla = pantalla - 250;
-    $('.contenedor-inicio').css('height', `${pantalla}px`);
-
+    $('.contenedor-inicio').css('height', `${pantalla-250}px`);
+    $('.img-size').css('max-width', `${pantalla-250}px`);
     if (!this.empresa.existeEmpresa(this.empresa.unaEmpresa)) {
       this.empresa.guardarEmpresa(this.empresa.unaEmpresa);
     }
-
     this.empresa.getEmpresa();
-
   }
 
   abrirLink(link: string) {
