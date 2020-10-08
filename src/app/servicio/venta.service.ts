@@ -49,7 +49,7 @@ export class VentaService {
     this.item.insertItems = "";
     this.producto.updateProductos = "";
     unaVenta.cliente_nombre = ((unaVenta.cliente_nombre != null && unaVenta.cliente_nombre != '') ? "'" + unaVenta.cliente_nombre + "'" : null);
-    const consulta = `INSERT INTO VENTAS (cliente_nombre, fecha, total, ganancia) VALUES (${unaVenta.cliente_nombre},'${new Date().toDateString()}', ${unaVenta.total}, ${unaVenta.ganancia}) RETURNING ID;`;
+    const consulta = `INSERT INTO VENTAS (cliente_nombre, fecha, total, ganancia) VALUES (${unaVenta.cliente_nombre},'${new Date(unaVenta.fecha).toDateString()}', ${unaVenta.total}, ${unaVenta.ganancia}) RETURNING ID;`;
     let res = this.ipc.ipcRenderer.sendSync('base', consulta);
     if (res[0] == 'ok') {
       let id = res[1][0].id;

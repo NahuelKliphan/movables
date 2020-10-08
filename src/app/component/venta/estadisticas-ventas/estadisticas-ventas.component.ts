@@ -25,7 +25,7 @@ export class EstadisticasVentasComponent implements OnInit {
     var estadisticas = this.venta.getEstadisticas(this.year);
     var canvas = <HTMLCanvasElement>document.getElementById('graficoVentas');
     var ctx = canvas.getContext('2d');
-    var meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+    var meses = ['','Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
     var mesesAmostrar = [];
     var montosPorMes = [];
     this.venta.totalVentas = 0;
@@ -34,10 +34,10 @@ export class EstadisticasVentasComponent implements OnInit {
     estadisticas.forEach(element => {
       this.venta.totalVentas += Number(element.ventas);
       this.venta.totalCostos += Number(element.costos);
-      this.venta.totalGanancias += Number(element.ventas);
       mesesAmostrar.push(meses[element.mes]);
       montosPorMes.push(element.cantidad);
     });
+    this.venta.totalGanancias += Number(this.venta.totalVentas - this.venta.totalCostos);
     var chart = new Chart(ctx, {
       type: 'line',
       data: {
