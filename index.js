@@ -3,7 +3,7 @@ const { Client } = require('pg');
 const { autoUpdater } = require("electron-updater");
 const isDev = require('electron-is-dev');
 const Actualizador = require('./base/Actualizador');
-const printer = require('./printer/printer');
+const printer = require('./src/printer/printer');
 
 //Ruta de la app
 const ruta = app.getPath('userData');
@@ -49,7 +49,7 @@ function createWindow() {
 
   // Evento cuando se cierra la ventana.
   win.on('closed', function () {
-    win = null
+    win = null;
   });
 
   win.on('resize', function () {
@@ -61,7 +61,7 @@ function createWindow() {
 function createWindowPrint() {
   //Crea la ventana para imprimir
   printerWindow = new BrowserWindow({ show: false, webPreferences: { nodeIntegration: true } });
-  printerWindow.loadURL("file://" + __dirname + "/printer/templates/template.html");
+  printerWindow.loadURL("file://" + __dirname + "/src/printer/templates/template.html");
 }
 
 // Evento que ejecuta el metodo para crear la ventana.
@@ -152,7 +152,7 @@ async function ConectarBD() {
     } else {
       console.log('Base de datos conectada.');
     }
-  })
+  });
 
 }
 
