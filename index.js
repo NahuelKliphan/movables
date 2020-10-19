@@ -37,7 +37,7 @@ function createWindow() {
   } catch (error) {
     win.loadURL("file://" + __dirname + "/dist/index.html");
   }
-  
+
   if (!isDev) {
     win.setMenu(null);
     autoUpdater.checkForUpdatesAndNotify();
@@ -157,19 +157,10 @@ async function ConectarBD() {
 }
 
 //Metodos consulta BD
-
 ipcMain.on('base', (e, consulta) => {
-
   client.query(consulta, function (err, res) {
-
-    if (err) {
-      e.returnValue = ['error', err];
-    } else {
-      e.returnValue = ['ok', res.rows];
-    }
-
+    e.returnValue = (err ? ['error', err] : ['ok', res.rows]);
   });
-
 });
 
 async function DesconectarBD() {
@@ -179,6 +170,7 @@ async function DesconectarBD() {
 function LeerBase() {
   const fs = require("fs");
   let data = fs.readFileSync(ruta + '\\base.txt').toString().split(';');
+  console.log(data)
   return JSON.parse(data[0]);
 }
 
