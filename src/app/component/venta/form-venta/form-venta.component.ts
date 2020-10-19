@@ -44,11 +44,10 @@ export class FormVentaComponent implements OnInit {
   }
 
   cancelar() {
-    this.vaciarForm();
-    this.item.listadoItem = [];
-    this.venta.unaVenta.items = [];
-    this.item.idItemTemp = 0;
     if (this.idVentaSeleccionada == this.idVentaTemporal - 1) {
+      this.item.listadoItem = [];
+      this.venta.unaVenta.items = [];
+      this.item.idItemTemp = 0;
       this.venta.listadoVenta = this.venta.listadoVenta.filter(v => v.id != this.idVentaSeleccionada);
       this.idVentaTemporal--;
       if (this.venta.listadoVenta.length == 0) {
