@@ -28,7 +28,17 @@ export class ProductoService {
   //Metodos de productos
 
   getProductos() {
-    const consulta = `SELECT * FROM PRODUCTOS ${this.filtro}  ORDER BY ID DESC LIMIT 50;`;
+
+    let consulta = `select p.id as id,
+    p.codigo as codigo, 
+    p.nombre as nombre, 
+    trunc(p.precio_venta,2) as precio_venta,
+    trunc(p.precio_costo,2) as precio_costo,
+    p.cantidad as cantidad, 
+    p.descripcion as descripcion, 
+    p.id_categoria as id_categoria, 
+    p.foto as foto
+    from productos p ${this.filtro} order by id desc limit 20`;
     let res = this.ipc.ipcRenderer.sendSync('base', consulta);
     if (res[0] == 'ok') {
       this.listadoProducto = res[1];
@@ -39,7 +49,7 @@ export class ProductoService {
   }
 
   verificarCodigoProducto(codigo: string) {
-    const consulta = `SELECT * FROM PRODUCTOS WHERE codigo = '${codigo}';`;
+    const consulta = `SELECT codigo FROM PRODUCTOS WHERE codigo = '${codigo}';`;
     let res = this.ipc.ipcRenderer.sendSync('base', consulta);
     if (res[0] == 'ok') {
       if (res[1].length == 0) {
@@ -66,31 +76,44 @@ export class ProductoService {
     }
   }
 
-  buscarProducto(cod: string) {
+  buscarProducto(busqueda: string) {
 
-    let consulta = "";
-
-    if (this.idFiltrar == -1) {
-      consulta = `SELECT * FROM PRODUCTOS P WHERE P.codigo ilike '%${cod}%' or p.nombre ilike '%${cod}%' ORDER BY ID DESC LIMIT 20;`;
-    }
-    else {
-
-      if (this.idFiltrar == null) {
-        consulta = `SELECT * FROM PRODUCTOS P WHERE (P.codigo ilike '%${cod}%' or p.nombre ilike '%${cod}%') and P.id_categoria is ${this.idFiltrar} ORDER BY ID DESC LIMIT 20;`;
+    if (busqueda != '') {
+      let consulta = `select p.id as id,
+      p.codigo as codigo, 
+      p.nombre as nombre, 
+      trunc(p.precio_venta,2) as precio_venta,
+      trunc(p.precio_costo,2) as precio_costo,
+      p.cantidad as cantidad, 
+      p.descripcion as descripcion, 
+      p.id_categoria as id_categoria, 
+      p.foto as foto
+      from productos p `;
+      if (this.filtro != '') {
+        consulta += ` ${this.filtro} and (`;
       } else {
-        consulta = `SELECT * FROM PRODUCTOS P WHERE (P.codigo ilike '%${cod}%' or p.nombre ilike '%${cod}%') and P.id_categoria = ${this.idFiltrar} ORDER BY ID DESC LIMIT 20;`;
+        consulta += ` where (`;
       }
-
+      busqueda = busqueda.trim();
+      let palabrasClaves = busqueda.split(' ');
+      let primero = true;
+      palabrasClaves.forEach(palabra => {
+        if (primero) {
+          consulta += ` (p.codigo ilike '%${palabra}%' or p.nombre ilike '%${palabra}%')`;
+          primero = false;
+        } else {
+          consulta += ` or (p.codigo ilike '%${palabra}%' or p.nombre ilike '%${palabra}%')`;
+        }
+      });
+      consulta += ` ) order by id desc limit 20;`;
+      console.log(consulta);
+      let res = this.ipc.ipcRenderer.sendSync('base', consulta);
+      if (res[0] == 'ok') {
+        this.listadoProducto = res[1];
+      } else {
+        alertify.notify('Error ' + res[1].code, 'warning', 5);
+      }
     }
-
-    let res = this.ipc.ipcRenderer.sendSync('base', consulta);
-
-    if (res[0] == 'ok') {
-      this.listadoProducto = res[1];
-    } else {
-      alertify.notify('Error ' + res[1].code, 'warning', 5);
-    }
-
   }
 
   modificarPrecioProducto(consulta: string) {
