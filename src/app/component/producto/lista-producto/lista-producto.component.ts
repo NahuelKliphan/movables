@@ -17,7 +17,6 @@ export class ListaProductoComponent implements OnInit {
 
   ngOnInit() {
     this.producto.limiteProductos = this.base.getVariable("Cantidad limite de productos");
-    console.log(this.producto.limiteProductos)
     var pantalla = $(window).height();
     pantalla = pantalla - 135;
     $('.pantalla').css('height', `${pantalla}px`);
