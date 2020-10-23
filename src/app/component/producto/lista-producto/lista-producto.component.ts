@@ -16,13 +16,15 @@ export class ListaProductoComponent implements OnInit {
   constructor(private producto: ProductoService, private base: BaseService, private categoria: CategoriaService) { }
 
   ngOnInit() {
-
+    this.producto.limiteProductos = this.base.getVariable("Cantidad limite de productos");
+    console.log(this.producto.limiteProductos)
     var pantalla = $(window).height();
     pantalla = pantalla - 135;
     $('.pantalla').css('height', `${pantalla}px`);
     $('#filtrar').dropdown({ fullTextSearch: true });
     $("#buscarProducto").focus();
     this.categoria.getCategorias();
+    this.producto.listadoProducto = [];
     this.producto.getProductos();
     this.producto.scanner = (this.base.getVariable('Scanner') == 'S') ? true : false;
   }
@@ -33,13 +35,10 @@ export class ListaProductoComponent implements OnInit {
   }
 
   buscar() {
-    if (this.producto.busqueda.length > 0) {
-      this.producto.buscarProducto(this.producto.busqueda);
-      if (this.producto.enVenta && this.producto.scanner && this.producto.listadoProducto.length == 1) {
-        this.vender(this.producto.listadoProducto[0]);
-      }
-    } else {
-      this.producto.getProductos();
+    this.producto.concatenarListado = false;
+    this.producto.getProductos();
+    if (this.producto.enVenta && this.producto.scanner && this.producto.listadoProducto.length == 1) {
+      this.vender(this.producto.listadoProducto[0]);
     }
   }
 
@@ -74,4 +73,10 @@ export class ListaProductoComponent implements OnInit {
     var valor = (this.producto.scanner) ? 'S' : 'N';
     this.base.setVariable('Scanner', valor);
   }
+
+  verMas() {
+    this.producto.concatenarListado = true;
+    this.producto.getProductos();
+  }
+
 }

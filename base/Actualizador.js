@@ -1,10 +1,9 @@
 const { Client } = require('pg');
-let client;
+var client;
 
 async function Actualizar(base, version) {
 
     client = new Client(base);
-
     await client.connect(err => {
         if (err) {
             console.error('Error al correr actualizador.', err.stack);
@@ -21,6 +20,7 @@ async function ActualizarBase(version) {
     await ActualizadorINC0013(version);
     await ActualizadorINC0015();
     await ActualizadorINC0018();
+    await ActualizadorINC0022();
 
     await ActualizarVersion(version);
     console.log("Base actualizada");
@@ -29,13 +29,13 @@ async function ActualizarBase(version) {
 }
 
 async function ActualizarVersion(version) {
-    var consulta = `update variables set valor = '${version}' where nombre = 'Version';`;
+    let consulta = `update variables set valor = '${version}' where nombre = 'Version';`;
     await client.query(consulta);
 }
 
 async function ActualizadorINC0010() {
 
-    var consulta = `DO $$ BEGIN IF EXISTS(SELECT * FROM information_schema.columns
+    let consulta = `DO $$ BEGIN IF EXISTS(SELECT * FROM information_schema.columns
         WHERE table_name='items' and column_name='precio') THEN
         alter table items rename column precio to precio_venta; 
         END IF; END $$;`;
@@ -56,7 +56,7 @@ async function ActualizadorINC0010() {
 
 async function ActualizadorINC0013(version) {
 
-    var consulta = `DO $$ BEGIN IF NOT EXISTS(SELECT * FROM information_schema.columns
+    let consulta = `DO $$ BEGIN IF NOT EXISTS(SELECT * FROM information_schema.columns
         WHERE table_name='variables') THEN
         create table variables(id serial, nombre varchar(50), valor varchar(50), tipo varchar(10), primary key(id));
         END IF; END $$;`;
@@ -73,7 +73,7 @@ async function ActualizadorINC0013(version) {
 
 async function ActualizadorINC0015() {
 
-    var consulta = `DO $$ BEGIN IF NOT EXISTS(SELECT * FROM variables
+    let consulta = `DO $$ BEGIN IF NOT EXISTS(SELECT * FROM variables
         WHERE nombre='Color sidebar') THEN
         insert into variables (nombre, valor, tipo) values ('Color sidebar', 'blue', 'color');
         END IF; END $$;`;
@@ -135,9 +135,18 @@ async function ActualizadorINC0015() {
 
 async function ActualizadorINC0018() {
 
-    var consulta = `DO $$ BEGIN IF NOT EXISTS(SELECT * FROM variables
+    let consulta = `DO $$ BEGIN IF NOT EXISTS(SELECT * FROM variables
         WHERE nombre='Color boton estadistica') THEN
         insert into variables (nombre, valor, tipo) values ('Color boton estadistica', 'blue', 'color');
+        END IF; END $$;`;
+    await client.query(consulta);
+}
+
+async function ActualizadorINC0022() {
+
+    let consulta = `DO $$ BEGIN IF NOT EXISTS(SELECT * FROM variables
+        WHERE nombre='Cantidad limite de productos') THEN
+        insert into variables (nombre, valor, tipo) values ('Cantidad limite de productos', '20', 'texto');
         END IF; END $$;`;
     await client.query(consulta);
 }

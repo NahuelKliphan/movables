@@ -24,11 +24,14 @@ export class ProductoService {
   enVenta: boolean = false;
   filtro: string = '';
   idFiltrar: number = -1;
+  idUltimoProductoLista: number = null;
+  concatenarListado: boolean = false;
+  hayResultados: boolean = false;
+  limiteProductos : number = 20;
 
   //Metodos de productos
-
   getProductos() {
-
+    this.setFiltro(this.idFiltrar);
     let consulta = `select p.id as id,
     p.codigo as codigo, 
     p.nombre as nombre, 
@@ -38,11 +41,22 @@ export class ProductoService {
     p.descripcion as descripcion, 
     p.id_categoria as id_categoria, 
     p.foto as foto
-    from productos p ${this.filtro} order by id desc limit 20`;
+    from productos p ${this.filtro}`;
     let res = this.ipc.ipcRenderer.sendSync('base', consulta);
     if (res[0] == 'ok') {
-      this.listadoProducto = res[1];
-      this.buscarProducto(this.busqueda);
+      if (res[1].length < this.limiteProductos) {
+        this.hayResultados = false;
+      } else {
+        this.hayResultados = true;
+      }
+      if (this.concatenarListado) {
+        this.listadoProducto = this.listadoProducto.concat(res[1]);
+      } else {
+        this.listadoProducto = res[1];
+      }
+      if (this.listadoProducto.length > 0) {
+        this.idUltimoProductoLista = this.listadoProducto[this.listadoProducto.length - 1].id;
+      } 
     } else {
       alertify.notify('Error ' + res[1].code, 'warning', 5);
     }
@@ -62,7 +76,6 @@ export class ProductoService {
     } else {
       alertify.notify('Error ' + res[1].code, 'warning', 5);
     }
-
   }
 
   consultarCantidadProducto(unProducto: Producto) {
@@ -76,48 +89,7 @@ export class ProductoService {
     }
   }
 
-  buscarProducto(busqueda: string) {
-
-    if (busqueda != '') {
-      let consulta = `select p.id as id,
-      p.codigo as codigo, 
-      p.nombre as nombre, 
-      trunc(p.precio_venta,2) as precio_venta,
-      trunc(p.precio_costo,2) as precio_costo,
-      p.cantidad as cantidad, 
-      p.descripcion as descripcion, 
-      p.id_categoria as id_categoria, 
-      p.foto as foto
-      from productos p `;
-      if (this.filtro != '') {
-        consulta += ` ${this.filtro} and (`;
-      } else {
-        consulta += ` where (`;
-      }
-      busqueda = busqueda.trim();
-      let palabrasClaves = busqueda.split(' ');
-      let primero = true;
-      palabrasClaves.forEach(palabra => {
-        if (primero) {
-          consulta += ` (p.codigo ilike '%${palabra}%' or p.nombre ilike '%${palabra}%')`;
-          primero = false;
-        } else {
-          consulta += ` or (p.codigo ilike '%${palabra}%' or p.nombre ilike '%${palabra}%')`;
-        }
-      });
-      consulta += ` ) order by id desc limit 20;`;
-      console.log(consulta);
-      let res = this.ipc.ipcRenderer.sendSync('base', consulta);
-      if (res[0] == 'ok') {
-        this.listadoProducto = res[1];
-      } else {
-        alertify.notify('Error ' + res[1].code, 'warning', 5);
-      }
-    }
-  }
-
   modificarPrecioProducto(consulta: string) {
-
     let res = this.ipc.ipcRenderer.sendSync('base', consulta);
     if (res[0] == 'ok') {
       alertify.notify('Precios modificados', 'success', 5);
@@ -125,7 +97,6 @@ export class ProductoService {
     } else {
       alertify.notify('Error ' + res[1].code, 'warning', 5);
     }
-
   }
 
   guardarProducto(unProdcuto: Producto) {
@@ -168,7 +139,6 @@ export class ProductoService {
   }
 
   setFiltro(id: number) {
-
     if (id == null) {
       this.filtro = `WHERE id_categoria is ${id}`;
     } else {
@@ -178,6 +148,33 @@ export class ProductoService {
         this.filtro = `WHERE id_categoria = ${id}`;
       }
     }
+    if (this.concatenarListado) {
+      if (this.filtro != '') {
+        this.filtro += ` and`
+      } else {
+        this.filtro += ` where`
+      }
+      this.filtro += ` (p.id < ${this.idUltimoProductoLista})`;
+    }
+    if (this.busqueda != '') {
+      if (this.filtro != '') {
+        this.filtro += ` and (`;
+      } else {
+        this.filtro += ` where (`;
+      }
+      this.busqueda = this.busqueda.trim();
+      let palabrasClaves = this.busqueda.split(' ');
+      let primero = true;
+      palabrasClaves.forEach(palabra => {
+        if (primero) {
+          this.filtro += ` (p.codigo ilike '%${palabra}%' or p.nombre ilike '%${palabra}%')`;
+          primero = false;
+        } else {
+          this.filtro += ` or (p.codigo ilike '%${palabra}%' or p.nombre ilike '%${palabra}%')`;
+        }
+      });
+      this.filtro += ` )`;
+    }
+    this.filtro += ` order by id desc limit ${this.limiteProductos};`;
   }
-
 }
