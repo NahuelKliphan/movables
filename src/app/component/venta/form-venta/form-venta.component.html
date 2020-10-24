@@ -1,7 +1,7 @@
 <div class="pantalla">
     <div class="ui top attached tabular menu">
         <a [ngClass]="{'active' : unaVenta.id == idVentaSeleccionada}" class="item"
-            (click)="seleccionarVenta(unaVenta);" *ngFor="let unaVenta of venta.listadoVenta">
+            (click)="seleccionarVenta(unaVenta);" *ngFor="let unaVenta of listadoVentasTab">
             <p *ngIf="unaVenta.cliente_nombre != null && unaVenta.cliente_nombre != ''">
                 {{unaVenta.cliente_nombre}}
             </p>

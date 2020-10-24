@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { ElectronService } from 'ngx-electron';
 import { Venta } from '../model/Venta';
-import { ProductoService } from './producto.service';
 import { ItemService } from './item.service';
+import { ProductoService } from './producto.service';
 
 declare var alertify: any;
 
@@ -15,7 +15,7 @@ export class VentaService {
 
   //Venta
   listadoVenta: Venta[] = [];
-  unaVenta: Venta = new Venta(null, null, new Date(), 0, 0);
+  unaVenta: Venta = new Venta(1, null, new Date(), 0, 0);
   desde: string = "";
   hasta: string = "";
   totalVentas: number = 0;

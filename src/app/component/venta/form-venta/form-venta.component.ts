@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Venta } from 'src/app/model/Venta';
+import { BaseService } from 'src/app/servicio/base.service';
 import { ItemService } from 'src/app/servicio/item.service';
 import { ProductoService } from 'src/app/servicio/producto.service';
 import { VentaService } from 'src/app/servicio/venta.service';
-import { BaseService } from 'src/app/servicio/base.service';
 
 declare var $: any;
 declare var alertify: any;
@@ -17,8 +17,9 @@ export class FormVentaComponent implements OnInit {
 
   constructor(private venta: VentaService, private item: ItemService, private producto: ProductoService, private base: BaseService) { }
 
-  idVentaTemporal: number = 1;
+  idVentaAutoincremental: number = 1;
   idVentaSeleccionada: number = 1;
+  listadoVentasTab: Venta[] = [this.venta.unaVenta];
 
   ngOnInit() {
     var pantalla = $(window).height();
@@ -26,17 +27,16 @@ export class FormVentaComponent implements OnInit {
     $('.pantalla').css('height', `${pantalla}px`);
     pantalla = pantalla - 335;
     $('.tabla-nueva-venta').css('height', `${pantalla}px`);
-    this.item.listadoItem = [];
-    this.venta.listadoVenta = [];
-    this.nuevaVenta();
+    this.venta.unaVenta = new Venta(1, null, new Date(), 0, 0);
+    this.idVentaAutoincremental = 1;
+    this.idVentaSeleccionada = 1;
+    this.listadoVentasTab = [this.venta.unaVenta];
   }
 
   guardar(unaVenta: Venta) {
-    this.item.listadoItem = [...unaVenta.items];
     if (this.formCompleto()) {
       this.venta.guardarVenta(unaVenta);
-      this.vaciarForm();
-      this.item.idItemTemp = 0;
+      this.cancelar();
       $('#formImrpimirVenta').modal({ closable: false }).modal('show').modal('show dimmer');
     } else {
       alertify.notify('No hay ningun item', 'error', 5);
@@ -44,23 +44,13 @@ export class FormVentaComponent implements OnInit {
   }
 
   cancelar() {
-    if (this.idVentaSeleccionada == this.idVentaTemporal - 1) {
-      this.item.listadoItem = [];
-      this.venta.unaVenta.items = [];
-      this.item.idItemTemp = 0;
-      this.venta.listadoVenta = this.venta.listadoVenta.filter(v => v.id != this.idVentaSeleccionada);
-      this.idVentaTemporal--;
-      if (this.venta.listadoVenta.length == 0) {
-        this.nuevaVenta();
-      }
-      this.idVentaSeleccionada = this.idVentaTemporal - 1;
-      this.venta.unaVenta = this.venta.listadoVenta.find(v => v.id == this.idVentaSeleccionada);
-      this.item.listadoItem = this.venta.unaVenta.items;
+    this.listadoVentasTab = this.listadoVentasTab.filter(venta => venta.id != this.idVentaSeleccionada);
+    if (this.listadoVentasTab.length === 0) {
+      this.nuevaVenta();
+    } else {
+      this.venta.unaVenta = this.listadoVentasTab[this.listadoVentasTab.length - 1];
     }
-  }
-
-  vaciarForm() {
-    this.venta.unaVenta = new Venta(this.idVentaSeleccionada, null, new Date(), 0, 0);
+    this.idVentaSeleccionada = this.venta.unaVenta.id;
   }
 
   abrirLista() {
@@ -80,15 +70,16 @@ export class FormVentaComponent implements OnInit {
   }
 
   nuevaVenta() {
-    this.venta.unaVenta = new Venta(this.idVentaTemporal, null, new Date(), 0, 0);
-    this.venta.listadoVenta.push(this.venta.unaVenta);
-    this.idVentaSeleccionada = this.idVentaTemporal;
-    this.idVentaTemporal++;
+    this.idVentaAutoincremental++;
+    this.venta.unaVenta = new Venta(this.idVentaAutoincremental, "", new Date(), 0, 0)
+    this.listadoVentasTab.push(this.venta.unaVenta);
+    this.idVentaSeleccionada = this.idVentaAutoincremental;
   }
 
   seleccionarVenta(unaVenta: Venta) {
     this.idVentaSeleccionada = unaVenta.id;
-    this.venta.unaVenta = this.venta.listadoVenta.find(v => v.id == unaVenta.id);
+    this.venta.unaVenta = unaVenta;
+    this.venta.unaVenta.items = unaVenta.items;
   }
 
 }
