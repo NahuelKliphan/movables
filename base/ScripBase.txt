@@ -77,5 +77,5 @@ create table variables(
 	primary key(id)
 );
 
-insert into variables (nombre, valor) values ('Version', '1.1.4');
-insert into variables (nombre, valor) values ('Scanner', 'N');
+insert into variables (nombre, valor, tipo) values ('Version', '1.0.0', 'texto');
+insert into variables (nombre, valor, tipo) values ('Scanner', 'N', 'texto');

@@ -21,6 +21,7 @@ async function ActualizarBase(version) {
     await ActualizadorINC0015();
     await ActualizadorINC0018();
     await ActualizadorINC0022();
+    await ActualizadorINC0024();
 
     await ActualizarVersion(version);
     console.log("Base actualizada");
@@ -147,6 +148,15 @@ async function ActualizadorINC0022() {
     let consulta = `DO $$ BEGIN IF NOT EXISTS(SELECT * FROM variables
         WHERE nombre='Cantidad limite de productos') THEN
         insert into variables (nombre, valor, tipo) values ('Cantidad limite de productos', '20', 'texto');
+        END IF; END $$;`;
+    await client.query(consulta);
+}
+
+async function ActualizadorINC0024() {
+
+    let consulta = `DO $$ BEGIN IF NOT EXISTS(SELECT * FROM variables
+        WHERE nombre='Contador de codigo autogenerado') THEN
+        insert into variables (nombre, valor, tipo) values ('Contador de codigo autogenerado', '0000000000000', 'texto');
         END IF; END $$;`;
     await client.query(consulta);
 }

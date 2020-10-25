@@ -37,7 +37,6 @@ export class FormProductoComponent implements OnInit {
 
   @HostListener('keydown.enter')
   guardar() {
-
     if (this.producto.editar) {
       if (this.formCompleto()) {
         this.producto.editarProducto(this.producto.unProducto);
@@ -53,17 +52,14 @@ export class FormProductoComponent implements OnInit {
       }
       this.producto.editar = false;
     }
-
   }
 
   @HostListener('keydown.escape')
   cancelar() {
-
     $('#formProducto').modal('hide').modal('hide dimmer');
     this.vaciarCampos();
     this.producto.editar = false;
     this.producto.getProductos();
-
   }
 
   formCompleto() {
@@ -143,7 +139,6 @@ export class FormProductoComponent implements OnInit {
   }
 
   calcularPrecioVenta() {
-
     if (this.base.isNumber(this.producto.unProducto.precio_costo) && this.base.isNumber(this.aumentoPrecioVenta)) {
       this.aumentoPrecioVenta = (this.aumentoPrecioVenta / 100) + 1;
       this.mostrarAumentoPrecioVenta = false;
@@ -152,6 +147,11 @@ export class FormProductoComponent implements OnInit {
     } else {
       alertify.notify('No se pudo calcular el precio venta', 'error', 5);
     }
+  }
+
+  generarCodigo() {
+    let codigoBase = this.base.getVariable("Contador de codigo autogenerado");
+    this.producto.unProducto.codigo = codigoBase;
   }
 
 }

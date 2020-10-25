@@ -27,7 +27,7 @@ export class ProductoService {
   idUltimoProductoLista: number = null;
   concatenarListado: boolean = false;
   hayResultados: boolean = false;
-  limiteProductos : number = 20;
+  limiteProductos: number = 20;
 
   //Metodos de productos
   getProductos() {
@@ -56,7 +56,7 @@ export class ProductoService {
       }
       if (this.listadoProducto.length > 0) {
         this.idUltimoProductoLista = this.listadoProducto[this.listadoProducto.length - 1].id;
-      } 
+      }
     } else {
       alertify.notify('Error ' + res[1].code, 'warning', 5);
     }
@@ -106,6 +106,11 @@ export class ProductoService {
     const consulta = `INSERT INTO PRODUCTOS (codigo,nombre,precio_costo,precio_venta,cantidad,descripcion,foto,id_categoria) VALUES ('${unProdcuto.codigo}','${unProdcuto.nombre}',${unProdcuto.precio_costo},${unProdcuto.precio_venta},${unProdcuto.cantidad},${unProdcuto.descripcion},${unProdcuto.foto},${unProdcuto.id_categoria});`;
     let res = this.ipc.ipcRenderer.sendSync('base', consulta);
     if (res[0] == 'ok') {
+      let codigoBase = this.base.getVariable("Contador de codigo autogenerado");
+      if (unProdcuto.codigo == codigoBase) {
+        codigoBase = Number(codigoBase) + 1;
+        this.base.setVariable("Contador de codigo autogenerado", this.base.rellenarConCero(codigoBase, 13, 0));
+      }
       this.getProductos();
       alertify.notify('Producto agregado', 'success', 5);
     } else {
@@ -131,6 +136,11 @@ export class ProductoService {
     const consulta = `UPDATE PRODUCTOS P SET codigo = '${unProdcuto.codigo}' , nombre = '${unProdcuto.nombre}', precio_costo = ${this.base.adaptarDecimal(unProdcuto.precio_costo)}, precio_venta = ${this.base.adaptarDecimal(unProdcuto.precio_venta)} , cantidad = ${unProdcuto.cantidad} , descripcion = ${unProdcuto.descripcion}, id_categoria = ${unProdcuto.id_categoria} , foto = ${unProdcuto.foto} WHERE P.id = '${unProdcuto.id}';`;
     let res = this.ipc.ipcRenderer.sendSync('base', consulta);
     if (res[0] == 'ok') {
+      let codigoBase = this.base.getVariable("Contador de codigo autogenerado");
+      if (unProdcuto.codigo == codigoBase) {
+        codigoBase = Number(codigoBase) + 1;
+        this.base.setVariable("Contador de codigo autogenerado", this.base.rellenarConCero(codigoBase, 13, 0));
+      }
       this.getProductos();
       alertify.notify('Producto editado', 'success', 5);
     } else {
