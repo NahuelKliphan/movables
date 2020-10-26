@@ -3,7 +3,6 @@ const ruta = app.getPath('userData') + "\\comprobante.pdf";
 const fs = require("fs");
 
 function imprimir(printerWindow, contenido) {
-
     printerWindow.webContents.send("printPDF", contenido);
     ipcMain.on("readyToPrintPDF", (event) => {
         printerWindow.webContents.printToPDF(pdfSettings()).then(data => {
@@ -11,7 +10,6 @@ function imprimir(printerWindow, contenido) {
                 if (error) {
                     console.log(error);
                 }
-                console.log(ruta);
                 shell.openItem(ruta)
             })
         }).catch((error) => {
@@ -53,11 +51,8 @@ function currencyFormat(value) {
 }
 
 function imprimirDelegator(printerWindow, data) {
-
     var contenido = "";
-
     switch (data.nombre) {
-
         case 'venta': {
             contenido = generarHtmlVenta(data);
             break;
@@ -73,7 +68,6 @@ function imprimirDelegator(printerWindow, data) {
 }
 
 function generarHtmlVenta(data) {
-
     var html = `
     <h2>${data.empresa_nombre}</h2>
     <table class='table striped'>
@@ -110,7 +104,6 @@ function generarHtmlVenta(data) {
 }
 
 function generarHtmlVentas(data) {
-
     var html = `<!DOCTYPE html>
     <html lang="en">
     <head>

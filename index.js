@@ -3,7 +3,7 @@ const { Client } = require('pg');
 const { autoUpdater } = require("electron-updater");
 const isDev = require('electron-is-dev');
 const Actualizador = require('./base/Actualizador');
-const printer = require('./src/printer/printer');
+const printer = require('./printer/printer');
 
 //Ruta de la app
 const ruta = app.getPath('userData');
@@ -16,7 +16,6 @@ let printerWindow;
 let client;
 
 function createWindow() {
-
   //Crea la ventana principal.
   win = new BrowserWindow({
     width: 1024,
@@ -26,7 +25,6 @@ function createWindow() {
     webPreferences: { nodeIntegration: true },
     show: true
   });
-
   //Carga el index.html de angular
   try {
     if (JSON.parse(process.env.npm_config_argv).original[1] == "develectron") {
@@ -37,42 +35,34 @@ function createWindow() {
   } catch (error) {
     win.loadURL("file://" + __dirname + "/dist/index.html");
   }
-
   if (!isDev) {
     win.setMenu(null);
     autoUpdater.checkForUpdatesAndNotify();
   } else {
     autoUpdater.checkForUpdates();
   }
-
   ConectarBD();
-
   // Evento cuando se cierra la ventana.
   win.on('closed', function () {
     win = null;
   });
-
   win.on('resize', function () {
     win.webContents.send('cambio');
   });
-
 }
 
 function createWindowPrint() {
   //Crea la ventana para imprimir
   printerWindow = new BrowserWindow({ show: false, webPreferences: { nodeIntegration: true } });
-  printerWindow.loadURL("file://" + __dirname + "/src/printer/templates/template.html");
+  printerWindow.loadURL("file://" + __dirname + "/printer/templates/template.html");
 }
 
 // Evento que ejecuta el metodo para crear la ventana.
 app.on('ready', function () {
-
   createWindow();
   createWindowPrint();
-
   win.maximize();
   sendStatusBaseToWindow(client._connected);
-
   checkBase();
 });
 
@@ -143,9 +133,7 @@ autoUpdater.on('update-downloaded', (info) => {
 
 //Metodo para conectar la base de datos.
 async function ConectarBD() {
-
   client = new Client(LeerBase());
-
   await client.connect(err => {
     if (err) {
       console.error('Error al conectar Base de datos.', err.stack);
@@ -153,7 +141,6 @@ async function ConectarBD() {
       console.log('Base de datos conectada.');
     }
   });
-
 }
 
 //Metodos consulta BD
