@@ -173,16 +173,11 @@ export class ProductoService {
         this.filtro += ` where (`;
       }
       this.busqueda = this.busqueda.trim();
-      let palabrasClaves = this.busqueda.split(' ');
-      let primero = true;
-      palabrasClaves.forEach(palabra => {
-        if (primero) {
-          this.filtro += ` (p.codigo ilike '%${palabra}%' or p.nombre ilike '%${palabra}%')`;
-          primero = false;
-        } else {
-          this.filtro += ` or (p.codigo ilike '%${palabra}%' or p.nombre ilike '%${palabra}%')`;
-        }
-      });
+      let palabrasClaves = this.busqueda.split(' ').join('+');
+      this.filtro += ` to_tsvector(codigo) @@ to_tsquery('${palabrasClaves}:*')`;
+      this.filtro += ` or to_tsvector(nombre) @@ to_tsquery('${palabrasClaves}:*')`;
+      this.filtro += ` or codigo ilike '%${this.busqueda}%'`;
+      this.filtro += ` or nombre ilike '%${this.busqueda}%'`;
       this.filtro += ` )`;
     }
     this.filtro += ` order by id desc limit ${this.limiteProductos};`;
