@@ -137,6 +137,7 @@ async function ConectarBD() {
   await client.connect(err => {
     if (err) {
       console.error('Error al conectar Base de datos.', err.stack);
+      ConectarBD();
     } else {
       console.log('Base de datos conectada.');
     }
@@ -176,4 +177,10 @@ async function checkBase() {
 //Imprimir
 ipcMain.on('print', (e, data) => {
   printer.imprimirDelegator(printerWindow, data);
+});
+
+process.on('uncaughtException', (error) => {
+  if (error.code == "57P01") {
+    ConectarBD();
+  }
 });

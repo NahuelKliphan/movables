@@ -12,23 +12,8 @@ export class BaseService {
 
   constructor(private ipc: ElectronService) {
 
-    this.unaSkin = new Skin(
-      this.getVariable("Color sidebar"),
-      this.getVariable("Color navbar"),
-      this.getVariable("Color tabla"),
-      this.getVariable("Color boton aceptar"),
-      this.getVariable("Color boton cancelar"),
-      this.getVariable("Color boton editar"),
-      this.getVariable("Color boton eliminar"),
-      this.getVariable("Color boton agregar"),
-      this.getVariable("Color boton buscar"),
-      this.getVariable("Color boton salir"),
-      this.getVariable("Color boton imprimir"),
-      this.getVariable("Color boton vender"),
-      this.getVariable("Color boton guardar"),
-      this.getVariable("Color icono categoria"),
-      this.getVariable("Color boton estadistica")
-    );
+    this.getSkin();
+
   }
 
   listadoVariable: Variable[] = [];
@@ -123,10 +108,31 @@ export class BaseService {
     }
   }
 
-   rellenarConCero(n, width, z) {
+  rellenarConCero(n, width, z) {
     z = z || '0';
     n = n + '';
     return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
+  }
+
+  getSkin() {
+
+    this.unaSkin = new Skin(
+      this.getVariable("Color sidebar"),
+      this.getVariable("Color navbar"),
+      this.getVariable("Color tabla"),
+      this.getVariable("Color boton aceptar"),
+      this.getVariable("Color boton cancelar"),
+      this.getVariable("Color boton editar"),
+      this.getVariable("Color boton eliminar"),
+      this.getVariable("Color boton agregar"),
+      this.getVariable("Color boton buscar"),
+      this.getVariable("Color boton salir"),
+      this.getVariable("Color boton imprimir"),
+      this.getVariable("Color boton vender"),
+      this.getVariable("Color boton guardar"),
+      this.getVariable("Color icono categoria"),
+      this.getVariable("Color boton estadistica")
+    );
   }
 
 }
