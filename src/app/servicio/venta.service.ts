@@ -70,8 +70,20 @@ export class VentaService {
   }
 
   borrarVenta(unaVenta: Venta) {
-    const consulta = `DELETE FROM VENTAS WHERE id = '${unaVenta.id}';`;
-    let res = this.ipc.ipcRenderer.sendSync('base', consulta);
+
+    let consultaItems = `select itm.codigo, itm.cantidad from items itm where id_venta = ${unaVenta.id}`;
+    let itemsResponse = this.ipc.ipcRenderer.sendSync('base', consultaItems);
+    if (itemsResponse[0] == 'ok') {
+      let items = itemsResponse[1];
+      var eliminarVentaActualizarProductos = ``;
+      items.forEach(unItem => {
+        eliminarVentaActualizarProductos += `update productos set cantidad = cantidad + ${unItem.cantidad} where codigo = '${unItem.codigo}'; `;
+      });
+      eliminarVentaActualizarProductos += `delete from ventas where id = '${unaVenta.id}';`
+    } else {
+      alertify.notify('Error ' + itemsResponse[1].code, 'warning', 5);
+    }
+    let res = this.ipc.ipcRenderer.sendSync('base', eliminarVentaActualizarProductos);
     if (res[0] == 'ok') {
       alertify.notify('Venta eliminada', 'error', 5);
       if (this.desde != '' && this.hasta != '') {
