@@ -6,10 +6,10 @@
     <div class="ui grid">
         <div class="eleven wide column">
             <div class="field">
-                <div (click)="generarCodigo();" class="ui input labeled left icon">
+                <div class="ui input labeled left icon">
                     <i class="barcode icon"></i>
                     <input type="text" name="codigo" placeholder="Codigo" [(ngModel)]="producto.unProducto.codigo">
-                    <a class="ui tag label">
+                    <a (click)="generarCodigo();" class="ui tag label">
                         <i class="edit icon"></i>
                         Codigo (*)
                     </a>
