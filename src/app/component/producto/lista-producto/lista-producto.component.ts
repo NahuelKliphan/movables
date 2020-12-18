@@ -33,10 +33,10 @@ export class ListaProductoComponent implements OnInit {
     $("#foto").prop("value", "");
   }
 
-  buscar() {
+  buscar(e) {
     this.producto.concatenarListado = false;
     this.producto.getProductos();
-    if (this.producto.enVenta && this.producto.scanner && this.producto.listadoProducto.length == 1) {
+    if (this.producto.enVenta && this.producto.scanner && this.producto.listadoProducto.length == 1 && this.producto.busqueda.length == 13) {
       this.vender(this.producto.listadoProducto[0]);
     }
   }
