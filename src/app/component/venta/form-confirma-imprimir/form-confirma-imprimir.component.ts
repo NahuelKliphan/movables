@@ -23,13 +23,12 @@ export class FormConfirmaImprimirComponent implements OnInit {
   }
 
   imprimir() {
-
     var data = {
       nombre: "venta",
       empresa_nombre: this.empresa.unaEmpresa.nombre,
-      listado: this.item.listadoItem
+      listado: [...this.item.listadoItem]
     }
-    this.ipc.ipcRenderer.send('print', data);
+    this.ipc.ipcRenderer.sendSync('print', data);
     this.item.listadoItem = [];
     $('#formImrpimirVenta').modal('hide');
   }
