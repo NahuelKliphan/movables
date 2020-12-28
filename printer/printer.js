@@ -52,13 +52,14 @@ function currencyFormat(value) {
 
 function imprimirDelegator(printerWindow, data) {
     var contenido = "";
-    switch (data.nombre) {
-        case 'venta': {
-            contenido = generarHtmlVenta(data);
+    var tipoImpresion = "58mm";
+    switch (tipoImpresion) {
+        case '58mm': {
+            contenido = generarHtmlVenta58mm(data);
             break;
         }
-        case 'ventas': {
-            contenido = generarHtmlVentas(data);
+        case 'a4': {
+            contenido = generarHtmlVentaA4(data);
             break;
         }
     }
@@ -67,7 +68,7 @@ function imprimirDelegator(printerWindow, data) {
     }
 }
 
-function generarHtmlVenta(data) {
+function generarHtmlVentaA4(data) {
     var html = `
     <h2>${data.empresa_nombre}</h2>
     <table class='table striped'>
@@ -103,45 +104,45 @@ function generarHtmlVenta(data) {
     return html;
 }
 
-function generarHtmlVentas(data) {
-    var html = `<!DOCTYPE html>
-    <html lang="en">
-    <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Venta</title>
-    <link rel="stylesheet" href="metro.min.css">
-    </head>
-    <body>
-    <table class='table striped'>
-    <thead>
-    <tr>
-    <th>Nro</th>
-    <th>Fecha</th>
-    <th>Total</th>
-    </tr>
-    </thead>
-    <tbody>`;
-    var total = 0;
-    data.listado.forEach(venta => {
-        total += Number(venta.total);
-        html += `<tr>
-        <td>${venta.id}</td>
-        <td>${replaceAll(venta.fecha.split("T")[0], "-", "/")}</td>
-        <td>$${currencyFormat(venta.total)}</td>
-        </tr>`;
-    });
-    html += `</tbody>
-    <tfoot>
-    <tr>
-    <td></td>
-    <td>Total:</td>
-    <td>$${currencyFormat(total)}</td>
-    </tr>
-    </tfoot>
-    </table>
-    </body>
-    </html>`;
+function generarHtmlVenta58mm(data) {
+
+    const fecha = new Date().toLocaleDateString() + " " + new Date().toLocaleTimeString('en-US',  { hour12: false,  hour: "numeric",  minute: "numeric" });
+    
+    var html = `<div class="ticket">
+        <img src="https://yt3.ggpht.com/-3BKTe8YFlbA/AAAAAAAAAAI/AAAAAAAAAAA/ad0jqQ4IkGE/s900-c-k-no-mo-rj-c0xffffff/photo.jpg"
+            alt="Logotipo">
+        <p class="centrado">${data.empresa_nombre}
+            <br>${data.empresa_direccion}
+            <br>${fecha}
+        </p>
+        <table>
+            <thead>
+                <tr>
+                    <th class="cantidad">CAN</th>
+                    <th class="producto">PRODUCTO</th>
+                    <th class="precio">$$</th>
+                </tr>
+            </thead>
+            <tbody>`;
+            var total = 0;
+            data.listado.forEach(item => {
+                total += Number(item.total);
+                html += `<tr>
+                <td class="cantidad">${item.cantidad}</td>
+                <td class="producto">${item.nombre}</td>
+                <td class="precio">$${currencyFormat(item.total)}</td>
+                </tr>`;
+            });
+            html += `<tr>
+            <td class="cantidad"></td>
+            <td class="producto">TOTAL</td>
+            <td class="precio">${currencyFormat(total)}</td>
+            </tr>
+            </tbody>
+        </table>
+        <p class="centrado">¡GRACIAS POR SU COMPRA! </p>
+    </div>`;
+
     return html;
 }
 

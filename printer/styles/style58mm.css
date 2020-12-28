@@ -1,0 +1,41 @@
+* {
+    font-size: 12px;
+    font-family: 'Times New Roman';
+}
+
+td, th, tr, table {
+    border-top: 1px solid black;
+    border-collapse: collapse;
+}
+
+td.producto, th.producto {
+    width: 75px;
+    max-width: 75px;
+}
+
+td.cantidad, th.cantidad {
+    width: 30px;
+    max-width: 30px;
+    word-break: break-all;
+}
+
+td.precio, th.precio {
+    width: 60px;
+    max-width: 60px;
+    word-break: break-all;
+}
+
+.centrado {
+    text-align: center;
+    align-content: center;
+}
+
+.ticket {
+    width: 165px;
+    max-width: 165px;
+}
+
+img {
+    max-width: inherit;
+    width: inherit;
+}

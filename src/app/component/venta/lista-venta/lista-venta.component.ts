@@ -42,15 +42,6 @@ export class ListaVentaComponent implements OnInit {
     }
   }
 
-  imprimir() {
-
-    var data = {
-      nombre: "ventas",
-      listado: this.venta.listadoVenta
-    }
-    this.ipc.ipcRenderer.send('print', data);
-  }
-
   abrirModalEstadisticas(){
     $('#estadisticasModal').modal({ closable: false }).modal('show');
   }

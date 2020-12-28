@@ -54,7 +54,25 @@ function createWindow() {
 function createWindowPrint() {
   //Crea la ventana para imprimir
   printerWindow = new BrowserWindow({ show: false, webPreferences: { nodeIntegration: true } });
-  printerWindow.loadURL("file://" + __dirname + "/printer/templates/template.html");
+
+  let pathTemplatePrint = "";
+
+  let formatoImpresion = "58mm".toUpperCase();
+
+  switch (formatoImpresion) {
+    case '58MM':
+      pathTemplatePrint = "file://" + __dirname + "/printer/templates/template58mm.html";
+      break;
+    case 'A4':
+      pathTemplatePrint = "file://" + __dirname + "/printer/templates/templateA4.html";
+      break;
+    default:
+      pathTemplatePrint = "file://" + __dirname + "/printer/templates/templateA4.html";
+      break;
+  }
+
+  printerWindow.loadURL(pathTemplatePrint);
+
 }
 
 // Evento que ejecuta el metodo para crear la ventana.

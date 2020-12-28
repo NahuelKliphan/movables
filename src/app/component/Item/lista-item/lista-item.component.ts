@@ -21,8 +21,8 @@ export class ListaItemComponent implements OnInit {
   imprimir() {
 
     var data = {
-      nombre: "venta",
       empresa_nombre: this.empresa.unaEmpresa.nombre,
+      empresa_direccion: this.empresa.unaEmpresa.direccion,
       listado: this.item.listadoItem
     }
     this.ipc.ipcRenderer.send('print', data);
