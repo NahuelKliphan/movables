@@ -23,9 +23,10 @@ export class ListaItemComponent implements OnInit {
     var data = {
       empresa_nombre: this.empresa.unaEmpresa.nombre,
       empresa_direccion: this.empresa.unaEmpresa.direccion,
-      listado: this.item.listadoItem
+      empresa_logo: this.empresa.unaEmpresa.logo_imprimir,
+      listado: [...this.item.listadoItem]
     }
-    this.ipc.ipcRenderer.send('print', data);
+    this.ipc.ipcRenderer.sendSync('print', data);
   }
 
 }

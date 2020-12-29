@@ -26,6 +26,7 @@ export class FormConfirmaImprimirComponent implements OnInit {
     var data = {
       empresa_nombre: this.empresa.unaEmpresa.nombre,
       empresa_direccion: this.empresa.unaEmpresa.direccion,
+      empresa_logo: this.empresa.unaEmpresa.logo_imprimir,
       listado: [...this.item.listadoItem]
     }
     this.ipc.ipcRenderer.sendSync('print', data);

@@ -35,6 +35,10 @@ td.precio, th.precio {
     max-width: 165px;
 }
 
+.espacio-10 {
+    height: 10px;
+}
+
 img {
     max-width: inherit;
     width: inherit;

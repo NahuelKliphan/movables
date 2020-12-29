@@ -194,7 +194,15 @@ async function checkBase() {
 
 //Imprimir
 ipcMain.on('print', (e, data) => {
-  printer.imprimirDelegator(printerWindow, data);
+
+  const consulta = `select v1.valor as formato, v2.valor as impresora 
+                    from variables v1, variables v2 
+                    where v1.nombre = 'Formato Impresion Venta' 
+                    and v2.nombre  = 'Impresora por Defecto';`;
+  client.query(consulta, function (err, res) {
+    data.impresion = res.rows[0];
+    printer.imprimirDelegator(printerWindow, data);
+  });  
 });
 
 process.on('uncaughtException', (error) => {

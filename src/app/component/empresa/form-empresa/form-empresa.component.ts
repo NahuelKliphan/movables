@@ -9,8 +9,11 @@ import { BaseService } from 'src/app/servicio/base.service';
 })
 export class FormEmpresaComponent implements OnInit {
 
-  fileData: File = null;
-  previewUrl: any = null;
+  fileDataLogo: File = null;
+  previewUrlLogo: any = null;
+
+  fileDataLogoImpresion: File = null;
+  previewUrlLogoImpresion: any = null;
 
   constructor(private empresa: EmpresaService, private base: BaseService) { }
 
@@ -24,14 +27,25 @@ export class FormEmpresaComponent implements OnInit {
 
   cargarFoto(fileInput: any) {
 
-    this.fileData = <File>fileInput.target.files[0];
+    this.fileDataLogo = <File>fileInput.target.files[0];
     var reader = new FileReader();
-    reader.readAsDataURL(this.fileData);
+    reader.readAsDataURL(this.fileDataLogo);
     reader.onload = (_event) => {
-      this.previewUrl = reader.result;
-      this.empresa.unaEmpresa.logo = this.previewUrl;
+      this.previewUrlLogo = reader.result;
+      this.empresa.unaEmpresa.logo = this.previewUrlLogo;
       this.editar();
     }
   }
 
+  cargarLogoImpresion(fileInput: any) {
+
+    this.fileDataLogoImpresion = <File>fileInput.target.files[0];
+    var reader = new FileReader();
+    reader.readAsDataURL(this.fileDataLogoImpresion);
+    reader.onload = (_event) => {
+      this.previewUrlLogoImpresion = reader.result;
+      this.empresa.unaEmpresa.logo_imprimir = this.previewUrlLogoImpresion;
+      this.editar();
+    }
+  }
 }

@@ -5,10 +5,15 @@
                 <h2> <i class="building outline icon"></i> Datos Empresa </h2>
             </div>
             <label for="logo" class="ui icon button right floated">
-                <i class="photo icon"></i> Cargar imagen
+                <i class="photo icon"></i> Imagen
             </label>
             <input type="file" id="logo" name="logo" accept="image/*" style="display:none;"
                 (change)="cargarFoto($event)">
+            <label for="logo_imprimir" class="ui icon button right floated">
+                <i class="image outline icon"></i> Logo
+            </label>
+            <input type="file" id="logo_imprimir" name="logo_imprimir" accept="image/*" style="display:none;"
+                (change)="cargarLogoImpresion($event)">
         </div>
         <div class="eight wide column">
             <div class="field">

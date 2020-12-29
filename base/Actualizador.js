@@ -23,6 +23,7 @@ async function ActualizarBase(version) {
     await ActualizadorINC0022();
     await ActualizadorINC0024();
     await ActualizadorINC0025();
+    await ActualizadorImpresoraLaser();
 
     await ActualizarVersion(version);
     console.log("Base actualizada");
@@ -168,6 +169,24 @@ async function ActualizadorINC0025() {
         WHERE nombre='Cantidad de segundos para ver producto') THEN
         insert into variables (nombre, valor, tipo) values ('Cantidad de segundos para ver producto', '10', 'texto');
         END IF; END $$;`;
+    await client.query(consulta);
+}
+
+async function ActualizadorImpresoraLaser() {
+
+    let consulta = `DO $$ BEGIN IF NOT EXISTS(SELECT * FROM variables
+        WHERE nombre='Formato Impresion Venta') THEN
+        insert into variables (nombre, valor, tipo) values ('Formato Impresion Venta', '58mm', 'texto');
+        END IF; END $$;`;
+    consulta += `DO $$ BEGIN IF NOT EXISTS(SELECT * FROM variables
+        WHERE nombre='Impresora por Defecto') THEN
+        insert into variables (nombre, valor, tipo) values ('Impresora por Defecto', 'FK58 Printer', 'texto');
+        END IF; END $$;`;
+    consulta += `DO $$ BEGIN IF NOT EXISTS(SELECT * FROM information_schema.columns
+        WHERE table_name='entidades' and column_name='logo_imprimir') THEN
+        alter table entidades add column logo_imprimir text NULL;
+        END IF; END $$;`;
+
     await client.query(consulta);
 }
 

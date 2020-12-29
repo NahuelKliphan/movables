@@ -12,7 +12,7 @@ export class EmpresaService {
   constructor(private ipc: ElectronService) { }
 
   //Empresa
-  unaEmpresa = new Empresa(1, "", "", "", "", "", "", "", "");
+  unaEmpresa = new Empresa(1, "", "", "", "", "", "", "", "", "");
 
   //Metodos Empresa
 
@@ -56,7 +56,7 @@ export class EmpresaService {
   }
 
   editarEmpresa(unaEmpresa: Empresa) {
-    const consulta = `UPDATE ENTIDADES E SET nombre = '${unaEmpresa.nombre}', direccion = '${unaEmpresa.direccion}', telefono = '${unaEmpresa.telefono}', mail = '${unaEmpresa.mail}', facebook = '${unaEmpresa.facebook}', instagram = '${unaEmpresa.instagram}', twitter = '${unaEmpresa.twitter}', facebook_link = '${unaEmpresa.facebook_link}', instagram_link = '${unaEmpresa.instagram_link}', twitter_link = '${unaEmpresa.twitter_link}', logo = '${unaEmpresa.logo}' WHERE E.id = '${unaEmpresa.id}';`;
+    const consulta = `UPDATE ENTIDADES E SET nombre = '${unaEmpresa.nombre}', direccion = '${unaEmpresa.direccion}', telefono = '${unaEmpresa.telefono}', mail = '${unaEmpresa.mail}', facebook = '${unaEmpresa.facebook}', instagram = '${unaEmpresa.instagram}', twitter = '${unaEmpresa.twitter}', facebook_link = '${unaEmpresa.facebook_link}', instagram_link = '${unaEmpresa.instagram_link}', twitter_link = '${unaEmpresa.twitter_link}', logo = '${unaEmpresa.logo}' , logo_imprimir = '${unaEmpresa.logo_imprimir}' WHERE E.id = '${unaEmpresa.id}';`;
     let res = this.ipc.ipcRenderer.sendSync('base', consulta);
     if (res[0] == 'ok') {
       this.getEmpresa();

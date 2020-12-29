@@ -1,33 +1,36 @@
-const { app, ipcMain, shell } = require('electron');
-const ruta = app.getPath('userData') + "\\comprobante.pdf";
-const fs = require("fs");
+const { ipcMain } = require('electron');
 
-function imprimir(printerWindow, contenido) {
-    printerWindow.webContents.send("printPDF", contenido);
+function print58mm(printerWindow, data) {
+
+    var option = {
+        printBackground: true,
+        silent: true,
+        deviceName: data.impresion.impresora,
+        margins: { marginType: 'custom', top: 0, bottom: 0, left: 0, right: 0 }
+    };
+    printerWindow.webContents.send("printPDF", data.contenido);
     ipcMain.on("readyToPrintPDF", (event) => {
-        printerWindow.webContents.printToPDF(pdfSettings()).then(data => {
-            fs.writeFile(ruta, data, function (error) {
-                if (error) {
-                    console.log(error);
-                }
-                shell.openItem(ruta)
-            })
-        }).catch((error) => {
-            console.log(error);
-        })
+        printerWindow.webContents.print(option);
     });
 }
 
-function pdfSettings() {
+function printA4(printerWindow, data) {
+
     var option = {
+        silent: true,
         marginsType: 0,
         printBackground: true,
         printSelectionOnly: false,
         landscape: false,
         pageSize: 'A4',
-        scaleFactor: 100
+        scaleFactor: 100,
+        deviceName: data.impresion.impresora,
     };
-    return option;
+
+    printerWindow.webContents.send("printPDF", data.contenido);
+    ipcMain.on("readyToPrintPDF", (event) => {
+        printerWindow.webContents.print(option);
+    });
 }
 
 function replaceAll(string, search, replace) {
@@ -51,20 +54,18 @@ function currencyFormat(value) {
 }
 
 function imprimirDelegator(printerWindow, data) {
-    var contenido = "";
-    var tipoImpresion = "58mm";
-    switch (tipoImpresion) {
+
+    switch (data.impresion.formato) {
         case '58mm': {
-            contenido = generarHtmlVenta58mm(data);
+            data.contenido = generarHtmlVenta58mm(data);
+            print58mm(printerWindow, data)
             break;
         }
         case 'a4': {
-            contenido = generarHtmlVentaA4(data);
+            data.contenido = generarHtmlVentaA4(data);
+            printA4(printerWindow, data);
             break;
         }
-    }
-    if (contenido != "") {
-        imprimir(printerWindow, contenido);
     }
 }
 
@@ -106,14 +107,15 @@ function generarHtmlVentaA4(data) {
 
 function generarHtmlVenta58mm(data) {
 
-    const fecha = new Date().toLocaleDateString() + " " + new Date().toLocaleTimeString('en-US',  { hour12: false,  hour: "numeric",  minute: "numeric" });
-    
-    var html = `<div class="ticket">
-        <img src="https://yt3.ggpht.com/-3BKTe8YFlbA/AAAAAAAAAAI/AAAAAAAAAAA/ad0jqQ4IkGE/s900-c-k-no-mo-rj-c0xffffff/photo.jpg"
-            alt="Logotipo">
-        <p class="centrado">${data.empresa_nombre}
-            <br>${data.empresa_direccion}
-            <br>${fecha}
+    const fecha = new Date().toLocaleDateString() + " " + new Date().toLocaleTimeString('en-US', { hour12: false, hour: "numeric", minute: "numeric" });
+    var html = `<div class="ticket">`;
+    if (data.empresa_logo) {
+        html += `<img src="${data.empresa_logo}" alt="Logotipo">`;
+    }
+    html += `<p class="centrado">
+        ${data.empresa_nombre}
+        <br>${data.empresa_direccion}
+        <br>${fecha}
         </p>
         <table>
             <thead>
@@ -124,16 +126,16 @@ function generarHtmlVenta58mm(data) {
                 </tr>
             </thead>
             <tbody>`;
-            var total = 0;
-            data.listado.forEach(item => {
-                total += Number(item.total);
-                html += `<tr>
+    var total = 0;
+    data.listado.forEach(item => {
+        total += Number(item.total);
+        html += `<tr>
                 <td class="cantidad">${item.cantidad}</td>
                 <td class="producto">${item.nombre}</td>
                 <td class="precio">$${currencyFormat(item.total)}</td>
                 </tr>`;
-            });
-            html += `<tr>
+    });
+    html += `<tr>
             <td class="cantidad"></td>
             <td class="producto">TOTAL</td>
             <td class="precio">${currencyFormat(total)}</td>
@@ -141,6 +143,8 @@ function generarHtmlVenta58mm(data) {
             </tbody>
         </table>
         <p class="centrado">¡GRACIAS POR SU COMPRA! </p>
+        <div class="espacio-10"></div>
+        <div>.</div>
     </div>`;
 
     return html;
