@@ -48,4 +48,20 @@ export class FormEmpresaComponent implements OnInit {
       this.editar();
     }
   }
+
+  eliminarLogoImpresion(){
+
+    if(this.empresa.unaEmpresa.logo_imprimir){
+      this.empresa.unaEmpresa.logo_imprimir = null;
+      this.editar();
+    }
+  }
+
+  eliminarLogo(){
+
+    if(this.empresa.unaEmpresa.logo){
+      this.empresa.unaEmpresa.logo = null;
+      this.editar();
+    }
+  }
 }

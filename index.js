@@ -202,7 +202,9 @@ ipcMain.on('print', (e, data) => {
   client.query(consulta, function (err, res) {
     data.impresion = res.rows[0];
     printer.imprimirDelegator(printerWindow, data);
+    e.returnValue = 'ok';
   });  
+
 });
 
 process.on('uncaughtException', (error) => {

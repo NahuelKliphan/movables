@@ -1,5 +1,6 @@
 const { ipcMain } = require('electron');
 
+
 function print58mm(printerWindow, data) {
 
     var option = {
@@ -8,6 +9,7 @@ function print58mm(printerWindow, data) {
         deviceName: data.impresion.impresora,
         margins: { marginType: 'custom', top: 0, bottom: 0, left: 0, right: 0 }
     };
+
     printerWindow.webContents.send("printPDF", data.contenido);
     ipcMain.on("readyToPrintPDF", (event) => {
         printerWindow.webContents.print(option);
@@ -109,14 +111,14 @@ function generarHtmlVenta58mm(data) {
 
     const fecha = new Date().toLocaleDateString() + " " + new Date().toLocaleTimeString('en-US', { hour12: false, hour: "numeric", minute: "numeric" });
     var html = `<div class="ticket">`;
-    if (data.empresa_logo) {
-        html += `<img src="${data.empresa_logo}" alt="Logotipo">`;
+    if (!data.empresa_logo) {
+        html += `<h1 class="centrado titulo">${data.empresa_nombre}</h1>`;
+    } else {
+        html += `<img src="${data.empresa_logo}">`;
+        html += `<p class="centrado"> ${data.empresa_nombre} </p>`;
     }
-    html += `<p class="centrado">
-        ${data.empresa_nombre}
-        <br>${data.empresa_direccion}
-        <br>${fecha}
-        </p>
+    html += `<p class="centrado"> ${data.empresa_direccion} </p>
+        <p class="centrado"> ${fecha} </p> 
         <table>
             <thead>
                 <tr>

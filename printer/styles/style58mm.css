@@ -39,6 +39,10 @@ td.precio, th.precio {
     height: 10px;
 }
 
+.titulo {
+    font-size: 18px;
+}
+
 img {
     max-width: inherit;
     width: inherit;

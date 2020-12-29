@@ -4,16 +4,20 @@
             <div class="ui label">
                 <h2> <i class="building outline icon"></i> Datos Empresa </h2>
             </div>
-            <label for="logo" class="ui icon button right floated">
-                <i class="photo icon"></i> Imagen
+            <label (click)="eliminarLogo()" for="logo" class="ui icon button right floated">
+                <i *ngIf="!empresa.unaEmpresa.logo" class="photo icon"></i>
+                <i *ngIf="empresa.unaEmpresa.logo" class="close icon"></i>
+                Imagen
             </label>
-            <input type="file" id="logo" name="logo" accept="image/*" style="display:none;"
-                (change)="cargarFoto($event)">
-            <label for="logo_imprimir" class="ui icon button right floated">
-                <i class="image outline icon"></i> Logo
+            <input *ngIf="!empresa.unaEmpresa.logo" type="file" id="logo" name="logo" accept="image/*"
+                style="display:none;" (change)="cargarFoto($event)">
+            <label (click)="eliminarLogoImpresion()" for="logo_imprimir" class="ui icon button right floated">
+                <i *ngIf="!empresa.unaEmpresa.logo_imprimir" class="image outline icon"></i>
+                <i *ngIf="empresa.unaEmpresa.logo_imprimir" class="close icon"></i>
+                Logo
             </label>
-            <input type="file" id="logo_imprimir" name="logo_imprimir" accept="image/*" style="display:none;"
-                (change)="cargarLogoImpresion($event)">
+            <input *ngIf="!empresa.unaEmpresa.logo_imprimir" type="file" id="logo_imprimir" name="logo_imprimir"
+                accept="image/*" style="display:none;" (change)="cargarLogoImpresion($event)">
         </div>
         <div class="eight wide column">
             <div class="field">
