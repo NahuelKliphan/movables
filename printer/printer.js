@@ -1,5 +1,6 @@
 const { ipcMain } = require('electron');
 
+var printing = false;
 
 function print58mm(printerWindow, data) {
 
@@ -11,8 +12,16 @@ function print58mm(printerWindow, data) {
     };
 
     printerWindow.webContents.send("printPDF", data.contenido);
-    ipcMain.on("readyToPrintPDF", (event) => {
-        printerWindow.webContents.print(option);
+    ipcMain.on("readyToPrint58mm", (event) => {
+        if (!printing) {
+            printing = true;
+            setTimeout(() => {
+                printing = false;
+            }, 2000);
+            printerWindow.webContents.print(option).then(data => {
+                printing = false;
+            });
+        }
     });
 }
 
@@ -30,8 +39,16 @@ function printA4(printerWindow, data) {
     };
 
     printerWindow.webContents.send("printPDF", data.contenido);
-    ipcMain.on("readyToPrintPDF", (event) => {
-        printerWindow.webContents.print(option);
+    ipcMain.on("readyToPrintA4", (event) => {
+        if (!printing) {
+            printing = true;
+            setTimeout(() => {
+                printing = false;
+            }, 2000);
+            printerWindow.webContents.print(option).then(data => {
+                printing = false;
+            });
+        }
     });
 }
 
