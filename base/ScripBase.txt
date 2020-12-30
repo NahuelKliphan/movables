@@ -8,11 +8,11 @@ create table categorias(
 create table productos(
 	id serial,
 	codigo varchar(30),
-	nombre varchar(30),
+	nombre varchar(100),
 	precio_costo decimal,
 	precio_venta decimal,
 	cantidad integer,
-	descripcion varchar(50),
+	descripcion varchar(300),
 	foto text,
 	id_categoria integer,
 	primary key (id),
