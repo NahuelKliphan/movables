@@ -16,7 +16,8 @@
             </thead>
             <tbody>
                 <tr *ngFor="let unItem of item.listadoItem">
-                    <td>{{unItem.codigo}}</td>
+                    <td *ngIf="unItem.codigo != '-1'">{{unItem.codigo}}</td>
+                    <td *ngIf="unItem.codigo == '-1'">Sin Codigo</td>
                     <td>{{unItem.nombre}}</td>
                     <td>{{unItem.cantidad}}</td>
                     <td>{{unItem.precio_venta | currency}}</td>

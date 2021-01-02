@@ -87,7 +87,7 @@ export class FormProductoComponent implements OnInit {
       return false;
     }
 
-    //Precio Costo
+    //Precio Venta
     if (this.producto.unProducto.precio_venta < 0 || !this.base.isNumber(this.producto.unProducto.precio_venta)) {
       ret = false;
       alertify.notify('Precio venta no válido', 'error', 5);

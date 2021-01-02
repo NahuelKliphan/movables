@@ -37,8 +37,13 @@
                                     [(ngModel)]="venta.unaVenta.fecha">
                             </div>
                         </div>
-                        <div class="ui button {{base.unaSkin.botonAgregar}}" (click)="abrirLista()">
-                            <i class="icon plus"></i> Agregar items
+                        <div>
+                            <div class="ui button {{base.unaSkin.botonAgregar}}" (click)="agregarItem()">
+                                <i class="icon plus"></i> Agregar Item
+                            </div>
+                            <div class="ui button {{base.unaSkin.botonBuscar}}" (click)="abrirLista()">
+                                <i class="icon search"></i> Buscar Producto
+                            </div>
                         </div>
                     </div>
                     <div class="sixteen wide column">

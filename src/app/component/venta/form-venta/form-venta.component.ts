@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ElectronService } from 'ngx-electron';
+import { Producto } from 'src/app/model/Producto';
 import { Venta } from 'src/app/model/Venta';
 import { BaseService } from 'src/app/servicio/base.service';
 import { EmpresaService } from 'src/app/servicio/empresa.service';
@@ -88,6 +89,11 @@ export class FormVentaComponent implements OnInit {
     this.idVentaSeleccionada = unaVenta.id;
     this.venta.unaVenta = unaVenta;
     this.venta.unaVenta.items = unaVenta.items;
+  }
+
+  agregarItem(){
+    this.producto.unProducto = new Producto(-1,"-1","", null, null, null,"","",null);
+    $('#cargaItemModal').modal({ closable: false }).modal('show');
   }
 
 }

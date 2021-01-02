@@ -32,18 +32,15 @@ export class FormCantidadComponent implements OnInit {
         this.venta.unaVenta.items.push(this.item.unItem);
         this.venta.unaVenta.total = this.venta.unaVenta.total + this.item.unItem.total;
         this.venta.unaVenta.ganancia = this.venta.unaVenta.ganancia + this.item.unItem.ganancia;
-        this.vaciarForm();
         alertify.notify('Item cargado', 'success', 5);
         $('#listaProducto').modal({ closable: false }).modal('show');
-
+        this.vaciarForm();
       } else {
         alertify.notify('No hay suficiente cantidad', 'error', 5);
       }
-
     } else {
       alertify.notify('Cantidad invalida', 'error', 5);
     }
-
   }
 
   cancelar() {
@@ -61,6 +58,7 @@ export class FormCantidadComponent implements OnInit {
   cantidad: number = 0;
 
   comprobarCantidad() {
+
     this.cantidad = 0;
     this.item.listadoItem.forEach(unItem => {
       if (unItem.codigo == this.producto.unProducto.codigo) {
@@ -68,7 +66,7 @@ export class FormCantidadComponent implements OnInit {
       }
     });
     this.cantidad = Number(this.cantidad) + Number(this.item.unItem.cantidad);
-    if (this.producto.consultarCantidadProducto(this.producto.unProducto) >= this.cantidad) {
+    if (this.producto.unProducto.codigo == '-1' || this.producto.consultarCantidadProducto(this.producto.unProducto) >= this.cantidad) {
       return true;
     } else {
       return false;

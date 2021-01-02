@@ -1,0 +1,47 @@
+<div id="cargaItemModal" class="ui modal">
+    <div class="header">
+        <i class="plus icon"></i> Nuevo Item
+    </div>
+    <form class="ui form" style="padding:5%;">
+        <div class="ui grid">
+            <div class="sixteen wide column">
+                <div class="field">
+                    <div class="ui input labeled left icon">
+                        <i class="tag icon"></i>
+                        <input type="text" name="nombre" placeholder="Nombre" [(ngModel)]="producto.unProducto.nombre">
+                        <a class="ui tag label">
+                            Nombre
+                        </a>
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="ui input labeled left icon">
+                        <i class="dollar green sign icon"></i>
+                        <input type="text" name="precio_venta" placeholder="Precio"
+                            [(ngModel)]="producto.unProducto.precio_venta">
+                        <a class="ui tag label">
+                            Precio
+                        </a>
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="ui input labeled left icon">
+                        <i class="th red icon"></i>
+                        <input type="text" name="cantidad" placeholder="Cantidad" [(ngModel)]="item.unItem.cantidad">
+                        <a class="ui tag label">
+                            Cantidad
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="actions">
+        <button (click)="salir();" class="ui button icon {{base.unaSkin.botonSalir}}">
+            <i class="close icon"></i> Salir
+        </button>
+        <button (click)="cargar();" class="ui button icon {{base.unaSkin.botonAceptar}}">
+            <i class="checkmark icon"></i> Cargar
+        </button>
+    </div>
+</div>
