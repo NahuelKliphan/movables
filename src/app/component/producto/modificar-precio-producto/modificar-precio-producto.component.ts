@@ -36,7 +36,6 @@ export class ModificarPrecioProductoComponent implements OnInit {
   aceptar() {
 
     if (this.formCompleto()) {
-
       var consulta = "UPDATE PRODUCTOS SET ";
       if (this.aumentar) {
         this.registroPrecio.unRegistroPrecio.operacion = '+';
@@ -64,12 +63,16 @@ export class ModificarPrecioProductoComponent implements OnInit {
           consulta += `${this.registroPrecio.unRegistroPrecio.tipo_precio} = ${this.registroPrecio.unRegistroPrecio.valor} ${this.registroPrecio.unRegistroPrecio.operacion} ${this.registroPrecio.unRegistroPrecio.tipo_precio} `;
         }
       }
-      consulta += this.producto.filtro + ";"
+      if (this.registroPrecio.unRegistroPrecio.id_categoria) {
+        consulta += ` where id_categoria = ${this.registroPrecio.unRegistroPrecio.id_categoria} `;
+      }
+      consulta += ";";
       let registro = `INSERT INTO REGISTRO_PRECIOS (fecha, operacion, tipo_valor, tipo_precio , valor, id_categoria) 
       VALUES (current_date, '${this.registroPrecio.unRegistroPrecio.operacion}', '${this.registroPrecio.unRegistroPrecio.tipo_valor}', '${this.registroPrecio.unRegistroPrecio.tipo_precio}', ${this.registroPrecio.unRegistroPrecio.valor}, ${this.registroPrecio.unRegistroPrecio.id_categoria});`;
       consulta += registro;
       $('#modificarPrecioProducto').modal('hide').modal('hide dimmer');
       this.vaciarForm();
+      console.log(consulta)
       this.producto.modificarPrecioProducto(consulta);
     }
   }
