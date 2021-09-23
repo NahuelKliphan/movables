@@ -1,11 +1,11 @@
 {
-  "name": "system",
+  "name": "movables",
   "version": "1.2.4",
   "author": "NahuelKliphan",
   "description": "Sistema de Gestion",
   "repository": {
     "type": "git",
-    "url": "https://github.com/NahuelKliphan/System"
+    "url": "https://github.com/NahuelKliphan/movables"
   },
   "main": "index.js",
   "scripts": {
@@ -68,8 +68,8 @@
     "zone.js": "~0.9.1"
   },
   "build": {
-    "appId": "com.github.NahuelKliphan.System",
-    "productName": "system",
+    "appId": "com.github.NahuelKliphan.movables",
+    "productName": "movables",
     "directories": {
       "output": "release/"
     },
@@ -77,7 +77,7 @@
       {
         "provider": "github",
         "owner": "NahuelKliphan",
-        "repo": "System"
+        "repo": "movables"
       }
     ],
     "files": [
