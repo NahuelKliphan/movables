@@ -6,7 +6,7 @@
     <div class="twelve wide column">
       <div style="text-align: right;">
         <div class="inline field">
-          <div *ngIf="producto.enVenta" class="ui button inverted" style="margin-left: 30px;">
+          <div *ngIf="producto.enVenta || producto.enMateriales" class="ui button inverted" style="margin-left: 30px;">
             <div class="ui toggle checkbox">
               <input type="checkbox" name="scanner" [(ngModel)]="producto.scanner" (change)="cambiarScanner();">
               <label>Scanner</label>
@@ -21,11 +21,11 @@
               {{unaCategoria.nombre}}
             </option>
           </select>
-          <div *ngIf="!producto.enVenta" style="margin-left: 30px;" class="ui button icon {{base.unaSkin.botonAgregar}}"
+          <div *ngIf="!producto.enVenta && !producto.enMateriales" style="margin-left: 30px;" class="ui button icon {{base.unaSkin.botonAgregar}}"
             (click)="abrirModal()">
             <i class="ui icon plus"></i> Nuevo producto
           </div>
-          <div *ngIf="producto.enVenta" class="ui button {{base.unaSkin.botonSalir}}" style="margin-left: 30px;"
+          <div *ngIf="producto.enVenta || producto.enMateriales" class="ui button {{base.unaSkin.botonSalir}}" style="margin-left: 30px;"
             (click)="salir()">
             <i class="icon close"></i> Salir
           </div>
@@ -49,21 +49,21 @@
         <div class="description">
           <p><i class="tag icon"></i> <b>Nombre: </b> {{unProducto.nombre}} </p>
           <p><i class="green dollar sign icon"></i> <b>Precio costo: </b> {{unProducto.precio_costo | currency}} </p>
-          <div *ngIf="!producto.enVenta" class="ui right floated button {{base.unaSkin.botonEliminar}}"
+          <div *ngIf="!producto.enVenta && !producto.enMateriales" class="ui right floated button {{base.unaSkin.botonEliminar}}"
             style="margin-right: 30px;" (click)="borrar(unProducto)">
             <i class="trash alternate outline icon"></i> Borrar
           </div>
-          <div class="ui right floated button {{base.unaSkin.botonEditar}}"
+          <div *ngIf="!producto.enVenta && !producto.enMateriales" class="ui right floated button {{base.unaSkin.botonEditar}}"
             style="margin-right: 10px;" (click)="editar(unProducto); abrirModal();">
             <i class="edit icon"></i> Editar
           </div>
-          <div *ngIf="producto.enVenta" class="ui right floated button {{base.unaSkin.botonVender}}"
+          <div *ngIf="producto.enVenta || producto.enMateriales" class="ui right floated button {{base.unaSkin.botonVender}}"
             style="margin-right: 30px;" (click)="vender(unProducto)">
             <i class="shopping cart icon"></i> Vender
           </div>
           <p><i class="green money bill alternate outline icon"></i> <b>Precio venta: </b>
             {{unProducto.precio_venta | currency}} </p>
-          <p><i class="th orange icon"></i> <b>Cantidad: </b> {{unProducto.cantidad}} </p>
+          <p *ngIf="unProducto.es_material"><i class="th orange icon"></i> <b>Cantidad: </b> {{unProducto.cantidad}} </p>
           <p *ngIf="unProducto.descripcion != null"><i class="archive teal icon"></i><b>Descripcion: </b>
             {{unProducto.descripcion}} </p>
         </div>

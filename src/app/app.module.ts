@@ -28,11 +28,16 @@ import { FormVentaComponent } from './component/venta/form-venta/form-venta.comp
 import { ListaVentaComponent } from './component/venta/lista-venta/lista-venta.component';
 import { FormBorrarVentaComponent } from './component/venta/form-borrar-venta/form-borrar-venta.component';
 import { FormConfirmaImprimirComponent } from './component/venta/form-confirma-imprimir/form-confirma-imprimir.component';
+import { EstadisticasVentasComponent } from './component/venta/estadisticas-ventas/estadisticas-ventas.component';
+//Consumo
+import { FormConsumoComponent } from './component/consumo/form-consumo/form-consumo.component';
+import { ConsumoComponent } from './component/consumo/consumo/consumo.component';
 //Item
 import { ItemComponent } from './component/Item/item/item.component';
 import { FormItemComponent } from './component/Item/form-item/form-item.component';
 import { ListaItemComponent } from './component/Item/lista-item/lista-item.component';
 import { FormCantidadComponent } from './component/Item/form-cantidad/form-cantidad.component';
+import { CargaItemComponent } from './component/Item/carga-item/carga-item.component';
 //Categoria
 import { CategoriaComponent } from './component/categoria/categoria/categoria.component';
 import { FormCategoriaComponent } from './component/categoria/form-categoria/form-categoria.component';
@@ -40,11 +45,10 @@ import { ListaCategoriaComponent } from './component/categoria/lista-categoria/l
 import { FormBorrarCategoriaComponent } from './component/categoria/form-borrar-categoria/form-borrar-categoria.component';
 //Empresa
 import { FormEmpresaComponent } from './component/empresa/form-empresa/form-empresa.component';
+//Configuracion
+import { EditVariableComponent } from './component/variable/edit-variable/edit-variable.component';
 //Pipes
 import { Buscar } from './pipes/buscar';
-import { EditVariableComponent } from './component/variable/edit-variable/edit-variable.component';
-import { EstadisticasVentasComponent } from './component/venta/estadisticas-ventas/estadisticas-ventas.component';
-import { CargaItemComponent } from './component/Item/carga-item/carga-item.component';
 
 
 const routes: Routes = [
@@ -55,6 +59,10 @@ const routes: Routes = [
   {
     path: 'venta',
     component: VentaComponent
+  },
+  {
+    path: 'consumo',
+    component: ConsumoComponent
   },
   {
     path: 'listaVenta',
@@ -112,7 +120,9 @@ const routes: Routes = [
     EditVariableComponent,
     FormConfirmaImprimirComponent,
     EstadisticasVentasComponent,
-    CargaItemComponent
+    CargaItemComponent,
+    FormConsumoComponent,
+    ConsumoComponent
   ],
   imports: [
     BrowserModule,

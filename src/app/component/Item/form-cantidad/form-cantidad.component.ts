@@ -25,7 +25,6 @@ export class FormCantidadComponent implements OnInit {
     if (this.item.unItem.cantidad > 0) {
 
       if (this.comprobarCantidad()) {
-
         $('#formCantidadItem').modal('hide');
         this.item.unItem = new Item(this.item.idItemTemp, 1, this.producto.unProducto.precio_venta * this.item.unItem.cantidad, this.producto.unProducto.codigo, this.producto.unProducto.nombre, this.item.unItem.cantidad, this.producto.unProducto.precio_venta, this.producto.unProducto.precio_costo, this.producto.unProducto.precio_venta * this.item.unItem.cantidad - this.producto.unProducto.precio_costo * this.item.unItem.cantidad);
         this.item.idItemTemp++;
@@ -51,14 +50,16 @@ export class FormCantidadComponent implements OnInit {
 
   vaciarForm() {
     this.item.unItem = new Item(null, null, null, null, null, 1, null, null, null);
-    this.producto.unProducto = new Producto(null, null, null, null, null, null, null, null, null);
+    this.producto.unProducto = new Producto(null, null, null, null, null, null, null, null, null, true);
     this.producto.busqueda = "";
   }
 
   cantidad: number = 0;
 
   comprobarCantidad() {
-
+    if(this.producto.enVenta){
+      return true;
+    }
     this.cantidad = 0;
     this.item.listadoItem.forEach(unItem => {
       if (unItem.codigo == this.producto.unProducto.codigo) {

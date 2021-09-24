@@ -46,7 +46,7 @@ export class FormProductoComponent implements OnInit {
     } else {
       if (this.formCompleto()) {
         if (this.producto.verificarCodigoProducto(this.producto.unProducto.codigo)) {
-          this.producto.guardarProducto(new Producto(this.producto.unProducto.id, this.producto.unProducto.codigo, this.producto.unProducto.nombre, this.base.adaptarDecimal(this.producto.unProducto.precio_costo), this.base.adaptarDecimal(this.producto.unProducto.precio_venta), this.producto.unProducto.cantidad, this.producto.unProducto.descripcion, this.producto.unProducto.foto, this.producto.unProducto.id_categoria));
+          this.producto.guardarProducto(new Producto(this.producto.unProducto.id, this.producto.unProducto.codigo, this.producto.unProducto.nombre, this.base.adaptarDecimal(this.producto.unProducto.precio_costo), this.base.adaptarDecimal(this.producto.unProducto.precio_venta), this.producto.unProducto.cantidad, this.producto.unProducto.descripcion, this.producto.unProducto.foto, this.producto.unProducto.id_categoria, this.producto.unProducto.es_material));
           this.vaciarCampos();
         }
       }
@@ -96,9 +96,11 @@ export class FormProductoComponent implements OnInit {
 
     //Cantidad
     if (this.producto.unProducto.cantidad == null || !this.base.isNumber(this.producto.unProducto.cantidad) || !Number.isInteger(Number(this.producto.unProducto.cantidad)) || this.producto.unProducto.cantidad < 0) {
-      ret = false;
-      alertify.notify('Cantidad no válida', 'error', 5);
-      return false;
+      if (this.producto.unProducto.es_material) {
+        ret = false;
+        alertify.notify('Cantidad no válida', 'error', 5);
+        return false;
+      }
     }
 
     return ret;
@@ -106,7 +108,7 @@ export class FormProductoComponent implements OnInit {
   }
 
   vaciarCampos() {
-    this.producto.unProducto = new Producto(null, null, null, null, null, null, null, null, null);
+    this.producto.unProducto = new Producto(null, null, null, null, null, null, null, null, null, true);
     this.mostrarAumentoPrecioVenta = false;
     this.aumentoPrecioVenta = null;
   }

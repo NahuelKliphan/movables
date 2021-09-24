@@ -16,12 +16,13 @@ export class ProductoService {
 
   //Variables globales
   listadoProducto: Producto[] = [];
-  unProducto: Producto = new Producto(null, null, null, null, null, null, null, null, null);
+  unProducto: Producto = new Producto(null, null, null, null, null, null, null, null, null, true);
   updateProductos: string = "";
   editar: boolean = false;
   scanner: boolean = false;
   busqueda = "";
   enVenta: boolean = false;
+  enMateriales: boolean = false;
   filtro: string = '';
   idFiltrar: number = -1;
   idUltimoProductoLista: number = null;
@@ -39,7 +40,8 @@ export class ProductoService {
     trunc(p.precio_costo,2) as precio_costo,
     p.cantidad as cantidad, 
     p.descripcion as descripcion, 
-    p.id_categoria as id_categoria, 
+    p.id_categoria as id_categoria,
+    p.es_material as es_material,
     p.foto as foto
     from productos p ${this.filtro}`;
     let res = this.ipc.ipcRenderer.sendSync('base', consulta);
@@ -103,7 +105,7 @@ export class ProductoService {
     $('#formProducto').modal('hide');
     unProdcuto.descripcion = ((unProdcuto.descripcion != null && unProdcuto.descripcion != '') ? "'" + unProdcuto.descripcion + "'" : null);
     unProdcuto.foto = ((unProdcuto.foto != null && unProdcuto.foto != '') ? "'" + unProdcuto.foto + "'" : null);
-    const consulta = `INSERT INTO PRODUCTOS (codigo,nombre,precio_costo,precio_venta,cantidad,descripcion,foto,id_categoria) VALUES ('${unProdcuto.codigo}','${unProdcuto.nombre}',${unProdcuto.precio_costo},${unProdcuto.precio_venta},${unProdcuto.cantidad},${unProdcuto.descripcion},${unProdcuto.foto},${unProdcuto.id_categoria});`;
+    const consulta = `INSERT INTO PRODUCTOS (codigo,nombre,precio_costo,precio_venta,cantidad,descripcion,foto,id_categoria,es_material) VALUES ('${unProdcuto.codigo}','${unProdcuto.nombre}',${unProdcuto.precio_costo},${unProdcuto.precio_venta},${unProdcuto.cantidad},${unProdcuto.descripcion},${unProdcuto.foto},${unProdcuto.id_categoria},${unProdcuto.es_material});`;
     let res = this.ipc.ipcRenderer.sendSync('base', consulta);
     if (res[0] == 'ok') {
       let codigoBase = this.base.getVariable("Contador de codigo autogenerado");
@@ -179,6 +181,19 @@ export class ProductoService {
       this.filtro += ` or codigo ilike '%${this.busqueda}%'`;
       this.filtro += ` or nombre ilike '%${this.busqueda}%'`;
       this.filtro += ` )`;
+    }
+    if (this.enMateriales || this.enVenta) {
+      if (this.filtro != '') {
+        this.filtro += ` and`;
+      } else {
+        this.filtro += ` where`;
+      }
+      if (this.enMateriales) {
+        this.filtro += ` es_material = true`;
+      }
+      if (this.enVenta) {
+        this.filtro += ` es_material = false`;
+      }
     }
     this.filtro += ` order by id desc limit ${this.limiteProductos};`;
   }

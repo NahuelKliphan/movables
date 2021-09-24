@@ -41,7 +41,7 @@ export class CargaItemComponent implements OnInit {
 
   salir() {
     $('#cargaItemModal').modal('hide');
-    this.producto.unProducto = new Producto(-1, "-1", "", null, null, 1, "", "", null);
+    this.producto.unProducto = new Producto(-1, "-1", "", null, null, 1, "", "", null, true);
   }
 
   formCompleto() {
@@ -74,7 +74,7 @@ export class CargaItemComponent implements OnInit {
 
   vaciarForm() {
     this.item.unItem = new Item(null, null, null, null, null, 1, null, null, null);
-    this.producto.unProducto = new Producto(-1, "-1", "", null, null, null, "", "", null);
+    this.producto.unProducto = new Producto(-1, "-1", "", null, null, null, "", "", null, true);
     this.producto.busqueda = "";
   }
 

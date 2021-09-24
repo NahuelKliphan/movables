@@ -56,7 +56,7 @@
                     </a>
                 </div>
             </div>
-            <div class="field">
+            <div *ngIf="producto.unProducto.es_material" class="field">
                 <div class="ui input labeled left icon">
                     <i class="th red icon"></i>
                     <input type="text" name="cantidad" placeholder="Cantidad"
@@ -66,19 +66,29 @@
                     </a>
                 </div>
             </div>
-            <div class="field">
-                <div class="ui input labeled left icon">
-                    <select id="id_categoria" class="ui active dropdown fluid " name="id_categoria"
-                        [(ngModel)]="producto.unProducto.id_categoria">
-                        <option [ngValue]="null"><i class="tags grey icon"></i> Categoria</option>
-                        <option [ngValue]="unaCategoria.id" *ngFor="let unaCategoria of categoria.listadoCategoria"><i
-                                class="tags grey icon"></i>
-                            {{unaCategoria.nombre}}
-                        </option>
-                    </select>
-                    <a class="ui tag label">
-                        Categoria
-                    </a>
+            <div class="fields">
+                <div class="six wide field">
+                    <div class="ui button inverted">
+                        <div class="ui toggle checkbox">
+                            <input type="checkbox" name="material" [(ngModel)]="producto.unProducto.es_material">
+                            <label>Es material</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="ten wide field">
+                    <div class="ui input labeled left icon">
+                        <select id="id_categoria" class="ui active dropdown fluid " name="id_categoria"
+                            [(ngModel)]="producto.unProducto.id_categoria">
+                            <option [ngValue]="null"><i class="tags grey icon"></i> Categoria</option>
+                            <option [ngValue]="unaCategoria.id" *ngFor="let unaCategoria of categoria.listadoCategoria">
+                                <i class="tags grey icon"></i>
+                                {{unaCategoria.nombre}}
+                            </option>
+                        </select>
+                        <a class="ui tag label">
+                            Categoria
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>

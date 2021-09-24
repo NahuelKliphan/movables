@@ -15,6 +15,7 @@ create table productos(
 	descripcion varchar(300),
 	foto text,
 	id_categoria integer,
+	es_material bool,
 	primary key (id),
 	foreign key (id_categoria) references categorias on delete set null
 );
@@ -75,6 +76,27 @@ create table variables(
 	valor varchar(50),
 	tipo varchar(10),
 	primary key(id)
+);
+
+create table consumos(
+	id serial,
+	id_venta integer,
+	primary key (id),
+	foreign key (id_venta) references ventas on delete cascade
+);
+
+create table items_consumos(
+	id serial,
+    id_consumo integer,
+    total decimal,
+    codigo varchar(30),
+    nombre varchar(50),
+    cantidad integer,
+    precio_costo decimal,
+	precio_venta decimal,
+	ganancia decimal,
+	primary key (id),
+	foreign key (id_consumo) references consumos on delete cascade
 );
 
 insert into variables (nombre, valor, tipo) values ('Version', '1.0.0', 'texto');

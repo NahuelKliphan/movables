@@ -1,0 +1,89 @@
+<div class="pantalla">
+
+    <div class="ui bottom attached segment">
+        <div style="padding-left: 2%;">
+            <div class="ui grid">
+
+                <div class="sixteen wide column ui grid">
+
+
+
+
+
+                    <div class="sixteen wide column">
+
+                        <div class="sixteen wide column">
+                            <h2><i class="list shopping cart icon"></i> Seleccione la venta </h2>
+                        </div>
+
+
+                        <table class="ui unstackable selectable table {{base.unaSkin.tabla}}"
+                            style="text-align: center;">
+                            <thead>
+                                <tr>
+                                    <th> <i class="hashtag blue icon"></i> Numero </th>
+                                    <th> <i class="user icon"></i> Cliente</th>
+                                    <th> <i class="calendar alternate outline icon"></i> Fecha</th>
+                                    <th> <i class="list alternate outline icon"></i> Items</th>
+                                    <th> <i class="dollar sign green icon"></i> Total</th>
+                                </tr>
+                            </thead>
+                            <tbody class="tabla-ventas">
+                                <tr [ngClass]="{'active' : unaVenta.id == ventaSeleccionada.id}" (click)="seleccionarVenta(unaVenta);" *ngFor="let unaVenta of venta.listadoVenta">
+                                    <td>{{unaVenta.id}}</td>
+                                    <td *ngIf="unaVenta.cliente_nombre != null">{{unaVenta.cliente_nombre}}</td>
+                                    <td *ngIf="unaVenta.cliente_nombre == null">No informado</td>
+                                    <td>{{unaVenta.fecha | date: 'dd/MM/yyyy'}}</td>
+                                    <td (click)="buscarItems(unaVenta)"><i class="list alternate outline icon"></i></td>
+                                    <td>{{unaVenta.total | currency }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+
+                    </div>
+
+
+
+                    <div class="ui button {{base.unaSkin.botonBuscar}}" (click)="abrirLista()">
+                        <i class="icon search"></i> Buscar materiales
+                    </div>
+
+
+                    <div class="sixteen wide column">
+                        <app-form-item></app-form-item>
+                    </div>
+
+
+
+
+
+
+
+                    <div class="sixteen wide column"
+                        style="display: flex;align-items: flex-start;justify-content: space-between;">
+                        <div style="text-align: center;">
+                            <div class="ui floated button {{base.unaSkin.botonCancelar}}" style="margin-right: 20px;"
+                                (click)="cancelar()">
+                                <i class="close icon"></i> Cancelar
+                            </div>
+                            <div class="ui floated button {{base.unaSkin.botonVender}}"
+                                (click)="guardar(venta.unaVenta)">
+                                <div><i class="dollar sign icon"></i> Vender </div>
+                            </div>
+                        </div>
+                        <div class="field ">
+                            <div class="ui input labeled right icon">
+                                <a class="ui label">
+                                    Total:
+                                </a>
+                                <i class="dollar sign icon green"></i>
+                                <input readonly type="text" name="nombre" value="{{venta.unaVenta.total | currency }}">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

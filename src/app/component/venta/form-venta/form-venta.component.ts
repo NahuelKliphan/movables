@@ -34,6 +34,9 @@ export class FormVentaComponent implements OnInit {
     this.idVentaAutoincremental = 1;
     this.idVentaSeleccionada = 1;
     this.listadoVentasTab = [this.venta.unaVenta];
+    this.producto.enVenta = true;
+    this.producto.enMateriales = false;
+    this.producto.getProductos();
   }
 
   guardar(unaVenta: Venta) {
@@ -92,7 +95,7 @@ export class FormVentaComponent implements OnInit {
   }
 
   agregarItem(){
-    this.producto.unProducto = new Producto(-1,"-1","", null, null, null,"","",null);
+    this.producto.unProducto = new Producto(-1,"-1","", null, null, null,"","",null, true);
     $('#cargaItemModal').modal({ closable: false }).modal('show');
   }
 

@@ -14,11 +14,9 @@ export class SidebarComponent implements OnInit {
   constructor(private producto: ProductoService, private base: BaseService) { }
 
   ngOnInit() {
-
     var pantalla = $(window).height();
     pantalla = pantalla - 700;
     $('.centro-vertical').css('margin-top', `${pantalla}px`);
-
   }
 
   hide() {
