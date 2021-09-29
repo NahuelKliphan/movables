@@ -50,6 +50,11 @@ export class FormConsumoComponent implements OnInit {
     if (this.formCompleto()) {
       this.consumo.guardarConsumo(this.consumo.unConsumo);
       this.cancelar();
+      if (this.todasLasVentas) {
+        this.venta.getVentas();
+      } else {
+        this.venta.getVentasSinMateriales();
+      }
     } else {
       alertify.notify('No hay ningun item', 'error', 5);
     }

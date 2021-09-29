@@ -14,7 +14,7 @@ export class ItemService {
 
   //Item
   listadoItem: Item[] = [];
-  unItem: Item = new Item(null, null, null, null, null, 1, null, null, null);
+  unItem: Item = new Item(null, null, null, null, null, 1000, null, null, null);
   insertItems: string = "";
   idItemTemp = 0;
   totalItems: number = 0;

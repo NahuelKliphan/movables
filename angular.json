@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "movables": {
+    "system": {
       "projectType": "application",
       "schematics": {},
       "root": "",

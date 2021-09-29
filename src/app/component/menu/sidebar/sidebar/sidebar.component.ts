@@ -23,6 +23,11 @@ export class SidebarComponent implements OnInit {
     $('#app .ui.sidebar').sidebar('hide');
   }
 
+  ventaAndMaterialesOff() {
+    this.producto.enVenta = false;
+    this.producto.enMateriales = false;
+  }
+
   ventaOff() {
     this.producto.enVenta = false;
   }

@@ -18,15 +18,24 @@ export class FormCantidadComponent implements OnInit {
 
   constructor(private item: ItemService, private venta: VentaService, private producto: ProductoService, private base: BaseService) { }
 
+  cantidad: number = 0;
+
   ngOnInit() {
   }
 
   aceptar() {
     if (this.item.unItem.cantidad > 0) {
-
       if (this.comprobarCantidad()) {
         $('#formCantidadItem').modal('hide');
-        this.item.unItem = new Item(this.item.idItemTemp, 1, this.producto.unProducto.precio_venta * this.item.unItem.cantidad, this.producto.unProducto.codigo, this.producto.unProducto.nombre, this.item.unItem.cantidad, this.producto.unProducto.precio_venta, this.producto.unProducto.precio_costo, this.producto.unProducto.precio_venta * this.item.unItem.cantidad - this.producto.unProducto.precio_costo * this.item.unItem.cantidad);
+        this.item.unItem = new Item(this.item.idItemTemp, 1,
+          this.producto.unProducto.precio_venta * (this.item.unItem.cantidad / 1000),
+          this.producto.unProducto.codigo,
+          this.producto.unProducto.nombre,
+          this.item.unItem.cantidad,
+          this.producto.unProducto.precio_venta,
+          this.producto.unProducto.precio_costo,
+          (this.producto.unProducto.precio_venta * (this.item.unItem.cantidad / 1000)) - (this.producto.unProducto.precio_costo * (this.item.unItem.cantidad / 1000))
+        );
         this.item.idItemTemp++;
         this.venta.unaVenta.items.push(this.item.unItem);
         this.venta.unaVenta.total = this.venta.unaVenta.total + this.item.unItem.total;
@@ -54,10 +63,9 @@ export class FormCantidadComponent implements OnInit {
     this.producto.busqueda = "";
   }
 
-  cantidad: number = 0;
 
   comprobarCantidad() {
-    if(this.producto.enVenta){
+    if (this.producto.enVenta) {
       return true;
     }
     this.cantidad = 0;

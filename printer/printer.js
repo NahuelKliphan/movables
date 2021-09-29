@@ -104,7 +104,7 @@ function generarHtmlVentaA4(data) {
         total += Number(item.total);
         html += `<tr>
         <td>${item.nombre}</td>
-        <td style="text-align: center;">${item.cantidad}</td>
+        <td style="text-align: center;">${item.cantidad}mm</td>
         <td>$${currencyFormat(item.precio_venta)}</td>
         <td>$${currencyFormat(item.total)}</td>
         </tr>`;
