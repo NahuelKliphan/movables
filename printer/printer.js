@@ -1,4 +1,6 @@
-const { ipcMain } = require('electron');
+const { app, ipcMain, shell } = require('electron');
+const ruta = app.getPath('userData') + "\\comprobante.pdf";
+const fs = require("fs");
 
 var printing = false;
 
@@ -27,28 +29,24 @@ function print58mm(printerWindow, data) {
 
 function printA4(printerWindow, data) {
 
-    var option = {
-        silent: true,
+    var options = {
         marginsType: 0,
         printBackground: true,
         printSelectionOnly: false,
         landscape: false,
         pageSize: 'A4',
-        scaleFactor: 100,
-        deviceName: data.impresion.impresora,
+        scaleFactor: 100
     };
-
-    printerWindow.webContents.send("printPDF", data.contenido);
+    printerWindow.webContents.send("printPDFa4", data.contenido);
     ipcMain.on("readyToPrintA4", (event) => {
-        if (!printing) {
-            printing = true;
-            setTimeout(() => {
-                printing = false;
-            }, 2000);
-            printerWindow.webContents.print(option).then(data => {
-                printing = false;
-            });
-        }
+        printerWindow.webContents.printToPDF(options).then(data => {
+            fs.writeFile(ruta, data, function (error) {
+                if (error) console.log(error);
+                shell.openItem(ruta);
+            })
+        }).catch((error) => {
+            console.log(error);
+        });
     });
 }
 

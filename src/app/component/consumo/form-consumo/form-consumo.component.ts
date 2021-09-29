@@ -24,26 +24,31 @@ export class FormConsumoComponent implements OnInit {
   constructor(private venta: VentaService, private item: ItemService, private producto: ProductoService, private base: BaseService, private ipc: ElectronService, private empresa: EmpresaService, private consumo: ConsumoService) { }
 
   ventaSeleccionada: Venta = new Venta(null, null, null, null, null);
-  listadoVentasTab: Venta[] = [this.venta.unaVenta];
+  ventaPreSeleccionada: Venta = new Venta(null, null, null, null, null);
+  todasLasVentas: boolean = false;
+  step: number = 1;
 
   ngOnInit() {
     var pantalla = $(window).height();
     pantalla = pantalla - 135;
     $('.pantalla').css('height', `${pantalla}px`);
-    pantalla = pantalla - 335;
-    $('.tabla-nueva-venta').css('height', `${pantalla}px`);
-    // this.venta.unaVenta = new Venta(1, null, new Date(), 0, 0);
+    $('.tabla-nueva-consumo').css('height', `${pantalla - 300}px`);
+    $('.tabla-ventas').css('height', `${pantalla - 200}px`);
     this.producto.enVenta = false;
     this.producto.enMateriales = true;
     this.producto.getProductos();
-    $('.tabla-ventas').css('height', `${pantalla}px`);
-    this.venta.getVentas();
+    if (this.todasLasVentas) {
+      this.venta.getVentas();
+    } else {
+      this.venta.getVentasSinMateriales();
+    }
     this.item.listadoItem = [];
   }
 
-  guardar(unConsumo: Consumo) {
+  guardar() {
+    this.consumo.unConsumo.id_venta = this.ventaSeleccionada.id;
     if (this.formCompleto()) {
-      this.consumo.guardarConsumo(unConsumo);
+      this.consumo.guardarConsumo(this.consumo.unConsumo);
       this.cancelar();
     } else {
       alertify.notify('No hay ningun item', 'error', 5);
@@ -51,6 +56,10 @@ export class FormConsumoComponent implements OnInit {
   }
 
   cancelar() {
+    this.ventaSeleccionada = new Venta(null, null, null, null, null);
+    this.ventaPreSeleccionada = new Venta(null, null, null, null, null);
+    this.step = 1;
+    this.consumo.unConsumo.items = [];
   }
 
   abrirLista() {
@@ -61,7 +70,7 @@ export class FormConsumoComponent implements OnInit {
   }
 
   formCompleto() {
-    if (this.consumo.unConsumo.items.length > 0) {
+    if (this.consumo.unConsumo.items.length > 0 && this.ventaSeleccionada) {
       return true;
     }
     else {
@@ -74,14 +83,34 @@ export class FormConsumoComponent implements OnInit {
     $('#cargaItemModal').modal({ closable: false }).modal('show');
   }
 
-  seleccionarVenta(unaVenta: Venta) {
+  seleccionarPreVenta(unaVenta: Venta) {
+    this.ventaPreSeleccionada = unaVenta;
+  }
 
+  seleccionarVenta() {
+    this.ventaSeleccionada = this.ventaPreSeleccionada;
+    if (this.ventaSeleccionada) {
+      this.step = 2;
+    } else {
+      alertify.notify('No hay ninguna venta seleccionada', 'error', 5);
+    }
+  }
 
-    console.log(unaVenta);
-    this.ventaSeleccionada = unaVenta;
+  buscarItems(unaVenta: Venta) {
+    this.item.getItems(unaVenta);
+    $("#ventanaItems").modal("show");
+  }
 
+  mostrarTodasLasVentas(todasLasVentas) {
+    if (todasLasVentas) {
+      this.venta.getVentas();
+    } else {
+      this.venta.getVentasSinMateriales();
+    }
+  }
 
-
+  volverStep1() {
+    this.step = 1;
   }
 
 }

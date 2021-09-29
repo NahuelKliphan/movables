@@ -35,6 +35,16 @@ export class VentaService {
     }
   }
 
+  getVentasSinMateriales() {
+    const consulta = "select * from ventas v where v.id not in (select c.id_venta from consumos c where c.id_venta = v.id) ORDER BY id DESC LIMIT 100;";
+    let res = this.ipc.ipcRenderer.sendSync('base', consulta);
+    if (res[0] == 'ok') {
+      this.listadoVenta = res[1];
+    } else {
+      alertify.notify('Error ' + res[1].code, 'warning', 5);
+    }
+  }
+
   getVentasEntreFechas(desde: string, hasta: string) {
     const consulta = `SELECT * FROM VENTAS WHERE fecha BETWEEN '${desde}' and '${hasta}' ORDER BY id DESC`;
     let res = this.ipc.ipcRenderer.sendSync('base', consulta);

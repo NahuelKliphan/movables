@@ -61,7 +61,12 @@ export class ListaProductoComponent implements OnInit {
     this.producto.unProducto = unProducto;
     $('#listaProducto').modal('hide');
     $("#inputCantidad").select();
-    $('#formCantidadItem').modal({ closable: false }).modal('show').modal('show dimmer');
+    if (this.producto.enVenta) {
+      $('#formCantidadItem').modal({ closable: false }).modal('show').modal('show dimmer');
+    }
+    if (this.producto.enMateriales) {
+      $('#formCantidadItemConsumo').modal({ closable: false }).modal('show').modal('show dimmer');
+    }
   }
 
   salir() {

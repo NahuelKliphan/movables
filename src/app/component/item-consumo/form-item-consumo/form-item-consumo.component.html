@@ -1,0 +1,26 @@
+<div class="sixteen wide column">
+    <h2><i class="list alternate outline icon"></i> Items </h2>
+</div>
+<table class="ui unstackable selectable table {{base.unaSkin.tabla}}" style="text-align: center;">
+    <thead>
+        <tr>
+            <th> <i class="barcode icon blue"></i> Codigo</th>
+            <th> <i class="tag icon"></i> Nombre</th>
+            <th> <i class="dollar sign icon green"></i> Precio</th>
+            <th> <i class="th icon red"></i> Cantidad</th>
+            <th> <i class="money bill alternate outline icon green"></i> Subtotal</th>
+            <th> <i class="close icon red"></i> Eliminar</th>
+        </tr>
+    </thead>
+    <tbody class="tabla-nueva-consumo">
+        <tr *ngFor="let unItem of consumo.unConsumo.items">
+            <td *ngIf="unItem.codigo != '-1'">{{unItem.codigo}}</td>
+            <td *ngIf="unItem.codigo == '-1'">Sin Codigo</td>
+            <td>{{unItem.nombre}}</td>
+            <td>{{unItem.precio_venta | currency}}</td>
+            <td>{{unItem.cantidad}}</td>
+            <td>{{unItem.total | currency}}</td>
+            <td><i class="close icon red" (click)="borrar(unItem)"></i></td>
+        </tr>
+    </tbody>
+</table>

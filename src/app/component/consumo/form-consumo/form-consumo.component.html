@@ -1,86 +1,76 @@
-<div class="pantalla">
-
-    <div class="ui bottom attached segment">
-        <div style="padding-left: 2%;">
-            <div class="ui grid">
-
-                <div class="sixteen wide column ui grid">
-
-
-
-
-
-                    <div class="sixteen wide column">
-
-                        <div class="sixteen wide column">
-                            <h2><i class="list shopping cart icon"></i> Seleccione la venta </h2>
-                        </div>
-
-
-                        <table class="ui unstackable selectable table {{base.unaSkin.tabla}}"
-                            style="text-align: center;">
-                            <thead>
-                                <tr>
-                                    <th> <i class="hashtag blue icon"></i> Numero </th>
-                                    <th> <i class="user icon"></i> Cliente</th>
-                                    <th> <i class="calendar alternate outline icon"></i> Fecha</th>
-                                    <th> <i class="list alternate outline icon"></i> Items</th>
-                                    <th> <i class="dollar sign green icon"></i> Total</th>
-                                </tr>
-                            </thead>
-                            <tbody class="tabla-ventas">
-                                <tr [ngClass]="{'active' : unaVenta.id == ventaSeleccionada.id}" (click)="seleccionarVenta(unaVenta);" *ngFor="let unaVenta of venta.listadoVenta">
-                                    <td>{{unaVenta.id}}</td>
-                                    <td *ngIf="unaVenta.cliente_nombre != null">{{unaVenta.cliente_nombre}}</td>
-                                    <td *ngIf="unaVenta.cliente_nombre == null">No informado</td>
-                                    <td>{{unaVenta.fecha | date: 'dd/MM/yyyy'}}</td>
-                                    <td (click)="buscarItems(unaVenta)"><i class="list alternate outline icon"></i></td>
-                                    <td>{{unaVenta.total | currency }}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-
-
-                    </div>
-
-
-
-                    <div class="ui button {{base.unaSkin.botonBuscar}}" (click)="abrirLista()">
-                        <i class="icon search"></i> Buscar materiales
-                    </div>
-
-
-                    <div class="sixteen wide column">
-                        <app-form-item></app-form-item>
-                    </div>
-
-
-
-
-
-
-
-                    <div class="sixteen wide column"
-                        style="display: flex;align-items: flex-start;justify-content: space-between;">
-                        <div style="text-align: center;">
-                            <div class="ui floated button {{base.unaSkin.botonCancelar}}" style="margin-right: 20px;"
-                                (click)="cancelar()">
-                                <i class="close icon"></i> Cancelar
-                            </div>
-                            <div class="ui floated button {{base.unaSkin.botonVender}}"
-                                (click)="guardar(venta.unaVenta)">
-                                <div><i class="dollar sign icon"></i> Vender </div>
+<div class="pantalla card" style="padding-left: 2%;">
+    <div class="ui grid">
+        <div class="sixteen wide column ui grid">
+            <div class="five wide column">
+                <h2 *ngIf="step == 1"><i class="list shopping cart icon"></i> Seleccione la venta </h2>
+                <h2 *ngIf="step == 2"><i class="cubes icon"></i> Cargue los materiales </h2>
+            </div>
+            <div class="eleven wide column">
+                <div [hidden]="step != 1" style="text-align: right;">
+                    <div class="inline field">
+                        <div class="ui button inverted">
+                            <div class="ui toggle checkbox">
+                                <input [(ngModel)]="todasLasVentas"
+                                    (change)="mostrarTodasLasVentas(todasLasVentas?true:false)" type="checkbox"
+                                    name="ventas">
+                                <label>Todas las ventas</label>
                             </div>
                         </div>
-                        <div class="field ">
-                            <div class="ui input labeled right icon">
-                                <a class="ui label">
-                                    Total:
-                                </a>
-                                <i class="dollar sign icon green"></i>
-                                <input readonly type="text" name="nombre" value="{{venta.unaVenta.total | currency }}">
-                            </div>
+                        <div (click)="seleccionarVenta();" [ngClass]="{'disabled' : !ventaPreSeleccionada.id}"
+                            class="ui button blue">
+                            <i class="icon check"></i> Seleccionar
                         </div>
+                    </div>
+                </div>
+                <div [hidden]="step != 2" style="text-align: right;">
+                    <div class="inline field">
+                        <div class="ui button grey" (click)="volverStep1()">
+                            <i class="chevron left icon"></i> Atras
+                        </div>
+                        <div class="ui button {{base.unaSkin.botonBuscar}}" (click)="abrirLista()">
+                            <i class="icon search"></i> Buscar materiales
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="sixteen wide column">
+                <table [hidden]="step != 1" class="ui unstackable selectable table {{base.unaSkin.tabla}}"
+                    style="text-align: center;">
+                    <thead>
+                        <tr>
+                            <th> <i class="hashtag blue icon"></i> Numero </th>
+                            <th> <i class="user icon"></i> Cliente</th>
+                            <th> <i class="calendar alternate outline icon"></i> Fecha</th>
+                            <th> <i class="list alternate outline icon"></i> Items</th>
+                            <th> <i class="dollar sign green icon"></i> Total</th>
+                        </tr>
+                    </thead>
+                    <tbody class="tabla-ventas">
+                        <tr [ngClass]="{'active' : unaVenta.id == ventaPreSeleccionada.id}"
+                            (click)="seleccionarPreVenta(unaVenta);" *ngFor="let unaVenta of venta.listadoVenta">
+                            <td>{{unaVenta.id}}</td>
+                            <td *ngIf="unaVenta.cliente_nombre != null">{{unaVenta.cliente_nombre}}</td>
+                            <td *ngIf="unaVenta.cliente_nombre == null">No informado</td>
+                            <td>{{unaVenta.fecha | date: 'dd/MM/yyyy'}}</td>
+                            <td (click)="buscarItems(unaVenta)"><i class="list alternate outline icon"></i></td>
+                            <td>{{unaVenta.total | currency }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="sixteen wide column">
+                <div [hidden]="step != 2">
+                    <app-form-item-consumo></app-form-item-consumo>
+                </div>
+            </div>
+            <div *ngIf="step == 2" class="sixteen wide column">
+                <div style="text-align: center;">
+                    <div class="ui button {{base.unaSkin.botonCancelar}}" style="margin-right: 20px;"
+                        (click)="cancelar()">
+                        <i class="close icon"></i> Cancelar
+                    </div>
+                    <div class="ui button {{base.unaSkin.botonVender}}" (click)="guardar()">
+                        <div><i class="check icon"></i> Finalizar </div>
                     </div>
                 </div>
             </div>

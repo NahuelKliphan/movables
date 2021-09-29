@@ -26,7 +26,7 @@ export class ListaItemComponent implements OnInit {
       empresa_logo: this.empresa.unaEmpresa.logo_imprimir,
       listado: [...this.item.listadoItem]
     }
-    let response = this.ipc.ipcRenderer.sendSync('print', data);
+    this.ipc.ipcRenderer.sendSync('print', data);
   }
 
 }
