@@ -86,9 +86,24 @@ function imprimirDelegator(printerWindow, data) {
     }
 }
 
+function dateFormat(date) {
+    const dateSplit = date.split('T')[0];
+    const dateSplitSplit = dateSplit.split('-');
+    const year = dateSplitSplit[0];
+    const month = dateSplitSplit[1];
+    const day = dateSplitSplit[2];
+    return day + "/" + month + "/" + year;
+}
+
 function generarHtmlVentaA4(data) {
     var html = `
-    <h2>${data.empresa_nombre}</h2>
+    <div style="clear: both;">
+    <h2 style="float: left">${data.empresa_nombre}</h2>
+    <h6 style="float: right"> ${dateFormat(data.fecha)} -  ${data.cliente_nombre} </h6>
+    </div>
+    <br>
+    <br>
+    <hr>
     <table class='table striped'>
     <thead>
     <tr>
@@ -119,6 +134,7 @@ function generarHtmlVentaA4(data) {
     </tr>
     </tfoot>
     </table>`;
+    // console.log(html)
     return html;
 }
 
